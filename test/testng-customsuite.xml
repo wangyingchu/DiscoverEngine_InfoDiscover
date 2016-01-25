@@ -1,0 +1,50 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="CentralActivityEngine_viewfunction full test suite">
+    <test verbose="2" name="com.viewfunction.testNGTest.InfoDiscoverSpaceComponentFactoryUnitTest">
+        <classes>
+            <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceComponentFactoryUnitTest"/>
+        </classes>
+    </test>
+  
+    <test verbose="2" name="com.viewfunction.testNGTest.InfoDiscoverSpaceUnitTest">
+        <classes>
+            <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceUnitTest"/>
+        </classes>
+    </test>
+
+    <test verbose="3" name="com.viewfunction.testNGTest.InfoDiscoverSpaceMeasurableUnitTest">
+    <classes>
+      <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceMeasurableUnitTest"/>
+      </classes>
+     </test>
+
+    <test verbose="4" name="com.viewfunction.testNGTest.InfoDiscoverSpaceRelationableUnitTest">
+        <classes>
+        <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceRelationableUnitTest"/>
+        </classes>
+    </test>
+
+    <test verbose="5" name="com.viewfunction.testNGTest.InfoDiscoverSpaceRelationTypeUnitTest">
+        <classes>
+            <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceRelationTypeUnitTest"/>
+        </classes>
+    </test>
+
+    <test verbose="6" name="com.viewfunction.testNGTest.InfoDiscoverSpaceDimensionTypeUnitTest">
+        <classes>
+            <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceDimensionTypeUnitTest"/>
+        </classes>
+    </test>
+
+    <test verbose="7" name="com.viewfunction.testNGTest.InfoDiscoverSpaceInformationExplorerUnitTest">
+        <classes>
+            <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceInformationExplorerUnitTest"/>
+        </classes>
+    </test>
+
+    <test verbose="8" name="com.viewfunction.testNGTest.InfoDiscoverSpaceTypePropertyableUnitTest">
+        <classes>
+            <class name="com.viewfunction.testNGTest.InfoDiscoverSpaceTypePropertyableUnitTest"/>
+        </classes>
+    </test>
+</suite>
