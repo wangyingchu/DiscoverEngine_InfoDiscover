@@ -31,7 +31,7 @@ import java.util.*;
 
 public class SmokeTest {
 
-
+    /* smock test logic*/
     public static void main(String[] args) throws InfoDiscoveryEngineDataMartException,InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
