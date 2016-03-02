@@ -30,16 +30,9 @@ import org.testng.Assert;
 import java.util.*;
 
 public class SmokeTest {
-
     /* smock test logic*/
     public static void main(String[] args) throws InfoDiscoveryEngineDataMartException,InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
-
-
-
-
-
         if(!ids.hasFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA)){
             ids.addFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA);
         }
@@ -58,9 +51,6 @@ public class SmokeTest {
         if(!ids.hasRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB)){
             ids.addRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB);
         }
-
-
-
         InformationExplorer ie=ids.getInformationExplorer();
         Assert.assertNotNull(ie);
 
