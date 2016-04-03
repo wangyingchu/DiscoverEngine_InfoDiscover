@@ -8,11 +8,12 @@ public class UnitTestConfigInfo {
 
     public static final String unitTestRootDimensionTypeA="unitTestRootDimensionTypeA";
     public static final String unitTestRootDimensionTypeB="unitTestRootDimensionTypeB";
-    public static final String unitTestChildDimensionTypeAOfA="unitTestChildDimensionTypeAOfA";
-
+    public static final String unitTestChildDimensionTypeOfA="unitTestChildDimensionTypeOfA";
+    public static final String unitTestChildDimensionTypeOfB="unitTestChildDimensionTypeOfB";
     public static final String unitTestRootRelationTypeA="unitTestRootRelationTypeA";
     public static final String unitTestRootRelationTypeB="unitTestRootRelationTypeB";
     public static final String unitTestChildRelationTypeAOfA="unitTestChildRelationTypeAOfA";
+    public static final String unitTestChildRelationTypeAOfB="unitTestChildRelationTypeAOfB";
 
     public static final String unitTestMeasurableProperty_BOOLEAN="unitTestMeasurableProperty_BOOLEAN";
     public static final String unitTestMeasurableProperty_INT="unitTestMeasurableProperty_INT";

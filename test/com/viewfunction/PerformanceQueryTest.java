@@ -30,7 +30,7 @@ public class PerformanceQueryTest {
 
             //
 
-            ep.setDefaultFilteringItem(new BetweenFilteringItem("factTestProp_B", 9200, 9910));
+            ep.setDefaultFilteringItem(new BetweenFilteringItem("factTestProp_B", 9000, 9910));
 
             //ep.setDefaultFilteringItem(new GreaterThanEqualFilteringItem("factTestProp_B", 7990));
 

@@ -31,8 +31,11 @@ public class InfoDiscoverSpaceUnitTest {
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeB)){
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
         }
-        if(ids.hasDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeAOfA)){
-            ids.removeDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeAOfA);
+        if(ids.hasDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA)){
+            ids.removeDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA);
+        }
+        if(ids.hasDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB)){
+            ids.removeDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA)){
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
@@ -40,6 +43,7 @@ public class InfoDiscoverSpaceUnitTest {
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB)){
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB);
         }
+
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestChildRelationTypeAOfA)){
             ids.removeRelationType(UnitTestConfigInfo.unitTestChildRelationTypeAOfA);
         }
@@ -213,13 +217,13 @@ public class InfoDiscoverSpaceUnitTest {
         }
         Assert.assertTrue(exceptionShouldThrownForAdd);
 
-        DimensionType childDimensionTypeA=ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeAOfA, UnitTestConfigInfo.unitTestRootDimensionTypeA);
+        DimensionType childDimensionTypeA=ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA, UnitTestConfigInfo.unitTestRootDimensionTypeA);
         Assert.assertNotNull(childDimensionTypeA);
         Assert.assertNotNull(childDimensionTypeA.getParentDimensionType());
-        Assert.assertEquals(childDimensionTypeA.getTypeName(), UnitTestConfigInfo.unitTestChildDimensionTypeAOfA);
+        Assert.assertEquals(childDimensionTypeA.getTypeName(), UnitTestConfigInfo.unitTestChildDimensionTypeOfA);
         Assert.assertEquals(childDimensionTypeA.getParentDimensionType().getTypeName(), UnitTestConfigInfo.unitTestRootDimensionTypeA);
 
-        DimensionType childDimensionType=ids.getDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeAOfA);
+        DimensionType childDimensionType=ids.getDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA);
         Assert.assertNotNull(childDimensionType);
 
         rootDimensionTypesList=ids.getRootDimensionTypesList();
@@ -228,11 +232,11 @@ public class InfoDiscoverSpaceUnitTest {
         List<DimensionType> childTypesOfTypeA=dimensionTypeA.getChildDimensionTypes();
         Assert.assertNotNull(childTypesOfTypeA);
         Assert.assertEquals(childTypesOfTypeA.size(), 1);
-        Assert.assertEquals(childTypesOfTypeA.get(0).getTypeName(),UnitTestConfigInfo.unitTestChildDimensionTypeAOfA);
+        Assert.assertEquals(childTypesOfTypeA.get(0).getTypeName(),UnitTestConfigInfo.unitTestChildDimensionTypeOfA);
 
         boolean exceptionShouldThrownForAddExistChildType=false;
         try {
-            ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeAOfA, UnitTestConfigInfo.unitTestRootDimensionTypeA);
+            ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA, UnitTestConfigInfo.unitTestRootDimensionTypeA);
         }catch (InfoDiscoveryEngineDataMartException e){
             exceptionShouldThrownForAddExistChildType=true;
         }
@@ -246,7 +250,7 @@ public class InfoDiscoverSpaceUnitTest {
         }
         Assert.assertTrue(exceptionShouldThrownForRemoveTypeHasChildren);
 
-        boolean removeChildTypeResult=ids.removeDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeAOfA);
+        boolean removeChildTypeResult=ids.removeDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA);
         Assert.assertTrue(removeChildTypeResult);
 
         boolean removeTypeAResult=ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
