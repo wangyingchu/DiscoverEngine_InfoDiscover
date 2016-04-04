@@ -1,7 +1,6 @@
 package com.viewfunction.performanceTest;
 
-import com.viewfnction.infoDiscoverEngine.dataMart.Dimension;
-import com.viewfnction.infoDiscoverEngine.dataMart.Fact;
+import com.viewfnction.infoDiscoverEngine.dataMart.*;
 import com.viewfnction.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.viewfnction.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.viewfnction.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
@@ -31,22 +30,42 @@ public class LoadPerformanceTestData {
 
     private static void createTypes(InfoDiscoverSpace ids) throws InfoDiscoveryEngineException{
         if(!ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeA)){
-            ids.addFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
+            FactType factType1=ids.addFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
+            factType1.addTypeProperty("factTestProp_A",PropertyType.DATE);
+            factType1.addTypeProperty("factTestProp_B",PropertyType.INT);
+            factType1.addTypeProperty("factTestProp_C",PropertyType.SHORT);
+            factType1.addTypeProperty("factTestProp_D",PropertyType.LONG);
         }
         if(!ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeB)){
-            ids.addFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
+            FactType factType2=ids.addFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
+            factType2.addTypeProperty("factTestProp_A",PropertyType.DATE);
+            factType2.addTypeProperty("factTestProp_B",PropertyType.INT);
+            factType2.addTypeProperty("factTestProp_C",PropertyType.SHORT);
+            factType2.addTypeProperty("factTestProp_D",PropertyType.LONG);
         }
         if(!ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA)){
-            ids.addDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
+            DimensionType dimensionType1=ids.addDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
+            dimensionType1.addTypeProperty("dimensionTestProp_A", PropertyType.STRING);
+            dimensionType1.addTypeProperty("dimensionTestProp_B", PropertyType.INT);
+            dimensionType1.addTypeProperty("dimensionTestProp_C", PropertyType.BOOLEAN);
         }
         if(!ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB)){
-            ids.addDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB);
+            DimensionType dimensionType2=ids.addDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB);
+            dimensionType2.addTypeProperty("dimensionTestProp_A", PropertyType.STRING);
+            dimensionType2.addTypeProperty("dimensionTestProp_B", PropertyType.INT);
+            dimensionType2.addTypeProperty("dimensionTestProp_C", PropertyType.BOOLEAN);
         }
         if(!ids.hasDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA)){
-            ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA, UnitTestConfigInfo.unitTestRootDimensionTypeA);
+            DimensionType dimensionType3=ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA, UnitTestConfigInfo.unitTestRootDimensionTypeA);
+            //dimensionType3.addTypeProperty("dimensionTestProp_A", PropertyType.STRING);
+            //dimensionType3.addTypeProperty("dimensionTestProp_B", PropertyType.INT);
+            //dimensionType3.addTypeProperty("dimensionTestProp_C", PropertyType.BOOLEAN);
         }
         if(!ids.hasDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB)){
-            ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB, UnitTestConfigInfo.unitTestRootDimensionTypeB);
+            DimensionType dimensionType4=ids.addChildDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB, UnitTestConfigInfo.unitTestRootDimensionTypeB);
+            //dimensionType4.addTypeProperty("dimensionTestProp_A", PropertyType.STRING);
+            //dimensionType4.addTypeProperty("dimensionTestProp_B", PropertyType.INT);
+            //dimensionType4.addTypeProperty("dimensionTestProp_C", PropertyType.BOOLEAN);
         }
         if(!ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA)){
             ids.addRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
@@ -124,7 +143,7 @@ public class LoadPerformanceTestData {
                 UnitTestConfigInfo.unitTestRootFactTypeB
         };
 
-        for(int i=0;i<500000;i++){
+        for(int i=0;i<2000000;i++){
             int factTypeInt=(int)(Math.random()*factTypeArray.length);
             String factType=factTypeArray[factTypeInt];
             Fact currentFact=DiscoverEngineComponentFactory.createFact(factType);

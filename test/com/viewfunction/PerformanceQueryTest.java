@@ -26,7 +26,7 @@ public class PerformanceQueryTest {
             Assert.assertNotNull(ie);
             ExploreParameters ep=new ExploreParameters();
             ep.setType("unitTestRootFactTypeA");
-            ep.setResultNumber(5000);
+            ep.setResultNumber(50000);
 
             //
 
