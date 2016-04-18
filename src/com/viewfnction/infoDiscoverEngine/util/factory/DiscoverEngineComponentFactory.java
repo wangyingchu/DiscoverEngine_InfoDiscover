@@ -1,6 +1,7 @@
 package com.viewfnction.infoDiscoverEngine.util.factory;
 
 import com.orientechnologies.orient.core.exception.OConfigurationException;
+import com.tinkerpop.blueprints.TransactionalGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
@@ -23,6 +24,19 @@ public class DiscoverEngineComponentFactory {
         try{
             OrientGraphFactory factory = new OrientGraphFactory(serviceLocation+spaceName,userAccount,userPWD).setupPool(1,10);
             OrientGraph graph = factory.getTx();
+            return new OrientDBInfoDiscoverSpaceImpl(spaceName,graph);
+        }catch(OConfigurationException e){
+            return null;
+        }
+    }
+
+    public static InfoDiscoverSpace connectNoTransactionInfoDiscoverSpace(String spaceName){
+        try{
+            OrientGraphFactory factory = new OrientGraphFactory(serviceLocation+spaceName,userAccount,userPWD).setupPool(1,10);
+            OrientGraph graph = factory.getTx();
+            graph.setRequireTransaction(false);
+            graph.setAutoStartTx(false);
+            graph.stopTransaction(TransactionalGraph.Conclusion.SUCCESS);
             return new OrientDBInfoDiscoverSpaceImpl(spaceName,graph);
         }catch(OConfigurationException e){
             return null;

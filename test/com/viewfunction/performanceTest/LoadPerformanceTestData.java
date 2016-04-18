@@ -12,10 +12,11 @@ import java.util.Date;
 import java.util.List;
 
 public class LoadPerformanceTestData {
-    public static void main(String[] args){
+    public static void main_0(String[] args){
         InfoDiscoverSpace ids=null;
         try{
-            ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace("PerformanceTestDB");
+            //ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace("PerformanceTestDB");
+            ids= DiscoverEngineComponentFactory.connectNoTransactionInfoDiscoverSpace("Test001");
             createTypes(ids);
             List<Dimension> dimensions=createDimension(ids);
             loadFacts(ids,dimensions);
@@ -26,6 +27,10 @@ public class LoadPerformanceTestData {
                 ids.closeSpace();
             }
         }
+    }
+
+    public static void main(String[] args){
+        roundLoadPerformanceTestingFacts(200,1000);
     }
 
     private static void createTypes(InfoDiscoverSpace ids) throws InfoDiscoveryEngineException{
@@ -160,6 +165,73 @@ public class LoadPerformanceTestData {
             System.out.println("Next Record->......");
         }
         System.out.println("Done.");
+        Date finishDate=new Date();
+        System.out.println("===============================");
+        System.out.println("Start at: "+startDate.toString());
+        System.out.println("Finish at: "+finishDate.toString());
+        System.out.println("===============================");
+    }
+
+    private static void roundLoadPerformanceTestingFacts(int roundNumber,int batchSize){
+        System.out.println("***********************************************");
+        System.out.println("***********************************************");
+        Date startDate=new Date();
+        for(int i=0;i<roundNumber;i++){
+            System.out.println("Start loading for round "+i);
+            batchLoadPerformanceTestingFacts(i,batchSize);
+            System.out.println("Finish loading for round "+i);
+        }
+        Date finishDate=new Date();
+        System.out.println("===============================");
+        System.out.println("Start at: "+startDate.toString());
+        System.out.println("Finish at: "+finishDate.toString());
+        System.out.println("===============================");
+        System.out.println("***********************************************");
+        System.out.println("***********************************************");
+    }
+
+    private static void batchLoadPerformanceTestingFacts(int batchSequence,int batchSize){
+        Date startDate=new Date();
+        System.out.println("Start loading for batch "+batchSequence);
+        String[] relationTypeArray=new String[]{
+                UnitTestConfigInfo.unitTestRootRelationTypeA,
+                UnitTestConfigInfo.unitTestRootRelationTypeB,
+                UnitTestConfigInfo.unitTestChildRelationTypeAOfA,
+                UnitTestConfigInfo.unitTestChildRelationTypeAOfB
+        };
+        String[] factTypeArray=new String[]{
+                UnitTestConfigInfo.unitTestRootFactTypeA,
+                UnitTestConfigInfo.unitTestRootFactTypeB
+        };
+        InfoDiscoverSpace ids=null;
+        try{
+            //ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace("PerformanceTestDB");
+            ids= DiscoverEngineComponentFactory.connectNoTransactionInfoDiscoverSpace("Test001");
+            List<Dimension> dimensionList=createDimension(ids);
+            for(int i=0;i<batchSize;i++){
+                int factTypeInt=(int)(Math.random()*factTypeArray.length);
+                String factType=factTypeArray[factTypeInt];
+                Fact currentFact=DiscoverEngineComponentFactory.createFact(factType);
+                currentFact.setInitProperty("factTestProp_A",new Date());
+                currentFact.setInitProperty("factTestProp_B", (int)(Math.random()*10000));
+                currentFact.setInitProperty("factTestProp_C", (short)(Math.random()*100));
+                currentFact.setInitProperty("factTestProp_D", (long)(Math.random()*500000));
+                currentFact=ids.addFact(currentFact);
+                int relationTypeInt=(int)(Math.random()*relationTypeArray.length);
+                String relationTypeType=relationTypeArray[relationTypeInt];
+                int dimensionInt=(int)(Math.random()*dimensionList.size());
+                Dimension currentDimension=dimensionList.get(dimensionInt);
+                ids.attachFactToDimension(currentFact.getId(),currentDimension.getId(),relationTypeType);
+                System.out.println("Next Record->......");
+            }
+        } catch (InfoDiscoveryEngineException e) {
+            e.printStackTrace();
+        } finally {
+            if (ids != null) {
+                ids.closeSpace();
+            }
+        }
+        System.out.println("Done batch "+batchSequence);
         Date finishDate=new Date();
         System.out.println("===============================");
         System.out.println("Start at: "+startDate.toString());

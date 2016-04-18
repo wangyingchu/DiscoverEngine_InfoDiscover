@@ -46,7 +46,9 @@ public class PerformanceTestQuery {
         //ep.setEndPage(53);
         ep.setPageSize(300);
 
-        ep.setDefaultFilteringItem(new EqualFilteringItem("factTestProp_B", 500));
+        //ep.setDefaultFilteringItem(new EqualFilteringItem("factTestProp_B", 8015));
+        ep.setDefaultFilteringItem(new EqualFilteringItem("factTestProp_D", 8019));
+
 
         List<Fact> factList = ie.discoverFacts(ep);
         System.out.println(factList.size());
