@@ -30,6 +30,20 @@ public class LoadPerformanceTestData {
     }
 
     public static void main(String[] args){
+        /*
+        InfoDiscoverSpace ids=null;
+        try{
+            //ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace("PerformanceTestDB");
+            ids= DiscoverEngineComponentFactory.connectNoTransactionInfoDiscoverSpace("Test001");
+            createTypes(ids);
+        } catch (InfoDiscoveryEngineException e) {
+            e.printStackTrace();
+        } finally {
+            if (ids != null) {
+                ids.closeSpace();
+            }
+        }
+        */
         roundLoadPerformanceTestingFacts(200,1000);
     }
 
