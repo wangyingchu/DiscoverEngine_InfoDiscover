@@ -18,7 +18,7 @@ public class OrientDBResearch {
             OrientVertex fromVertex =graph.getVertex("#29:8");
             OrientVertex toVertex =graph.getVertex("#29:1");
 
-            Iterable<Edge> edgeIt=fromVertex.getEdges(toVertex, Direction.OUT, "VF_RELATION_ChildRel1");
+            Iterable<Edge> edgeIt=fromVertex.getEdges(toVertex, Direction.OUT, "ID_RELATION_ChildRel1");
 
             System.out.println(edgeIt);
             Iterator<Edge> itr=edgeIt.iterator();
