@@ -5,7 +5,9 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBDimensionImpl;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBFactImpl;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl.OrientDBInfoDiscoverSpaceImpl;
+import com.infoDiscover.infoDiscoverEngine.util.config.PropertyHandler;
 import com.infoDiscover.infoDiscoverEngine.util.helper.MeasurableContentHelper;
+import com.orientechnologies.orient.client.remote.OServerAdmin;
 import com.orientechnologies.orient.core.exception.OConfigurationException;
 import com.tinkerpop.blueprints.TransactionalGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
@@ -16,11 +18,19 @@ import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverAdminS
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl.OrientDBInfoDiscoverAdminSpaceImpl;
 import com.infoDiscover.infoDiscoverEngine.util.helperImpl.OrientDBMeasurableContentHelperImpl;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class DiscoverEngineComponentFactory {
 
-    private static String serviceLocation="remote:localhost/";
-    private static String userAccount="root";
-    private static String userPWD="wyc";
+    private static String serviceLocation=PropertyHandler.getPropertyValue(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION);
+    private static String userAccount=PropertyHandler.getPropertyValue(PropertyHandler.DISCOVER_ENGINE_ADMIN_ACCOUNT);
+    private static String userPWD=PropertyHandler.getPropertyValue(PropertyHandler.DISCOVER_ENGINE_ADMIN_PWD);
+    private static String spaceDBType=PropertyHandler.getPropertyValue(PropertyHandler.DISCOVER_SPACE_DATABASE_TYPE);
+    private static String spaceStorageMode=PropertyHandler.getPropertyValue(PropertyHandler.DISCOVER_SPACE_STORAGE_MODE);
 
     public static InfoDiscoverSpace connectInfoDiscoverSpace(String spaceName){
         try{
@@ -79,7 +89,76 @@ public class DiscoverEngineComponentFactory {
     public static Property createProperty(){
         return new OrientDBPropertyImpl();
     }
-
     */
 
+    public static List<String> getDiscoverSpacesListInEngine(){
+        List<String> discoverSpacesList=new ArrayList<String>();
+        try {
+            OServerAdmin serverAdmin = new OServerAdmin(serviceLocation).connect(userAccount, userPWD);
+            Map<String,String> spacesInEngineMap=serverAdmin.listDatabases();
+            Set<String> spaceNameSet=spacesInEngineMap.keySet();
+            discoverSpacesList.addAll(spaceNameSet);
+            serverAdmin.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return discoverSpacesList;
+    }
+
+    public static boolean checkDiscoverSpaceExistence(String spaceName){
+        List<String> discoverSpacesList= getDiscoverSpacesListInEngine();
+        if(discoverSpacesList.contains(spaceName)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static boolean createInfoDiscoverSpace(String spaceName){
+        boolean createActionResult=false;
+        try {
+            OServerAdmin serverAdmin = new OServerAdmin(serviceLocation).connect(userAccount, userPWD);
+            Map<String,String> spacesInEngineMap=serverAdmin.listDatabases();
+            if(spacesInEngineMap.get(spaceName)!=null){
+                //space already exists
+                createActionResult= false;
+            }else{
+                serverAdmin.createDatabase(spaceName, spaceDBType, spaceStorageMode);
+                spacesInEngineMap=serverAdmin.listDatabases();
+                if(spacesInEngineMap.get(spaceName)!=null){
+                    createActionResult= true;
+                }else{
+                    createActionResult= false;
+                }
+            }
+            serverAdmin.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return createActionResult;
+    }
+
+    public static boolean deleteInfoDiscoverSpace(String spaceName){
+        boolean deleteActionResult=false;
+        try {
+            OServerAdmin serverAdmin = new OServerAdmin(serviceLocation+spaceName).connect(userAccount, userPWD);
+            Map<String,String> spacesInEngineMap=serverAdmin.listDatabases();
+            if(spacesInEngineMap.get(spaceName)==null){
+                //space not exist
+                deleteActionResult= false;
+            }else{
+                serverAdmin.dropDatabase(spaceName);
+                spacesInEngineMap=serverAdmin.listDatabases();
+                if(spacesInEngineMap.get(spaceName)==null){
+                    deleteActionResult= true;
+                }else{
+                    deleteActionResult= false;
+                }
+            }
+            serverAdmin.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return deleteActionResult;
+    }
 }
