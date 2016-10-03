@@ -6,7 +6,9 @@ import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBDimensionImpl;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBFactImpl;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl.OrientDBInfoDiscoverSpaceImpl;
 import com.infoDiscover.infoDiscoverEngine.util.config.PropertyHandler;
+import com.infoDiscover.infoDiscoverEngine.util.helper.DiscoverSpaceStatisticHelper;
 import com.infoDiscover.infoDiscoverEngine.util.helper.MeasurableContentHelper;
+import com.infoDiscover.infoDiscoverEngine.util.helperImpl.OrientDBDiscoverSpaceStatisticHelperImpl;
 import com.orientechnologies.orient.client.remote.OServerAdmin;
 import com.orientechnologies.orient.core.exception.OConfigurationException;
 import com.tinkerpop.blueprints.TransactionalGraph;
@@ -160,5 +162,9 @@ public class DiscoverEngineComponentFactory {
             e.printStackTrace();
         }
         return deleteActionResult;
+    }
+
+    public static DiscoverSpaceStatisticHelper getDiscoverSpaceStatisticHelper(){
+        return new OrientDBDiscoverSpaceStatisticHelperImpl(serviceLocation,userAccount,userPWD);
     }
 }
