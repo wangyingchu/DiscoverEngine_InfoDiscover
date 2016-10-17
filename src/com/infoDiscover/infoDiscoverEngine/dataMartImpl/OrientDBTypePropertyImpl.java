@@ -2,6 +2,7 @@ package com.infoDiscover.infoDiscoverEngine.dataMartImpl;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.infoDiscoverEngine.dataMart.TypeProperty;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.orientechnologies.orient.core.metadata.schema.OProperty;
 import com.orientechnologies.orient.core.metadata.schema.OType;
 import com.tinkerpop.blueprints.impls.orient.*;
@@ -74,5 +75,21 @@ public class OrientDBTypePropertyImpl implements TypeProperty {
     public void setNullable(boolean value) {
         this.orientElementType.getProperty(getPropertyName()).setNotNull(!value);
         this.graph.commit();
+    }
+
+    @Override
+    public String getPropertySourceOwner() {
+        String sourceOwnerClassname=this.orientElementType.getProperty(getPropertyName()).getOwnerClass().getName();
+        String sourceOwner=sourceOwnerClassname;
+        if(sourceOwnerClassname.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_FACT)){
+            sourceOwner=sourceOwnerClassname.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_FACT,"");
+        }
+        if(sourceOwnerClassname.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION)){
+            sourceOwner=sourceOwnerClassname.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION,"");
+        }
+        if(sourceOwnerClassname.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION)){
+            sourceOwner=sourceOwnerClassname.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION,"");
+        }
+        return sourceOwner;
     }
 }

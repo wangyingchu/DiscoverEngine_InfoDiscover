@@ -504,7 +504,7 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
             String orientDBClassName=InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION+typeName;
             OrientVertexType ovt=this.graph.getVertexType(orientDBClassName);
             if(ovt.getSubclasses().size()>0){
-                String exceptionMessage = "Dimension Type "+typeName+" has child dimension";
+                String exceptionMessage = "Dimension Type "+typeName+" has child dimension type";
                 throw InfoDiscoveryEngineException.getDataMartException(exceptionMessage);
             }
             this.graph.dropVertexType(orientDBClassName);

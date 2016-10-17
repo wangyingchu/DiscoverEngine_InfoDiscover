@@ -36,7 +36,7 @@ public class OrientDBTypePropertyableImpl implements TypePropertyable {
 
     @Override
     public boolean removeTypeProperty(String propertyName) throws InfoDiscoveryEngineRuntimeException {
-        String exceptionMessage = "Remove type property from type is not support yet,p lease use InfoDiscoverAdminSpace" +
+        String exceptionMessage = "Remove type property from type is not support yet,please use InfoDiscoverAdminSpace" +
                 " to execute this operation";
         throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
     }

@@ -9,4 +9,5 @@ public interface TypeProperty {
     public void setMandatory(boolean value);
     public void setReadOnly(boolean value);
     public void setNullable(boolean value);
+    public String getPropertySourceOwner();
 }
