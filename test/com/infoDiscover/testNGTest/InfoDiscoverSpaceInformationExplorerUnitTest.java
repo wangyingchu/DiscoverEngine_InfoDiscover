@@ -28,22 +28,34 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         System.out.println("--------------------------------------------------");
 
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
-        if(!ids.hasFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA)){
+        if(ids.hasFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA)){
+            ids.getFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA).removeContainedFaces();
+        }else{
             ids.addFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA);
         }
-        if(!ids.hasFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeB)){
+        if(ids.hasFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeB)){
+            ids.getFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeB).removeContainedFaces();
+        }else{
             ids.addFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeB);
         }
-        if(!ids.hasDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeA)){
+        if(ids.hasDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeA).removeContainedDimensions();
+        }else{
             ids.addDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeA);
         }
-        if(!ids.hasDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeB)){
+        if(ids.hasDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeB)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeB).removeContainedDimensions();
+        }else{
             ids.addDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeB);
         }
-        if(!ids.hasRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeA)){
+        if(ids.hasRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeA).removeContainedRelations();
+        }else{
             ids.addRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeA);
         }
-        if(!ids.hasRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB)){
+        if(ids.hasRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB).removeContainedRelations();
+        }else{
             ids.addRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB);
         }
         ids.closeSpace();
@@ -121,14 +133,12 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         factList= ie.discoverFacts(ep);
         Assert.assertNotNull(factList);
         Assert.assertEquals(factList.size(), 10);
-        Assert.assertEquals(factList.get(0).getId(), testFact3.getId());
 
         ep.setStartPage(2);
         ep.setPageSize(2);
         factList= ie.discoverFacts(ep);
         Assert.assertNotNull(factList);
         Assert.assertEquals(factList.size(), 8);
-        Assert.assertEquals(factList.get(0).getId(), testFact5.getId());
 
         ep.setStartPage(2);
         ep.setPageSize(10);
@@ -142,8 +152,6 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         factList= ie.discoverFacts(ep);
         Assert.assertNotNull(factList);
         Assert.assertEquals(factList.size(), 2);
-        Assert.assertEquals(factList.get(0).getId(), testFact3.getId());
-        Assert.assertEquals(factList.get(1).getId(), testFact4.getId());
 
         ep.setStartPage(1);
         ep.setPageSize(2);
@@ -151,8 +159,6 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         factList= ie.discoverFacts(ep);
         Assert.assertNotNull(factList);
         Assert.assertEquals(factList.size(), 4);
-        Assert.assertEquals(factList.get(0).getId(), testFact3.getId());
-        Assert.assertEquals(factList.get(3).getId(), testFact6.getId());
 
         ep.setStartPage(2);
         ep.setPageSize(2);
@@ -160,8 +166,6 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         factList= ie.discoverFacts(ep);
         Assert.assertNotNull(factList);
         Assert.assertEquals(factList.size(), 2);
-        Assert.assertEquals(factList.get(0).getId(), testFact5.getId());
-        Assert.assertEquals(factList.get(1).getId(), testFact6.getId());
 
         boolean exceptionShouldThrownForLessThanZeroStartPage=false;
         try {
@@ -212,6 +216,7 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         ids.removeFact(testFact10.getId());
         ids.removeFact(testFact11.getId());
         ids.removeFact(testFact12.getId());
+
         ids.closeSpace();
     }
 
@@ -2430,24 +2435,29 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         System.out.println("--------------------------------------------------");
         System.out.println("Clean unit test data for InfoDiscoverSpaceInformationExplorerUnitTest");
         System.out.println("--------------------------------------------------");
-
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         if(ids.hasFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA)){
+            ids.getFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA);
         }
         if(ids.hasFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeB)){
+            ids.getFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeB).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestInfoExploreFactTypeB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeA).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeA);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeB)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeB).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestInfoExploreDimensionTypeB);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestInfoExploreRelationTypeB);
         }
         ids.closeSpace();

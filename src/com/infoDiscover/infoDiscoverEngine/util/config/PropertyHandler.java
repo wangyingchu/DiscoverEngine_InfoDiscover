@@ -23,8 +23,4 @@ public class PropertyHandler {
 		}
 		return _properties.getProperty(resourceFileName);
 	}
-	
-	public static void main(String[] args){
-		System.out.println(getPropertyValue(PropertyHandler.DISCOVER_ENGINE_SERVICE_LOCATION));
-	}
 }

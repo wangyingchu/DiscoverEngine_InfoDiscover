@@ -25,15 +25,19 @@ public class InfoDiscoverSpaceMeasurableUnitTest {
 
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeA)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeA).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         }
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeB)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeB).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
         }
         ids.closeSpace();

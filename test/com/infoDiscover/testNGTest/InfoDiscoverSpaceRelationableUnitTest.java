@@ -351,21 +351,27 @@ public class InfoDiscoverSpaceRelationableUnitTest {
 
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeA)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeA).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         }
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeB)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeB).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB);
         }
         ids.closeSpace();

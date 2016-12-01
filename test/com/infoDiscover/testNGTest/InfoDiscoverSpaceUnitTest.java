@@ -26,31 +26,39 @@ public class InfoDiscoverSpaceUnitTest {
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
 
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeA)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeA).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         }
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeB)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeB).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfA);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestChildDimensionTypeOfB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB);
         }
-
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestChildRelationTypeAOfA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestChildRelationTypeAOfA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestChildRelationTypeAOfA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB);
         }
         ids.closeSpace();
@@ -69,7 +77,7 @@ public class InfoDiscoverSpaceUnitTest {
     }
 
     @Test(dependsOnMethods = { "testSpaceBasicFunc" })
-    public void testSpaceFactTypeFunc() throws InfoDiscoveryEngineDataMartException{
+    public void testSpaceFactTypeFunc() throws InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
 
         List<String> factTypeList=ids.getFactTypesList();
@@ -152,6 +160,25 @@ public class InfoDiscoverSpaceUnitTest {
             exceptionShouldThrownForRemove=true;
         }
         Assert.assertTrue(exceptionShouldThrownForRemove);
+
+        if(!ids.hasFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA)){
+            ids.addFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA);
+        }
+        Fact fact1=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestFactTypeForOperationA);
+        Fact fact2=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestFactTypeForOperationA);
+        Fact fact3=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestFactTypeForOperationA);
+        Fact fact4=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestFactTypeForOperationA);
+        ids.addFact(fact1);
+        ids.addFact(fact2);
+        ids.addFact(fact3);
+        ids.addFact(fact4);
+        FactType ft=ids.getFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA);
+        Assert.assertFalse(ids.removeFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA));
+        Assert.assertEquals(ft.countContainedFaces(),4);
+        Assert.assertEquals(ft.removeContainedFaces(),4);
+        Assert.assertEquals(ft.countContainedFaces(),0);
+        Assert.assertTrue(ids.removeFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA));
+
         ids.closeSpace();
     }
 
@@ -952,21 +979,27 @@ public class InfoDiscoverSpaceUnitTest {
 
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeA)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeA).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         }
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeB)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeB).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeB);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB);
         }
         ids.closeSpace();

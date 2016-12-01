@@ -8,4 +8,6 @@ public interface DimensionType extends TypePropertyable{
     public List<DimensionType> getChildDimensionTypes();
     public List<DimensionType> getAncestorDimensionTypes();
     public List<DimensionType> getDescendantDimensionTypes();
+    public long countContainedDimensions(boolean includeDescendant);
+    public Object removeContainedDimensions();
 }

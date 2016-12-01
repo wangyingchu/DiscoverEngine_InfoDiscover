@@ -17,9 +17,9 @@ public class DiscoverSpaceStatisticMetrics {
     private List<DataTypeStatisticMetrics> relationsStatisticMetrics;
 
     public DiscoverSpaceStatisticMetrics(){
-        factsStatisticMetrics=new ArrayList<DataTypeStatisticMetrics>();
-        dimensionsStatisticMetrics=new ArrayList<DataTypeStatisticMetrics>();
-        relationsStatisticMetrics=new ArrayList<DataTypeStatisticMetrics>();
+        this.setFactsStatisticMetrics(new ArrayList<DataTypeStatisticMetrics>());
+        this.setDimensionsStatisticMetrics(new ArrayList<DataTypeStatisticMetrics>());
+        this.setRelationsStatisticMetrics(new ArrayList<DataTypeStatisticMetrics>());
     }
 
     public long getSpaceDiskSize() {

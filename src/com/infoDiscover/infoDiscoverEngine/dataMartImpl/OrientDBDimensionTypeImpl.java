@@ -2,6 +2,7 @@ package com.infoDiscover.infoDiscoverEngine.dataMartImpl;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.DimensionType;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientVertexType;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
@@ -39,6 +40,22 @@ public class OrientDBDimensionTypeImpl extends OrientDBTypePropertyableImpl impl
         }else {
             return null;
         }
+    }
+
+    @Override
+    public long countContainedDimensions(boolean includeDescendant) {
+        if(this.orientVertexType!=null){
+            return this.orientVertexType.count(includeDescendant);
+        }else{
+            return 0;
+        }
+    }
+
+    @Override
+    public Object removeContainedDimensions() {
+        String sql= "DELETE VERTEX "+this.orientVertexType.getName();
+        Object deleteResult=graph.command(new OCommandSQL(sql)).execute();
+        return deleteResult;
     }
 
     @Override

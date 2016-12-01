@@ -22,15 +22,19 @@ public class InfoDiscoverSpaceTypePropertyableUnitTest {
 
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeA)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeA).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         }
         if(ids.hasFactType(UnitTestConfigInfo.unitTestRootFactTypeB)){
+            ids.getFactType(UnitTestConfigInfo.unitTestRootFactTypeB).removeContainedFaces();
             ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
         }
         if(ids.hasDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA)){
+            ids.getDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA).removeContainedDimensions();
             ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
         }
         ids.closeSpace();
@@ -41,7 +45,7 @@ public class InfoDiscoverSpaceTypePropertyableUnitTest {
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         FactType addFactTypeAResult=ids.addFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         Assert.assertNotNull(addFactTypeAResult);
-        doTestForTypePropertyable(addFactTypeAResult);
+        doTestForTypePropertyable(addFactTypeAResult,UnitTestConfigInfo.unitTestRootFactTypeA);
         ids.closeSpace();
 
         InfoDiscoverAdminSpace idas=DiscoverEngineComponentFactory.connectInfoDiscoverAdminSpace(UnitTestConfigInfo.unitTestSpaceName);
@@ -77,7 +81,7 @@ public class InfoDiscoverSpaceTypePropertyableUnitTest {
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         DimensionType addDimensionTypeAResult=ids.addDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         Assert.assertNotNull(addDimensionTypeAResult);
-        doTestForTypePropertyable(addDimensionTypeAResult);
+        doTestForTypePropertyable(addDimensionTypeAResult,UnitTestConfigInfo.unitTestRootDimensionTypeA);
         ids.closeSpace();
 
         InfoDiscoverAdminSpace idas=DiscoverEngineComponentFactory.connectInfoDiscoverAdminSpace(UnitTestConfigInfo.unitTestSpaceName);
@@ -113,7 +117,7 @@ public class InfoDiscoverSpaceTypePropertyableUnitTest {
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
         RelationType addRelationTypeResult=ids.addRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
         Assert.assertNotNull(addRelationTypeResult);
-        doTestForTypePropertyable(addRelationTypeResult);
+        doTestForTypePropertyable(addRelationTypeResult,UnitTestConfigInfo.unitTestRootRelationTypeA);
         ids.closeSpace();
 
         InfoDiscoverAdminSpace idas=DiscoverEngineComponentFactory.connectInfoDiscoverAdminSpace(UnitTestConfigInfo.unitTestSpaceName);
@@ -163,7 +167,7 @@ public class InfoDiscoverSpaceTypePropertyableUnitTest {
         Assert.assertTrue(exceptionShouldThrownForGetNotExistProperty);
     }
 
-    private void doTestForTypePropertyable(TypePropertyable typePropertyable) throws InfoDiscoveryEngineRuntimeException{
+    private void doTestForTypePropertyable(TypePropertyable typePropertyable,String sourceName) throws InfoDiscoveryEngineRuntimeException{
         List<TypeProperty> typePropertyList=typePropertyable.getTypeProperties();
         Assert.assertNotNull(typePropertyList);
         Assert.assertEquals(typePropertyList.size(), 0);
@@ -176,6 +180,7 @@ public class InfoDiscoverSpaceTypePropertyableUnitTest {
         Assert.assertNotNull(booleanProperty);
         Assert.assertEquals(booleanProperty.getPropertyName(), UnitTestConfigInfo.unitTestTypePropertyable_BOOLEAN);
         Assert.assertEquals(booleanProperty.getPropertyType(), PropertyType.BOOLEAN);
+        Assert.assertEquals(booleanProperty.getPropertySourceOwner(),sourceName);
 
         typePropertyList=typePropertyable.getTypeProperties();
         Assert.assertEquals(typePropertyList.size(), 1);

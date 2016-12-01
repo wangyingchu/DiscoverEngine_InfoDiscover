@@ -1,6 +1,6 @@
 package com.infoDiscover.testNGTest;
 
-import com.infoDiscover.infoDiscoverEngine.dataMart.RelationType;
+import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
@@ -147,6 +147,71 @@ public class InfoDiscoverSpaceRelationTypeUnitTest {
             Assert.assertTrue(isCorrectRelationType);
         }
 
+        String tempFactType="TESTUSINGFACT0";
+        String tempDimensionType="TESTUSINGDIMENSION0";
+
+        if(!ids.hasFactType(tempFactType)){
+            ids.addFactType(tempFactType);
+        }
+        if(!ids.hasDimensionType(tempDimensionType)){
+            ids.addDimensionType(tempDimensionType);
+        }
+        if(!ids.hasRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationA)){
+            ids.addRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationA);
+            ids.addChildRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationAChildA,UnitTestConfigInfo.unitTestRelationTypeForOperationA);
+        }
+        Fact fact1=DiscoverEngineComponentFactory.createFact(tempFactType);
+        Fact fact2=DiscoverEngineComponentFactory.createFact(tempFactType);
+        Fact fact3=DiscoverEngineComponentFactory.createFact(tempFactType);
+        Fact fact4=DiscoverEngineComponentFactory.createFact(tempFactType);
+        ids.addFact(fact1);
+        ids.addFact(fact2);
+        ids.addFact(fact3);
+        ids.addFact(fact4);
+
+        Dimension dimension1=DiscoverEngineComponentFactory.createDimension(tempDimensionType);
+        Dimension dimension2=DiscoverEngineComponentFactory.createDimension(tempDimensionType);
+        Dimension dimension3=DiscoverEngineComponentFactory.createDimension(tempDimensionType);
+        Dimension dimension4=DiscoverEngineComponentFactory.createDimension(tempDimensionType);
+        Dimension dimension5=DiscoverEngineComponentFactory.createDimension(tempDimensionType);
+        Dimension dimension6=DiscoverEngineComponentFactory.createDimension(tempDimensionType);
+        ids.addDimension(dimension1);
+        ids.addDimension(dimension2);
+        ids.addDimension(dimension3);
+        ids.addDimension(dimension4);
+        ids.addDimension(dimension5);
+        ids.addDimension(dimension6);
+
+        ids.connectDimensionWithFact(dimension1.getId(),fact1.getId(),UnitTestConfigInfo.unitTestRelationTypeForOperationA);
+        ids.connectDimensionWithFact(dimension2.getId(),fact2.getId(),UnitTestConfigInfo.unitTestRelationTypeForOperationA);
+        ids.connectDimensionWithFact(dimension3.getId(),fact3.getId(),UnitTestConfigInfo.unitTestRelationTypeForOperationA);
+        ids.connectDimensionWithFact(dimension4.getId(),fact4.getId(),UnitTestConfigInfo.unitTestRelationTypeForOperationA);
+        ids.connectDimensionWithFact(dimension5.getId(),fact1.getId(),UnitTestConfigInfo.unitTestRelationTypeForOperationAChildA);
+        ids.connectDimensionWithFact(dimension6.getId(),fact2.getId(),UnitTestConfigInfo.unitTestRelationTypeForOperationAChildA);
+
+        RelationType rt1=ids.getRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationA);
+        Assert.assertEquals(rt1.countContainedRelations(false), 4);
+        Assert.assertEquals(rt1.countContainedRelations(true), 6);
+
+        RelationType rt2=ids.getRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationAChildA);
+        Assert.assertEquals(rt2.countContainedRelations(false), 2);
+        Assert.assertEquals(rt2.countContainedRelations(true), 2);
+
+        Assert.assertFalse(ids.removeRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationAChildA));
+        Assert.assertEquals(rt2.removeContainedRelations(), 2);
+        Assert.assertTrue(ids.removeRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationAChildA));
+
+        Assert.assertFalse(ids.removeRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationA));
+        Assert.assertEquals(rt1.removeContainedRelations(), 4);
+        Assert.assertTrue(ids.removeRelationType(UnitTestConfigInfo.unitTestRelationTypeForOperationA));
+
+        DimensionType dt=ids.getDimensionType(tempDimensionType);
+        dt.removeContainedDimensions();
+        ids.removeDimensionType(tempDimensionType);
+        FactType ft=ids.getFactType(tempFactType);
+        ft.removeContainedFaces();
+        ids.removeFactType(tempFactType);
+
         ids.closeSpace();
     }
 
@@ -159,18 +224,23 @@ public class InfoDiscoverSpaceRelationTypeUnitTest {
         InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
 
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD1_CLD1")){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD1_CLD1").removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD1_CLD1");
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD1")){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD1").removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD1");
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD2")){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD2").removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA + "_CLD2");
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
         }
         if(ids.hasRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB)){
+            ids.getRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB).removeContainedRelations();
             ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeB);
         }
 

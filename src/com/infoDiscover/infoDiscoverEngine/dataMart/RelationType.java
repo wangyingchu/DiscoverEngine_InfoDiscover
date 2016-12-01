@@ -8,4 +8,6 @@ public interface RelationType extends TypePropertyable{
     public List<RelationType> getChildRelationTypes();
     public List<RelationType> getAncestorRelationTypes();
     public List<RelationType> getDescendantRelationTypes();
+    public long countContainedRelations(boolean includeDescendant);
+    public Object removeContainedRelations();
 }

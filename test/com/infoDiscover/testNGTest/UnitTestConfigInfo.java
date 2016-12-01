@@ -14,6 +14,11 @@ public class UnitTestConfigInfo {
     public static final String unitTestRootRelationTypeB="unitTestRootRelationTypeB";
     public static final String unitTestChildRelationTypeAOfA="unitTestChildRelationTypeAOfA";
     public static final String unitTestChildRelationTypeAOfB="unitTestChildRelationTypeAOfB";
+    public static final String unitTestDimensionTypeForOperationA="unitTestDimensionTypeForOperationA";
+    public static final String unitTestDimensionTypeForOperationAChildA="unitTestDimensionTypeForOperationAChildA";
+    public static final String unitTestRelationTypeForOperationA="unitTestRelationTypeForOperationA";
+    public static final String unitTestRelationTypeForOperationAChildA="unitTestRelationTypeForOperationAChildA";
+    public static final String unitTestFactTypeForOperationA="unitTestFactTypeForOperationA";
 
     public static final String unitTestMeasurableProperty_BOOLEAN="unitTestMeasurableProperty_BOOLEAN";
     public static final String unitTestMeasurableProperty_INT="unitTestMeasurableProperty_INT";

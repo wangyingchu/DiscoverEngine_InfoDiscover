@@ -3,6 +3,7 @@ package com.infoDiscover.infoDiscoverEngine.dataMartImpl;
 import com.infoDiscover.infoDiscoverEngine.dataMart.RelationType;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.orientechnologies.orient.core.metadata.schema.OClass;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.tinkerpop.blueprints.impls.orient.OrientEdgeType;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 
@@ -77,6 +78,22 @@ public class OrientDBRelationTypeImpl extends OrientDBTypePropertyableImpl imple
         }else{
             return null;
         }
+    }
+
+    @Override
+    public long countContainedRelations(boolean includeDescendant) {
+        if(this.orientEdgeType!=null){
+            return this.orientEdgeType.count(includeDescendant);
+        }else{
+            return 0;
+        }
+    }
+
+    @Override
+    public Object removeContainedRelations() {
+        String sql= "DELETE EDGE "+this.orientEdgeType.getName();
+        Object deleteResult=graph.command(new OCommandSQL(sql)).execute();
+        return deleteResult;
     }
 
     private List<RelationType> getRelationTypeList(Collection<OClass> orientDBClassCollection){

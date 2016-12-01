@@ -225,8 +225,13 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
             throw InfoDiscoveryEngineException.getDataMartException(exceptionMessage);
         }else{
             String orientDBClassName=InfoDiscoverEngineConstant.CLASSPERFIX_FACT+factType;
-            this.graph.dropVertexType(orientDBClassName);
-            return true;
+            if(this.graph.getVertexType(orientDBClassName).count(true)>0){
+                //can't delete factType which contains fact
+                return false;
+            }else{
+                this.graph.dropVertexType(orientDBClassName);
+                return true;
+            }
         }
     }
 
@@ -348,8 +353,13 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
                 String exceptionMessage = "Relation Type "+typeName+" has child relation";
                 throw InfoDiscoveryEngineException.getDataMartException(exceptionMessage);
             }
-            this.graph.dropEdgeType(orientDBClassName);
-            return true;
+            if(this.graph.getEdgeType(orientDBClassName).count(true)>0){
+                //can't delete relationType which contains relation
+                return false;
+            }else{
+                this.graph.dropEdgeType(orientDBClassName);
+                return true;
+            }
         }
     }
 
@@ -507,8 +517,13 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
                 String exceptionMessage = "Dimension Type "+typeName+" has child dimension type";
                 throw InfoDiscoveryEngineException.getDataMartException(exceptionMessage);
             }
-            this.graph.dropVertexType(orientDBClassName);
-            return true;
+            if(this.graph.getVertexType(orientDBClassName).count(true)>0){
+                //can't delete dimensionType which contains dimension
+                return false;
+            }else{
+                this.graph.dropVertexType(orientDBClassName);
+                return true;
+            }
         }
     }
 
