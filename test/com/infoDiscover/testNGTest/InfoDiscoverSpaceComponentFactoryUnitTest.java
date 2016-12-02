@@ -27,6 +27,10 @@ public class InfoDiscoverSpaceComponentFactoryUnitTest {
         System.out.println("--------------------------------------------------");
         System.out.println("Init unit test data for InfoDiscoverSpaceComponentFactoryUnitTest");
         System.out.println("--------------------------------------------------");
+        if(!DiscoverEngineComponentFactory.checkDiscoverSpaceExistence(UnitTestConfigInfo.unitTestSpaceName)){
+            DiscoverEngineComponentFactory.createInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
+        }
+        InfoDiscoverSpace ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace(UnitTestConfigInfo.unitTestSpaceName);
     }
 
     @Test
