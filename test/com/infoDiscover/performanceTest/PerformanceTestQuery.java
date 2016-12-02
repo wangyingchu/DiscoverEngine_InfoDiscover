@@ -44,15 +44,11 @@ public class PerformanceTestQuery {
         ep.setDefaultFilteringItem(new BetweenFilteringItem("factTestProp_B", 1, 9910));
         //ep.setStartPage(52);
         //ep.setEndPage(53);
-        ep.setPageSize(300);
-
+        //ep.setPageSize(300);
         //ep.setDefaultFilteringItem(new EqualFilteringItem("factTestProp_B", 2905));
-        //ep.setDefaultFilteringItem(new EqualFilteringItem("factTestProp_D", 482438));
-
-
+        //ep.setDefaultFilteringItem(new EqualFilteringItem("factTestProp_D", 7829));
         List<Fact> factList = ie.discoverFacts(ep);
         System.out.println(factList.size());
         System.out.println(factList.get(0).getId());
-
     }
 }

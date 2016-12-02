@@ -31,7 +31,10 @@ public class LoadPerformanceTestData {
     }
     */
     public static void main(String[] args){
-        /*
+/*
+        if(!DiscoverEngineComponentFactory.checkDiscoverSpaceExistence("PerformanceTestDB")){
+            DiscoverEngineComponentFactory.createInfoDiscoverSpace("PerformanceTestDB");
+        }
         InfoDiscoverSpace ids=null;
         try{
             ids= DiscoverEngineComponentFactory.connectInfoDiscoverSpace("PerformanceTestDB");
@@ -43,7 +46,7 @@ public class LoadPerformanceTestData {
                 ids.closeSpace();
             }
         }
-        */
+*/
         roundLoadPerformanceTestingFacts(200,1000);
     }
 
