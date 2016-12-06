@@ -70,8 +70,13 @@ public class InfoDiscoverSpaceMeasurableUnitTest {
         Dimension testMeasurable=DiscoverEngineComponentFactory.createDimension(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         testMeasurable=ids.addDimension(testMeasurable);
         Assert.assertNotNull(testMeasurable);
-
         doTestForMeasurable(testMeasurable);
+
+        Measurable resultMeasurable=ids.getMeasurableById(testMeasurable.getId());
+        Assert.assertNotNull(resultMeasurable);
+        Assert.assertTrue(resultMeasurable instanceof Dimension);
+        resultMeasurable=ids.getMeasurableById(testMeasurable.getId()+"NotExist");
+        Assert.assertNull(resultMeasurable);
 
         ids.removeDimension(testMeasurable.getId());
         ids.closeSpace();
@@ -96,6 +101,18 @@ public class InfoDiscoverSpaceMeasurableUnitTest {
         Assert.assertNotNull(testMeasurable);
 
         doTestForMeasurable(testMeasurable);
+
+        Measurable resultFactMeasurable=ids.getMeasurableById(factA.getId());
+        Assert.assertNotNull(resultFactMeasurable);
+        Assert.assertTrue(resultFactMeasurable instanceof Fact);
+        resultFactMeasurable=ids.getMeasurableById(factA.getId()+"NotExist");
+        Assert.assertNull(resultFactMeasurable);
+
+        Measurable resultMeasurable=ids.getMeasurableById(testMeasurable.getId());
+        Assert.assertNotNull(resultMeasurable);
+        Assert.assertTrue(resultMeasurable instanceof Relation);
+        resultMeasurable=ids.getMeasurableById(testMeasurable.getId()+"NotExist");
+        Assert.assertNull(resultMeasurable);
 
         ids.removeRelation(testMeasurable.getId());
         ids.removeFact(factA.getId());

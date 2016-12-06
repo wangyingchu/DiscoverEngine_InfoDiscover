@@ -46,4 +46,6 @@ public interface InfoDiscoverSpace {
     public String getSpaceName();
     public void closeSpace();
     public InformationExplorer getInformationExplorer();
+
+    public Measurable getMeasurableById(String measurableId);
 }

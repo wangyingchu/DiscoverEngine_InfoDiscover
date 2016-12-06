@@ -620,4 +620,38 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
         InformationExplorer informationExplore=new OrientDBInformationExplorerImpl(this.graph);
         return informationExplore;
     }
+
+    @Override
+    public Measurable getMeasurableById(String measurableId) {
+        OrientElement oElement=this.graph.getElement(measurableId);
+        if(oElement==null){
+            return null;
+        }
+        if(oElement.getElementType().equals("Vertex")){
+            OrientVertex ov=(OrientVertex)oElement;
+            String measurableTypeStr=ov.getType().getName();
+            if(measurableTypeStr.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION)){
+                String dimensionBusinessName=measurableTypeStr.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION,"");
+                OrientDBDimensionImpl targetDimension=new OrientDBDimensionImpl(dimensionBusinessName);
+                targetDimension.setDimensionVertex(ov);
+                return targetDimension;
+            }else if(measurableTypeStr.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_FACT)){
+                String factBusinessName=measurableTypeStr.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_FACT,"");
+                OrientDBFactImpl targetFact=new OrientDBFactImpl(factBusinessName);
+                targetFact.setFactVertex(ov);
+                return targetFact;
+            }
+        }
+        if(oElement.getElementType().equals("Edge")){
+            OrientEdge oe=(OrientEdge)oElement;
+            String measurableTypeStr=oe.getType().getName();
+            if(measurableTypeStr.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION)){
+                String relationType=measurableTypeStr.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION,"");
+                OrientDBRelationImpl targetRelation=new OrientDBRelationImpl(relationType);
+                targetRelation.setRelationEdge(oe);
+                return targetRelation;
+            }
+        }
+        return null;
+    }
 }
