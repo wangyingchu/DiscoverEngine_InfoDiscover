@@ -2,6 +2,7 @@ package com.infoDiscover.infoDiscoverEngine.dataMartImpl;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.tinkerpop.blueprints.impls.orient.OrientEdge;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 
@@ -36,23 +37,34 @@ public class OrientDBRelationImpl extends OrientDBMeasurableImpl implements Rela
     @Override
     public Relationable getFromRelationable() {
         OrientVertex fromVertex=  this.relationEdge.getGraph().getVertex(this.relationEdge.getOutVertex().getIdentity());
-        OrientDBRelationableImpl fromRelationable=new OrientDBRelationableImpl();
-        fromRelationable.setRelationVertex(fromVertex);
-        fromRelationable.setMeasureElement(fromVertex);
-        return fromRelationable;
+        return getRelationableChildImpl(fromVertex);
     }
 
     @Override
     public Relationable getToRelationable() {
         OrientVertex toVertex=  this.relationEdge.getGraph().getVertex(this.relationEdge.getInVertex().getIdentity());
-        OrientDBRelationableImpl toRelationable=new OrientDBRelationableImpl();
-        toRelationable.setRelationVertex(toVertex);
-        toRelationable.setMeasureElement(toVertex);
-        return toRelationable;
+        return getRelationableChildImpl(toVertex);
     }
 
     public void setRelationEdge(OrientEdge relationEdge) {
         this.relationEdge = relationEdge;
         super.setMeasureElement(this.relationEdge);
+    }
+
+
+    private Relationable getRelationableChildImpl(OrientVertex relationableVertex){
+        String relationableTypeStr=relationableVertex.getType().getName();
+        if(relationableTypeStr.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION)){
+            String dimensionBusinessName=relationableTypeStr.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION,"");
+            OrientDBDimensionImpl targetDimension=new OrientDBDimensionImpl(dimensionBusinessName);
+            targetDimension.setDimensionVertex(relationableVertex);
+            return targetDimension;
+        }else if(relationableTypeStr.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_FACT)){
+            String factBusinessName=relationableTypeStr.replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_FACT,"");
+            OrientDBFactImpl targetFact=new OrientDBFactImpl(factBusinessName);
+            targetFact.setFactVertex(relationableVertex);
+            return targetFact;
+        }
+        return null;
     }
 }
