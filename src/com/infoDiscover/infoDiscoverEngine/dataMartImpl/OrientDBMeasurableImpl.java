@@ -470,7 +470,9 @@ public class OrientDBMeasurableImpl implements Measurable {
 
     private void checkIfReservedProperty(String propertyName)throws InfoDiscoveryEngineRuntimeException{
         if(propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_RID)||
-                propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_CLASS)){
+                propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_CLASS)||
+                propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN)||
+                propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT)){
             String exceptionMessage = "Name "+propertyName+" is a system reserved Property Name";
             throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
         }
@@ -487,8 +489,8 @@ public class OrientDBMeasurableImpl implements Measurable {
     private boolean checkNotReservedProperty(String propertyName){
          if(!propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_RID)&&
                  !propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_CLASS)&&
-                 !propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN)&&
-                 !propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT)&&
+                 !propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN)&&
+                 !propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT)&&
                  !propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN+"_")&&
                  !propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT+"_")){
              return true;
