@@ -1200,6 +1200,7 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         relationableList= ie.discoverRelationables(sql);
         Assert.assertNotNull(relationableList);
         Assert.assertEquals(relationableList.size(), 5);
+        Assert.assertNotNull(relationableList.get(0).getId());
 
         sql="SELECT FROM ID_FACT_unitTestInfoExploreFactTypeA WHERE queryPropertyA_int =100 SKIP 0 LIMIT 100";
         relationableList= ie.discoverRelationables(sql);

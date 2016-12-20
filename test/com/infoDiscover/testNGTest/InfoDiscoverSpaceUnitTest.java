@@ -14,7 +14,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InfoDiscoverSpaceUnitTest {
     @BeforeClass
@@ -843,8 +845,40 @@ public class InfoDiscoverSpaceUnitTest {
         }
         Assert.assertTrue(exceptionShouldThrownForDeleteNotExistRelation);
 
+        Fact fromFact2=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestRootFactTypeA);
+        Fact toFact2=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestRootFactTypeB);
+        fromFact2=ids.addFact(fromFact2);
+        toFact2=ids.addFact(toFact2);
+        String fromFact2Id=fromFact2.getId();
+        String toFact2Id=toFact2.getId();
+
+        Map<String, Object> initRelationProperties=new HashMap<String,Object>();
+        initRelationProperties.put("IntProp",new Integer(500));
+        initRelationProperties.put("StringProp","this is a string");
+
+        Relation firstRelationWithProp=ids.addDirectionalFactRelation(fromFact2, toFact2, UnitTestConfigInfo.unitTestRootRelationTypeA, false,initRelationProperties);
+        Assert.assertNotNull(firstRelationWithProp);
+        Assert.assertEquals(firstRelationWithProp.getType(), UnitTestConfigInfo.unitTestRootRelationTypeA);
+        Assert.assertEquals(firstRelationWithProp.getFromRelationable().getId(), fromFact2Id);
+        Assert.assertEquals(firstRelationWithProp.getToRelationable().getId(),toFact2Id);
+
+        Relation secondRelationWithProp=ids.addDirectionalFactRelation(fromFact2, toFact2, UnitTestConfigInfo.unitTestRootRelationTypeA, true,initRelationProperties);
+        Assert.assertNotNull(secondRelationWithProp);
+        Assert.assertEquals(secondRelationWithProp.getType(), UnitTestConfigInfo.unitTestRootRelationTypeA);
+        Assert.assertEquals(secondRelationWithProp.getFromRelationable().getId(), fromFact2Id);
+        Assert.assertEquals(secondRelationWithProp.getToRelationable().getId(), toFact2Id);
+
+        Assert.assertNotNull(firstRelationWithProp.getProperty("IntProp"));
+        Assert.assertNotNull(firstRelationWithProp.getProperty("StringProp"));
+        Assert.assertNotNull(secondRelationWithProp.getProperty("IntProp"));
+        Assert.assertNotNull(secondRelationWithProp.getProperty("StringProp"));
+        Assert.assertEquals(firstRelationWithProp.getProperty("StringProp").getPropertyValue().toString(), "this is a string");
+        Assert.assertEquals(secondRelationWithProp.getProperty("StringProp").getPropertyValue().toString(), "this is a string");
+
         ids.removeFact(fromFactId);
         ids.removeFact(toFactId);
+        ids.removeFact(fromFact2Id);
+        ids.removeFact(toFact2Id);
         ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeB);
         ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);
@@ -959,12 +993,46 @@ public class InfoDiscoverSpaceUnitTest {
         }
         Assert.assertTrue(exceptionShouldThrownForAddNotMatchedDataType);
 
+        Fact factC=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestRootFactTypeA);
+        factC=ids.addFact(factC);
+        Dimension dimensionC=DiscoverEngineComponentFactory.createDimension(UnitTestConfigInfo.unitTestRootDimensionTypeA);
+        dimensionC=ids.addDimension(dimensionC);
+
+        Map<String, Object> initRelationProperties=new HashMap<String,Object>();
+        initRelationProperties.put("IntProp",new Integer(500));
+        initRelationProperties.put("StringProp","this is a string");
+
+        Relation attachFactToDimensionRelationC=ids.attachFactToDimension(factC.getId(), dimensionC.getId(), UnitTestConfigInfo.unitTestRootRelationTypeA,initRelationProperties);
+
+        Assert.assertNotNull(attachFactToDimensionRelationC);
+        Assert.assertEquals(attachFactToDimensionRelationC.getType(), UnitTestConfigInfo.unitTestRootRelationTypeA);
+        Assert.assertNotNull(attachFactToDimensionRelationC.getFromRelationable());
+        Assert.assertNotNull(attachFactToDimensionRelationC.getToRelationable());
+        Assert.assertEquals(attachFactToDimensionRelationC.getFromRelationable().getId(), factC.getId());
+        Assert.assertEquals(attachFactToDimensionRelationC.getToRelationable().getId(), dimensionC.getId());
+        Assert.assertNotNull(attachFactToDimensionRelationC.getProperty("IntProp"));
+        Assert.assertNotNull(attachFactToDimensionRelationC.getProperty("StringProp"));
+        Assert.assertEquals(attachFactToDimensionRelationC.getProperty("StringProp").getPropertyValue().toString(), "this is a string");
+
+        Relation connectDimensionWithFactRelationC=ids.connectDimensionWithFact(dimensionC.getId(), factC.getId(), UnitTestConfigInfo.unitTestRootRelationTypeA,initRelationProperties);
+        Assert.assertNotNull(connectDimensionWithFactRelationC);
+        Assert.assertEquals(connectDimensionWithFactRelationC.getType(), UnitTestConfigInfo.unitTestRootRelationTypeA);
+        Assert.assertNotNull(connectDimensionWithFactRelationC.getFromRelationable());
+        Assert.assertNotNull(connectDimensionWithFactRelationC.getToRelationable());
+        Assert.assertEquals(connectDimensionWithFactRelationC.getFromRelationable().getId(), dimensionC.getId());
+        Assert.assertEquals(connectDimensionWithFactRelationC.getToRelationable().getId(), factC.getId());
+        Assert.assertNotNull(connectDimensionWithFactRelationC.getProperty("IntProp"));
+        Assert.assertNotNull(connectDimensionWithFactRelationC.getProperty("StringProp"));
+        Assert.assertEquals(connectDimensionWithFactRelationC.getProperty("StringProp").getPropertyValue().toString(), "this is a string");
+
         ids.removeRelation(attachFactToDimensionRelation.getId());
         ids.removeRelation(connectDimensionWithFactRelation.getId());
         ids.removeFact(factA.getId());
         ids.removeDimension(dimensionA.getId());
         ids.removeFact(factB.getId());
         ids.removeDimension(dimensionB.getId());
+        ids.removeFact(factC.getId());
+        ids.removeDimension(dimensionC.getId());
         ids.removeFactType(UnitTestConfigInfo.unitTestRootFactTypeA);
         ids.removeDimensionType(UnitTestConfigInfo.unitTestRootDimensionTypeA);
         ids.removeRelationType(UnitTestConfigInfo.unitTestRootRelationTypeA);

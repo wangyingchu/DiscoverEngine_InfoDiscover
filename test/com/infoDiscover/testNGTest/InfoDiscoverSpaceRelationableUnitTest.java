@@ -10,7 +10,9 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InfoDiscoverSpaceRelationableUnitTest {
 
@@ -49,7 +51,6 @@ public class InfoDiscoverSpaceRelationableUnitTest {
         Fact testRelationable=DiscoverEngineComponentFactory.createFact(UnitTestConfigInfo.unitTestRootFactTypeA);
         testRelationable=ids.addFact(testRelationable);
         Assert.assertNotNull(testRelationable);
-
         doTestForRelationableFunc(ids,testRelationable);
 
         ids.removeFact(testRelationable.getId());
@@ -332,6 +333,25 @@ public class InfoDiscoverSpaceRelationableUnitTest {
 
         relationCount=testRelationable.getRelationCount(null, RelationDirection.TWO_WAY);
         Assert.assertEquals(relationCount, 0);
+
+
+        Map<String, Object> initRelationProperties=new HashMap<String,Object>();
+        initRelationProperties.put("IntProp",new Integer(500));
+        initRelationProperties.put("StringProp","this is a string");
+
+        Relation fromRelationWithInitProperties=testRelationable.addFromRelation(dimensionInstanceAForTest, UnitTestConfigInfo.unitTestRootRelationTypeA,initRelationProperties);
+        Relation toRelationWithInitProperties=testRelationable.addToRelation(dimensionInstanceAForTest, UnitTestConfigInfo.unitTestRootRelationTypeA,initRelationProperties);
+
+        Assert.assertNotNull(fromRelationWithInitProperties);
+        Assert.assertNotNull(toRelationWithInitProperties);
+        Assert.assertNotNull(fromRelationWithInitProperties.getId());
+        Assert.assertNotNull(toRelationWithInitProperties.getId());
+        Assert.assertNotNull(fromRelationWithInitProperties.getProperty("IntProp"));
+        Assert.assertNotNull(fromRelationWithInitProperties.getProperty("StringProp"));
+        Assert.assertNotNull(toRelationWithInitProperties.getProperty("IntProp"));
+        Assert.assertNotNull(toRelationWithInitProperties.getProperty("StringProp"));
+        Assert.assertEquals(fromRelationWithInitProperties.getProperty("StringProp").getPropertyValue().toString(), "this is a string");
+        Assert.assertEquals(toRelationWithInitProperties.getProperty("StringProp").getPropertyValue().toString(), "this is a string");
 
         ids.removeRelation(notRelatedRelation.getId());
         ids.removeFact(factInstanceAForTestNoRelated.getId());

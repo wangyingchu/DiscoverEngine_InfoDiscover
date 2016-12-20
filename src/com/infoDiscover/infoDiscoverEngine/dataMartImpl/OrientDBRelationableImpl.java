@@ -4,6 +4,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
 import com.infoDiscover.infoDiscoverEngine.dataMart.RelationDirection;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineDataOperationUtil;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.tinkerpop.blueprints.Direction;
@@ -12,9 +13,7 @@ import com.tinkerpop.blueprints.impls.orient.OrientEdge;
 import com.tinkerpop.blueprints.impls.orient.OrientEdgeType;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class OrientDBRelationableImpl extends OrientDBMeasurableImpl implements Relationable {
 
@@ -121,11 +120,58 @@ public class OrientDBRelationableImpl extends OrientDBMeasurableImpl implements 
     }
 
     @Override
+    public Relation addFromRelation(Relationable fromRelationable, String relationType, Map<String, Object> initRelationProperties) throws InfoDiscoveryEngineRuntimeException {
+        String relationTypeClassName=getRelationTypeClassName(relationType,false);
+        OrientDBRelationableImpl fromRelationableImpl=(OrientDBRelationableImpl)fromRelationable;
+        OrientVertex fromVertex=  fromRelationableImpl.getRelationVertex();
+        OrientEdge resultEdge=this.getRelationVertex().getGraph().addEdge(null, fromVertex, this.relationVertex, relationTypeClassName);
+        if(initRelationProperties!=null){
+            Set<String> propertyNameSet=initRelationProperties.keySet();
+            Iterator<String> iterator=propertyNameSet.iterator();
+            while(iterator.hasNext()){
+                String propertyName=iterator.next();
+                if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
+                    Object propertyValue=initRelationProperties.get(propertyName);
+                    InfoDiscoverEngineDataOperationUtil.saveOrientPropertyWithoutCommit(resultEdge,propertyName,propertyValue);
+                }
+            }
+        }
+        this.getRelationVertex().getGraph().commit();
+        OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
+        newRelation.setRelationEdge(resultEdge);
+        return newRelation;
+    }
+
+    @Override
     public Relation addToRelation(Relationable toRelationable, String relationType) throws InfoDiscoveryEngineRuntimeException {
         String relationTypeClassName=getRelationTypeClassName(relationType, false);
         OrientDBRelationableImpl toRelationableImpl=(OrientDBRelationableImpl)toRelationable;
         OrientVertex toVertex=  toRelationableImpl.getRelationVertex();
         Edge resultEdge=this.getRelationVertex().addEdge(relationTypeClassName, toVertex);
+        this.getRelationVertex().getGraph().commit();
+        OrientEdge resultOrientEdge=(OrientEdge)resultEdge;
+        OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
+        newRelation.setRelationEdge(resultOrientEdge);
+        return newRelation;
+    }
+
+    @Override
+    public Relation addToRelation(Relationable toRelationable, String relationType, Map<String, Object> initRelationProperties) throws InfoDiscoveryEngineRuntimeException {
+        String relationTypeClassName=getRelationTypeClassName(relationType, false);
+        OrientDBRelationableImpl toRelationableImpl=(OrientDBRelationableImpl)toRelationable;
+        OrientVertex toVertex=  toRelationableImpl.getRelationVertex();
+        Edge resultEdge=this.getRelationVertex().addEdge(relationTypeClassName, toVertex);
+        if(initRelationProperties!=null){
+            Set<String> propertyNameSet=initRelationProperties.keySet();
+            Iterator<String> iterator=propertyNameSet.iterator();
+            while(iterator.hasNext()){
+                String propertyName=iterator.next();
+                if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
+                    Object propertyValue=initRelationProperties.get(propertyName);
+                    InfoDiscoverEngineDataOperationUtil.saveOrientPropertyWithoutCommit((OrientEdge)resultEdge,propertyName,propertyValue);
+                }
+            }
+        }
         this.getRelationVertex().getGraph().commit();
         OrientEdge resultOrientEdge=(OrientEdge)resultEdge;
         OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);

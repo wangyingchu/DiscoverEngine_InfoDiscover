@@ -2,6 +2,7 @@ package com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.*;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineDataOperationUtil;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
@@ -434,6 +435,47 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
     }
 
     @Override
+    public Relation addDirectionalFactRelation(Fact fromFact, Fact toFact, String relationType,boolean repeatable,Map<String,Object> initRelationProperties) throws InfoDiscoveryEngineRuntimeException{
+        if(!hasRelationType(relationType)){
+            String exceptionMessage = "Relation Type "+relationType+" not exist";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }else{
+            String relationTypeClassName=InfoDiscoverEngineConstant.CLASSPERFIX_RELATION+relationType;
+            OrientVertex fromVertex=((OrientDBFactImpl)fromFact).getFactVertex();
+            OrientVertex toVertex=((OrientDBFactImpl)toFact).getFactVertex();
+            if(fromVertex.getId().equals(toVertex.getId())){
+                String exceptionMessage = "From and to Facts can't be the same one";
+                throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+            }
+            if(!repeatable){
+                Iterable<Edge> edgeIterator=fromVertex.getEdges(toVertex, Direction.OUT, relationTypeClassName);
+                if(edgeIterator.iterator().hasNext()){
+                    String exceptionMessage = "Relation "+relationType+" From Fact "+fromFact.getId()+" to "+toFact.getId()+" already exists";
+                    throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+                }
+            }
+            OrientEdge resultEdge= fromVertex.getGraph().addEdge(null,fromVertex,toVertex,relationTypeClassName);
+
+            if(initRelationProperties!=null){
+                Set<String> propertyNameSet=initRelationProperties.keySet();
+                Iterator<String> iterator=propertyNameSet.iterator();
+                while(iterator.hasNext()){
+                    String propertyName=iterator.next();
+                    if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
+                        Object propertyValue=initRelationProperties.get(propertyName);
+                        InfoDiscoverEngineDataOperationUtil.saveOrientPropertyWithoutCommit(resultEdge,propertyName,propertyValue);
+                    }
+                }
+            }
+
+            this.graph.commit();
+            OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
+            newRelation.setRelationEdge(resultEdge);
+            return newRelation;
+        }
+    }
+
+    @Override
     public Relation getRelationById(String relationId) {
         OrientEdge targetEdge=this.graph.getEdge(relationId);
         if(targetEdge!=null){
@@ -567,6 +609,56 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
     }
 
     @Override
+    public Relation attachFactToDimension(String factId,String dimensionId,String relationType,Map<String,Object> initRelationProperties) throws InfoDiscoveryEngineRuntimeException {
+        //create Fact to Dimension Link, if already exist, ignore this method and return old relation
+        if(!hasRelationType(relationType)){
+            String exceptionMessage = "Relation Type "+relationType+" not exist";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }else{
+            Fact fact=getFactById(factId);
+            if(fact==null){
+                String exceptionMessage = "Fact of id "+factId+" not exist";
+                throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+            }
+            Dimension dimension=getDimensionById(dimensionId);
+            if(dimension==null){
+                String exceptionMessage = "Dimension of id "+dimensionId+" not exist";
+                throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+            }
+            String relationTypeClassName=InfoDiscoverEngineConstant.CLASSPERFIX_RELATION+relationType;
+
+            OrientVertex fromVertex=((OrientDBFactImpl)fact).getFactVertex();
+            OrientVertex toVertex=((OrientDBDimensionImpl)dimension).getDimensionVertex();
+
+            Iterable<Edge> edgeIterator=fromVertex.getEdges(toVertex, Direction.OUT, relationTypeClassName);
+            if(edgeIterator.iterator().hasNext()){
+                //already attached just return this old one
+                Edge existEdge=edgeIterator.iterator().next();
+                OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
+                newRelation.setRelationEdge((OrientEdge)existEdge);
+                return newRelation;
+            }else{
+                OrientEdge resultEdge=this.graph.addEdge(null,fromVertex,toVertex,relationTypeClassName);
+                if(initRelationProperties!=null){
+                    Set<String> propertyNameSet=initRelationProperties.keySet();
+                    Iterator<String> iterator=propertyNameSet.iterator();
+                    while(iterator.hasNext()){
+                        String propertyName=iterator.next();
+                        if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
+                            Object propertyValue=initRelationProperties.get(propertyName);
+                            InfoDiscoverEngineDataOperationUtil.saveOrientPropertyWithoutCommit(resultEdge,propertyName,propertyValue);
+                        }
+                    }
+                }
+                this.graph.commit();
+                OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
+                newRelation.setRelationEdge(resultEdge);
+                return newRelation;
+            }
+        }
+    }
+
+    @Override
     public Relation connectDimensionWithFact(String dimensionId,String factId,String relationType) throws InfoDiscoveryEngineRuntimeException {
         //create Fact to Dimension Link, if already exist, ignore this method and return old relation
         if(!hasRelationType(relationType)){
@@ -597,6 +689,56 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
                 return newRelation;
             }else{
                 OrientEdge resultEdge=this.graph.addEdge(null,fromVertex,toVertex,relationTypeClassName);
+                this.graph.commit();
+                OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
+                newRelation.setRelationEdge(resultEdge);
+                return newRelation;
+            }
+        }
+    }
+
+    @Override
+    public Relation connectDimensionWithFact(String dimensionId,String factId,String relationType,Map<String,Object> initRelationProperties) throws InfoDiscoveryEngineRuntimeException {
+        //create Fact to Dimension Link, if already exist, ignore this method and return old relation
+        if(!hasRelationType(relationType)){
+            String exceptionMessage = "Relation Type "+relationType+" not exist";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }else{
+            Fact fact=getFactById(factId);
+            if(fact==null){
+                String exceptionMessage = "Fact of id "+factId+" not exist";
+                throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+            }
+            Dimension dimension=getDimensionById(dimensionId);
+            if(dimension==null){
+                String exceptionMessage = "Dimension of id "+dimensionId+" not exist";
+                throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+            }
+            String relationTypeClassName=InfoDiscoverEngineConstant.CLASSPERFIX_RELATION+relationType;
+
+            OrientVertex fromVertex=((OrientDBDimensionImpl)dimension).getDimensionVertex();
+            OrientVertex toVertex=((OrientDBFactImpl)fact).getFactVertex();
+
+            Iterable<Edge> edgeIterator=fromVertex.getEdges(toVertex, Direction.OUT, relationTypeClassName);
+            if(edgeIterator.iterator().hasNext()){
+                //already attached just return this old one
+                Edge existEdge=edgeIterator.iterator().next();
+                OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
+                newRelation.setRelationEdge((OrientEdge)existEdge);
+                return newRelation;
+            }else{
+                OrientEdge resultEdge=this.graph.addEdge(null,fromVertex,toVertex,relationTypeClassName);
+                if(initRelationProperties!=null){
+                    Set<String> propertyNameSet=initRelationProperties.keySet();
+                    Iterator<String> iterator=propertyNameSet.iterator();
+                    while(iterator.hasNext()){
+                        String propertyName=iterator.next();
+                        if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
+                            Object propertyValue=initRelationProperties.get(propertyName);
+                            InfoDiscoverEngineDataOperationUtil.saveOrientPropertyWithoutCommit(resultEdge,propertyName,propertyValue);
+                        }
+                    }
+                }
                 this.graph.commit();
                 OrientDBRelationImpl newRelation=new OrientDBRelationImpl(relationType);
                 newRelation.setRelationEdge(resultEdge);

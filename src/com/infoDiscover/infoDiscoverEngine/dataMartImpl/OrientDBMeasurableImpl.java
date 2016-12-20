@@ -1,6 +1,7 @@
 package com.infoDiscover.infoDiscoverEngine.dataMartImpl;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineDataOperationUtil;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.orientechnologies.orient.core.metadata.schema.OType;
@@ -8,7 +9,6 @@ import com.orientechnologies.orient.core.record.impl.ORecordBytes;
 import com.tinkerpop.blueprints.impls.orient.OrientElement;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Measurable;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
-import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 
 import java.util.*;
 
@@ -24,7 +24,7 @@ public class OrientDBMeasurableImpl implements Measurable {
 
     @Override
     public boolean removeProperty(String propertyName) throws InfoDiscoveryEngineRuntimeException {
-        checkIfReservedProperty(propertyName);
+        InfoDiscoverEngineDataOperationUtil.checkIfReservedProperty(propertyName);
         Object removedObjectId=this.measureElement.removeProperty(propertyName);
         if(removedObjectId!=null){
             this.measureElement.getGraph().commit();
@@ -43,9 +43,9 @@ public class OrientDBMeasurableImpl implements Measurable {
         Iterator<String> iterator=propertyNameSet.iterator();
         while(iterator.hasNext()){
             String propertyName=iterator.next();
-            if(checkNotReservedProperty(propertyName)){
+            if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
                 Object propertyValue=propertiesMap.get(propertyName);
-                propertiesList.add(generateProperty(propertyName, propertyValue));
+                propertiesList.add(InfoDiscoverEngineDataOperationUtil.generateProperty(propertyName, propertyValue));
             }
         }
         return propertiesList;
@@ -71,7 +71,7 @@ public class OrientDBMeasurableImpl implements Measurable {
         if(propertyValue==null){
             return null;
         }else{
-            return generateProperty(propertyName,propertyValue);
+            return InfoDiscoverEngineDataOperationUtil.generateProperty(propertyName,propertyValue);
         }
     }
 
@@ -195,7 +195,7 @@ public class OrientDBMeasurableImpl implements Measurable {
         Iterator<String> iterator=propertyNameSet.iterator();
         while (iterator.hasNext()){
             String propertyName=iterator.next();
-            if(checkNotReservedProperty(propertyName)){
+            if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
                 if(!hasProperty(propertyName)){
                     Object propertyValue=properties.get(propertyName);
                     saveOrientPropertyWithoutCommit(propertyName,propertyValue);
@@ -217,7 +217,7 @@ public class OrientDBMeasurableImpl implements Measurable {
         Iterator<String> iterator=propertyNameSet.iterator();
         while (iterator.hasNext()){
             String propertyName=iterator.next();
-            if(checkNotReservedProperty(propertyName)){
+            if(InfoDiscoverEngineDataOperationUtil.checkNotReservedProperty(propertyName)){
                 if(hasProperty(propertyName)){
                     Object propertyValue=properties.get(propertyName);
                     if(checkIfDataTypeMatch(propertyName,propertyValue)){
@@ -298,7 +298,7 @@ public class OrientDBMeasurableImpl implements Measurable {
     }
 
     private void validatePropertyInfo(String propertyName,PropertyType propertyType)throws InfoDiscoveryEngineRuntimeException{
-        checkIfReservedProperty(propertyName);
+        InfoDiscoverEngineDataOperationUtil.checkIfReservedProperty(propertyName);
         if(!hasProperty(propertyName)){
             String exceptionMessage = "Property "+propertyName+" not exist";
             throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
@@ -312,7 +312,7 @@ public class OrientDBMeasurableImpl implements Measurable {
     }
 
     private Property setOrientVertexProperty(String propertyName, Object propertyValue,PropertyType propertyType,boolean checkExistence) throws InfoDiscoveryEngineRuntimeException {
-        checkIfReservedProperty(propertyName);
+        InfoDiscoverEngineDataOperationUtil.checkIfReservedProperty(propertyName);
         if(checkExistence){
             if(this.measureElement.getProperty(propertyName)!=null){
                 String exceptionMessage = "Property "+propertyName+" already exists";
@@ -358,46 +358,6 @@ public class OrientDBMeasurableImpl implements Measurable {
         }
         this.measureElement.getGraph().commit();
         targetProperty.setPropertyValue(this.measureElement.getProperty(propertyName));
-        return targetProperty;
-    }
-
-    private Property generateProperty(String propertyName,Object propertyValue){
-        OrientDBPropertyImpl targetProperty=new OrientDBPropertyImpl();
-        targetProperty.setPropertyName(propertyName);
-        targetProperty.setPropertyValue(propertyValue);
-        if(propertyValue instanceof Boolean){
-            targetProperty.setPropertyType(PropertyType.BOOLEAN);
-        }
-        if(propertyValue instanceof Integer){
-            targetProperty.setPropertyType(PropertyType.INT);
-        }
-        if(propertyValue instanceof Short){
-            targetProperty.setPropertyType(PropertyType.SHORT);
-        }
-        if(propertyValue instanceof Long){
-            targetProperty.setPropertyType(PropertyType.LONG);
-        }
-        if(propertyValue instanceof Float){
-            targetProperty.setPropertyType(PropertyType.FLOAT);
-        }
-        if(propertyValue instanceof Double){
-            targetProperty.setPropertyType(PropertyType.DOUBLE);
-        }
-        if(propertyValue instanceof Date){
-            targetProperty.setPropertyType(PropertyType.DATE);
-        }
-        if(propertyValue instanceof String){
-            targetProperty.setPropertyType(PropertyType.STRING);
-        }
-        if(propertyValue instanceof ORecordBytes){
-            targetProperty.setPropertyType(PropertyType.BINARY);
-        }
-        if(propertyValue instanceof Byte){
-            targetProperty.setPropertyType(PropertyType.BYTE);
-        }
-        if(propertyValue instanceof byte[]){
-            targetProperty.setPropertyType(PropertyType.BINARY);
-        }
         return targetProperty;
     }
 
@@ -466,37 +426,6 @@ public class OrientDBMeasurableImpl implements Measurable {
         }else{
             return false;
         }
-    }
-
-    private void checkIfReservedProperty(String propertyName)throws InfoDiscoveryEngineRuntimeException{
-        if(propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_RID)||
-                propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_CLASS)||
-                propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN)||
-                propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT)){
-            String exceptionMessage = "Name "+propertyName+" is a system reserved Property Name";
-            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
-        }
-        if(propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN + "_")){
-            String exceptionMessage = "Property Name can not start with "+InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN+"_";
-            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
-        }
-        if(propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT+"_")){
-            String exceptionMessage = "Property Name can not start with "+InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT+"_";
-            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
-        }
-    }
-
-    private boolean checkNotReservedProperty(String propertyName){
-         if(!propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_RID)&&
-                 !propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_CLASS)&&
-                 !propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN)&&
-                 !propertyName.equals(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT)&&
-                 !propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_IN+"_")&&
-                 !propertyName.startsWith(InfoDiscoverEngineConstant.PROPRETY_RESERVENAME_OUT+"_")){
-             return true;
-         }else{
-             return false;
-         }
     }
 
     protected void setMeasureElement(OrientElement measureElement) {

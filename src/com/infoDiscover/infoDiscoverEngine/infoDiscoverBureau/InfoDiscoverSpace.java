@@ -6,6 +6,7 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRun
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 
 import java.util.List;
+import java.util.Map;
 
 public interface InfoDiscoverSpace {
     public Fact addFact(Fact fact) throws InfoDiscoveryEngineRuntimeException;
@@ -37,11 +38,14 @@ public interface InfoDiscoverSpace {
     public List<String> getRootRelationTypesList();
 
     public Relation addDirectionalFactRelation(Fact fromFact,Fact toFact,String relationType,boolean repeatable)throws InfoDiscoveryEngineRuntimeException;
+    public Relation addDirectionalFactRelation(Fact fromFact,Fact toFact,String relationType,boolean repeatable,Map<String,Object> initRelationProperties)throws InfoDiscoveryEngineRuntimeException;
     public Relation getRelationById(String relationId);
     public boolean removeRelation(String relationId) throws InfoDiscoveryEngineRuntimeException;
 
     public Relation attachFactToDimension(String factId,String dimensionId,String relationType)throws InfoDiscoveryEngineRuntimeException;
+    public Relation attachFactToDimension(String factId,String dimensionId,String relationType,Map<String,Object> initRelationProperties)throws InfoDiscoveryEngineRuntimeException;
     public Relation connectDimensionWithFact(String dimensionId,String factId,String relationType)throws InfoDiscoveryEngineRuntimeException;
+    public Relation connectDimensionWithFact(String dimensionId,String factId,String relationType,Map<String,Object> initRelationProperties)throws InfoDiscoveryEngineRuntimeException;
 
     public String getSpaceName();
     public void closeSpace();
