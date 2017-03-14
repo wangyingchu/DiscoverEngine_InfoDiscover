@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DiscoverEngine_InfoDiscover:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DiscoverEngine_InfoDiscover_jar</output-path>
+    <root id="archive" name="DiscoverEngine_InfoDiscover.jar">
+      <element id="module-output" name="DiscoverEngine_InfoDiscover" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/gson-2.2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/joda-time-2.9.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-api-2.8.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jackson-xc-1.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/log4j-core-2.8.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jackson-jaxrs-1.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jackson-core-asl-1.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jackson-mapper-asl-1.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/orientdb-jdbc-2.2.13-all.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/testLib/bsh-2.0b4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/testLib/guice-2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/testLib/testng-6.8.21.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/testLib/aopalliance-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/testLib/jcommander-1.27.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

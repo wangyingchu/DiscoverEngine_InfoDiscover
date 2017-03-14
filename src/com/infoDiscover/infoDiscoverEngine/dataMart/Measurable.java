@@ -37,6 +37,7 @@ public interface Measurable {
 
     public List<String> addProperties(Map<String,Object> properties);
     public List<String> updateProperties(Map<String,Object> properties);
+    List<String> addNewOrUpdateProperties(Map<String, Object> properties);
 
     public boolean setInitProperty(String propertyName,boolean propertyValue);
     public boolean setInitProperty(String propertyName,int propertyValue);

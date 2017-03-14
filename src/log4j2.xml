@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="off" monitorInterval="3600">
+
+    <properties>
+        <!--定义变量,亦可以调用系统变量,比如${env:TESTLOG}/test/logs,其中TESTLOG是自己添加的系统环境变量  -->
+        <property name="LOG_HOME">${env:INFODISCOVER_HOME}/logs</property>
+        <property name="FILE_NAME">infoDiscoverEngine</property>
+    </properties>
+
+    <Appenders>
+        <!--    打印到控制台   -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout charset="UTF-8"
+                           pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <!--   输出到文件     -->
+        <RollingRandomAccessFile name="running-log" fileName="${LOG_HOME}/${FILE_NAME}.log"
+                                 filePattern="${LOG_HOME}/$${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout charset="UTF-8"
+                           pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%c:%line] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="50"/>
+            <filters>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT"/>
+            </filters>
+        </RollingRandomAccessFile>
+
+
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.infoDiscover" level="debug">
+            <AppenderRef ref="running-log"/>
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
