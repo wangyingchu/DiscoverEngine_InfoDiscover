@@ -1,10 +1,12 @@
-package com.infoDiscover.solution.arch.demo.prepare;
+package com.infoDiscover.solution.arch.demo.prepare.maintainproject;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.JsonConstants;
 import com.infoDiscover.solution.arch.demo.ProgressJsonParser;
+import com.infoDiscover.solution.arch.demo.prepare.RandomData;
+import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;

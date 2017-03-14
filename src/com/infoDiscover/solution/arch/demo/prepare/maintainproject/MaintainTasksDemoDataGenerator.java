@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.arch.demo.prepare;
+package com.infoDiscover.solution.arch.demo.prepare.maintainproject;
 
 /**
  * Created by sun.

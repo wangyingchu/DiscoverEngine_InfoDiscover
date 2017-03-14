@@ -1,0 +1,925 @@
+{
+  "data": {
+    "progresses": [
+      {
+        "progress": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Progress"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressName",
+              "propertyValue": "维修工程"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "starter",
+              "propertyValue": "baiwenbo"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1451577600000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1464710400000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "status",
+              "propertyValue": "completed"
+            }
+          ]
+        }
+      }
+    ],
+    "tasks": [
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "WeiXiuShenqing"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Proerty_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "dengyawen"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1451577600000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1451664000000
+            },
+            {
+              "propertyType": "boolean",
+              "propertyName": "shifouqiangxiu",
+              "propertyValue": false
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "projectName",
+              "propertyValue": "工程1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "wentifenlei",
+              "propertyValue": "问题分类1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "projectAddress",
+              "propertyValue": "项目地址1"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "yujishangmenkanchashijian",
+              "propertyValue": 1451577600000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "didianfenlei",
+              "propertyValue": "维修地点分类1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "gongzhongfenlei",
+              "propertyValue": "工种分类"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "baoxiurendianhua",
+              "propertyValue": "010-12345678"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "projectType",
+              "propertyValue": "项目分类1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "buweifenlei",
+              "propertyValue": "维修部位分类"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "guzhangmiaoshu",
+              "propertyValue": "故障描述"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "baoxiuren",
+              "propertyValue": "报修人"
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task002"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "ProjectStart"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Proerty_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "liyufei"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1451923200000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1452355200000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "gongjuxinxi",
+              "propertyValue": "工具备件信息"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "projectfuzeren",
+              "propertyValue": "项目负责人1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "fenpaifangshi",
+              "propertyValue": "分派方式1"
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "dituxinxi_jingdu",
+              "propertyValue": 116.3080853207
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "dituxinxi_weidu",
+              "propertyValue": 40.0453369494
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "shangmenriqi",
+              "propertyValue": 1452182400000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "weixiudanwei",
+              "propertyValue": "工程维修单位"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "teshuyaoqiu",
+              "propertyValue": "特殊要求1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "dizhifanghao",
+              "propertyValue": "项目地址房号1"
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task003"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "KanchaBaojia"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Engineering_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "dengqingxu"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1453651200000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1454256000000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "weixiubaojia",
+              "propertyValue": 10000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "weixiuzhenduan",
+              "propertyValue": "问题诊断1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "projectAddress",
+              "propertyValue": "项目地址1"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "shijishangmenkanchashijian",
+              "propertyValue": 1453910400000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "weixiuyujing",
+              "propertyValue": "关联维修预警1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "weixiudanwei",
+              "propertyValue": "维修单位1"
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanzongji",
+              "propertyValue": 10000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_1",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_2",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_3",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_4",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_5",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_6",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_7",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_8",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_9",
+              "propertyValue": 1000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "gaisuanfenxiang_10",
+              "propertyValue": 1000
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task004"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "zaojiahetongshenpi"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Area_Chief_Financial_Officer"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "longzhuoyan"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1455033600000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1455724800000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "zaojiazixunhetongjine",
+              "propertyValue": 5000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "zaojiazixundanweimingcheng",
+              "propertyValue": "造价咨询单位名称1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "zaojiazixunhetongbianhao",
+              "propertyValue": "造价咨询合同编号0001"
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task005"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "zaojiazixunqianding"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "General_Manager"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "lijinbin"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1455897600000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1456329600000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "zaojiazixunhetongjine",
+              "propertyValue": 5000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "zaojiazixundanweimingcheng",
+              "propertyValue": "造价咨询单位名称"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "zaojiazixunhetongbianhao",
+              "propertyValue": "合同编号001"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "zaojiazixunhetongqiandingriqi",
+              "propertyValue": 1456243200000
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task006"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "yusuanzaojia"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Engineering_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "duchongli"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1456761600000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "endTime",
+              "propertyValue": 1457366400000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "zaojiawanchengshijian",
+              "propertyValue": 1457193600000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "zaojiazixundanweimingcheng",
+              "propertyValue": "造价咨询单位名称1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "yusuanzaojiafuzeren",
+              "propertyValue": "预算造价联系人"
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "yusuanzaojiajine",
+              "propertyValue": 10000
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task007"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "yusuanzaojiashenpi"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Engineering_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "zhangxiaohan"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1457539200000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1457971200000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "yusuanzaojia",
+              "propertyValue": 10000
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "yusuanhezenge",
+              "propertyValue": 2000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "yusuanshenhedanwei",
+              "propertyValue": "工程预算审核单位1"
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task008"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "shigongdanweiqianyue"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Engineering_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "dingjunkai"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1458057600000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1460649600000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "shigongdanwei",
+              "propertyValue": "施工单位名称1"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "shigonghetongqizhiriqi_start",
+              "propertyValue": 1458316800000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "shigonghetongjiezhiriqi_end",
+              "propertyValue": 1460995200000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "shigongdanweijishurenyuan",
+              "propertyValue": "施工单位技术负责人1"
+            },
+            {
+              "propertyType": "Double",
+              "propertyName": "shigonghetongjine",
+              "propertyValue": 8000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "shigonghetongbianhao",
+              "propertyValue": "合同编号001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "shigongdanweilianxiren",
+              "propertyValue": "施工单位联系人1"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "shigonghetongqiandingriqi",
+              "propertyValue": 1458057600000
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task009"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "shigong"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Engineering_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "xiangyipin"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1458576000000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1460995200000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "shigongxunshishijian",
+              "propertyValue": 1458576000000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "shigongjianlidanwei",
+              "propertyValue": "监理单位1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "shigongjianlilianxiren",
+              "propertyValue": "监理单位联系人"
+            },
+            {
+              "propertyType": "Long",
+              "propertyName": "shigonggongqi",
+              "propertyValue": 30
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "shigongxunshirenyuan",
+              "propertyValue": "巡视人员"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "kaigongriqi",
+              "propertyValue": 1458576000000
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task010"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "jungongyanshou"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Engineering_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": ""
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1461600000000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1461945600000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "yanshouriqi",
+              "propertyValue": 1461772800000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "yanshoupingjia",
+              "propertyValue": "验收评价"
+            },
+            {
+              "propertyType": "boolean",
+              "propertyName": "shifouwancheng",
+              "propertyValue": true
+            }
+          ]
+        }
+      },
+      {
+        "task": {
+          "properties": [
+            {
+              "propertyType": "String",
+              "propertyName": "type",
+              "propertyValue": "Task"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "progressId",
+              "propertyValue": "maintain001"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskId",
+              "propertyValue": "task011"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "taskName",
+              "propertyValue": "ProjectEnd"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "departmentId",
+              "propertyValue": "Engineering_Department"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "assignee",
+              "propertyValue": "hanmingxun"
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "startTime",
+              "propertyValue": 1462032000000
+            },
+            {
+              "propertyType": "Date",
+              "propertyName": "endTime",
+              "propertyValue": 1462377600000
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "wuyebushenpi",
+              "propertyValue": "物业部审批意见1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "caiwuzongjian",
+              "propertyValue": "区财务总监审批意见1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "zongjinglishenpi",
+              "propertyValue": "总经理审批意见1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "gongchengbushenpi",
+              "propertyValue": "工程部审批意见1"
+            },
+            {
+              "propertyType": "String",
+              "propertyName": "renwuxiadajushi",
+              "propertyValue": "任务下达局师审批意见1"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

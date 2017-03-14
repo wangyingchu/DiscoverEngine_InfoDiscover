@@ -6,6 +6,8 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDat
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.arch.database.DatabaseConstants;
+import com.infoDiscover.solution.arch.demo.prepare.maintainproject
+        .MaintainProgressDemoDataGenerator;
 import com.infoDiscover.solution.arch.progress.manager.ProgressInitializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,22 +18,40 @@ import org.apache.logging.log4j.Logger;
 public class PrepareData {
     private final static Logger logger = LogManager.getLogger(PrepareData.class);
 
-    static String database = DatabaseConstants.INFODISCOVER_SPACENAME;
-    static String userFile = "/Users/sun/InfoDiscovery/Demodata/users.csv";
-    static String roleFile = "/Users/sun/InfoDiscovery/Demodata/roles.csv";
+    //===========================可以修改一下参数，进行配置 ==============//
+    static String userFile = "users.csv";
+    static String roleFile = "roles.csv";
+    static String maintainProjectTemplateFile = "SampleAllData.json";
 
+
+    static String database = DatabaseConstants.INFODISCOVER_SPACENAME;
+
+    // 生成年份
     static int[] yearsToGenerate = new int[]{2010, 2011, 2012, 2013, 2014,
             2015, 2016, 2017, 2018, 2019, 2020};
+
+    // 只生成年、月、日的时间维度
     static int depth = 3;
+
+    //生成多少个maintain project
+    static int countOfProgressToGenerate = 100;
+
+    // 随机完成流程中的前几个任务, false表示完成全部任务
+    static boolean toGenerateRandomTasksNumber = true;
+
     public static void main(String[] args) {
-        prepareData(userFile,roleFile );
+        prepareData(userFile, roleFile);
+
+        MaintainProgressDemoDataGenerator.generateMainProjectDemoData
+                (maintainProjectTemplateFile, roleFile, countOfProgressToGenerate,
+                        toGenerateRandomTasksNumber);
     }
 
     public static void prepareData(String userFile, String roleFile) {
         logger.debug("Start to prepare data");
 
         logger.debug("Step 1: create demo database");
-        if (DiscoverEngineComponentFactory.checkDiscoverSpaceExistence(database)){
+        if (DiscoverEngineComponentFactory.checkDiscoverSpaceExistence(database)) {
             logger.debug("Database: " + database + " is already existed, please specify another " +
                     "one");
             System.exit(0);
@@ -48,7 +68,7 @@ public class PrepareData {
         logger.debug("Step 2: initialize time dimension type");
         try {
             TimeDimensionGenerator.initTimeDimensionType(PrefixConstant.prefixWithout);
-            logger.debug("Step 2: end to initialize time diension type with prefix: " +
+            logger.debug("Step 2: end to initialize time dimension type with prefix: " +
                     PrefixConstant.prefixWithout);
         } catch (InfoDiscoveryEngineDataMartException e) {
             logger.error("Failed to initialize time dimension type");

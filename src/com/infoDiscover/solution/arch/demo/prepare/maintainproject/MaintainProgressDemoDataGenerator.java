@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.arch.demo.prepare;
+package com.infoDiscover.solution.arch.demo.prepare.maintainproject;
 
 import com.infoDiscover.common.PrefixConstant;
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
@@ -22,7 +22,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
-import java.util.Date;
 import java.util.Map;
 
 
