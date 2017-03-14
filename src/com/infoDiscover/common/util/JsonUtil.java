@@ -14,6 +14,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class JsonUtil {
     public static String getPropertyValues(String property, String json) {
         String result = null;
         try {
-            JSONObject jsonObject = JsonUtil2.string2JSONObject(json);
+            JSONObject jsonObject = JsonUtil.string2JSONObject(json);
             result = jsonObject.getString(property);
         } catch (JSONException e) {
             System.out.println(e.getMessage());

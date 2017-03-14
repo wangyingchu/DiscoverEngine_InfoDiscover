@@ -1,7 +1,7 @@
 package com.infoDiscover.solution.arch.demo.prepare;
 
 import com.infoDiscover.common.util.DateUtil;
-import com.infoDiscover.common.util.JsonUtil2;
+import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.JsonConstants;
 import com.infoDiscover.solution.arch.demo.ProgressJsonParser;
@@ -51,11 +51,11 @@ public class MaintainTaskRandomData {
         logger.debug("Enter method generateMainProjectTasksRandomData() with template: " +
                 maintainProjectTemplate);
 
-        JsonNode json = JsonUtil2.loadJsonFile(maintainProjectTemplate);
+        JsonNode json = JsonUtil.loadJsonFile(maintainProjectTemplate);
         JsonNode taskNodes = ProgressJsonParser.getTaskNodes(json.toString());
 
         // if json is empty
-        if (JsonUtil2.isEmptyJsonNode(taskNodes)) {
+        if (JsonUtil.isEmptyJsonNode(taskNodes)) {
             logger.info("No progress and task data in the json");
             return null;
         }

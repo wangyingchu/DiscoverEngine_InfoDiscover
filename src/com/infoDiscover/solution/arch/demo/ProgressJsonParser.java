@@ -1,7 +1,7 @@
 package com.infoDiscover.solution.arch.demo;
 
 import com.infoDiscover.common.util.DateUtil;
-import com.infoDiscover.common.util.JsonUtil2;
+import com.infoDiscover.common.util.JsonUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
@@ -32,7 +32,7 @@ public class ProgressJsonParser {
         }
 
         try {
-            JsonNode jsonNode = JsonUtil2.string2JsonNode(json);
+            JsonNode jsonNode = JsonUtil.string2JsonNode(json);
             return jsonNode.get(JsonConstants.JSON_DATA);
         } catch (IOException e) {
             logger.error(e.getMessage());

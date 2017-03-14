@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.data.preparation;
 
-import com.infoDiscover.common.util.JsonUtil2;
+import com.infoDiscover.common.util.JsonUtil;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -16,7 +16,7 @@ public class DataConverter {
     private void jsonConvert() throws JSONException {
         String file = "/Users/sun/InfoDiscovery/Demodata/MaintainProject/Converter1.json";
 
-        JsonNode jsonNode = JsonUtil2.loadJsonFile(file);
+        JsonNode jsonNode = JsonUtil.loadJsonFile(file);
 
         JSONArray array = new JSONArray();
 

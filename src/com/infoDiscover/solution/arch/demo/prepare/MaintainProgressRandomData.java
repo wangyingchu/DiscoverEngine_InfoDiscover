@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.arch.demo.prepare;
 
-import com.infoDiscover.common.util.JsonUtil2;
+import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.solution.arch.demo.JsonConstants;
 import com.infoDiscover.solution.arch.demo.ProgressJsonParser;
 import org.apache.logging.log4j.LogManager;
@@ -26,11 +26,11 @@ public class MaintainProgressRandomData {
              int sequence) {
         logger.debug("Enter method generateMainProjectProgressRandomData() with template: " + maintainProjectTemplate);
 
-        JsonNode json = JsonUtil2.loadJsonFile(maintainProjectTemplate);
+        JsonNode json = JsonUtil.loadJsonFile(maintainProjectTemplate);
         JsonNode progressNodes = ProgressJsonParser.getProgressNodes(json.toString());
 
         // if json is empty
-        if (JsonUtil2.isEmptyJsonNode(progressNodes)) {
+        if (JsonUtil.isEmptyJsonNode(progressNodes)) {
             logger.info("No progress and task data in the json");
             return null;
         }
