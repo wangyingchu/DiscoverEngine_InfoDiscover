@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.arch.demo;
 
-import com.infoDiscover.common.util.JsonUtil;
+import com.infoDiscover.common.util.JsonUtil2;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -128,7 +128,7 @@ public class DemoPropertyMapping {
     }
 
     private static JsonNode getDataNode(String mappingFile) {
-        JsonNode jsonNode = JsonUtil.loadJsonFile(mappingFile);
+        JsonNode jsonNode = JsonUtil2.loadJsonFile(mappingFile);
         return jsonNode == null ? null : jsonNode.get(JsonConstants.JSON_DATA);
     }
 

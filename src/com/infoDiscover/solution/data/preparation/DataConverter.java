@@ -1,16 +1,12 @@
 package com.infoDiscover.solution.data.preparation;
 
-import com.infoDiscover.common.util.JsonUtil;
+import com.infoDiscover.common.util.JsonUtil2;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by sun.
@@ -20,7 +16,7 @@ public class DataConverter {
     private void jsonConvert() throws JSONException {
         String file = "/Users/sun/InfoDiscovery/Demodata/MaintainProject/Converter1.json";
 
-        JsonNode jsonNode = JsonUtil.loadJsonFile(file);
+        JsonNode jsonNode = JsonUtil2.loadJsonFile(file);
 
         JSONArray array = new JSONArray();
 
