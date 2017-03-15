@@ -11,7 +11,7 @@
         <!--    打印到控制台   -->
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout charset="UTF-8"
-                           pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+                           pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%-5level] [%logger{36}] - %msg%n"/>
         </Console>
 
         <!--   输出到文件     -->

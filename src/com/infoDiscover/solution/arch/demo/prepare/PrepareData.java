@@ -19,16 +19,20 @@ public class PrepareData {
     private final static Logger logger = LogManager.getLogger(PrepareData.class);
 
     //===========================可以修改一下参数，进行配置 ==============//
-    static String userFile = "users.csv";
-    static String roleFile = "roles.csv";
-    static String maintainProjectTemplateFile = "SampleAllData.json";
+    static String userFile = "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com" +
+            "/infoDiscover/solution/arch/demo/prepare/users.csv";
+    static String roleFile = "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com" +
+            "/infoDiscover/solution/arch/demo/prepare/roles.csv";
+    static String maintainProjectTemplateFile =
+            "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
+                    "/solution/arch/demo/prepare/SampleAllData.json";
 
 
     static String database = DatabaseConstants.INFODISCOVER_SPACENAME;
 
     // 生成年份
     static int[] yearsToGenerate = new int[]{2010, 2011, 2012, 2013, 2014,
-            2015, 2016, 2017, 2018, 2019, 2020};
+            2015, 2016, 2017};
 
     // 只生成年、月、日的时间维度
     static int depth = 3;

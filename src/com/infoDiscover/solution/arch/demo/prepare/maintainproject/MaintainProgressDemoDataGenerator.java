@@ -32,10 +32,12 @@ public class MaintainProgressDemoDataGenerator {
     private final static Logger logger = LogManager.getLogger(MaintainProgressDemoDataGenerator
             .class);
 
-    static String roleFile = "/Users/sun/InfoDiscovery/Demodata/roles.csv";
+    static String roleFile = "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com" +
+            "/infoDiscover/solution/arch/demo/prepare/roles.csv";
 
     static String maintainProjectTemplate =
-            "/Users/sun/InfoDiscovery/Demodata/jsonData/MaintainProject/SampleAllData.json";
+            "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
+                    "/solution/arch/demo/prepare/SampleAllData.json";
 
     static int countOfProgressToGenerate = 1;
 
@@ -62,21 +64,24 @@ public class MaintainProgressDemoDataGenerator {
             Map<String, Object> progressProperties = MaintainProgressRandomData
                     .generateMainProjectProgressRandomData(maintainProjectTemplate, i);
             String progressId = progressProperties.get("progressId").toString();
-            long startTime = (Long) progressProperties.get("startTime");
+            long startTimeLongValue = ((DateTime) progressProperties.get("startTime")).getMillis();
 
             Map<String, Object>[] tasksPropertiesArray = MaintainTaskRandomData
                     .generateMainProjectTasksRandomData(maintainProjectTemplate, roleFile,
                             progressId,
-                            startTime, firstNumberOfTasksToGenerate);
+                            startTimeLongValue, firstNumberOfTasksToGenerate);
 
             // if all tasks are run, so complete the progress
             if (firstNumberOfTasksToGenerate == 11) {
                 progressProperties.put("status", "Completed");
-                long taskEndTime = (Long) tasksPropertiesArray[firstNumberOfTasksToGenerate - 1].get
-                        ("endTime");
+                long taskEndTimeLong = ((DateTime)
+                        tasksPropertiesArray[firstNumberOfTasksToGenerate - 1]
+                                .get
+                                        ("endTime")).getMillis();
+                long progressEndTimeLongValue = DateUtil.getLongDateValue(taskEndTimeLong,
+                        RandomUtil.generateRandomInRange(1, 5));
                 // set endTime with random (1, 5)
-                progressProperties.put("endTime", DateUtil.getLongDateValue(taskEndTime,
-                        RandomUtil.generateRandomInRange(1, 5)));
+                progressProperties.put("endTime", DateUtil.getDateTime(progressEndTimeLongValue));
             }
 
             // to create progress
@@ -130,13 +135,15 @@ public class MaintainProgressDemoDataGenerator {
             String starter = properties.get("starter").toString();
 
             // link startTime to progress
-            DayDimension dayDimension = getDayDimension((Long) properties.get("startTime"));
+            long startTime = ((DateTime) properties.get("startTime")).getMillis();
+            DayDimension dayDimension = getDayDimension(startTime);
             relationManager.attachTimeToProgress(ids, progressId, dayDimension, ProgressConstants
                     .RELATIONTYPE_STARTAT);
 
             // link endTime to progress
             if (properties.get("endTime") != null) {
-                dayDimension = getDayDimension((Long) properties.get("endTime"));
+                long endTime = ((DateTime) properties.get("endTime")).getMillis();
+                dayDimension = getDayDimension(endTime);
                 relationManager.attachTimeToProgress(ids, progressId, dayDimension,
                         ProgressConstants.RELATIONTYPE_ENDAT);
             }
@@ -208,12 +215,14 @@ public class MaintainProgressDemoDataGenerator {
             relationManager.attachRoleToTask(taskId, roleId);
 
             // link startTime to task
-            DayDimension dayDimension = getDayDimension((Long) properties.get("startTime"));
+            long startTime = ((DateTime) properties.get("startTime")).getMillis();
+            DayDimension dayDimension = getDayDimension(startTime);
             relationManager.attachTimeToTask(ids, taskId, dayDimension,ProgressConstants.RELATIONTYPE_STARTAT);
 
             // link endTime to task
             if (properties.get("endTime") != null) {
-                dayDimension = getDayDimension((Long) properties.get("endTime"));
+                long endTime = ((DateTime) properties.get("endTime")).getMillis();
+                dayDimension = getDayDimension(endTime);
                 relationManager.attachTimeToTask(ids, taskId, dayDimension, ProgressConstants.RELATIONTYPE_ENDAT);
             }
 

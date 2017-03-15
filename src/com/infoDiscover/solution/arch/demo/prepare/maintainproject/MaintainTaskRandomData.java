@@ -82,10 +82,10 @@ public class MaintainTaskRandomData {
             // 1~9 中取随机数
             long taskStartTime = DateUtil.getLongDateValue(startTime, RandomUtil
                     .generateRandomInRange(1, 9));
-            properties.put("startTime", taskStartTime);
+            properties.put("startTime", DateUtil.getDateTime(taskStartTime));
             long taskEndTime = DateUtil.getLongDateValue(taskStartTime, RandomUtil
                     .generateRandomInRange(1, 30));
-            properties.put("endTime", taskEndTime);
+            properties.put("endTime", DateUtil.getDateTime(taskEndTime));
             logger.debug("properties: " + properties);
 
             // setup longitude and latitude

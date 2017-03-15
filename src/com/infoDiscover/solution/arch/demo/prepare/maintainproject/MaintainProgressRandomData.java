@@ -1,5 +1,6 @@
 package com.infoDiscover.solution.arch.demo.prepare.maintainproject;
 
+import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.solution.arch.demo.JsonConstants;
 import com.infoDiscover.solution.arch.demo.ProgressJsonParser;
@@ -54,7 +55,7 @@ public class MaintainProgressRandomData {
         properties.put("progressId", progressId);
         properties.put("progressName", progressName);
         properties.put("starter", starter);
-        properties.put("startTime", startTime);
+        properties.put("startTime", DateUtil.getDateTime(startTime));
         properties.put("status", status);
 
         logger.debug("Exit method generateMainProjectProgressRandomData()...");
