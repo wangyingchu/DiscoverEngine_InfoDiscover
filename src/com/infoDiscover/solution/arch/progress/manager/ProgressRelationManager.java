@@ -2,8 +2,7 @@ package com.infoDiscover.solution.arch.progress.manager;
 
 import com.infoDiscover.common.PrefixConstant;
 import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
-import com.infoDiscover.common.dimension.time.dimension.DayDimension;
-import com.infoDiscover.common.dimension.time.manager.TimeDimensionManager;
+import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
@@ -19,7 +18,6 @@ import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.joda.time.DateTime;
 
 /**
  * Created by sun.
@@ -154,7 +152,7 @@ public class ProgressRelationManager {
         return null;
     }
 
-    public Relation attachTimeToProgress(InfoDiscoverSpace ids, String progressId, DayDimension
+    public Relation attachTimeToProgress(InfoDiscoverSpace ids, String progressId, DayDimensionVO
             dayDimension, String relationType) {
         logger.debug("Enter method attachTimeToProgress() with progressId: " + progressId + " and " +
                 "dayDimension: " + dayDimension.toString());
@@ -186,7 +184,7 @@ public class ProgressRelationManager {
         return null;
     }
 
-    public Relation attachTimeToTask(InfoDiscoverSpace ids, String taskId, DayDimension
+    public Relation attachTimeToTask(InfoDiscoverSpace ids, String taskId, DayDimensionVO
             dayDimension, String relationType) {
         logger.debug("Enter method attachTimeToTask() with taskId: " + taskId + " and " +
                 "dayDimension: " + dayDimension.toString());
@@ -218,7 +216,8 @@ public class ProgressRelationManager {
     }
 
     // TODO: refine this part
-    private Dimension getDayDimension(InformationExplorer ie, DayDimension dayDimension) throws InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
+    private Dimension getDayDimension(InformationExplorer ie, DayDimensionVO dayDimension) throws
+            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(dayDimension.getType());
         ep.setDefaultFilteringItem(new EqualFilteringItem("year", dayDimension.getYear()));

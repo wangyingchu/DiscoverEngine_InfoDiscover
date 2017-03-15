@@ -3,10 +3,10 @@ package com.infoDiscover.common.dimension.time.dimension;
 /**
  * Created by sun.
  */
-public class DayDimension extends MonthDimension {
+public class DayDimensionVO extends MonthDimensionVO {
     int day;
 
-    public DayDimension(String type, int year, int month, int day) {
+    public DayDimensionVO(String type, int year, int month, int day) {
         super(type, year, month);
         this.day = day;
     }

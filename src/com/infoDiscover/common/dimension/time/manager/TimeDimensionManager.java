@@ -90,7 +90,7 @@ public class TimeDimensionManager {
         return dimension;
     }
 
-    public Dimension createYearDimension(InfoDiscoverSpace ids, YearDimension year) throws
+    public Dimension createYearDimension(InfoDiscoverSpace ids, YearDimensionVO year) throws
             InfoDiscoveryEngineRuntimeException {
         logger.debug("Start to create year dimension");
         Map<String, Object> yearProps = new HashMap<String, Object>();
@@ -115,7 +115,7 @@ public class TimeDimensionManager {
     }
 
 
-    public Dimension createMonthDimension(InfoDiscoverSpace ids, MonthDimension month) throws
+    public Dimension createMonthDimension(InfoDiscoverSpace ids, MonthDimensionVO month) throws
             InfoDiscoveryEngineRuntimeException {
         logger.debug("Start to create month dimension");
 
@@ -144,7 +144,7 @@ public class TimeDimensionManager {
         return null;
     }
 
-    public Dimension createDayDimension(InfoDiscoverSpace ids, DayDimension day) throws
+    public Dimension createDayDimension(InfoDiscoverSpace ids, DayDimensionVO day) throws
             InfoDiscoveryEngineRuntimeException {
         logger.debug("Start to create day dimension");
 
@@ -173,7 +173,7 @@ public class TimeDimensionManager {
         return null;
     }
 
-    public Dimension createHourDimension(InfoDiscoverSpace ids, HourDimension hour) throws
+    public Dimension createHourDimension(InfoDiscoverSpace ids, HourDimensionVO hour) throws
             InfoDiscoveryEngineRuntimeException {
         logger.debug("Start to create hour dimension");
 
@@ -205,7 +205,7 @@ public class TimeDimensionManager {
         return null;
     }
 
-    public Dimension createMinuteDimension(InfoDiscoverSpace ids, MinuteDimension minute) throws
+    public Dimension createMinuteDimension(InfoDiscoverSpace ids, MinuteDimensionVO minute) throws
             InfoDiscoveryEngineRuntimeException {
         logger.debug("Start to create minute dimension");
         Map<String, Object> minuteProps = new HashMap<String, Object>();

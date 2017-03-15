@@ -17,33 +17,33 @@ public class TimeAnalytics {
 
     private final static Logger logger = LogManager.getLogger(TimeAnalytics.class);
 
-    public List<Relationable> drillDownByYear(YearDimension year, String relationType) {
+    public List<Relationable> drillDownByYear(YearDimensionVO year, String relationType) {
         String sql = TimeSqlBuilder.queryByYear(year, relationType);
-        logger.debug("queryByYear: " + sql);
+        logger.info("queryByYear: " + sql);
         return QueryExecutor.executeFactQuery(sql);
     }
 
-    public List<Relationable> drillDownByMonth(MonthDimension month, String relationType) {
+    public List<Relationable> drillDownByMonth(MonthDimensionVO month, String relationType) {
         String sql = TimeSqlBuilder.queryByMonth(month, relationType);
-        logger.debug("queryByYear: " + sql);
+        logger.info("queryByYear: " + sql);
         return QueryExecutor.executeFactQuery(sql);
     }
 
-    public List<Relationable> drillDownByDay(DayDimension day, String relationType) {
+    public List<Relationable> drillDownByDay(DayDimensionVO day, String relationType) {
         String sql = TimeSqlBuilder.queryByDay(day, relationType);
-        logger.debug("queryByYear: " + sql);
+        logger.info("queryByYear: " + sql);
         return QueryExecutor.executeFactQuery(sql);
     }
 
-    public List<Relationable> drillDownByHour(HourDimension hour, String relationType) {
+    public List<Relationable> drillDownByHour(HourDimensionVO hour, String relationType) {
         String sql = TimeSqlBuilder.queryByHour(hour, relationType);
-        logger.debug("queryByYear: " + sql);
+        logger.info("queryByYear: " + sql);
         return QueryExecutor.executeFactQuery(sql);
     }
 
-    public List<Relationable> drillDownByMinute(MinuteDimension minute, String relationType) {
+    public List<Relationable> drillDownByMinute(MinuteDimensionVO minute, String relationType) {
         String sql = TimeSqlBuilder.queryByMinute(minute, relationType);
-        logger.debug("queryByYear: " + sql);
+        logger.info("queryByYear: " + sql);
         return QueryExecutor.executeFactQuery(sql);
     }
 
@@ -54,7 +54,7 @@ public class TimeAnalytics {
     public static void main(String[] args) {
         TimeAnalytics a = new TimeAnalytics();
 
-        YearDimension y = new YearDimension(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION +
+        YearDimensionVO y = new YearDimensionVO(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION +
                 "y", 2018 );
 
         List<Relationable> list = a.drillDownByYear(y, "created");

@@ -1,9 +1,10 @@
-package com.infoDiscover.solution.arch.demo.prepare.maintainproject;
+package com.infoDiscover.solution.arch.demo.prepare.progress;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.solution.arch.demo.JsonConstants;
 import com.infoDiscover.solution.arch.demo.ProgressJsonParser;
+import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.demo.prepare.RandomData;
 import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
 import org.apache.logging.log4j.LogManager;
@@ -15,21 +16,18 @@ import java.util.Map;
 /**
  * Created by sun.
  */
-public class MaintainProgressRandomData {
-    private final static Logger logger = LogManager.getLogger(MaintainProgressRandomData
+public class ProgressRandomData {
+    private final static Logger logger = LogManager.getLogger(ProgressRandomData
             .class);
 
-    static String roleFile = "/Users/sun/InfoDiscovery/Demodata/roles.csv";
-
-    static String maintainProjectTemplate =
-            "/Users/sun/InfoDiscovery/Demodata/jsonData/MaintainProject/SampleProgress.json";
-
-    public static Map<String, Object> generateMainProjectProgressRandomData
-            (String maintainProjectTemplate,
+    public static Map<String, Object> generateProgressRandomData
+            (String projectTemplate, String projectName,
              int sequence) {
-        logger.debug("Enter method generateMainProjectProgressRandomData() with template: " + maintainProjectTemplate);
+        logger.info("Enter method generateProgressRandomData() with projectTemplate: " +
+                projectTemplate + " and projectName: " + projectName + " and sequence: " +
+                sequence);
 
-        JsonNode json = JsonUtil.loadJsonFile(maintainProjectTemplate);
+        JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
         JsonNode progressNodes = ProgressJsonParser.getProgressNodes(json.toString());
 
         // if json is empty
@@ -41,12 +39,12 @@ public class MaintainProgressRandomData {
         // in template, only one progress
         JsonNode progressJsonNode = progressNodes.get(0).get(JsonConstants.JSON_PROGRESS);
         Map<String, Object> properties = RandomData.jsonNodeToMapWithRandomValue(progressJsonNode);
-        logger.debug("properties: " + properties);
+        logger.info("properties: " + properties);
 
         String progressType = "Progress";
         String progressId = "maintain" + sequence;
-        String progressName = "维修工程";
-        String starter = UserRoleDataImporter.selectRandomUserFromRole(roleFile,
+        String progressName = projectName;
+        String starter = UserRoleDataImporter.selectRandomUserFromRole(DemoDataConfig.FILE_ROLE,
                 "Proerty_Department");
         long startTime = RandomData.getRandomTime(2010,2016,0);
         String status = "On Progress";
@@ -58,11 +56,11 @@ public class MaintainProgressRandomData {
         properties.put("startTime", DateUtil.getDateTime(startTime));
         properties.put("status", status);
 
-        logger.debug("Exit method generateMainProjectProgressRandomData()...");
+        logger.info("Exit method generateProgressRandomData()...");
         return properties;
     }
 
     public static void main(String[] args) {
-        generateMainProjectProgressRandomData(maintainProjectTemplate, 1);
+        //generateProgressRandomData(maintainProjectTemplate, 1);
     }
 }

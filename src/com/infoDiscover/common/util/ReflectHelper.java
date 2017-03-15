@@ -25,7 +25,7 @@ public class ReflectHelper {
         Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             String name = field.getName();
-            logger.debug("fieldName: " + name);
+            logger.info("fieldName: " + name);
             list.add(name);
         }
 

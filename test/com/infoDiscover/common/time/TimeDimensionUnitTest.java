@@ -1,6 +1,5 @@
 package com.infoDiscover.common.time;
 
-import com.infoDiscover.common.dimension.time.dimension.TimeDimension;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverAdminSpace;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;

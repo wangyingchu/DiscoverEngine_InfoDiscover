@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class TimeDimensionGenerator {
 
-    private final static Logger logger = LogManager.getLogger(TimeDimension.class);
+    private final static Logger logger = LogManager.getLogger(TimeDimensionVO.class);
 
     public static void main(String[] args) throws InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineDataMartException {
@@ -104,12 +104,12 @@ public class TimeDimensionGenerator {
 
         if (ids != null) {
             // create year
-            manager.createYearDimension(ids, new YearDimension(yearType, year));
+            manager.createYearDimension(ids, new YearDimensionVO(yearType, year));
 
             // create month
             if (depth > 1) {
                 for (int i = 1; i < 13; i++) {
-                    manager.createMonthDimension(ids, new MonthDimension(monthType, year, i));
+                    manager.createMonthDimension(ids, new MonthDimensionVO(monthType, year, i));
                 }
 
                 // create days
@@ -121,20 +121,20 @@ public class TimeDimensionGenerator {
                         int month = it.next().intValue();
                         int days = daysOfMonth.get(month);
                         for (int d = 1; d<=days; d++) {
-                            manager.createDayDimension(ids, new DayDimension
+                            manager.createDayDimension(ids, new DayDimensionVO
                                     (dayType, year, month, d));
 
                             // create hour
                             if (depth > 3) {
                                 for (int h = 0; h <= 23; h++) {
                                     manager.createHourDimension(ids, new
-                                            HourDimension(hourType, year, month, d, h));
+                                            HourDimensionVO(hourType, year, month, d, h));
 
                                     // create minute
                                     if (depth > 4) {
                                         for (int m = 0; m <= 59; m++) {
                                             manager.createMinuteDimension
-                                                    (ids, new MinuteDimension
+                                                    (ids, new MinuteDimensionVO
                                                             (minuteType, year, month, d, h, m));
                                         }
                                     }
@@ -148,7 +148,7 @@ public class TimeDimensionGenerator {
             }
 
         } else {
-            logger.debug("Failed to connect to database: " + DatabaseConstants
+            logger.error("Failed to connect to database: " + DatabaseConstants
                     .INFODISCOVER_SPACENAME);
         }
 

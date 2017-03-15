@@ -3,10 +3,10 @@ package com.infoDiscover.common.dimension.time.dimension;
 /**
  * Created by sun.
  */
-public class SecondDimension extends MinuteDimension {
+public class SecondDimensionVO extends MinuteDimensionVO {
     int second;
 
-    public SecondDimension(String type, int year, int month, int day, int hour, int minute, int
+    public SecondDimensionVO(String type, int year, int month, int day, int hour, int minute, int
             second) {
         super(type, year, month, day, hour, minute);
         this.second = second;

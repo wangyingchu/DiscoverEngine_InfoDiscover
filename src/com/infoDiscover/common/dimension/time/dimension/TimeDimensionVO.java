@@ -1,14 +1,12 @@
 package com.infoDiscover.common.dimension.time.dimension;
 
-import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
-
 /**
  * Created by sun.
  */
-public class TimeDimension {
+public class TimeDimensionVO {
     private  String type;
 
-    public TimeDimension(String type) {
+    public TimeDimensionVO(String type) {
         this.type = type;
     }
 

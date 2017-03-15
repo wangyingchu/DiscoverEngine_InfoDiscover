@@ -1,7 +1,6 @@
 package com.infoDiscover.common.dimension.time.manager;
 
 import com.infoDiscover.common.dimension.time.dimension.*;
-import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 
 /**
@@ -9,14 +8,14 @@ import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
  */
 public class TimeSqlBuilder {
 
-    public static String queryByYear(YearDimension year, String relationType) {
+    public static String queryByYear(YearDimensionVO year, String relationType) {
         String sql = "select expand(both('" + InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationType + "')) from " +
                 year.getType() + " WHERE year=" + year.getYear();
 
         return sql;
     }
 
-    public static String queryByMonth(MonthDimension month, String relationType) {
+    public static String queryByMonth(MonthDimensionVO month, String relationType) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("select expand(both('" + InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationType + "')) from " +
@@ -31,7 +30,7 @@ public class TimeSqlBuilder {
         return sb.toString();
     }
 
-    public static String queryByDay(DayDimension day, String relationType) {
+    public static String queryByDay(DayDimensionVO day, String relationType) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("select expand(both('" + InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationType + "')) from " +
@@ -50,7 +49,7 @@ public class TimeSqlBuilder {
         return sb.toString();
     }
 
-    public static String queryByHour(HourDimension hour, String relationType) {
+    public static String queryByHour(HourDimensionVO hour, String relationType) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("select expand(both('" + InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationType + "')) from " +
@@ -73,7 +72,7 @@ public class TimeSqlBuilder {
         return sb.toString();
     }
 
-    public static String queryByMinute(MinuteDimension minute, String relationType) {
+    public static String queryByMinute(MinuteDimensionVO minute, String relationType) {
 
         StringBuilder sb = new StringBuilder();
         sb.append("select expand(both('" + InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationType + "')) from " +

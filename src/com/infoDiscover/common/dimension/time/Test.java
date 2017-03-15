@@ -2,7 +2,7 @@ package com.infoDiscover.common.dimension.time;
 
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.solution.arch.database.DatabaseManager;
-import com.infoDiscover.common.dimension.time.dimension.YearDimension;
+import com.infoDiscover.common.dimension.time.dimension.YearDimensionVO;
 import com.infoDiscover.common.dimension.time.manager.TimeDimensionManager;
 import com.infoDiscover.common.dimension.time.analytics.TimeAnalytics;
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
@@ -144,7 +144,7 @@ public class Test {
 
         String sql = "select expand(in('ID_RELATION_created')) from id_dimension_m where y=2018 " +
                 "and m=2 ";
-        List<Relationable> facts = new TimeAnalytics().drillDownByYear(new YearDimension("test"+
+        List<Relationable> facts = new TimeAnalytics().drillDownByYear(new YearDimensionVO("test" +
                 TimeDimensionConstants.YEAR,2018), "created");
 
         System.out.println("facts:" + facts.size());
