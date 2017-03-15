@@ -6,8 +6,10 @@ import com.infoDiscover.solution.arch.database.DatabaseConstants;
  * Created by sun.
  */
 public class DemoDataConfig {
+
     public final static String DATABASENAME = DatabaseConstants.INFODISCOVER_SPACENAME;
 
+    // json template path
     public final static String ROOT_PATH =
             "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
                     "/solution/arch/demo/prepare/data/";
@@ -20,15 +22,9 @@ public class DemoDataConfig {
     public final static String FILE_NEW_PROJECT =
             ROOT_PATH + "SampleAllData_NewProject.json";
 
-    public final static String PROJECTTYPE_MAINTAIN = "maintain";
-    public final static String PROJECTTYPE_NEW = "new";
-    public final static String PROJECTNAME_MAINTAIN = "维修工程";
-    public final static String PROJECTNAME_NEW = "新建工程";
-
-
     // 生成年份
     public final static int[] yearsToGenerate = new int[]{2010, 2011, 2012, 2013, 2014,
-            2015, 2016, 2017};
+            2015, 2016, 2017, 2018, 2019, 2020};
 
     // 只生成年、月、日的时间维度
     public final static int depth = 3;
@@ -42,6 +38,10 @@ public class DemoDataConfig {
     // 随机完成流程中的前几个任务, false表示完成全部任务
     public final static boolean toGenerateRandomTasksNumber = true;
 
+    public final static String PROJECTTYPE_MAINTAIN = "maintain";
+    public final static String PROJECTTYPE_NEW = "new";
+    public final static String PROJECTNAME_MAINTAIN = "维修工程";
+    public final static String PROJECTNAME_NEW = "新建工程";
 
     public final static String[] MAINTAIN_TASKS = {"WeiXiuShenqing", "ProjectStart", "KanchaBaojia",
             "zaojiahetongshenpi", "zaojiazixunqianding", "yusuanzaojia", "yusuanzaojiashenpi",
