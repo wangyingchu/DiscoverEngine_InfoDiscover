@@ -64,10 +64,11 @@ public class ProgressDemoDataGenerator {
 
 
             Map<String, Object> progressProperties = ProgressRandomData
-                    .generateProgressRandomData(projectTemplate, getProjectName(projectType), i);
+                    .generateProgressRandomData(projectTemplate, projectType, getProjectName
+                            (projectType), i);
 
             String progressId = progressProperties.get("progressId").toString();
-            long startTimeLongValue = ((DateTime) progressProperties.get("startTime")).getMillis();
+            long startTimeLongValue = ((Date) progressProperties.get("startTime")).getTime();
 
             if (firstNumberOfTasksToGenerate == 0) {
                 // only create progress
@@ -86,14 +87,14 @@ public class ProgressDemoDataGenerator {
                 // if all tasks are run, so complete the progress
                 if (firstNumberOfTasksToGenerate == maxTasksNumber) {
                     progressProperties.put("status", "Completed");
-                    long taskEndTimeLong = ((DateTime)
+                    long taskEndTimeLong = ((Date)
                             tasksPropertiesArray[firstNumberOfTasksToGenerate - 1]
-                                    .get("endTime")).getMillis();
+                                    .get("endTime")).getTime();
                     long progressEndTimeLongValue = DateUtil.getLongDateValue(taskEndTimeLong,
                             RandomUtil.generateRandomInRange(1, 5));
                     // set endTime with random (1, 5)
                     progressProperties.put("endTime", DateUtil.getDateTime
-                            (progressEndTimeLongValue));
+                            (progressEndTimeLongValue).toDate());
                 }
 
 
@@ -115,25 +116,44 @@ public class ProgressDemoDataGenerator {
         logger.info("Exit method generateProjectDemoData()...");
     }
 
-    private static Map<String, Object> appendTaskPropertiesToProgress(Map<String, Object>
-                                                                              progressProperties,
-                                                                      Map<String, Object>[]
-                                                                              tasksPropertiesArray) {
+    private static Map<String, Object> appendTaskPropertiesToProgress(
+            Map<String, Object> progressProperties,
+            Map<String, Object>[] tasksPropertiesArray) {
         if (tasksPropertiesArray == null || tasksPropertiesArray.length == 0) {
             return progressProperties;
         }
 
-
         for (Map<String, Object> taskProps : tasksPropertiesArray) {
             Set<String> keySet = taskProps.keySet();
             Iterator<String> it = keySet.iterator();
+
+            String taskName = "";
+            Date startTime = new Date();
+            Date endTime = new Date();
             while (it.hasNext()) {
                 String key = it.next();
                 Object value = taskProps.get(key);
+                if (key.equalsIgnoreCase("taskName")) {
+                    taskName = value.toString();
+                }
+                if (key.equalsIgnoreCase("startTime")) {
+                    startTime = (Date) value;
+                }
+                if (key.equalsIgnoreCase("endTime")) {
+                    endTime = (Date) value;
+                }
+
                 if (!reservedStringPropertyNames().contains(key)) {
                     progressProperties.put(key, value);
                 }
             }
+
+            if (taskName == null || taskName.equalsIgnoreCase("")) {
+                taskName = "taskName";
+            }
+
+            progressProperties.put(taskName + "_startTime", startTime);
+            progressProperties.put(taskName + "_endTime", endTime);
         }
 
         return progressProperties;
@@ -195,13 +215,13 @@ public class ProgressDemoDataGenerator {
             String starter = properties.get("starter").toString();
 
             // link startTime to progress
-            DayDimensionVO dayDimension = getDayDimension((DateTime) properties.get("startTime"));
+            DayDimensionVO dayDimension = getDayDimension((Date) properties.get("startTime"));
             relationManager.attachTimeToProgress(ids, progressId, dayDimension, ProgressConstants
                     .RELATIONTYPE_STARTAT);
 
             // link endTime to progress
             if (properties.get("endTime") != null) {
-                dayDimension = getDayDimension((DateTime) properties.get("endTime"));
+                dayDimension = getDayDimension((Date) properties.get("endTime"));
                 relationManager.attachTimeToProgress(ids, progressId, dayDimension,
                         ProgressConstants.RELATIONTYPE_ENDAT);
             }
@@ -215,10 +235,12 @@ public class ProgressDemoDataGenerator {
         logger.info("Exit createNewOrUpdateFactInstance()...");
     }
 
-    public static DayDimensionVO getDayDimension(DateTime date) {
-        int year = date.getYear();
-        int month = date.getMonthOfYear();
-        int day = date.getDayOfMonth();
+    public static DayDimensionVO getDayDimension(Date date) {
+        DateTime dateTime = DateUtil.getDateTime(date.getTime());
+
+        int year = dateTime.getYear();
+        int month = dateTime.getMonthOfYear();
+        int day = dateTime.getDayOfMonth();
         DayDimensionVO dayDimension = new DayDimensionVO(PrefixConstant.prefix +
                 TimeDimensionConstants.DAY, year, month, day);
         return dayDimension;
@@ -272,13 +294,13 @@ public class ProgressDemoDataGenerator {
             relationManager.attachRoleToTask(taskId, roleId);
 
             // link startTime to task
-            DayDimensionVO dayDimension = getDayDimension((DateTime) properties.get("startTime"));
+            DayDimensionVO dayDimension = getDayDimension((Date) properties.get("startTime"));
             relationManager.attachTimeToTask(ids, taskId, dayDimension, ProgressConstants
                     .RELATIONTYPE_STARTAT);
 
             // link endTime to task
             if (properties.get("endTime") != null) {
-                dayDimension = getDayDimension((DateTime) properties.get("endTime"));
+                dayDimension = getDayDimension((Date) properties.get("endTime"));
                 relationManager.attachTimeToTask(ids, taskId, dayDimension, ProgressConstants
                         .RELATIONTYPE_ENDAT);
             }

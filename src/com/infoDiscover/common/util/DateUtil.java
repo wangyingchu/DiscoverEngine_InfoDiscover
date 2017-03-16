@@ -2,11 +2,9 @@ package com.infoDiscover.common.util;
 
 import org.joda.time.DateTime;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
 
 /**
  * Created by sun.

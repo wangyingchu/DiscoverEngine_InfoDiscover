@@ -36,7 +36,7 @@ public class DemoDataConfig {
     public final static int countOfNewProgressToGenerate = 1;
 
     // 随机完成流程中的前几个任务, false表示完成全部任务
-    public final static boolean toGenerateRandomTasksNumber = true;
+    public final static boolean toGenerateRandomTasksNumber = false;
 
     public final static String PROJECTTYPE_MAINTAIN = "maintain";
     public final static String PROJECTTYPE_NEW = "new";
@@ -47,11 +47,32 @@ public class DemoDataConfig {
             "zaojiahetongshenpi", "zaojiazixunqianding", "yusuanzaojia", "yusuanzaojiashenpi",
             "shigongdanweiqianyue", "shigong", "jungongyanshou", "ProjectEnd"};
 
-    public final static String[] DEPARTMENTS = {"Proerty_Department", "Proerty_Department",
+    public final static String[] DEPARTMENTS_MAINTAIN_PROJECT = {"Property_Department",
+            "Property_Department",
             "Engineering_Department", "Area_Chief_Financial_Officer",
             "General_Manager", "Engineering_Department",
             "Engineering_Department", "Engineering_Department",
             "Engineering_Department", "Engineering_Department", "Engineering_Department"};
+
+    public final static String[] DEPARTMENTS_NEWPROJECT = {"BuildingAndEnvironment_Bureau",
+            "Property_Department",
+            "General_Manager", "Engineering_Department",
+            "Engineering_Department", "General_Manager",
+            "General_Manager", "General_Manager",
+            "Engineering_Department", "Engineering_Department", "BuildingAndEnvironment_Bureau",
+            "General_Manager", "CostControl_Department", "Finance_Bureau", "General_Manager",
+            "Engineering_Department", "Engineering_Department", "Engineering_Department",
+            "General_Manager"};
+
+
+    public final static String[] DEPARTMENTS = {"Proerty_Department",
+            "Engineering_Department",
+            "CostControl_Department", "Finance_Department",
+            "Management_LeadingGroup", "Area_Chief_Financial_Officer",
+            "Legal_Specialist", "Finance_Specialist",
+            "PartyAndGovernment_Office", "OverallPlanAndDevelopment_Bureau",
+            "BuildingAndEnvironment_Bureau", "Finance_Bureau", "LandAndResources_Bureau",
+            "Planning_Bureau", "Area_SuperiorLeader", "General_Manager"};
 
     public final static String[] ADDRESSES = {"北京海淀区中关村", "北京海淀区清华大学", "北京朝阳区日坛国际酒店", "北京朝阳区东直门",
             "北京朝阳区西直门",

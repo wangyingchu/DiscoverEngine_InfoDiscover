@@ -21,7 +21,7 @@ public class ProgressRandomData {
             .class);
 
     public static Map<String, Object> generateProgressRandomData
-            (String projectTemplate, String projectName,
+            (String projectTemplate, String projectType, String projectName,
              int sequence) {
         logger.info("Enter method generateProgressRandomData() with projectTemplate: " +
                 projectTemplate + " and projectName: " + projectName + " and sequence: " +
@@ -42,10 +42,19 @@ public class ProgressRandomData {
         logger.info("properties: " + properties);
 
         String progressType = "Progress";
-        String progressId = "maintain" + sequence;
+        String progressId;
+        String starter;
+        if (projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN)) {
+            progressId = "maintain" + sequence;
+            starter = UserRoleDataImporter.selectRandomUserFromRole(DemoDataConfig.FILE_ROLE,
+                    "Property_Department");
+        } else {
+            progressId = "newproject" + sequence;
+            starter = UserRoleDataImporter.selectRandomUserFromRole(DemoDataConfig.FILE_ROLE,
+                    "BuildingAndEnvironment_Bureau");
+        }
         String progressName = projectName;
-        String starter = UserRoleDataImporter.selectRandomUserFromRole(DemoDataConfig.FILE_ROLE,
-                "Proerty_Department");
+
         long startTime = RandomData.getRandomTime(2010,2016,0);
         String status = "On Progress";
 
@@ -53,7 +62,7 @@ public class ProgressRandomData {
         properties.put("progressId", progressId);
         properties.put("progressName", progressName);
         properties.put("starter", starter);
-        properties.put("startTime", DateUtil.getDateTime(startTime));
+        properties.put("startTime", DateUtil.getDateTime(startTime).toDate());
         properties.put("status", status);
 
         logger.info("Exit method generateProgressRandomData()...");

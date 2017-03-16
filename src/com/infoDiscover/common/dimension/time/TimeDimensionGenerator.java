@@ -55,7 +55,7 @@ public class TimeDimensionGenerator {
     * */
     private static void yearGenerator(String dimensionPrefix, int year, int depth) throws
             InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
-        logger.debug("Start to generate dimension with prefix: " + dimensionPrefix + " and year: " +
+        logger.info("Start to generate dimension with prefix: " + dimensionPrefix + " and year: " +
                 year + " and depth: " + depth);
 
         if (year < 0 || depth < 0) {
@@ -69,13 +69,13 @@ public class TimeDimensionGenerator {
         long startTime = System.currentTimeMillis();
         initTimeDimensionType(dimensionPrefix);
         long endTime = System.currentTimeMillis();
-        logger.debug("Elapsed time to create time dimension type: " + (endTime - startTime));
+        logger.info("Elapsed time to create time dimension type: " + (endTime - startTime));
 
         startTime = System.currentTimeMillis();
         createTimeDimension(dimensionPrefix, year, depth);
         endTime = System.currentTimeMillis();
-        logger.debug("Elapsed time to create dimension: " + (endTime - startTime));
-        logger.debug("End to generate time dimension");
+        logger.info("Elapsed time to create dimension: " + (endTime - startTime));
+        logger.info("End to generate time dimension");
     }
 
     public static void initTimeDimensionType(String dimensionPrefix) throws

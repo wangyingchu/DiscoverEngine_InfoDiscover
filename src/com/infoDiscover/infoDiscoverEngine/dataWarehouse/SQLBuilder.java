@@ -5,12 +5,15 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineExc
 import com.infoDiscover.infoDiscoverEngine.dataMart.RelationDirection;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Date;
 import java.util.List;
 
 public class SQLBuilder {
 
+    private final static Logger logger = LogManager.getLogger(SQLBuilder.class);
     public static String buildQuerySQL(InformationType informationType,ExploreParameters exploreParameters)throws InfoDiscoveryEngineInfoExploreException {
         String type=exploreParameters.getType();
         String orientTypeClass=null;
@@ -59,7 +62,7 @@ public class SQLBuilder {
         }
 
         setCommonPagingParameters(querySQLStringBuffer, exploreParameters);
-        System.out.println(querySQLStringBuffer.toString());
+        logger.debug(querySQLStringBuffer.toString());
         return querySQLStringBuffer.toString();
     }
 
@@ -129,7 +132,7 @@ public class SQLBuilder {
         }else{
             resultSQL=querySQLStringBuffer.toString();
         }
-        System.out.println(resultSQL);
+        logger.debug(resultSQL);
         return resultSQL;
     }
 
@@ -231,11 +234,11 @@ public class SQLBuilder {
                 outerStringBuffer.append(orFilteringItem.getFilteringLogic());
             }
             setCommonPagingParameters(outerStringBuffer, exploreParameters);
-            System.out.println(outerStringBuffer.toString());
+            logger.debug(outerStringBuffer.toString());
             return outerStringBuffer.toString();
         }else{
             setCommonPagingParameters(querySQLStringBuffer, exploreParameters);
-            System.out.println(querySQLStringBuffer.toString());
+            logger.debug(querySQLStringBuffer.toString());
             return querySQLStringBuffer.toString();
         }
     }
@@ -340,11 +343,11 @@ public class SQLBuilder {
                 outerStringBuffer.append(orFilteringItem.getFilteringLogic());
             }
             setCommonPagingParameters(outerStringBuffer, exploreParameters);
-            System.out.println(outerStringBuffer.toString());
+            logger.debug(outerStringBuffer.toString());
             return outerStringBuffer.toString();
         }else{
             setCommonPagingParameters(querySQLStringBuffer, exploreParameters);
-            System.out.println(querySQLStringBuffer.toString());
+            logger.debug(querySQLStringBuffer.toString());
             return querySQLStringBuffer.toString();
         }
     }
@@ -414,7 +417,7 @@ public class SQLBuilder {
         }else{
             resultSQL=querySQLStringBuffer.toString();
         }
-        System.out.println(resultSQL);
+        logger.debug(resultSQL);
         return resultSQL;
     }
 
@@ -491,7 +494,7 @@ public class SQLBuilder {
         }else{
             resultSQL=querySQLStringBuffer.toString();
         }
-        System.out.println(resultSQL);
+        logger.debug(resultSQL);
         return resultSQL;
     }
 
@@ -556,7 +559,7 @@ public class SQLBuilder {
         }
         setCommonPagingParameters(querySQLStringBuffer, exploreParameters);
         String resultSQL=querySQLStringBuffer.toString();
-        System.out.println(resultSQL);
+        logger.debug(resultSQL);
         return resultSQL;
     }
 
@@ -620,7 +623,7 @@ public class SQLBuilder {
         }
         setCommonPagingParameters(querySQLStringBuffer, exploreParameters);
         String resultSQL=querySQLStringBuffer.toString();
-        System.out.println(resultSQL);
+        logger.debug(resultSQL);
         return resultSQL;
     }
 

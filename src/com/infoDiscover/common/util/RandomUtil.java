@@ -10,7 +10,6 @@ public class RandomUtil {
     public static int generateRandomInRange(int min, int max) {
         Random random = new Random();
         int value = random.nextInt(max) % (max - min + 1) + min;
-        System.out.println("value: " + value);
         return value;
     }
 
@@ -24,11 +23,13 @@ public class RandomUtil {
         return val;
     }
 
-    public static double generateRandomDouble(int min, int max) {
-        Random random = new Random();
-        // to generate a double random in range [min, max)
-        return Double.valueOf(Math.floor(random.nextDouble() * (max + 1)));
+    public static double generateRandomDouble(final double min, final double max) {
+        if (min == max) {
+            return min;
+        }
+        return min + ((max - min) * new Random().nextDouble());
     }
+
 
     public static String geterateRandomString(int length) {
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";

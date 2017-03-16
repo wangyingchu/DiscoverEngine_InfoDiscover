@@ -118,13 +118,13 @@ public class RandomData {
         return valueNode == null ? false : valueNode.asBoolean();
     }
 
-    public static DateTime getDateValue(JsonNode valueNode) {
+    public static Date getDateValue(JsonNode valueNode) {
         if (valueNode == null) {
             return null;
         }
 
         Long dateValueInLong = valueNode.asLong();
-        return DateUtil.getDateTime(dateValueInLong);
+        return DateUtil.getDateTime(dateValueInLong).toDate();
     }
 
     /*

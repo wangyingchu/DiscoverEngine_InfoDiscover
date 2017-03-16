@@ -23,8 +23,8 @@ public class PrepareData {
                 (DemoDataConfig.countOfMaintainProgressToGenerate, DemoDataConfig
                         .toGenerateRandomTasksNumber);
 
-        ProgressDemoDataGenerator.generateNewProjectDemoData(DemoDataConfig
-                .countOfNewProgressToGenerate, DemoDataConfig.toGenerateRandomTasksNumber);
+//        ProgressDemoDataGenerator.generateNewProjectDemoData(DemoDataConfig
+//                .countOfNewProgressToGenerate, DemoDataConfig.toGenerateRandomTasksNumber);
     }
 
     public static void prepareData(String userFile, String roleFile) {

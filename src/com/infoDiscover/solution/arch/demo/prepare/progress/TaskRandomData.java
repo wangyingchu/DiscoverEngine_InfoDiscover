@@ -11,8 +11,8 @@ import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
-import org.joda.time.DateTime;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +33,7 @@ public class TaskRandomData {
         logger.info("Enter method generateTasksRandomData() with projectTemplate: " +
                 projectTemplate + " and projectType: " + projectType + " and progressId: " +
                 progressId + " and progressStartTime: " + new
-                DateTime(progressStartTime) + " and firstNumberTasks: " + firstNumberTasks);
+                Date(progressStartTime) + " and firstNumberTasks: " + firstNumberTasks);
 
         JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
         JsonNode taskNodes = ProgressJsonParser.getTaskNodes(json.toString());
@@ -58,17 +58,18 @@ public class TaskRandomData {
             properties.put("type", "Task");
             properties.put("progressId", progressId);
             properties.put("taskName", getTasksList(projectType)[i]);
-            properties.put("departmentId", DemoDataConfig.DEPARTMENTS[i]);
+
+            String departmentId = getDepartmentsList(projectType)[i];
+            properties.put("departmentId", departmentId);
             properties.put("assignee", UserRoleDataImporter.selectRandomUserFromRole
-                    (DemoDataConfig.FILE_ROLE,
-                            DemoDataConfig.DEPARTMENTS[i]));
+                    (DemoDataConfig.FILE_ROLE, departmentId));
             // 1~9 中取随机数
             long taskStartTime = DateUtil.getLongDateValue(startTime, RandomUtil
                     .generateRandomInRange(1, 9));
-            properties.put("startTime", DateUtil.getDateTime(taskStartTime));
+            properties.put("startTime", DateUtil.getDateTime(taskStartTime).toDate());
             long taskEndTime = DateUtil.getLongDateValue(taskStartTime, RandomUtil
                     .generateRandomInRange(1, 30));
-            properties.put("endTime", DateUtil.getDateTime(taskEndTime));
+            properties.put("endTime", DateUtil.getDateTime(taskEndTime).toDate());
             logger.info("properties: " + properties);
 
             // setup longitude and latitude
@@ -114,6 +115,14 @@ public class TaskRandomData {
             return DemoDataConfig.MAINTAIN_TASKS;
         } else {
             return DemoDataConfig.NEWPROJECT_TASKS;
+        }
+    }
+
+    public static String[] getDepartmentsList(String projectType) {
+        if (projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN)) {
+            return DemoDataConfig.DEPARTMENTS_MAINTAIN_PROJECT;
+        } else {
+            return DemoDataConfig.DEPARTMENTS_NEWPROJECT;
         }
     }
 

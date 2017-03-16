@@ -70,7 +70,7 @@
             {
               "propertyType": "String",
               "propertyName": "departmentId",
-              "propertyValue": "Proerty_Department"
+              "propertyValue": "Property_Department"
             },
             {
               "propertyType": "String",
@@ -176,7 +176,7 @@
             {
               "propertyType": "String",
               "propertyName": "departmentId",
-              "propertyValue": "Proerty_Department"
+              "propertyValue": "Property_Department"
             },
             {
               "propertyType": "String",

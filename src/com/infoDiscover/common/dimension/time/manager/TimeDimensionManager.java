@@ -31,7 +31,7 @@ public class TimeDimensionManager {
 
     public void createTimeDimensionType(String dimensionPrefix) throws
             InfoDiscoveryEngineDataMartException {
-        logger.debug("Enter method createTimeDimensionType() with dimensionPrefix: " +
+        logger.info("Enter method createTimeDimensionType() with dimensionPrefix: " +
                 dimensionPrefix);
 
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
@@ -73,26 +73,23 @@ public class TimeDimensionManager {
         }
         ids.closeSpace();
 
-        logger.debug("Exit method createTimeDimensionType()...");
+        logger.info("Exit method createTimeDimensionType()...");
     }
 
 
     private Dimension createTimeDimension(InfoDiscoverSpace ids, String type, Map<String, Object>
             properties) throws InfoDiscoveryEngineRuntimeException {
-        logger.debug("Start to create time dimension with type: " + type + " and properties: " +
-                properties);
 
         Dimension dimension = DiscoverEngineComponentFactory.createDimension(type);
         dimension = ids.addDimension(dimension);
         dimension.addProperties(properties);
 
-        logger.debug("End to create time dimension");
         return dimension;
     }
 
     public Dimension createYearDimension(InfoDiscoverSpace ids, YearDimensionVO year) throws
             InfoDiscoveryEngineRuntimeException {
-        logger.debug("Start to create year dimension");
+        logger.info("Start to create year dimension");
         Map<String, Object> yearProps = new HashMap<String, Object>();
         yearProps.put("year", year.getYear());
 
@@ -109,7 +106,7 @@ public class TimeDimensionManager {
             logger.error("Failed to create year dimension");
         }
 
-        logger.debug("End to create year dimension");
+        logger.info("End to create year dimension");
 
         return null;
     }
@@ -117,7 +114,7 @@ public class TimeDimensionManager {
 
     public Dimension createMonthDimension(InfoDiscoverSpace ids, MonthDimensionVO month) throws
             InfoDiscoveryEngineRuntimeException {
-        logger.debug("Start to create month dimension");
+        logger.info("Start to create month dimension");
 
         Map<String, Object> monthProps = new HashMap<String, Object>();
         monthProps.put("year", month.getYear());
@@ -139,14 +136,14 @@ public class TimeDimensionManager {
         }
 
 
-        logger.debug("End to create month dimension");
+        logger.info("End to create month dimension");
 
         return null;
     }
 
     public Dimension createDayDimension(InfoDiscoverSpace ids, DayDimensionVO day) throws
             InfoDiscoveryEngineRuntimeException {
-        logger.debug("Start to create day dimension");
+        logger.info("Start to create day dimension with day: " + day.toString());
 
         Map<String, Object> dayProps = new HashMap<String, Object>();
         dayProps.put("year", day.getYear());
@@ -175,7 +172,7 @@ public class TimeDimensionManager {
 
     public Dimension createHourDimension(InfoDiscoverSpace ids, HourDimensionVO hour) throws
             InfoDiscoveryEngineRuntimeException {
-        logger.debug("Start to create hour dimension");
+        logger.info("Start to create hour dimension");
 
         Map<String, Object> hourProps = new HashMap<String, Object>();
         hourProps.put("year", hour.getYear());
@@ -200,14 +197,14 @@ public class TimeDimensionManager {
             logger.error("Failed to create hour dimension");
         }
 
-        logger.debug("End to create hour dimension");
+        logger.info("End to create hour dimension");
 
         return null;
     }
 
     public Dimension createMinuteDimension(InfoDiscoverSpace ids, MinuteDimensionVO minute) throws
             InfoDiscoveryEngineRuntimeException {
-        logger.debug("Start to create minute dimension");
+        logger.info("Start to create minute dimension");
         Map<String, Object> minuteProps = new HashMap<String, Object>();
         minuteProps.put("year", minute.getYear());
         minuteProps.put("month", minute.getMonth());
@@ -235,7 +232,7 @@ public class TimeDimensionManager {
             logger.error("Failed to create minute dimension");
         }
 
-        logger.debug("End to create minute dimension");
+        logger.info("End to create minute dimension");
 
         return null;
     }

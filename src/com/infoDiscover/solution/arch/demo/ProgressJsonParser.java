@@ -120,7 +120,7 @@ public class ProgressJsonParser {
                 ("DateTime")) {
             if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null) {
                 Long dateValueInLong = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asLong();
-                propertyValue = DateUtil.getDateTime(dateValueInLong);
+                propertyValue = DateUtil.getDateTime(dateValueInLong).toDate();
             }
         } else {
             if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null)
