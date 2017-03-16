@@ -43,9 +43,10 @@ public class RandomData {
 
         for (JsonNode propertyNode : propertiesNode) {
             String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
-            Object propertyValue = getRandomPropertyValue(propertyNode, randomStringLength, minValue,
-                    maxValue,
-                    minDoubleValue, maxDoubleValue, longValue);
+            Object propertyValue = getRandomPropertyValue(propertyNode, randomStringLength,
+                    minValue, maxValue,
+                    minDoubleValue, maxDoubleValue,
+                    longValue);
             if (propertyValue != null) {
                 properties.put(propertyName, propertyValue);
             }
@@ -100,17 +101,20 @@ public class RandomData {
     }
 
     public static int getRandomInt(JsonNode valueNode, int minValue, int maxValue) {
-        return valueNode == null ? RandomUtil.generateRandomInRange(minValue, maxValue) :
-                valueNode.asInt();
+        int randomInt = RandomUtil.generateRandomInRange(minValue, maxValue);
+        return valueNode == null ? randomInt :
+                valueNode.asInt() + randomInt;
     }
 
     public static long getRandomLong(JsonNode valueNode, long value) {
-        return valueNode == null ? RandomUtil.generateRandomLong(value) : valueNode.asLong();
+        long randomLong = RandomUtil.generateRandomLong(value);
+        return valueNode == null ? randomLong : valueNode.asLong() + randomLong;
     }
 
     public static double getRandomDouble(JsonNode valueNode, double min, double max) {
-        return valueNode == null ? RandomUtil.generateRandomDouble(min, max) : valueNode
-                .asDouble();
+        double randomDouble = RandomUtil.generateRandomDouble(min, max);
+        return valueNode == null ? randomDouble : valueNode
+                .asDouble() + randomDouble;
     }
 
     public static boolean getBooleanValue(JsonNode valueNode) {
