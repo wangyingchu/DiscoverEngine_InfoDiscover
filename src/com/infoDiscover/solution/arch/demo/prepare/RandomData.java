@@ -16,8 +16,8 @@ public class RandomData {
 
     public static int minValue = 1;
     public static int maxValue = 20;
-    public static int minDoubleValue = 1000;
-    public static int maxDoubleValue = 100000;
+    public static double minDoubleValue = 1000.0d;
+    public static double maxDoubleValue = 100000.0d;
     public static int randomStringLength = 9;
     public static long longValue = 10000l;
 
@@ -30,7 +30,7 @@ public class RandomData {
         return DateUtil.getLongDateValue(year, month, day, plusDays);
     }
 
-    public static double generateRandomeMoney(int min, int max) {
+    public static double generateRandomeMoney(double min, double max) {
         return RandomUtil.generateRandomDouble(min, max);
     }
 
@@ -109,7 +109,7 @@ public class RandomData {
         return valueNode == null ? RandomUtil.generateRandomLong(value) : valueNode.asLong();
     }
 
-    public static double getRandomDouble(JsonNode valueNode, int min, int max) {
+    public static double getRandomDouble(JsonNode valueNode, double min, double max) {
         return valueNode == null ? RandomUtil.generateRandomDouble(min, max) : valueNode
                 .asDouble();
     }
@@ -136,7 +136,7 @@ public class RandomData {
         }
      */
     private static Object getRandomPropertyValue(JsonNode propertyJsonNode, int randomLength, int
-            minValue, int maxValue, int minDoubleValue, int maxDoubleValue, long longValue) {
+            minValue, int maxValue, double minDoubleValue, double maxDoubleValue, long longValue) {
         Object propertyValue = null;
 
         String propertyType = propertyJsonNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();

@@ -91,7 +91,7 @@ public class TaskRandomData {
                     double gaisuanzongji = 0;
                     for (int j = 1; j < 11; j++) {
                         String key = "gaisuanfenxiang_" + j;
-                        double value = RandomUtil.generateRandomDouble(j + 10000, j + 20000);
+                        double value = RandomUtil.generateRandomDouble(j + 10000.0, j + 20000.0);
                         properties.put(key, value);
                         gaisuanzongji += value;
                     }
