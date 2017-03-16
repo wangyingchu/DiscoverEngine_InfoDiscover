@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,7 +103,9 @@ public class TaskRandomData {
                     double gaisuanzongji = 0;
                     for (int j = 1; j < 11; j++) {
                         String key = "gaisuanfenxiang_" + j;
-                        double value = RandomUtil.generateRandomDouble(j + 10000.0, j + 20000.0);
+                        DecimalFormat df = new DecimalFormat("######0.00");
+                        double value = Double.valueOf(df.format(RandomUtil.generateRandomDouble(j
+                                + 10000.0, j + 20000.0)));
                         properties.put(key, value);
                         gaisuanzongji += value;
                     }
