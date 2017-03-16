@@ -47,6 +47,14 @@ public class DemoDataConfig {
             "zaojiahetongshenpi", "zaojiazixunqianding", "yusuanzaojia", "yusuanzaojiashenpi",
             "shigongdanweiqianyue", "shigong", "jungongyanshou", "ProjectEnd"};
 
+    public final static String[] NEWPROJECT_TASKS = {"LaunchMaintainProject", "ProjectStart",
+            "projectDevelopmentCompany", "necessaryDataProcessing", "SurveyResults",
+            "TenderAgentSigned", "InvestigationCompanySigned", "DesignCompanySigned",
+            "DesignCompanyResults", "InvestmentEstimates", "BudgetApproval",
+            "CostConsultingCompanySigned", "BudgetCost", "BudgetCostApproval",
+            "BonstructionCompanySigned", "Construction", "MonthProgressReport",
+            "CompletionAcceptance", "ProjectClosure"};
+
     public final static String[] DEPARTMENTS_MAINTAIN_PROJECT = {"Property_Department",
             "Property_Department",
             "Engineering_Department", "Area_Chief_Financial_Officer",
@@ -88,12 +96,14 @@ public class DemoDataConfig {
     public final static double LATITUDE = 116.3288960000d;
 
 
+    public final static String[] wentifenleiList = {"问题分类1", "问题分类2", "问题分类3", "问题分类4", "问题分类5"};
+    public final static String[] didianfenleiList = {"维修地点分类1", "维修地点分类2", "维修地点分类3", "维修地点分类4",
+            "维修地点分类5", "维修地点分类6"};
+    public final static String[] gongzhongfenleiList = {"工种分类1", "工种分类2", "工种分类3", "工种分类4",
+            "工种分类5"};
+    public final static String[] buweifenleiList = {"维修部位分类1", "维修部位分类2", "维修部位分类3", "维修部位分类4",
+            "维修部位分类5"};
+    public final static String[] projectTypeList = {"项目分类1", "项目分类2", "项目分类3", "项目分类4",
+            "项目分类5", "项目分类6", "项目分类7", "项目分类8"};
 
-    public final static String[] NEWPROJECT_TASKS = {"LaunchMaintainProject", "ProjectStart",
-            "projectDevelopmentCompany", "necessaryDataProcessing", "SurveyResults",
-            "TenderAgentSigned", "InvestigationCompanySigned", "DesignCompanySigned",
-            "DesignCompanyResults", "InvestmentEstimates", "BudgetApproval",
-            "CostConsultingCompanySigned", "BudgetCost", "BudgetCostApproval",
-            "BonstructionCompanySigned", "Construction", "MonthProgressReport",
-            "CompletionAcceptance", "ProjectClosure"};
 }

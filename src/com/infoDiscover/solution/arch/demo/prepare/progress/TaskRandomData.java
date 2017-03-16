@@ -84,6 +84,20 @@ public class TaskRandomData {
                     properties.put("dituxinxi_weidu", latitude);
                 }
 
+                if (DemoDataConfig.MAINTAIN_TASKS[i].equalsIgnoreCase("WeiXiuShenqing")) {
+                    properties.put("wentifenlei", DemoDataConfig.wentifenleiList[RandomUtil
+                            .generateRandomInRange(0, DemoDataConfig.wentifenleiList.length - 1)]);
+                    properties.put("didianfenlei", DemoDataConfig.didianfenleiList[RandomUtil
+                            .generateRandomInRange(0, DemoDataConfig.didianfenleiList.length - 1)]);
+                    properties.put("gongzhongfenlei", DemoDataConfig.gongzhongfenleiList[RandomUtil
+                            .generateRandomInRange(0, DemoDataConfig.gongzhongfenleiList.length -
+                                    1)]);
+                    properties.put("buweifenlei", DemoDataConfig.buweifenleiList[RandomUtil
+                            .generateRandomInRange(0, DemoDataConfig.buweifenleiList.length - 1)]);
+                    properties.put("projectType", DemoDataConfig.projectTypeList[RandomUtil
+                            .generateRandomInRange(0, DemoDataConfig.projectTypeList.length - 1)]);
+                }
+
                 if (DemoDataConfig.MAINTAIN_TASKS[i].equalsIgnoreCase("KanchaBaojia")) {
                     double gaisuanzongji = 0;
                     for (int j = 1; j < 11; j++) {

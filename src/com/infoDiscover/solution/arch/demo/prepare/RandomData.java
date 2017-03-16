@@ -6,6 +6,7 @@ import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.JsonConstants;
 import org.codehaus.jackson.JsonNode;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -112,7 +113,9 @@ public class RandomData {
     }
 
     public static double getRandomDouble(JsonNode valueNode, double min, double max) {
-        double randomDouble = RandomUtil.generateRandomDouble(min, max);
+
+        DecimalFormat df = new DecimalFormat("######0.00");
+        double randomDouble = Double.valueOf(df.format(RandomUtil.generateRandomDouble(min, max)));
         return valueNode == null ? randomDouble : valueNode
                 .asDouble() + randomDouble;
     }
