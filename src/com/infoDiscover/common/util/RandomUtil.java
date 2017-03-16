@@ -31,7 +31,7 @@ public class RandomUtil {
     }
 
 
-    public static String geterateRandomString(int length) {
+    public static String generateRandomString(int length) {
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
         StringBuffer sb = new StringBuffer();

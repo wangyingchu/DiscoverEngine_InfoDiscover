@@ -74,14 +74,19 @@ public class DemoDataConfig {
             "BuildingAndEnvironment_Bureau", "Finance_Bureau", "LandAndResources_Bureau",
             "Planning_Bureau", "Area_SuperiorLeader", "General_Manager"};
 
-    public final static String[] ADDRESSES = {"北京海淀区中关村", "北京海淀区清华大学", "北京朝阳区日坛国际酒店", "北京朝阳区东直门",
-            "北京朝阳区西直门",
-            "北京鸟巢", "北京通州司空小区"};
-    public final static String[] LONGITUDE_LATITUDE = {"39.9910020000,116.3288960000",
-            "40.0092060000," +
-            "116.3332660000", "39.9260050000,116.4495730000", "39.9639990000,116.4600810000",
-            "39.8897660000,116.4803010000", "40.0001090000,116.4038930000", "39.9161950000," +
-            "116.6635560000"};
+//    public final static String[] ADDRESSES = {"北京海淀区中关村", "北京海淀区清华大学", "北京朝阳区日坛国际酒店", "北京朝阳区东直门",
+//            "北京朝阳区西直门",
+//            "北京鸟巢", "北京通州司空小区"};
+//
+//    public final static String[] LONGITUDE_LATITUDE = {"39.9910020000,116.3288960000",
+//            "40.0092060000," +
+//            "116.3332660000", "39.9260050000,116.4495730000", "39.9639990000,116.4600810000",
+//            "39.8897660000,116.4803010000", "40.0001090000,116.4038930000", "39.9161950000," +
+//            "116.6635560000"};
+
+    public final static double LONGITUDE = 39.9910020000d;
+    public final static double LATITUDE = 116.3288960000d;
+
 
 
     public final static String[] NEWPROJECT_TASKS = {"LaunchMaintainProject", "ProjectStart",

@@ -5,7 +5,6 @@ import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.JsonConstants;
 import org.codehaus.jackson.JsonNode;
-import org.joda.time.DateTime;
 
 import java.util.*;
 
@@ -95,7 +94,7 @@ public class RandomData {
     }
 
     public static String getRandomString(JsonNode valueNode, int randomLength) {
-        String randomString = RandomUtil.geterateRandomString(randomLength);
+        String randomString = RandomUtil.generateRandomString(randomLength);
         return valueNode == null ? randomString : valueNode
                 .asText() + "_" + randomString;
     }

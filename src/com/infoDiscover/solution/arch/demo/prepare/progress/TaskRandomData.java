@@ -75,14 +75,11 @@ public class TaskRandomData {
             // setup longitude and latitude
             if (projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN)) {
                 if (DemoDataConfig.MAINTAIN_TASKS[i].equalsIgnoreCase("ProjectStart")) {
-                    int randomInt = RandomUtil.generateRandomInRange(0, DemoDataConfig.ADDRESSES
-                            .length - 1);
-                    String address = DemoDataConfig.ADDRESSES[randomInt];
-                    double longitude = Double.valueOf(DemoDataConfig
-                            .LONGITUDE_LATITUDE[randomInt].split(",")[1]);
-                    double latitude = Double.valueOf(DemoDataConfig.LONGITUDE_LATITUDE[randomInt]
-                            .split(",")[0]);
-                    properties.put("dizhifanghao", address);
+
+                    double longitude = DemoDataConfig.LONGITUDE + RandomUtil
+                            .generateRandomInRange(0, 999) / 10000000000d;
+                    double latitude = DemoDataConfig.LATITUDE + +RandomUtil
+                            .generateRandomInRange(0, 999) / 10000000000d;
                     properties.put("dituxinxi_jingdu", longitude);
                     properties.put("dituxinxi_weidu", latitude);
                 }
