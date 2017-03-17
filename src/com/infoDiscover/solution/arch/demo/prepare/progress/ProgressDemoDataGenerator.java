@@ -19,11 +19,11 @@ import com.infoDiscover.solution.arch.progress.manager.ProgressManager;
 import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
 import com.infoDiscover.solution.arch.progress.manager.TaskManager;
 import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 
@@ -103,8 +103,29 @@ public class ProgressDemoDataGenerator {
                 createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(),
                         progressProperties);
 
+
+                String taskProjectType = "";
+
                 // to create tasks
                 for (Map<String, Object> taskProperties : tasksPropertiesArray) {
+                    if (taskProperties.get("taskName").toString().equalsIgnoreCase
+                            ("WeiXiuShenqing")) {
+                        taskProjectType = taskProperties.get("projectType").toString();
+                    }
+
+                    if (taskProperties.get("taskName").toString().equalsIgnoreCase
+                            ("KanchaBaojia")) {
+                        int index = Arrays.binarySearch(DemoDataConfig.projectTypeList,
+                                taskProjectType);
+                        double weixiubaojia = RandomUtil.generateRandomDouble((index + RandomUtil
+                                .generateRandomInRange(index, 10)) * 1111, (index + RandomUtil
+                                .generateRandomDouble(12.0, 63.3)) *
+                                RandomUtil.generateRandomDouble(1234, 7620));
+
+                        DecimalFormat df = new DecimalFormat("######0.00");
+                        taskProperties.put("weixiubaojia", Double.valueOf(df.format(weixiubaojia)));
+                    }
+
                     createNewOrUpdateTaskInstance(ids, ids.getInformationExplorer(),
                             taskProperties);
                 }
