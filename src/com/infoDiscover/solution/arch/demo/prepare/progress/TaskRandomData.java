@@ -78,9 +78,9 @@ public class TaskRandomData {
                 if (DemoDataConfig.MAINTAIN_TASKS[i].equalsIgnoreCase("ProjectStart")) {
 
                     double longitude = DemoDataConfig.LONGITUDE + RandomUtil
-                            .generateRandomInRange(0, 999) / 10000000000d;
+                            .generateRandomInRange(0, 999) / 100000d;
                     double latitude = DemoDataConfig.LATITUDE + +RandomUtil
-                            .generateRandomInRange(0, 999) / 10000000000d;
+                            .generateRandomInRange(0, 999) / 100000d;
                     properties.put("dituxinxi_jingdu", longitude);
                     properties.put("dituxinxi_weidu", latitude);
                 }

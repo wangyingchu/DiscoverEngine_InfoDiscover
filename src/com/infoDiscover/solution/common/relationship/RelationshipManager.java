@@ -39,6 +39,25 @@ public class RelationshipManager {
         return results.size() > 0;
     }
 
+    public void findShortestPath(String fromRid, String toRid) {
+        logger.info("Enter method findShortestPath() from rid: " + fromRid + " to rid: " + toRid);
+        String sql = "select expand(shortestpath) from (select shortestpath(" + fromRid + ","
+                + toRid + ", 'BOTH'))";
+        logger.debug("sql: " + sql);
+
+        OrientGraph graph = new OrientGraph("remote:localhost/DemoArch", "root", "wyc");
+
+        List<ODocument> spath = graph.getRawGraph().query(new OSQLSynchQuery<Object>(sql));
+
+        for (ODocument path : spath) {
+            logger.debug("path: " + path);
+        }
+
+//        List<ODocument> spath = orientGraph.getRawGraph().query(new OSQLSynchQuery<Object>(
+////                "select flatten(shortestPath("+v1+","+v2+",'BOTH').out)"));
+        logger.info("Enter method findShortestPath()...");
+    }
+
     public List<Relationable> findRelationships(Fact fromFact, Fact toFact) {
         logger.debug("Enter method findRelationships() from fact: " + fromFact.getId() + " to " +
                 "fact: " + toFact.getId());
@@ -51,14 +70,6 @@ public class RelationshipManager {
         logger.debug("findRelationships() sql: " + sql);
 
         List<Relationable> results = QueryExecutor.executeFactQuery(sql);
-
-        for(Relationable r : results) {
-            List<Property> ps = r.getProperties();
-            for(Property p : ps) {
-                logger.debug(p.getPropertyName());
-                logger.debug(p.getPropertyValue());
-            }
-        }
 
         logger.debug("Exit method findRelationships()...");
         return results;
@@ -94,31 +105,32 @@ public class RelationshipManager {
 //        return null;
 //    }
     public static void main(String[] args) throws InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-        ProgressManager progressManager = new ProgressManager();
-        TaskManager taskManager = new TaskManager();
-        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-        InformationExplorer ie = ids.getInformationExplorer();
-        Fact fromFact = progressManager.getProgressById(ie, "maintain001");
-//        Fact toFact = taskManager.getTaskById(ie, "apply001");
-        Dimension toFact = new UserManager().getUserById(ie, "zhongyanyang");
+
+//        ProgressManager progressManager = new ProgressManager();
+//        TaskManager taskManager = new TaskManager();
+//        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
+//        InformationExplorer ie = ids.getInformationExplorer();
+//        Fact fromFact = progressManager.getProgressById(ie, "maintain001");
+////        Fact toFact = taskManager.getTaskById(ie, "apply001");
+//        Dimension toFact = new UserManager().getUserById(ie, "zhongyanyang");
 //
 //        RelationshipManager manager = new RelationshipManager();
 //        List<Relationable> list = manager.findRelationships2(fromFact,toFact);
 
 
-        OrientGraph graph = new OrientGraph("remote:localhost/InfoDiscover", "root", "wyc");
-        OrientVertex v = graph.getVertex("#366:1");
+//        OrientGraph graph = new OrientGraph("remote:localhost/InfoDiscover", "root", "wyc");
+//        OrientVertex v = graph.getVertex("#366:1");
+////
+//        for (OIdentifiable id : new OTraverse()
+//                //.target(new ORecordId("#6:0"), new ORecordId("#6:1"))
+//                .target(new ORecordId("#366:1"))
+//                //.fields("out", "int")
+//                .field("all()")
+//                .limit(100)
+//                .predicate( new OSQLPredicate("$depth <=10"))) {
 //
-        for (OIdentifiable id : new OTraverse()
-                //.target(new ORecordId("#6:0"), new ORecordId("#6:1"))
-                .target(new ORecordId("#366:1"))
-                //.fields("out", "int")
-                .field("all()")
-                .limit(100)
-                .predicate( new OSQLPredicate("$depth <=10"))) {
-
-            //System.out.println( "id:" + id);
-        }
+//            //System.out.println( "id:" + id);
+//        }
 //
 //        for (OIdentifiable id : new OSQLSynchQuery<ODocument>("traverse in, out from " +
 //                "#366:1" + " while $depth <= 10") )  {
@@ -133,5 +145,7 @@ public class RelationshipManager {
 //        }
 
 
+        RelationshipManager manager = new RelationshipManager();
+        manager.findShortestPath("#105:3", "#107:2");
     }
 }

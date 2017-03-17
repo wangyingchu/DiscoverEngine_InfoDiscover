@@ -25,7 +25,7 @@
             </Policies>
             <DefaultRolloverStrategy max="50"/>
             <filters>
-                <ThresholdFilter level="WARN" onMatch="ACCEPT"/>
+                <ThresholdFilter level="debug" onMatch="ACCEPT"/>
             </filters>
         </RollingRandomAccessFile>
 
@@ -33,10 +33,10 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.infoDiscover" level="info">
+        <Logger name="com.infoDiscover" level="debug">
             <AppenderRef ref="running-log"/>
         </Logger>
-        <Root level="info">
+        <Root level="debug">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>
