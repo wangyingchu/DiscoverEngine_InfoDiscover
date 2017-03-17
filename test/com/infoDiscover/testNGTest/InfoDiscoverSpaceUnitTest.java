@@ -176,9 +176,9 @@ public class InfoDiscoverSpaceUnitTest {
         ids.addFact(fact4);
         FactType ft=ids.getFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA);
         Assert.assertFalse(ids.removeFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA));
-        Assert.assertEquals(ft.countContainedFaces(),4);
+        Assert.assertEquals(ft.countContainedFacts(), 4);
         Assert.assertEquals(ft.removeContainedFaces(),4);
-        Assert.assertEquals(ft.countContainedFaces(),0);
+        Assert.assertEquals(ft.countContainedFacts(), 0);
         Assert.assertTrue(ids.removeFactType(UnitTestConfigInfo.unitTestFactTypeForOperationA));
 
         ids.closeSpace();

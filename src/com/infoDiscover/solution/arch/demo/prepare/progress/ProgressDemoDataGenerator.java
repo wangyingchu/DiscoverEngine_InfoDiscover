@@ -120,25 +120,11 @@ public class ProgressDemoDataGenerator {
                             ("KanchaBaojia")) {
                         int index = Arrays.binarySearch(DemoDataConfig.projectTypeList,
                                 taskProjectType);
-                        double weixiubaojia = 1d;
 
-                        if (index == 0) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(10000, 50000);
-                        } else if (index == 1) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(50000, 100000);
-                        } else if (index == 2) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(100000, 150000);
-                        } else if (index == 3) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(150000, 200000);
-                        } else if (index == 4) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(200000, 250000);
-                        } else if (index == 5) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(250000, 300000);
-                        } else if (index == 6) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(300000, 350000);
-                        } else if (index == 7) {
-                            weixiubaojia = RandomUtil.generateRandomDouble(350000, 400000);
-                        }
+
+                        int min = DemoDataConfig.weixiubaojiaList[index];
+                        int max = DemoDataConfig.weixiubaojiaList[index + 1];
+                        double weixiubaojia = RandomUtil.generateRandomDouble(min, max);
 
                         DecimalFormat df = new DecimalFormat("######0.00");
                         taskProperties.put("weixiubaojia", Double.valueOf(df.format(weixiubaojia)));

@@ -112,4 +112,6 @@ public class DemoDataConfig {
     public final static String[] projectTypeList = {"项目分类1", "项目分类2", "项目分类3", "项目分类4",
             "项目分类5", "项目分类6", "项目分类7", "项目分类8"};
 
+    public final static int[] weixiubaojiaList = {10000, 20000, 30000, 40000, 50000, 60000,
+            70000, 80000, 90000};
 }

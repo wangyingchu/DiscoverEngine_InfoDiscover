@@ -39,7 +39,7 @@ public class OrientDBFactTypeImpl extends OrientDBTypePropertyableImpl implement
     }
 
     @Override
-    public long countContainedFaces() {
+    public long countContainedFacts() {
         if(this.orientVertexType!=null){
             return this.orientVertexType.count();
         }else{

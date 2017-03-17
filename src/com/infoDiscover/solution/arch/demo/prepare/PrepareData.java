@@ -2,9 +2,13 @@ package com.infoDiscover.solution.arch.demo.prepare;
 
 import com.infoDiscover.common.PrefixConstant;
 import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
+import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
+import com.infoDiscover.infoDiscoverEngine.dataMart.FactType;
+import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.solution.arch.demo.prepare.progress.ProgressDemoDataGenerator;
@@ -79,14 +83,35 @@ public class PrepareData {
 
             try {
                 // progress fact type for maintain project
-                ids.addFactType(DemoDataConfig.FACTTYPE_MAINTAIN_PROJECT);
+                FactType maintainProgressFactType = ids.addFactType(DemoDataConfig
+                        .FACTTYPE_MAINTAIN_PROJECT);
+                maintainProgressFactType.addTypeProperty("progressId", PropertyType.STRING);
+                maintainProgressFactType.addTypeProperty("progressName", PropertyType.STRING);
+                maintainProgressFactType.addTypeProperty("starter", PropertyType.STRING);
+                maintainProgressFactType.addTypeProperty("startTime", PropertyType.DATE);
+                maintainProgressFactType.addTypeProperty("endTime", PropertyType.DATE);
+                maintainProgressFactType.addTypeProperty("status", PropertyType.STRING);
 
                 // progress for new project
-                ids.addFactType(DemoDataConfig.FACTTYPE_NEW_PROJECT);
-
+                FactType newProgressFactType = ids.addFactType(DemoDataConfig
+                        .FACTTYPE_NEW_PROJECT);
+                newProgressFactType.addTypeProperty("progressId", PropertyType.STRING);
+                newProgressFactType.addTypeProperty("progressName", PropertyType.STRING);
+                newProgressFactType.addTypeProperty("starter", PropertyType.STRING);
+                newProgressFactType.addTypeProperty("startTime", PropertyType.DATE);
+                newProgressFactType.addTypeProperty("endTime", PropertyType.DATE);
+                newProgressFactType.addTypeProperty("status", PropertyType.STRING);
 
                 // task fact type
-                ids.addFactType(ProgressConstants.FACT_TASK);
+                FactType taskFactType = ids.addFactType(ProgressConstants.FACT_TASK);
+                taskFactType.addTypeProperty("progressId", PropertyType.STRING);
+                taskFactType.addTypeProperty("taskId", PropertyType.STRING);
+                taskFactType.addTypeProperty("taskName", PropertyType.STRING);
+                taskFactType.addTypeProperty("assignee", PropertyType.STRING);
+                taskFactType.addTypeProperty("departmentId", PropertyType.STRING);
+                taskFactType.addTypeProperty("startTime", PropertyType.DATE);
+                taskFactType.addTypeProperty("endTime", PropertyType.DATE);
+
 
                 // role dimension
                 ids.addDimensionType(ProgressConstants.DIMENSION_ROLE);
@@ -94,6 +119,8 @@ public class PrepareData {
                 // user dimension
                 ids.addDimensionType(ProgressConstants.DIMENSION_USER);
             } catch (InfoDiscoveryEngineDataMartException e) {
+                logger.error(e.getMessage());
+            } catch (InfoDiscoveryEngineRuntimeException e) {
                 logger.error(e.getMessage());
             }
         }
