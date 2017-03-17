@@ -20,7 +20,7 @@ public class ProgressInitializer {
 
     public static void initProgressFactType(String prefix) throws
             InfoDiscoveryEngineDataMartException {
-        logger.debug("Enter method initProgressFactType()");
+        logger.debug("Enter method initTaskFactType()");
 
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
 
@@ -39,15 +39,17 @@ public class ProgressInitializer {
                 logger.debug("Created role dimension type: " + roleType.getTypeName());
             }
             if (!ids.hasFactType(ProgressConstants.DIMENSION_USER)) {
-                DimensionType userType = ids.addDimensionType(prefix + ProgressConstants.DIMENSION_USER);
+                DimensionType userType = ids.addDimensionType(prefix + ProgressConstants
+                        .DIMENSION_USER);
                 logger.debug("Created user dimension type: " + userType.getTypeName());
             }
         } else {
-            logger.debug("Failed to connect to database: " + DatabaseConstants.INFODISCOVER_SPACENAME);
+            logger.debug("Failed to connect to database: " + DatabaseConstants
+                    .INFODISCOVER_SPACENAME);
         }
         ids.closeSpace();
 
-        logger.debug("Exit method initProgressFactType()...");
+        logger.debug("Exit method initTaskFactType()...");
     }
 
     public static void initProgressRelationType(String prefix) throws

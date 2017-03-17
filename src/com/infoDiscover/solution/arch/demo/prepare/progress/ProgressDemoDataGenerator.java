@@ -70,10 +70,13 @@ public class ProgressDemoDataGenerator {
             String progressId = progressProperties.get("progressId").toString();
             long startTimeLongValue = ((Date) progressProperties.get("startTime")).getTime();
 
+            String factType = projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN) ?
+                    DemoDataConfig.FACTTYPE_MAINTAIN_PROJECT : DemoDataConfig.FACTTYPE_NEW_PROJECT;
+
             if (firstNumberOfTasksToGenerate == 0) {
                 // only create progress
                 // TODO: check if the progress is already created and the task is running
-                createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(),
+                createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(), factType,
                         progressProperties);
             } else {
                 Map<String, Object>[] tasksPropertiesArray = TaskRandomData.generateTasksRandomData
@@ -100,7 +103,7 @@ public class ProgressDemoDataGenerator {
 
                 // to create progress
                 // TODO: check if the progress is already created and the task is running
-                createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(),
+                createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(), factType,
                         progressProperties);
 
 
@@ -126,7 +129,7 @@ public class ProgressDemoDataGenerator {
                         taskProperties.put("weixiubaojia", Double.valueOf(df.format(weixiubaojia)));
                     }
 
-                    createNewOrUpdateTaskInstance(ids, ids.getInformationExplorer(),
+                    createNewOrUpdateTaskInstance(ids, ids.getInformationExplorer(), factType,
                             taskProperties);
                 }
             }
@@ -203,9 +206,10 @@ public class ProgressDemoDataGenerator {
     }
 
     private static void createNewOrUpdateProgressInstance(InfoDiscoverSpace ids, InformationExplorer
-            ie, Map<String, Object> properties) {
-        logger.info("Enter method createNewOrUpdateFactInstance() with ids: " + ids +
-                "and properties: " +
+            ie, String factType, Map<String, Object> properties) {
+        logger.info("Enter method createNewOrUpdateFactInstance() with ids: " + ids + " and " +
+                "factType: " + factType +
+                " and properties: " +
                 properties);
 
         if (properties == null || properties.keySet().size() == 0) {
@@ -217,14 +221,12 @@ public class ProgressDemoDataGenerator {
 
         ProgressManager progressManager = new ProgressManager();
         try {
-            String factType = getFact(properties.get(JsonConstants.JSON_TYPE).toString());
-            logger.info("Fact type is : " + factType);
 
             // remove type from properties
             properties.remove("type");
 
             // create or update fact
-            Fact progressFact = progressManager.getProgressById(ie, progressId);
+            Fact progressFact = progressManager.getProgressById(ie, progressId, factType);
             if (progressFact == null) {
                 ProgressUtil.createFact(ids, factType, properties);
             } else {
@@ -237,13 +239,14 @@ public class ProgressDemoDataGenerator {
 
             // link startTime to progress
             DayDimensionVO dayDimension = getDayDimension((Date) properties.get("startTime"));
-            relationManager.attachTimeToProgress(ids, progressId, dayDimension, ProgressConstants
-                    .RELATIONTYPE_STARTAT);
+            relationManager.attachTimeToProgress(ids, progressId, factType, dayDimension,
+                    ProgressConstants
+                            .RELATIONTYPE_STARTAT);
 
             // link endTime to progress
             if (properties.get("endTime") != null) {
                 dayDimension = getDayDimension((Date) properties.get("endTime"));
-                relationManager.attachTimeToProgress(ids, progressId, dayDimension,
+                relationManager.attachTimeToProgress(ids, progressId, factType, dayDimension,
                         ProgressConstants.RELATIONTYPE_ENDAT);
             }
 
@@ -279,9 +282,10 @@ public class ProgressDemoDataGenerator {
     }
 
     private static void createNewOrUpdateTaskInstance(InfoDiscoverSpace ids, InformationExplorer
-            ie, Map<String, Object> properties) {
-        logger.info("Enter method createNewOrUpdateTaskInstance() with ids: " + ids +
-                "and properties: " +
+            ie, String progressFactType, Map<String, Object> properties) {
+        logger.info("Enter method createNewOrUpdateTaskInstance() with ids: " + ids + " with " +
+                "progressFactType: " + progressFactType +
+                " and properties: " +
                 properties);
 
         String progressId = properties.get("progressId").toString();
@@ -304,7 +308,7 @@ public class ProgressDemoDataGenerator {
 
             // link tasks to progress
             ProgressRelationManager relationManager = new ProgressRelationManager();
-            relationManager.attachTaskToProgress(progressId, taskId);
+            relationManager.attachTaskToProgress(progressId, progressFactType, taskId);
 
             // link user to task
             String userId = properties.get(JsonConstants.TASK_ASSIGNEE).toString();

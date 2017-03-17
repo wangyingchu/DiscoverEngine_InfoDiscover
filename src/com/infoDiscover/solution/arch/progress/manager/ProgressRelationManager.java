@@ -26,7 +26,9 @@ public class ProgressRelationManager {
 
     private final static Logger logger = LogManager.getLogger(ProgressRelationManager.class);
 
-    public void batchAttachTasksToProgress(InfoDiscoverSpace ids, String progressId, String[]
+    public void batchAttachTasksToProgress(InfoDiscoverSpace ids, String progressId, String
+            progressFactType, String taskFactType,
+                                           String[]
             taskIds) {
         logger.debug("Enter method batchAttachTasksToProgress() with progressId: " + progressId +
                 " " +
@@ -35,7 +37,7 @@ public class ProgressRelationManager {
 
         for (String taskId : taskIds) {
             try {
-                Fact progress = new ProgressManager().getProgressById(ie, progressId);
+                Fact progress = new ProgressManager().getProgressById(ie, progressId, progressFactType);
                 Fact task = new TaskManager().getTaskById(ie, taskId);
 
                 linkFactsByRelationType(progress, task, ProgressConstants.RELATIONTYPE_PROGRESS_HASTASK);
@@ -49,14 +51,15 @@ public class ProgressRelationManager {
         logger.debug("Exit method batchAttachTasksToProgress()...");
     }
 
-    public Relation attachTaskToProgress(String progressId, String taskId) {
+    public Relation attachTaskToProgress(String progressId, String progressFactType, String
+            taskId) {
         logger.debug("Enter method attachTaskToProgress() with progressId: " + progressId + " " +
                 "and taskId: " + taskId);
 
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
         InformationExplorer ie = ids.getInformationExplorer();
         try {
-            Fact progress = new ProgressManager().getProgressById(ie, progressId);
+            Fact progress = new ProgressManager().getProgressById(ie, progressId, progressFactType);
             Fact task = new TaskManager().getTaskById(ie, taskId);
 
             return linkFactsByRelationType(progress, task, ProgressConstants.RELATIONTYPE_PROGRESS_HASTASK);
@@ -152,7 +155,8 @@ public class ProgressRelationManager {
         return null;
     }
 
-    public Relation attachTimeToProgress(InfoDiscoverSpace ids, String progressId, DayDimensionVO
+    public Relation attachTimeToProgress(InfoDiscoverSpace ids, String progressId,
+                                         String progressFactType, DayDimensionVO
             dayDimension, String relationType) {
         logger.debug("Enter method attachTimeToProgress() with progressId: " + progressId + " and " +
                 "dayDimension: " + dayDimension.toString());
@@ -162,7 +166,7 @@ public class ProgressRelationManager {
         InformationExplorer ie = ids.getInformationExplorer();
 
         try {
-            Fact progress = progressManager.getProgressById(ie, progressId);
+            Fact progress = progressManager.getProgressById(ie, progressId, progressFactType);
 
             Dimension day = getDayDimension(ie, dayDimension);
 

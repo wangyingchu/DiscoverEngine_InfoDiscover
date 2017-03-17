@@ -3,6 +3,7 @@ package com.infoDiscover.solution.arch.progress;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.solution.arch.progress.analytics.ProgressAnalytics;
+import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.fact.ProgressFact;
 import com.infoDiscover.solution.arch.progress.fact.RoleDimension;
 import com.infoDiscover.solution.arch.progress.fact.TaskFact;
@@ -91,7 +92,8 @@ public class Test {
         TaskManager taskManager = new TaskManager();
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
         InformationExplorer ie = ids.getInformationExplorer();
-        Fact fromFact = progressManager.getProgressById(ie, "maintain001");
+        Fact fromFact = progressManager.getProgressById(ie, "maintain001", ProgressConstants
+                .FACT_PROGRESS);
         Fact toFact = taskManager.getTaskById(ie, "apply001");
 
         RelationshipManager manager = new RelationshipManager();
@@ -112,7 +114,8 @@ public class Test {
         // create progress 1
         ProgressManager progressManager = new ProgressManager();
         TaskManager taskManager = new TaskManager();
-        Fact progress = progressManager.createProgressFact(new ProgressFact("progressId1",
+        Fact progress = progressManager.createProgressFact(new ProgressFact(ProgressConstants
+                .FACT_PROGRESS, "progressId1",
                 "progressContent"));
         String progressId = progress.getId();
         println("progressId: " + progressId);

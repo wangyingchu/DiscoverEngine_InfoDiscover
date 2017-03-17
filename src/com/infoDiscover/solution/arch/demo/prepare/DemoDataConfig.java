@@ -1,6 +1,7 @@
 package com.infoDiscover.solution.arch.demo.prepare;
 
 import com.infoDiscover.solution.arch.database.DatabaseConstants;
+import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 
 /**
  * Created by sun.
@@ -42,6 +43,11 @@ public class DemoDataConfig {
     public final static String PROJECTTYPE_NEW = "new";
     public final static String PROJECTNAME_MAINTAIN = "维修工程";
     public final static String PROJECTNAME_NEW = "新建工程";
+
+    public final static String FACTTYPE_MAINTAIN_PROJECT = ProgressConstants.FACT_PROGRESS +
+            "_MAINTAIN";
+    public final static String FACTTYPE_NEW_PROJECT = ProgressConstants.FACT_PROGRESS +
+            "_NEWPROJECT";
 
     public final static String[] MAINTAIN_TASKS = {"WeiXiuShenqing", "ProjectStart", "KanchaBaojia",
             "zaojiahetongshenpi", "zaojiazixunqianding", "yusuanzaojia", "yusuanzaojiashenpi",

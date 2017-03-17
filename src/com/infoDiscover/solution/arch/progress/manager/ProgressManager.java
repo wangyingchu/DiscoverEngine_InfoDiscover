@@ -23,21 +23,21 @@ public class ProgressManager {
 
     private final static Logger logger = LogManager.getLogger(ProgressManager.class);
 
-    public Fact getProgressById(InformationExplorer ie, String progressId) throws
+    public Fact getProgressById(InformationExplorer ie, String progressId, String factType) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.FACT_PROGRESS);
+        ep.setType(factType);
         ep.setDefaultFilteringItem(new EqualFilteringItem("progressId", progressId));
 
         return QueryExecutor.executeFactQuery(ie, ep);
     }
 
-    public Fact getProgressById(String progressId) throws
+    public Fact getProgressById(String progressId, String factType) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.FACT_PROGRESS);
+        ep.setType(factType);
         ep.setDefaultFilteringItem(new EqualFilteringItem("progressId", progressId));
 
         return QueryExecutor.executeFactQuery(ep);
@@ -48,13 +48,13 @@ public class ProgressManager {
         logger.debug("Enter method createProgressFact() with progressId: " + progress.getProgressId
                 ());
 
-        Fact progressFact = getProgressById(progress.getProgressId());
+        Fact progressFact = getProgressById(progress.getProgressId(), progress.getFactType());
         if (progressFact == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("progressId", progress.getProgressId());
             props.put("content", progress.getContent());
 
-            progressFact = ProgressUtil.createFact(ProgressConstants.FACT_PROGRESS, props);
+            progressFact = ProgressUtil.createFact(progress.getFactType(), props);
         }
         logger.debug("Exit method createProgressFact()...");
         return progressFact;
