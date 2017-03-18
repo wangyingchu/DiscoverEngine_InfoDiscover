@@ -2,6 +2,7 @@ package com.infoDiscover.solution.common.relationship;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
+import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBRelationableImpl;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
@@ -21,11 +22,16 @@ import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.orientechnologies.orient.core.sql.filter.OSQLPredicate;
 import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
+import com.tinkerpop.blueprints.Direction;
+import com.tinkerpop.blueprints.Edge;
+import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -47,14 +53,33 @@ public class RelationshipManager {
 
         OrientGraph graph = new OrientGraph("remote:localhost/DemoArch", "root", "wyc");
 
-        List<ODocument> spath = graph.getRawGraph().query(new OSQLSynchQuery<Object>(sql));
+//        List<OrientVertex> spath = graph.getRawGraph().query(new OSQLSynchQuery<Object>(sql));
 
-        for (ODocument path : spath) {
-            logger.debug("path: " + path);
+        int i = 0;
+        List<OrientVertex> list = new ArrayList<>();
+
+
+        for (Vertex v : (Iterable<Vertex>) graph.command(
+                new OCommandSQL(sql)).execute()) {
+            OrientVertex ov = (OrientVertex) v;
+
+            list.add(ov);
+
         }
 
-//        List<ODocument> spath = orientGraph.getRawGraph().query(new OSQLSynchQuery<Object>(
-////                "select flatten(shortestPath("+v1+","+v2+",'BOTH').out)"));
+        for (OrientVertex v : list) {
+            if (i < list.size() - 1) {
+                ++i;
+            }
+            Iterator<Edge> it = (Iterator<Edge>) v.getEdges(list.get(i), Direction.BOTH);
+
+            if (it.hasNext()) {
+                Edge e = it.next();
+                logger.debug("e: " + e);
+            }
+
+        }
+
         logger.info("Enter method findShortestPath()...");
     }
 

@@ -43,6 +43,13 @@ public class RandomUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(generateRandomDouble(1,10000));
+
+        System.out.println(generateRandomDouble(10000, 20000));
+        System.out.println(generateRandomDouble(20000, 30000));
+        System.out.println(generateRandomDouble(30000, 40000));
+        System.out.println(generateRandomDouble(40000, 50000));
+        System.out.println(generateRandomDouble(50000, 60000));
+        System.out.println(generateRandomDouble(60000, 70000));
+        System.out.println(generateRandomDouble(70000, 80000));
     }
 }

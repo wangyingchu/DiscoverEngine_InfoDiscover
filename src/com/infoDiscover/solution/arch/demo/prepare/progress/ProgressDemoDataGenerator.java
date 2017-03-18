@@ -79,9 +79,18 @@ public class ProgressDemoDataGenerator {
                 createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(), factType,
                         progressProperties);
             } else {
+
                 Map<String, Object>[] tasksPropertiesArray = TaskRandomData.generateTasksRandomData
                         (projectTemplate, projectType, progressId,
                                 startTimeLongValue, firstNumberOfTasksToGenerate);
+
+                // deal with the tasks array for some special properties
+                if (factType.equalsIgnoreCase(DemoDataConfig.FACTTYPE_MAINTAIN_PROJECT)) {
+                    List<Map<String, Object>> tasksPropertiesList = getTasksProperties
+                            (tasksPropertiesArray);
+                    tasksPropertiesArray = tasksPropertiesList.toArray(tasksPropertiesArray);
+                }
+
 
                 // append task properties to progress
                 progressProperties = appendTaskPropertiesToProgress(progressProperties,
@@ -106,33 +115,9 @@ public class ProgressDemoDataGenerator {
                 createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(), factType,
                         progressProperties);
 
-
-                String taskProjectType = "";
-
-                // to create tasks
-                for (Map<String, Object> taskProperties : tasksPropertiesArray) {
-                    if (taskProperties.get("taskName").toString().equalsIgnoreCase
-                            ("WeiXiuShenqing")) {
-                        taskProjectType = taskProperties.get("projectType").toString();
-                    }
-
-                    if (taskProperties.get("taskName").toString().equalsIgnoreCase
-                            ("KanchaBaojia")) {
-                        int index = Arrays.binarySearch(DemoDataConfig.projectTypeList,
-                                taskProjectType);
-
-
-                        int min = DemoDataConfig.weixiubaojiaList[index];
-                        int max = DemoDataConfig.weixiubaojiaList[index + 1];
-                        double weixiubaojia = RandomUtil.generateRandomDouble(min, max);
-
-                        DecimalFormat df = new DecimalFormat("######0.00");
-                        taskProperties.put("weixiubaojia", Double.valueOf(df.format(weixiubaojia)));
-                    }
-
-                    createNewOrUpdateTaskInstance(ids, ids.getInformationExplorer(), factType,
-                            taskProperties);
-                }
+                // batch create tasks
+                batchCreateNewOrUpdateTaskInstances(ids, ids.getInformationExplorer(), factType,
+                        tasksPropertiesArray);
             }
 
         }
@@ -140,6 +125,40 @@ public class ProgressDemoDataGenerator {
         ids.closeSpace();
         logger.info("Exit method generateProjectDemoData()...");
     }
+
+    private static List<Map<String, Object>> getTasksProperties(Map<String, Object>[]
+                                                                        tasksPropertiesArray) {
+
+        List<Map<String, Object>> tasksList = new ArrayList<>();
+
+        String taskProjectType = "";
+        // to create tasks
+        for (Map<String, Object> taskProperties : tasksPropertiesArray) {
+            if (taskProperties.get("taskName").toString().equalsIgnoreCase
+                    ("WeiXiuShenqing")) {
+                taskProjectType = taskProperties.get("projectType").toString();
+            }
+
+            if (taskProperties.get("taskName").toString().equalsIgnoreCase
+                    ("KanchaBaojia")) {
+                int index = Arrays.binarySearch(DemoDataConfig.projectTypeList,
+                        taskProjectType);
+
+                int min = DemoDataConfig.weixiubaojiaList[index];
+                int max = DemoDataConfig.weixiubaojiaList[index + 1];
+                double weixiubaojia = RandomUtil.generateRandomDouble(min, max);
+
+                DecimalFormat df = new DecimalFormat("######0.00");
+                taskProperties.put("weixiubaojia", Double.valueOf(df.format(weixiubaojia)));
+            }
+
+            tasksList.add(taskProperties);
+
+        }
+
+        return tasksList;
+    }
+
 
     private static Map<String, Object> appendTaskPropertiesToProgress(
             Map<String, Object> progressProperties,
@@ -280,6 +299,16 @@ public class ProgressDemoDataGenerator {
             return ProgressConstants.FACT_TASK;
         }
         return "";
+    }
+
+    private static void batchCreateNewOrUpdateTaskInstances(InfoDiscoverSpace ids,
+                                                            InformationExplorer ie, String
+                                                                    progressFactType,
+                                                            Map<String, Object>[]
+                                                                    tasksPropertiesArray) {
+        for (Map<String, Object> taskProperties : tasksPropertiesArray) {
+            createNewOrUpdateTaskInstance(ids, ie, progressFactType, taskProperties);
+        }
     }
 
     private static void createNewOrUpdateTaskInstance(InfoDiscoverSpace ids, InformationExplorer
