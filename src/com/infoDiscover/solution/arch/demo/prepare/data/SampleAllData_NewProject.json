@@ -123,7 +123,7 @@
               "propertyValue": "项目类型"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zongtouzie",
               "propertyValue": 0
             }
@@ -235,7 +235,7 @@
               "propertyValue": "立项编制单位"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "lixianghetongjine",
               "propertyValue": 0
             },
@@ -473,7 +473,7 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zhaobiaodailihetongjine",
               "propertyValue": 0
             },
@@ -554,7 +554,7 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "kanchahetonghetongjine",
               "propertyValue": 0
             },
@@ -655,7 +655,7 @@
               "propertyValue": "设计合同编号"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "shejiheotongjine",
               "propertyValue": 0
             },
@@ -716,7 +716,7 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "dixiajianzhumianji",
               "propertyValue": 0
             },
@@ -726,12 +726,12 @@
               "propertyValue": "设计单位技术负责人"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "lvhualv",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jiansheyongdi",
               "propertyValue": 0
             },
@@ -756,12 +756,12 @@
               "propertyValue": "勘察设计人员"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zhandilv",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "rongjiliang",
               "propertyValue": 0
             },
@@ -776,7 +776,7 @@
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jianzhugaodu",
               "propertyValue": 0
             }
@@ -837,22 +837,22 @@
               "propertyValue": "概算编制技术负责人"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "gongchengjiansheqitfei_gaisuan",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zonggaisuanfei_gaisuan",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jianangongchengfei_gaisuan",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "yubeifei_gaisuan",
               "propertyValue": 0
             }
@@ -903,12 +903,12 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zonggaisuanfei_pifu",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "gongchengjiansheqitafei_pifu",
               "propertyValue": 0
             },
@@ -918,12 +918,12 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "yubeifei_pifu",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jianangongchengfei_pifu",
               "propertyValue": 0
             }
@@ -984,14 +984,14 @@
               "propertyValue": "造价咨询单位联系人"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zaojiazixunhetongjine",
               "propertyValue": 0
             },
             {
               "propertyType": "String",
               "propertyName": "zaojiazixunhetongbianhao",
-              "propertyValue": "造价咨询合同金额"
+              "propertyValue": "造价咨询合同编号"
             },
             {
               "propertyType": "Date",
@@ -1055,17 +1055,17 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "yubeifei_yusuan",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zaojiazongjine_yusuan",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jiansheqitafei_yusuan",
               "propertyValue": 0
             },
@@ -1075,7 +1075,7 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jiananfei_yusuan",
               "propertyValue": 0
             }
@@ -1126,17 +1126,17 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jianangongchengfei_shending",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "yubeifen_shending",
               "propertyValue": 0
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "zaojiazongjine_shending",
               "propertyValue": 0
             },
@@ -1146,7 +1146,7 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "jiansheqifafei",
               "propertyValue": 0
             }
@@ -1212,7 +1212,7 @@
               "propertyValue": null
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "shigonghetongjiner",
               "propertyValue": 0
             },
@@ -1364,7 +1364,7 @@
               "propertyValue": "安全检测结果"
             },
             {
-              "propertyType": "Doule",
+              "propertyType": "Double",
               "propertyName": "yuezijinfeiyong",
               "propertyValue": 0
             },
