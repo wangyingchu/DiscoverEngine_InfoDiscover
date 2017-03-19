@@ -54,7 +54,6 @@ public class Test {
 
 //        select();
 
-        checkRelationship();
     }
 
     private static void select() throws InfoDiscoveryEngineInfoExploreException {
@@ -87,19 +86,7 @@ public class Test {
         }
     }
 
-    private static  void checkRelationship() throws InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-        ProgressManager progressManager = new ProgressManager();
-        TaskManager taskManager = new TaskManager();
-        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-        InformationExplorer ie = ids.getInformationExplorer();
-        Fact fromFact = progressManager.getProgressById(ie, "maintain001", ProgressConstants
-                .FACT_PROGRESS);
-        Fact toFact = taskManager.getTaskById(ie, "apply001");
 
-        RelationshipManager manager = new RelationshipManager();
-        boolean flag = manager.checkRelationship(fromFact, toFact);
-        println("flag: " + flag);
-    }
 
     private static void println(String message) {
         System.out.println(message);

@@ -1,30 +1,10 @@
 package com.infoDiscover.solution.common.relationship;
 
-import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
-import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBRelationableImpl;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
-import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.solution.arch.database.DatabaseManager;
-import com.infoDiscover.solution.arch.progress.manager.ProgressManager;
-import com.infoDiscover.solution.arch.progress.manager.TaskManager;
-import com.infoDiscover.solution.arch.progress.manager.UserManager;
-import com.infoDiscover.solution.common.executor.QueryExecutor;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
-import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
-import com.orientechnologies.orient.core.command.traverse.OTraverse;
-import com.orientechnologies.orient.core.db.record.OIdentifiable;
-import com.orientechnologies.orient.core.id.ORecordId;
-import com.orientechnologies.orient.core.record.impl.ODocument;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
-import com.orientechnologies.orient.core.sql.filter.OSQLPredicate;
-import com.orientechnologies.orient.core.sql.query.OSQLSynchQuery;
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 import org.apache.logging.log4j.LogManager;
@@ -38,139 +18,82 @@ import java.util.List;
  * Created by sun.
  */
 public class RelationshipManager {
-    private final  static Logger logger = LogManager.getLogger(RelationshipManager.class);
+    private final static Logger logger = LogManager.getLogger(RelationshipManager.class);
 
-    public boolean checkRelationship(Fact fromFact, Fact toFact) {
-        List<Relationable> results = findRelationships(fromFact,toFact);
-        return results.size() > 0;
-    }
+    public List<OrientVertex> getVerticesFromShortestPath(OrientGraph graph, String
+            fromVertexRID, String toVertexRID) {
+        logger.info("Enter method getVerticesFromShortestPath() from rid: " + fromVertexRID + " " +
+                "to rid: " +
+                toVertexRID);
 
-    public void findShortestPath(String fromRid, String toRid) {
-        logger.info("Enter method findShortestPath() from rid: " + fromRid + " to rid: " + toRid);
-        String sql = "select expand(shortestpath) from (select shortestpath(" + fromRid + ","
-                + toRid + ", 'BOTH'))";
-        logger.debug("sql: " + sql);
+        String sql = "select expand(shortestpath) from (select shortestpath(" + fromVertexRID + ","
+                + toVertexRID + ", 'BOTH'))";
 
-        OrientGraph graph = new OrientGraph("remote:localhost/DemoArch", "root", "wyc");
-
-//        List<OrientVertex> spath = graph.getRawGraph().query(new OSQLSynchQuery<Object>(sql));
-
-        int i = 0;
         List<OrientVertex> list = new ArrayList<>();
 
-
-        for (Vertex v : (Iterable<Vertex>) graph.command(
+        for (OrientVertex v : (Iterable<OrientVertex>) graph.command(
                 new OCommandSQL(sql)).execute()) {
-            OrientVertex ov = (OrientVertex) v;
-
-            list.add(ov);
-
+            list.add(v);
         }
 
-        for (OrientVertex v : list) {
-            if (i < list.size() - 1) {
+        logger.info("Exit method getVerticesFromShortestPath()...");
+
+        return list;
+    }
+
+    public List<Edge> getEdgesFromShortestPath(OrientGraph graph, String fromVertexRID, String
+            toVertexRID) {
+        logger.info("Enter method getEdgesFromShortestPath() from rid: " + fromVertexRID + " to " +
+                "rid: " +
+                toVertexRID);
+
+        List<OrientVertex> orientVertexList = getVerticesFromShortestPath(graph, fromVertexRID,
+                toVertexRID);
+
+        if (orientVertexList == null || orientVertexList.size() == 0) {
+            return null;
+        }
+
+        int i = 0;
+        List<Edge> edgeList = new ArrayList<>();
+        for (OrientVertex v : orientVertexList) {
+            if (i < orientVertexList.size() - 1) {
                 ++i;
             }
-            Iterator<Edge> it = (Iterator<Edge>) v.getEdges(list.get(i), Direction.BOTH);
 
-            if (it.hasNext()) {
-                Edge e = it.next();
-                logger.debug("e: " + e);
+            Iterator<Edge> iterator = (Iterator<Edge>) v.getEdges(orientVertexList.get(i),
+                    Direction.BOTH);
+
+            if (iterator.hasNext()) {
+                Edge e = iterator.next();
+                edgeList.add(e);
             }
-
         }
 
-        logger.info("Enter method findShortestPath()...");
+        logger.info("Exit method getEdgesFromShortestPath()...");
+        return edgeList;
     }
 
-    public List<Relationable> findRelationships(Fact fromFact, Fact toFact) {
-        logger.debug("Enter method findRelationships() from fact: " + fromFact.getId() + " to " +
-                "fact: " + toFact.getId());
-        String sql = "select from (TRAVERSE both() FROM " + fromFact.getId() + ") where @class=" +
-                "\"" + InfoDiscoverEngineConstant.CLASSPERFIX_FACT + toFact.getType() + "\" and" +
-                " " +
-                "@rid=" +
-                toFact.getId();
-
-        logger.debug("findRelationships() sql: " + sql);
-
-        List<Relationable> results = QueryExecutor.executeFactQuery(sql);
-
-        logger.debug("Exit method findRelationships()...");
-        return results;
+    public boolean checkRelationship(OrientGraph graph, String fromVertexRID, String toVertexRID) {
+        List<OrientVertex> list = getVerticesFromShortestPath(graph, fromVertexRID, toVertexRID);
+        return list.size() > 0;
     }
 
 
-//    public List<Relationable> findRelationships2(Fact fromFact, Fact toFact) {
-//        logger.debug("Enter method findRelationships() from fact: " + fromFact.getId() + " to " +
-//                "fact: " + toFact.getId());
-////        String sql = "select $path from (TRAVERSE both() FROM " + fromFact.getId() + ") ";
-//
-//        String sql = "select flatten(shortestPath) from (select shortestPath(#366:1,#385:2))";
-//        logger.debug("findRelationships() sql: " + sql);
-//
-//
-//        OrientGraph graph = new OrientGraph("remote:localhost/InfoDiscover", "root", "wyc");
-//
-//        List<ODocument> paths = graph.getRawGraph().query(new OSQLSynchQuery<Object>(sql));
-//        for(ODocument doc: paths) {
-//            logger.debug("doc: " + doc.toJSON());
-//        }
-//
-////        List<ODocument> spath = orientGraph.getRawGraph().query(new OSQLSynchQuery<Object>(
-////                "select flatten(shortestPath("+v1+","+v2+",'BOTH').out)"));
-//
-//        for (OIdentifiable v : (Iterable<OIdentifiable>) graph.command(
-//                new OCommandSQL(sql)).execute()) {
-//            logger.debug("v: " + v);
-//        }
-//
-//
-//        logger.debug("Exit method findRelationships()...");
-//        return null;
-//    }
-    public static void main(String[] args) throws InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-
-//        ProgressManager progressManager = new ProgressManager();
-//        TaskManager taskManager = new TaskManager();
-//        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-//        InformationExplorer ie = ids.getInformationExplorer();
-//        Fact fromFact = progressManager.getProgressById(ie, "maintain001");
-////        Fact toFact = taskManager.getTaskById(ie, "apply001");
-//        Dimension toFact = new UserManager().getUserById(ie, "zhongyanyang");
-//
-//        RelationshipManager manager = new RelationshipManager();
-//        List<Relationable> list = manager.findRelationships2(fromFact,toFact);
-
-
-//        OrientGraph graph = new OrientGraph("remote:localhost/InfoDiscover", "root", "wyc");
-//        OrientVertex v = graph.getVertex("#366:1");
-////
-//        for (OIdentifiable id : new OTraverse()
-//                //.target(new ORecordId("#6:0"), new ORecordId("#6:1"))
-//                .target(new ORecordId("#366:1"))
-//                //.fields("out", "int")
-//                .field("all()")
-//                .limit(100)
-//                .predicate( new OSQLPredicate("$depth <=10"))) {
-//
-//            //System.out.println( "id:" + id);
-//        }
-//
-//        for (OIdentifiable id : new OSQLSynchQuery<ODocument>("traverse in, out from " +
-//                "#366:1" + " while $depth <= 10") )  {
-//            System.out.println(id);
-//        }
-
-
-//
-//        Iterable<Edge>  e = v.getEdges(Direction.BOTH);
-//        for (Edge edge: e) {
-//            logger.debug(edge.getId());
-//        }
-
+    public static void main(String[] args) throws InfoDiscoveryEngineRuntimeException,
+            InfoDiscoveryEngineInfoExploreException {
 
         RelationshipManager manager = new RelationshipManager();
-        manager.findShortestPath("#105:3", "#107:2");
+
+        OrientGraph graph = new OrientGraph("remote:localhost/InfoDiscover", "root", "wyc");
+        List<OrientVertex> list = manager.getVerticesFromShortestPath(graph, "#549:0", "#545:2");
+        for (OrientVertex v : list) {
+            System.out.println("V: " + v.getId());
+        }
+
+        List<Edge> edgeList = manager.getEdgesFromShortestPath(graph, "#531:0", "#504:161");
+        for (Edge e : edgeList) {
+            logger.debug(" e: " + e.getId());
+        }
     }
 }
