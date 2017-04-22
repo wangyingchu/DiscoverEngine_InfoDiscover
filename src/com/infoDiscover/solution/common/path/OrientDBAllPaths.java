@@ -2,7 +2,6 @@ package com.infoDiscover.solution.common.path;
 
 import com.infoDiscover.solution.common.path.helper.AllPaths;
 import com.infoDiscover.solution.common.path.helper.Graph;
-import com.infoDiscover.solution.common.path.helper.StdOut;
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Vertex;
@@ -43,37 +42,44 @@ public class OrientDBAllPaths {
         return list;
     }
 
-    public static List<Stack<String>> getAllPaths(OrientGraph graph, String fromRid, String
-            toRid, ResultType type) {
-        logger.info("Start to getAllPaths fromVertex: {} to toVertex: {} with returnType: {}",
-                fromRid, toRid, type);
+    public static List<Stack<String>> getVerticesOfAllPaths(OrientGraph graph, String fromRid,
+                                                            String
+                                                                    toRid) {
+        logger.info("Start to getAllPaths fromVertex: {} to toVertex: {}",
+                fromRid, toRid);
         Graph g = generateGraphFromOrientDB(graph);
 
         List<Stack<String>> paths = new AllPaths(g,
                 fromRid, toRid).getAllPaths();
 
-        if (paths == null || paths.size() == 0) {
+        logger.info("End to getAllPaths()...");
+        return paths;
+    }
+
+    public static List<Stack<Edge>> getEdgesOfAllPaths(OrientGraph graph, String fromRid, String
+            toRid) {
+        logger.info("Start to getEdgesOfAllPaths fromVertex: {} to toVertex: {}", fromRid, toRid);
+        List<Stack<String>> paths = getVerticesOfAllPaths(graph, fromRid, toRid);
+
+
+        logger.info("End to getEdgesOfAllPaths()...");
+        return getEdgesFromAllPaths(graph, paths);
+    }
+
+
+    private static List<Stack<Edge>> getEdgesFromAllPaths(OrientGraph graph, List<Stack<String>>
+            allPaths) {
+
+        if (allPaths == null || allPaths.size() == 0) {
             return null;
         }
 
-        logger.info("End to getAllPaths()...");
-        switch (type) {
-            case E:
-                return getEdgesFromAllPaths(graph, paths);
-            default:
-                return paths;
-        }
-
-    }
-
-    private static List<Stack<String>> getEdgesFromAllPaths(OrientGraph graph, List<Stack<String>>
-            allPaths) {
         logger.info("Start to getEdgesFromAllPaths");
-        List<Stack<String>> edgesOfAllPath = new ArrayList<>();
+        List<Stack<Edge>> edgesOfAllPath = new ArrayList<>();
 
         for (Stack<String> path : allPaths) {
             int i = 0;
-            Stack<String> edge = new Stack<>();
+            Stack<Edge> edge = new Stack<>();
             for (String vertexId : path) {
                 if (i < path.size() - 1) {
                     ++i;
@@ -84,8 +90,7 @@ public class OrientDBAllPaths {
                 Iterator<Edge> iterator = (Iterator<Edge>) fromVertex.getEdges(toVertex,
                         Direction.BOTH);
                 if (iterator.hasNext()) {
-                    String edgeId = iterator.next().getId().toString();
-                    edge.add(edgeId);
+                    edge.add(iterator.next());
                 }
             }
             edgesOfAllPath.add(edge);
@@ -133,16 +138,16 @@ public class OrientDBAllPaths {
 
     public static void main(String[] args) {
 
-        getAllPathsFromInfoDiscover(ResultType.V);
+//        getAllPathsFromInfoDiscover(ResultType.V);
 //        getAllPathsFromDemoArch(ResultType.V);
-//        getAllPathsFromDemoArch(ResultType.E);
+        getAllPathsFromDemoArch(ResultType.E);
     }
 
     private static void getAllPathsFromPathDB() {
         OrientGraph graph = new OrientGraph("remote:localhost/pathDB", "root", "wyc");
 
-        List<Stack<String>> paths = getAllPaths(graph, "#33:0",
-                "#37:0", ResultType.V);
+        List<Stack<String>> paths = getVerticesOfAllPaths(graph, "#33:0",
+                "#37:0");
 
         for (Stack<String> s : paths) {
             logger.info("path: ", s);
@@ -152,18 +157,32 @@ public class OrientDBAllPaths {
     private static void getAllPathsFromDemoArch(ResultType type) {
         OrientGraph graph = new OrientGraph("remote:localhost/DemoArch", "root", "wyc");
 
-        List<Stack<String>> paths = getAllPaths(graph, "#105:3", "#107:2", type);
-        for (Stack<String> path : paths) {
-            logger.info("path: {}", path);
+        if (type == ResultType.V) {
+            List<Stack<String>> paths = getVerticesOfAllPaths(graph, "#105:3", "#107:2");
+            for (Stack<String> path : paths) {
+                logger.info("path: {}", path);
+            }
+        } else if (type == ResultType.E) {
+            List<Stack<Edge>> paths = getEdgesOfAllPaths(graph,"#105:3", "#107:2");
+            for(Stack<Edge> edge: paths) {
+                logger.info("edge: {}", edge);
+            }
         }
     }
 
     private static void getAllPathsFromInfoDiscover(ResultType type) {
         OrientGraph graph = new OrientGraph("remote:localhost/InfoDiscover", "root", "wyc");
 
-        List<Stack<String>> paths = getAllPaths(graph,"#549:0", "#545:2", type);
-        for (Stack<String> path : paths) {
-            logger.info("path: {}", path);
+        if (type == ResultType.V) {
+            List<Stack<String>> paths = getVerticesOfAllPaths(graph, "#549:0", "#545:2");
+            for (Stack<String> path : paths) {
+                logger.info("path: {}", path);
+            }
+        } else if (type == ResultType.E) {
+            List<Stack<Edge>> paths = getEdgesOfAllPaths(graph,"#549:0", "#545:2");
+            for(Stack<Edge> edge: paths) {
+                logger.info("edge: {}", edge);
+            }
         }
     }
 }
