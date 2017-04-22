@@ -2,7 +2,6 @@ package com.infoDiscover.solution.arch.demo.prepare;
 
 import com.infoDiscover.common.PrefixConstant;
 import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.FactType;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
@@ -14,14 +13,14 @@ import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.solution.arch.demo.prepare.progress.ProgressDemoDataGenerator;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.manager.ProgressInitializer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by sun.
  */
 public class PrepareData {
-    private final static Logger logger = LogManager.getLogger(PrepareData.class);
+    private final static Logger logger = LoggerFactory.getLogger(PrepareData.class);
 
     public static void main(String[] args) {
         prepareData(DemoDataConfig.FILE_USER, DemoDataConfig.FILE_ROLE);
@@ -46,8 +45,9 @@ public class PrepareData {
                     "one");
             System.exit(0);
         }
-        boolean created = DiscoverEngineComponentFactory.createInfoDiscoverSpace(DemoDataConfig.DATABASENAME);
-        logger.info("Step 1: end to create demo database: " + created);
+        boolean created = DiscoverEngineComponentFactory.createInfoDiscoverSpace(DemoDataConfig
+                .DATABASENAME);
+        logger.info("Step 1: end to create demo database: {}", created);
 
         if (!created) {
             logger.error("Failed to create demo database");
@@ -57,7 +57,7 @@ public class PrepareData {
         logger.info("Step 2: initialize time dimension type");
         try {
             TimeDimensionGenerator.initTimeDimensionType(PrefixConstant.prefixWithout);
-            logger.info("Step 2: end to initialize time dimension type with prefix: " +
+            logger.info("Step 2: end to initialize time dimension type with prefix: {}",
                     PrefixConstant.prefixWithout);
         } catch (InfoDiscoveryEngineDataMartException e) {
             logger.error("Failed to initialize time dimension type");

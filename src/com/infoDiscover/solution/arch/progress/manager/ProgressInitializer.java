@@ -6,8 +6,8 @@ import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -15,7 +15,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class ProgressInitializer {
 
-    private final static Logger logger = LogManager.getLogger
+    private final static Logger logger = LoggerFactory.getLogger
             (ProgressInitializer.class);
 
     public static void initProgressFactType(String prefix) throws

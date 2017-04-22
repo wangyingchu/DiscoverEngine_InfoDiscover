@@ -10,8 +10,8 @@ import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.fact.UserDimension;
 import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class UserManager {
 
-    private final static Logger logger = LogManager.getLogger(UserManager.class);
+    private final static Logger logger = LoggerFactory.getLogger(UserManager.class);
 
     public Dimension getUserById(InformationExplorer ie, String userId) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {

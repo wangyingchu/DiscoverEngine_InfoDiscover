@@ -6,11 +6,15 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.Eq
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationType;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.SQLBuilder;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by sun.
  */
 public class ProgressSqlBuilder {
+    private final static Logger logger = LoggerFactory.getLogger(ProgressSqlBuilder.class);
+
     public static String buildSelectProgressSQL(String progressId) throws InfoDiscoveryEngineInfoExploreException {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(ProgressConstants.FACT_PROGRESS);

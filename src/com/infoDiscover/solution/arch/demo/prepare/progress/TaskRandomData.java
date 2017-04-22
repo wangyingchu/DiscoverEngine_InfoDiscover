@@ -31,10 +31,10 @@ public class TaskRandomData {
              String progressId,
              long progressStartTime,
              int firstNumberTasks) {
-        logger.info("Enter method generateTasksRandomData() with projectTemplate: " +
-                projectTemplate + " and projectType: " + projectType + " and progressId: " +
-                progressId + " and progressStartTime: " + new
-                Date(progressStartTime) + " and firstNumberTasks: " + firstNumberTasks);
+        logger.info("Enter method generateTasksRandomData() with projectTemplate: {} and " +
+                "projectType: {} and progressId: {} and progressStartTime: {} and " +
+                "firstNumberTasks: {}", projectTemplate, projectType, progressId, new Date
+                (progressStartTime), firstNumberTasks);
 
         JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
         JsonNode taskNodes = ProgressJsonParser.getTaskNodes(json.toString());

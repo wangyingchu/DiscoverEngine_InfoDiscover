@@ -10,8 +10,8 @@ import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.fact.TaskFact;
 import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by sun.
  */
 public class TaskManager {
-    private final static Logger logger = LogManager.getLogger(TaskManager.class);
+    private final static Logger logger = LoggerFactory.getLogger(TaskManager.class);
 
     public Fact getTaskById(InformationExplorer ie, String taskId) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {

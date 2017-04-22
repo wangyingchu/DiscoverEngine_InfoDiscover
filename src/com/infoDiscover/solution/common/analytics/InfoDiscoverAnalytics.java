@@ -6,6 +6,8 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -13,6 +15,8 @@ import java.util.List;
  * Created by sun.
  */
 public class InfoDiscoverAnalytics {
+
+    private final static Logger logger = LoggerFactory.getLogger(InfoDiscoverAnalytics.class);
 
     public List<Relationable> getAllLinkedFacts(Fact fromFact) {
         String sql = "select from (TRAVERSE both() FROM " + fromFact.getId() + ")";

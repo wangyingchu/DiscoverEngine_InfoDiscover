@@ -32,7 +32,7 @@ public class TimeDimensionGenerator {
     }
 
     public static void generateYears(String dimensionPrefix, int[] years, int depth) {
-        for(int year : years) {
+        for (int year : years) {
             try {
                 yearGenerator(dimensionPrefix, year, depth);
             } catch (InfoDiscoveryEngineDataMartException e) {
@@ -55,8 +55,8 @@ public class TimeDimensionGenerator {
     * */
     private static void yearGenerator(String dimensionPrefix, int year, int depth) throws
             InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
-        logger.info("Start to generate dimension with prefix: " + dimensionPrefix + " and year: " +
-                year + " and depth: " + depth);
+        logger.info("Start to generate dimension with prefix: {}, and year: {} and depth: {}",
+                dimensionPrefix, year, depth);
 
         if (year < 0 || depth < 0) {
             return;
@@ -69,12 +69,12 @@ public class TimeDimensionGenerator {
         long startTime = System.currentTimeMillis();
         initTimeDimensionType(dimensionPrefix);
         long endTime = System.currentTimeMillis();
-        logger.info("Elapsed time to create time dimension type: " + (endTime - startTime));
+        logger.info("Elapsed time to create time dimension type: {}", (endTime - startTime));
 
         startTime = System.currentTimeMillis();
         createTimeDimension(dimensionPrefix, year, depth);
         endTime = System.currentTimeMillis();
-        logger.info("Elapsed time to create dimension: " + (endTime - startTime));
+        logger.info("Elapsed time to create dimension: {}", (endTime - startTime));
         logger.info("End to generate time dimension");
     }
 
@@ -120,7 +120,7 @@ public class TimeDimensionGenerator {
                     while (it.hasNext()) {
                         int month = it.next().intValue();
                         int days = daysOfMonth.get(month);
-                        for (int d = 1; d<=days; d++) {
+                        for (int d = 1; d <= days; d++) {
                             manager.createDayDimension(ids, new DayDimensionVO
                                     (dayType, year, month, d));
 
@@ -148,7 +148,7 @@ public class TimeDimensionGenerator {
             }
 
         } else {
-            logger.error("Failed to connect to database: " + DatabaseConstants
+            logger.error("Failed to connect to database: {}", DatabaseConstants
                     .INFODISCOVER_SPACENAME);
         }
 

@@ -33,7 +33,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.infoDiscover" level="debug">
+        <Logger name="com.infoDiscover" level="info">
             <AppenderRef ref="running-log"/>
         </Logger>
         <Root level="debug">

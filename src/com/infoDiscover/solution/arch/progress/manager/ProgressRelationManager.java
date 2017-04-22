@@ -16,15 +16,15 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRun
 import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by sun.
  */
 public class ProgressRelationManager {
 
-    private final static Logger logger = LogManager.getLogger(ProgressRelationManager.class);
+    private final static Logger logger = LoggerFactory.getLogger(ProgressRelationManager.class);
 
     public void batchAttachTasksToProgress(InfoDiscoverSpace ids, String progressId, String
             progressFactType, String taskFactType,

@@ -14,9 +14,8 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDat
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,12 +25,12 @@ import java.util.Map;
  */
 public class TimeDimensionManager {
 
-    private final static Logger logger = LogManager.getLogger
+    private final static Logger logger = LoggerFactory.getLogger
             (TimeDimensionManager.class);
 
     public void createTimeDimensionType(String dimensionPrefix) throws
             InfoDiscoveryEngineDataMartException {
-        logger.info("Enter method createTimeDimensionType() with dimensionPrefix: " +
+        logger.info("Enter method createTimeDimensionType() with dimensionPrefix: {}",
                 dimensionPrefix);
 
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
@@ -68,7 +67,7 @@ public class TimeDimensionManager {
             }
 
         } else {
-            logger.error("Failed to connect to database: " + DatabaseConstants
+            logger.error("Failed to connect to database: {}", DatabaseConstants
                     .INFODISCOVER_SPACENAME);
         }
         ids.closeSpace();
@@ -98,7 +97,8 @@ public class TimeDimensionManager {
         ep.setType(year.getType());
         ep.setDefaultFilteringItem(new EqualFilteringItem("year", year.getYear()));
         try {
-            Dimension existingYearDimension = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
+            Dimension existingYearDimension = QueryExecutor.executeDimensionQuery(ids
+                    .getInformationExplorer(), ep);
             if (existingYearDimension == null) {
                 return createTimeDimension(ids, year.getType(), yearProps);
             }
@@ -143,7 +143,7 @@ public class TimeDimensionManager {
 
     public Dimension createDayDimension(InfoDiscoverSpace ids, DayDimensionVO day) throws
             InfoDiscoveryEngineRuntimeException {
-        logger.info("Start to create day dimension with day: " + day.toString());
+        logger.info("Start to create day dimension with day: {}", day.toString());
 
         Map<String, Object> dayProps = new HashMap<String, Object>();
         dayProps.put("year", day.getYear());

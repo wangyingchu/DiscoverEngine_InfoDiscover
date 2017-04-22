@@ -7,6 +7,8 @@ import com.infoDiscover.solution.arch.progress.manager.ProgressSqlBuilder;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -14,6 +16,10 @@ import java.util.List;
  * Created by sun.
  */
 public class ProgressAnalytics {
+
+    private final static Logger logger = LoggerFactory.getLogger(ProgressAnalytics.class);
+
+
     public List<Relationable> getAllTasksOfProgress(String progressId) throws
             InfoDiscoveryEngineInfoExploreException {
 
@@ -23,7 +29,7 @@ public class ProgressAnalytics {
                 Helper.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
                         ProgressConstants.FACT_TASK);
 
-        System.out.println("getAllTasksOfProgress sql: " + sql);
+        logger.info("getAllTasksOfProgress sql: {}", sql);
 
         List<Relationable> results = QueryExecutor.executeFactQuery(sql);
         return results;
@@ -37,7 +43,7 @@ public class ProgressAnalytics {
                 Helper.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
                         ProgressConstants.DIMENSION_USER);
 
-        System.out.println("getAllUsersOfProgress sql: " + sql);
+        logger.info("getAllUsersOfProgress sql: {}", sql);
 
         List<Relationable> results = QueryExecutor.executeFactQuery(sql);
         return results;

@@ -10,8 +10,8 @@ import com.infoDiscover.solution.arch.progress.fact.UserDimension;
 import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
 import com.infoDiscover.solution.arch.progress.manager.RoleManager;
 import com.infoDiscover.solution.arch.progress.manager.UserManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,10 +22,10 @@ import java.util.Map;
  */
 public class UserRoleDataImporter {
 
-    private final static Logger logger = LogManager.getLogger(UserRoleDataImporter.class);
+    private final static Logger logger = LoggerFactory.getLogger(UserRoleDataImporter.class);
 
     public static void createUsers(String userFile) {
-        logger.debug("Enter method createUsers with userFile: " + userFile);
+        logger.debug("Enter method createUsers with userFile: {}", userFile);
 
         List<String> list = FileUtil.importCsv(userFile);
 
@@ -48,7 +48,7 @@ public class UserRoleDataImporter {
     }
 
     public static void createRoles(String roleFile) throws InfoDiscoveryEngineInfoExploreException {
-        logger.debug("Enter method createRoles with roleFile: " + roleFile);
+        logger.debug("Enter method createRoles with roleFile: {}", roleFile);
 
         List<String> list = FileUtil.importCsv(roleFile);
 
@@ -58,13 +58,13 @@ public class UserRoleDataImporter {
             String roleId = roles[1].trim();
             String userIds = roles[2].trim();
 
-            logger.debug("roleId: " + roleId.trim() + ", roleName: " + roleName.trim() + " " +
-                    "userIds: " + userIds);
+            logger.debug("roleId: {}, roleName: {}, userIds: {}", roleId.trim(), roleName.trim(),
+                    userIds);
 
             RoleDimension role = new RoleDimension(roleId, roleName);
             try {
                 Dimension roleDimension = new RoleManager().createRoleDimension(role);
-                logger.debug("roleFact id: " + roleDimension.getId());
+                logger.debug("roleFact id: {}", roleDimension.getId());
             } catch (InfoDiscoveryEngineRuntimeException e) {
                 logger.error(e.getMessage());
             }
@@ -80,7 +80,7 @@ public class UserRoleDataImporter {
 
 
     public static Map<String, String[]> readRoleAndUsers(String roleFile) {
-        logger.debug("Enter method readRoleAndUsers with roleFile: " + roleFile);
+        logger.info("Enter method readRoleAndUsers with roleFile: {}", roleFile);
         List<String> list = FileUtil.importCsv(roleFile);
         Map<String, String[]> map = new HashMap<>();
         for (String line : list) {
@@ -89,22 +89,20 @@ public class UserRoleDataImporter {
             String roleId = roles[1].trim();
             String userIds = roles[2].trim();
             map.put(roleId, userIds.split(","));
-            logger.debug("role and user: " + map);
         }
 
         return map;
     }
 
     public static String selectRandomUserFromRole(String roleFile, String roleId) {
-        logger.debug("Random select a user from role: " + roleId);
+        logger.info("Random select a user from role: {}", roleId);
         Map<String, String[]> map = readRoleAndUsers(roleFile);
         String userId = "";
-        if(map.containsKey(roleId)) {
+        if (map.containsKey(roleId)) {
             String[] users = map.get(roleId);
-            if (users != null && users.length > 0){
+            if (users != null && users.length > 0) {
                 int randomIndex = RandomUtil.generateRandomInRange(0, users.length - 1);
                 userId = users[randomIndex];
-                logger.debug("Random selected user: " + userId);
             }
         } else {
             logger.error("RoleId does not have users");

@@ -19,9 +19,9 @@ import com.infoDiscover.solution.arch.progress.manager.ProgressManager;
 import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
 import com.infoDiscover.solution.arch.progress.manager.TaskManager;
 import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -31,7 +31,7 @@ import java.util.*;
  * Created by sun.
  */
 public class ProgressDemoDataGenerator {
-    private final static Logger logger = LogManager.getLogger(ProgressDemoDataGenerator
+    private final static Logger logger = LoggerFactory.getLogger(ProgressDemoDataGenerator
             .class);
 
     public static void generateMaintainProjectDemoData(int countOfProgressToGenerate, boolean
@@ -50,9 +50,10 @@ public class ProgressDemoDataGenerator {
 
     public static void generateProjectDemoData(String projectTemplate, String projectType, int
             maxTasksNumber, int countOfProgressToGenerate, boolean toGenerateRandomTaskNumber) {
-        logger.info("Enter method generateProjectDemoData() with projectTemplate: "
-                + projectTemplate + " and projectType: " + projectType + " and " +
-                "countOfProgressToGenerate: " + countOfProgressToGenerate);
+        logger.info("Enter method generateProjectDemoData() with projectTemplate: {} and " +
+                        "projectType: {} and countOfProgressToGenerate: {} and " +
+                        "toGenerateRandomTaskNumber: {}", projectTemplate,
+                projectType, countOfProgressToGenerate, toGenerateRandomTaskNumber);
 
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
 
@@ -227,10 +228,8 @@ public class ProgressDemoDataGenerator {
 
     private static void createNewOrUpdateProgressInstance(InfoDiscoverSpace ids, InformationExplorer
             ie, String factType, Map<String, Object> properties) {
-        logger.info("Enter method createNewOrUpdateFactInstance() with ids: " + ids + " and " +
-                "factType: " + factType +
-                " and properties: " +
-                properties);
+        logger.info("Enter method createNewOrUpdateFactInstance() with ids: {} and factType: {} " +
+                "and properties: {}", ids, factType, properties);
 
         if (properties == null || properties.keySet().size() == 0) {
             logger.error("progress jsonNode is null");
@@ -313,17 +312,15 @@ public class ProgressDemoDataGenerator {
 
     private static void createNewOrUpdateTaskInstance(InfoDiscoverSpace ids, InformationExplorer
             ie, String progressFactType, Map<String, Object> properties) {
-        logger.info("Enter method createNewOrUpdateTaskInstance() with ids: " + ids + " with " +
-                "progressFactType: " + progressFactType +
-                " and properties: " +
-                properties);
+        logger.info("Enter method createNewOrUpdateTaskInstance() with ids: {} with " +
+                "progressFactType: {} and properties: {}", ids, progressFactType, properties);
 
         String progressId = properties.get("progressId").toString();
         String taskId = properties.get("taskId").toString();
         TaskManager taskManager = new TaskManager();
         try {
             String factType = getFact(properties.get(JsonConstants.JSON_TYPE).toString());
-            logger.info("Fact type is : " + factType);
+            logger.info("Fact type is: {}", factType);
 
             // remove type from properties
             properties.remove("type");

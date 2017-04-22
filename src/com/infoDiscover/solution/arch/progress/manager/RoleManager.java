@@ -1,7 +1,6 @@
 package com.infoDiscover.solution.arch.progress.manager;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
@@ -11,8 +10,8 @@ import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.fact.RoleDimension;
 import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,7 @@ import java.util.Map;
  * Created by sun.
  */
 public class RoleManager {
-    private final static Logger logger = LogManager.getLogger(RoleManager.class);
+    private final static Logger logger = LoggerFactory.getLogger(RoleManager.class);
 
     public Dimension createRoleDimension(RoleDimension role) throws
             InfoDiscoveryEngineRuntimeException,

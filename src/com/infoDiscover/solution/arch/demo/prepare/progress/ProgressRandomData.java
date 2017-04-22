@@ -23,9 +23,8 @@ public class ProgressRandomData {
     public static Map<String, Object> generateProgressRandomData
             (String projectTemplate, String projectType, String projectName,
              int sequence) {
-        logger.info("Enter method generateProgressRandomData() with projectTemplate: " +
-                projectTemplate + " and projectName: " + projectName + " and sequence: " +
-                sequence);
+        logger.info("Enter method generateProgressRandomData() with projectTemplate: {} and " +
+                "projectName: {} and sequence: {}", projectTemplate, projectName, sequence);
 
         JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
         JsonNode progressNodes = ProgressJsonParser.getProgressNodes(json.toString());
@@ -39,7 +38,7 @@ public class ProgressRandomData {
         // in template, only one progress
         JsonNode progressJsonNode = progressNodes.get(0).get(JsonConstants.JSON_PROGRESS);
         Map<String, Object> properties = RandomData.jsonNodeToMapWithRandomValue(progressJsonNode);
-        logger.info("properties: " + properties);
+        logger.info("properties: {}", properties);
 
         String progressType = "Progress";
         String progressId;
@@ -55,7 +54,7 @@ public class ProgressRandomData {
         }
         String progressName = projectName;
 
-        long startTime = RandomData.getRandomTime(2010,2016,0);
+        long startTime = RandomData.getRandomTime(2010, 2016, 0);
         String status = "On Progress";
 
         properties.put("type", progressType);
