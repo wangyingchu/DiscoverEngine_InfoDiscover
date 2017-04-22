@@ -397,6 +397,62 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
         }
     }
 
+
+    @Override
+    public List<Measurable> discoverMeasurablesByQuerySQL(InformationType informationType, String typeName, String querySQL) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException{
+        informationTypeCheck(typeName, informationType);
+        List<Measurable> measurableList=new ArrayList<>();
+        switch(informationType){
+            case FACT:
+                String factRealType;
+                for (Vertex v : (Iterable<Vertex>) graph.command(
+                        new OCommandSQL(querySQL)).execute()) {
+                    OrientVertex ov=(OrientVertex)v;
+                    if(typeName==null){
+                        factRealType=ov.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_FACT,"");
+                    }else{
+                        factRealType=typeName;
+                    }
+                    OrientDBFactImpl targetFact=new OrientDBFactImpl(factRealType);
+                    targetFact.setFactVertex(ov);
+                    measurableList.add(targetFact);
+                }
+                break;
+            case DIMENSION:
+                String dimensionRealType;
+                for (Vertex v : (Iterable<Vertex>) graph.command(
+                        new OCommandSQL(querySQL)).execute()) {
+                    OrientVertex ov=(OrientVertex)v;
+                    if(typeName==null) {
+                        dimensionRealType = ov.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION, "");
+                    }else{
+                        dimensionRealType=typeName;
+                    }
+                    OrientDBDimensionImpl targetDimension=new OrientDBDimensionImpl(dimensionRealType);
+                    targetDimension.setDimensionVertex(ov);
+                    measurableList.add(targetDimension);
+                }
+                break;
+            case RELATION:
+                String relationRealType;
+                for (Edge e : (Iterable<Edge>) graph.command(
+                        new OCommandSQL(querySQL)).execute()) {
+                    OrientEdge oe=(OrientEdge)e;
+                    if(typeName==null){
+                        relationRealType=oe.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION,"");
+
+                    }else{
+                        relationRealType=typeName;
+                    }
+                    OrientDBRelationImpl targetRelation=new OrientDBRelationImpl(relationRealType);
+                    targetRelation.setRelationEdge(oe);
+                    measurableList.add(targetRelation);
+                }
+                break;
+        }
+        return measurableList;
+    }
+
     private void informationTypeCheck(String typeName,InformationType informationType)throws InfoDiscoveryEngineRuntimeException{
         if(typeName==null){
             //String exceptionMessage="Parameter type is required";

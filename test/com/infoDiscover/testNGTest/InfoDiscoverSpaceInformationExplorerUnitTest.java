@@ -1,11 +1,8 @@
 package com.infoDiscover.testNGTest;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.*;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.*;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.DimensionsFilter;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.RelationTypeFilter;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
@@ -513,6 +510,10 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         Assert.assertNotNull(factList);
         Assert.assertEquals(factList.size(), 11);
 
+        String factQuerySQL=SQLBuilder.buildQuerySQL(InformationType.FACT,ep);
+        List<Measurable> measurableFactList=ie.discoverMeasurablesByQuerySQL(InformationType.FACT,ep.getType(),factQuerySQL);
+        Assert.assertEquals(measurableFactList.size(), 11);
+
         ExploreParameters ep2=new ExploreParameters();
         ep2.setType(UnitTestConfigInfo.unitTestInfoExploreFactTypeA);
         ep2.setDefaultFilteringItem(new EqualFilteringItem("queryPropertyA_int", 100));
@@ -844,6 +845,10 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         Assert.assertNotNull(DimensionList);
         Assert.assertEquals(DimensionList.size(), 11);
 
+        String dimensionQuerySQL=SQLBuilder.buildQuerySQL(InformationType.DIMENSION,ep);
+        List<Measurable> measurableDimensionList=ie.discoverMeasurablesByQuerySQL(InformationType.DIMENSION,ep.getType(),dimensionQuerySQL);
+        Assert.assertEquals(measurableDimensionList.size(), 11);
+
         ids.removeDimension(testDimension1.getId());
         ids.removeDimension(testDimension2.getId());
         ids.removeDimension(testDimension3.getId());
@@ -1146,6 +1151,10 @@ public class InfoDiscoverSpaceInformationExplorerUnitTest {
         factList = ie.discoverRelations(ep);
         Assert.assertNotNull(factList);
         Assert.assertEquals(factList.size(), 11);
+
+        String relationQuerySQL=SQLBuilder.buildQuerySQL(InformationType.RELATION,ep);
+        List<Measurable> measurableRelationList=ie.discoverMeasurablesByQuerySQL(InformationType.RELATION,ep.getType(),relationQuerySQL);
+        Assert.assertEquals(measurableRelationList.size(), 11);
 
         ids.removeRelation(testRelation1.getId());
         ids.removeRelation(testRelation2.getId());
