@@ -3,7 +3,7 @@ package com.infoDiscover.solution.common.cache.graph;
 import com.infoDiscover.solution.common.cache.BaseLoadingCache;
 import com.infoDiscover.solution.common.cache.ILocalCache;
 import com.infoDiscover.solution.common.path.OrientDBGraphHelper;
-import com.infoDiscover.solution.common.path.helper.Graph;
+import com.infoDiscover.solution.common.path.helper.GenericGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 
 import java.util.concurrent.ExecutionException;
@@ -11,11 +11,11 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by sun.
  */
-public class OrientDBGraphCache extends BaseLoadingCache<OrientGraph, Graph> implements
-        ILocalCache<OrientGraph, Graph> {
+public class OrientDBGraphCache extends BaseLoadingCache<OrientGraph, GenericGraph> implements
+        ILocalCache<OrientGraph, GenericGraph> {
 
     @Override
-    public Graph get(OrientGraph key) {
+    public GenericGraph get(OrientGraph key) {
         try {
             return getValue(key);
         } catch (ExecutionException e) {
@@ -25,7 +25,7 @@ public class OrientDBGraphCache extends BaseLoadingCache<OrientGraph, Graph> imp
     }
 
     @Override
-    protected Graph loadData(OrientGraph key) {
+    protected GenericGraph loadData(OrientGraph key) {
         logger.debug("Generate graph: {} from orientGraph", key);
         return OrientDBGraphHelper.generateGraphFromOrientDB(key);
     }

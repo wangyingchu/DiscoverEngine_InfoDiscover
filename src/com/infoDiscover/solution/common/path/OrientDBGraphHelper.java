@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.common.path;
 
-import com.infoDiscover.solution.common.path.helper.Graph;
+import com.infoDiscover.solution.common.path.helper.GenericGraph;
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
@@ -18,11 +18,11 @@ public class OrientDBGraphHelper {
 
     private final static Logger logger = LoggerFactory.getLogger(OrientDBGraphHelper.class);
 
-    public static Graph generateGraphFromOrientDB(OrientGraph graph) {
+    public static GenericGraph generateGraphFromOrientDB(OrientGraph graph) {
 
         long start = System.currentTimeMillis();
         logger.info("Start to generateGraphFromOrientDB at time: {}", new Date(start));
-        Graph g = new Graph();
+        GenericGraph g = new GenericGraph();
         List<String> allVertex = getAllVertices(graph);
         if (!isEmptyList(allVertex)) {
             for (String rid : allVertex) {

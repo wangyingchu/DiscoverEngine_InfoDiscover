@@ -1,14 +1,14 @@
 package com.infoDiscover.solution.common.cache.graph;
 
 import com.infoDiscover.solution.common.cache.ILocalCache;
-import com.infoDiscover.solution.common.path.helper.Graph;
+import com.infoDiscover.solution.common.path.helper.GenericGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 
 /**
  * Created by sun.
  */
 public class OrientDBGraphService implements IOrientDBGraphService {
-    private static ILocalCache<OrientGraph, Graph> localCache = new OrientDBGraphCache();
+    private static ILocalCache<OrientGraph, GenericGraph> localCache = new OrientDBGraphCache();
 
     private static OrientDBGraphService newInstance;
 
@@ -20,7 +20,7 @@ public class OrientDBGraphService implements IOrientDBGraphService {
     }
 
     @Override
-    public Graph getGraphFromOrientGraph(OrientGraph graph) {
+    public GenericGraph getGraphFromOrientGraph(OrientGraph graph) {
         return localCache.get(graph);
     }
 
@@ -29,7 +29,7 @@ public class OrientDBGraphService implements IOrientDBGraphService {
 
         long start = System.currentTimeMillis();
         OrientDBGraphService service = OrientDBGraphService.getInstance();
-        Graph g = service.getGraphFromOrientGraph(graph);
+        GenericGraph g = service.getGraphFromOrientGraph(graph);
         System.out.println("graph: " + g);
         long end = System.currentTimeMillis();
         System.out.println("time1: " + (end - start));
@@ -39,7 +39,7 @@ public class OrientDBGraphService implements IOrientDBGraphService {
 //        System.out.println("g2: " + g2);
 
         long start1 = System.currentTimeMillis();
-        Graph g3 = service.getGraphFromOrientGraph(graph);
+        GenericGraph g3 = service.getGraphFromOrientGraph(graph);
         System.out.println("g3: " + g3);
         long end1 = System.currentTimeMillis();
         System.out.println("time2: " + (end1 - start1));

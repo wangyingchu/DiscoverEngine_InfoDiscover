@@ -1,7 +1,7 @@
 package com.infoDiscover.solution.common.path;
 
 import com.infoDiscover.solution.common.path.helper.AllPaths;
-import com.infoDiscover.solution.common.path.helper.Graph;
+import com.infoDiscover.solution.common.path.helper.GenericGraph;
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
@@ -30,7 +30,7 @@ public class OrientDBAllPaths {
     public List<Stack<String>> getVerticesOfAllPaths(String fromRid, String toRid) {
         logger.info("Start to getAllPaths fromVertex: {} to toVertex: {}",
                 fromRid, toRid);
-        Graph g = OrientDBGraphHelper.generateGraphFromOrientDB(graph);
+        GenericGraph g = OrientDBGraphHelper.generateGraphFromOrientDB(graph);
 
         List<Stack<String>> paths = new AllPaths(g,
                 fromRid, toRid).getAllPaths();
