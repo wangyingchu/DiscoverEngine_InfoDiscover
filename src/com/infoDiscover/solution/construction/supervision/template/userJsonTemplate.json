@@ -7,7 +7,7 @@
                 "propertyType": "String"
             },
             {
-                "propertyName": "name",
+                "propertyName": "userName",
                 "propertyValue": "",
                 "propertyType": "String"
             },

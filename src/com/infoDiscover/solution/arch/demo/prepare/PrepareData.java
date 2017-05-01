@@ -22,6 +22,8 @@ import org.slf4j.LoggerFactory;
 public class PrepareData {
     private final static Logger logger = LoggerFactory.getLogger(PrepareData.class);
 
+    public final static String prefix = "DEMO_";
+
     public static void main(String[] args) {
         prepareData(DemoDataConfig.FILE_USER, DemoDataConfig.FILE_ROLE);
 
@@ -58,15 +60,15 @@ public class PrepareData {
 
         logger.info("Step 2: initialize time dimension type");
         try {
-            TimeDimensionGenerator.initTimeDimensionType(ids, PrefixConstant.prefixWithout);
+            TimeDimensionGenerator.initTimeDimensionType(ids, prefix);
             logger.info("Step 2: end to initialize time dimension type with prefix: {}",
-                    PrefixConstant.prefixWithout);
+                    prefix);
         } catch (InfoDiscoveryEngineDataMartException e) {
             logger.error("Failed to initialize time dimension type");
         }
 
         logger.info("Step 3: generate the specified years");
-        TimeDimensionGenerator.generateYears(ids, PrefixConstant.prefixWithout, DemoDataConfig
+        TimeDimensionGenerator.generateYears(ids, prefix, DemoDataConfig
                 .yearsToGenerate, DemoDataConfig.depth);
         logger.info("Step 3: end to generate the specified years: " + "{2010, 2011, 2012, 2013, " +
                 "2014, 2015, 2016, 2017}");

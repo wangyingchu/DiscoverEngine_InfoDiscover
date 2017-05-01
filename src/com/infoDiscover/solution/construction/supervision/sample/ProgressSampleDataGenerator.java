@@ -46,21 +46,24 @@ public class ProgressSampleDataGenerator {
                 SampleDataSet.TASKS_OF_MAINTENANCE.length,
                 countOfProgressToGenerate,
                 toGenerateRandomTaskNumber);
+
     }
 
-    public static void generateNewProjectSampleData(InfoDiscoverSpace ids, int
-            countOfProgressToGenerate, boolean
-                                                            toGenerateRandomTaskNumber) {
-        generateProjectSampleData(ids, SampleDataSet.FILE_NEW_PROJECT, SampleDataSet
-                        .PROJECTTYPE_NEW, SampleDataSet.TASKS_OF_NEW.length,
-                countOfProgressToGenerate, toGenerateRandomTaskNumber);
+    public static void generateNewProjectSampleData(
+            InfoDiscoverSpace ids,
+            int countOfProgressToGenerate,
+            boolean toGenerateRandomTaskNumber) {
+
+        generateProjectSampleData(
+                ids,
+                SampleDataSet.FILE_NEW_PROJECT,
+                SampleDataSet.PROJECTTYPE_NEW,
+                SampleDataSet.TASKS_OF_NEW.length,
+                countOfProgressToGenerate,
+                toGenerateRandomTaskNumber);
     }
 
-    private static int getFirstNumberOfTasksToGenerate(int maxTasksNumber, boolean
-            toGenerateRandomTaskNumber) {
-        return toGenerateRandomTaskNumber ? RandomUtil.generateRandomInRange(0,
-                maxTasksNumber) : maxTasksNumber;
-    }
+
 
     public static void generateProjectSampleData(
             InfoDiscoverSpace ids,
@@ -137,6 +140,12 @@ public class ProgressSampleDataGenerator {
         }
 
         logger.info("Exit method generateProjectDemoData()...");
+    }
+
+    private static int getFirstNumberOfTasksToGenerate(int maxTasksNumber, boolean
+            toGenerateRandomTaskNumber) {
+        return toGenerateRandomTaskNumber ? RandomUtil.generateRandomInRange(0,
+                maxTasksNumber) : maxTasksNumber;
     }
 
     public static String getFactType(String projectType) {
@@ -353,9 +362,9 @@ public class ProgressSampleDataGenerator {
             // create or update fact
             Fact taskTact = taskManager.getTaskById(ie, taskId, taskFactType);
             if (taskTact == null) {
-                ProgressUtil.createFact(ids, taskFactType, properties);
+                taskTact = ProgressUtil.createFact(ids, taskFactType, properties);
             } else {
-                ProgressUtil.updateFact(taskTact, properties);
+                taskTact = ProgressUtil.updateFact(taskTact, properties);
             }
 
             // link tasks to progress

@@ -7,7 +7,7 @@
                 "propertyType": "String"
             },
             {
-                "propertyName": "name",
+                "propertyName": "departmentName",
                 "propertyValue": "",
                 "propertyType": "String"
             },
