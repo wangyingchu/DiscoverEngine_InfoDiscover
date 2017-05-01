@@ -374,7 +374,7 @@ public class ProgressSampleDataGenerator {
                     progressId,
                     progressFactType);
             relationManager.attachTaskToProgress(progressFact, taskTact,
-                    SupervisionSolutionConstants.RELATIONTYPE_PROGRESS_HASTASK_WITH_PREFIX);
+                    SupervisionSolutionConstants.RELATION_PROGRESS_HASTASK_WITH_PREFIX);
 
             // link user to task
             String userId = properties.get(JsonConstants.WORKER).toString();
@@ -382,14 +382,14 @@ public class ProgressSampleDataGenerator {
             Dimension userDimension = userManager.getUserById(ids.getInformationExplorer(),
                     userId, SupervisionSolutionConstants.DIMENSION_USER_WITH_PREFIX);
             relationManager.attachUserToTask(taskTact, userDimension, SupervisionSolutionConstants
-                    .RELATIONTYPE_TASK_EXECUTEBYUSER_WITH_PREFIX);
+                    .RELATION_TASK_EXECUTEBYUSER_WITH_PREFIX);
 
             // link role to task
             String roleId = properties.get(JsonConstants.EXECUTIVEDEPARTMENT).toString();
             Dimension roleDimension = new RoleManager().getRoleById(ids.getInformationExplorer(),
                     roleId, SupervisionSolutionConstants.DIMENSION_ROLE_WITH_PREFIX);
             relationManager.attachRoleToTask(taskTact, roleDimension, SupervisionSolutionConstants
-                    .RELATIONTYPE_TASK_EXECUTEBYROLE_WITH_PREFIX);
+                    .RELATION_TASK_EXECUTEBYROLE_WITH_PREFIX);
 
             // link startTime to task
             DayDimensionVO dayDimension = getDayDimension(SupervisionSolutionConstants

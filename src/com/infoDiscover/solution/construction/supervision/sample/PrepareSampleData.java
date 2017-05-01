@@ -172,7 +172,7 @@ public class PrepareSampleData {
             UserRoleDataImporter.createRoles(ids, roleFile, SupervisionSolutionConstants
                     .DIMENSION_ROLE_WITH_PREFIX, SupervisionSolutionConstants
                     .DIMENSION_USER_WITH_PREFIX, SupervisionSolutionConstants
-                    .RELATIONTYPE_ROLE_HASUSER_WITH_PREFIX);
+                    .RELATION_ROLE_HASUSER_WITH_PREFIX);
             logger.debug("Step 6: import user and role sample data");
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Step 6: Failed to import user and role sample data");

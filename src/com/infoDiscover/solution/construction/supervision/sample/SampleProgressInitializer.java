@@ -55,54 +55,54 @@ public class SampleProgressInitializer {
             prefix = "";
         }
         if (!ids.hasRelationType(prefix + SupervisionSolutionConstants
-                .RELATIONTYPE_PROGRESS_HASTASK_WITH_PREFIX)) {
+                .RELATION_PROGRESS_HASTASK_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_PROGRESS_HASTASK_WITH_PREFIX);
+                    .RELATION_PROGRESS_HASTASK_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
         if (!ids.hasRelationType(prefix + SupervisionSolutionConstants
-                .RELATIONTYPE_TASK_EXECUTEBYROLE_WITH_PREFIX)) {
+                .RELATION_TASK_EXECUTEBYROLE_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_TASK_EXECUTEBYROLE_WITH_PREFIX);
+                    .RELATION_TASK_EXECUTEBYROLE_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
         if (!ids.hasRelationType(prefix + SupervisionSolutionConstants
-                .RELATIONTYPE_TASK_EXECUTEBYUSER_WITH_PREFIX)) {
+                .RELATION_TASK_EXECUTEBYUSER_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_TASK_EXECUTEBYUSER_WITH_PREFIX);
+                    .RELATION_TASK_EXECUTEBYUSER_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATIONTYPE_SUBTASK_WITH_PREFIX)) {
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_SUBTASK_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_SUBTASK_WITH_PREFIX);
+                    .RELATION_SUBTASK_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
         if (!ids.hasRelationType(prefix + SupervisionSolutionConstants
-                .RELATIONTYPE_ROLE_HASUSER_WITH_PREFIX)) {
+                .RELATION_ROLE_HASUSER_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_ROLE_HASUSER_WITH_PREFIX);
+                    .RELATION_ROLE_HASUSER_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATIONTYPE_TRANSFER_WITH_PREFIX)) {
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_TRANSFER_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_TRANSFER_WITH_PREFIX);
+                    .RELATION_TRANSFER_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATIONTYPE_STARTAT_WITH_PREFIX)) {
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_STARTAT_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_STARTAT_WITH_PREFIX);
+                    .RELATION_STARTAT_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATIONTYPE_ENDAT_WITH_PREFIX)) {
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_ENDAT_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATIONTYPE_ENDAT_WITH_PREFIX);
+                    .RELATION_ENDAT_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 

@@ -6,7 +6,7 @@ package com.infoDiscover.solution.arch.progress.fact;
 public class ProviderDimension {
     private String providerID;
     private String providerName;
-    private String providerClassification;
+    private String companyClassification;
     private String address;
     private String contact;
     private String contactMobile;
@@ -15,7 +15,7 @@ public class ProviderDimension {
             address, String contact, String contactMobile) {
         this.providerID = providerID;
         this.providerName = providerName;
-        this.providerClassification = providerClassification;
+        this.companyClassification = providerClassification;
         this.address = address;
         this.contact = contact;
         this.contactMobile = contactMobile;
@@ -37,12 +37,12 @@ public class ProviderDimension {
         this.providerName = providerName;
     }
 
-    public String getProviderClassification() {
-        return providerClassification;
+    public String getCompanyClassification() {
+        return companyClassification;
     }
 
-    public void setProviderClassification(String providerClassification) {
-        this.providerClassification = providerClassification;
+    public void setCompanyClassification(String companyClassification) {
+        this.companyClassification = companyClassification;
     }
 
     public String getAddress() {
