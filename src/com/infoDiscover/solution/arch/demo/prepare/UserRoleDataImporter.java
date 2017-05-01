@@ -3,6 +3,7 @@ package com.infoDiscover.solution.arch.demo.prepare;
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.progress.fact.RoleDimension;
@@ -24,7 +25,7 @@ public class UserRoleDataImporter {
 
     private final static Logger logger = LoggerFactory.getLogger(UserRoleDataImporter.class);
 
-    public static void createUsers(String userFile) {
+    public static void createUsers(InformationExplorer ie, String userFile) {
         logger.debug("Enter method createUsers with userFile: {}", userFile);
 
         List<String> list = FileUtil.read(userFile);
@@ -36,7 +37,7 @@ public class UserRoleDataImporter {
             logger.debug("userId: " + userId.trim() + ", username: " + userName.trim());
             UserDimension user = new UserDimension(userId, userName);
             try {
-                Dimension userDimension = new UserManager().createUserDimension(user);
+                Dimension userDimension = new UserManager().createUserDimension(ie, user);
                 logger.debug("userFact id: " + userDimension.getId());
             } catch (InfoDiscoveryEngineRuntimeException e) {
                 logger.error(e.getMessage());
@@ -47,7 +48,8 @@ public class UserRoleDataImporter {
         logger.debug("Exit method createUsers()...");
     }
 
-    public static void createRoles(String roleFile) throws InfoDiscoveryEngineInfoExploreException {
+    public static void createRoles(InformationExplorer ie, String roleFile) throws
+            InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createRoles with roleFile: {}", roleFile);
 
         List<String> list = FileUtil.read(roleFile);
@@ -63,7 +65,7 @@ public class UserRoleDataImporter {
 
             RoleDimension role = new RoleDimension(roleId, roleName);
             try {
-                Dimension roleDimension = new RoleManager().createRoleDimension(role);
+                Dimension roleDimension = new RoleManager().createRoleDimension(ie, role);
                 logger.debug("roleFact id: {}", roleDimension.getId());
             } catch (InfoDiscoveryEngineRuntimeException e) {
                 logger.error(e.getMessage());

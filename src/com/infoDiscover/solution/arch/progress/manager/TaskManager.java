@@ -32,22 +32,13 @@ public class TaskManager {
         return QueryExecutor.executeFactQuery(ie, ep);
     }
 
-    public Fact getTaskById(String taskId) throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.FACT_TASK);
-        ep.setDefaultFilteringItem(new EqualFilteringItem("taskId", taskId));
-
-        return QueryExecutor.executeFactQuery(ep);
-    }
-
-    public Fact createTaskFact(TaskFact task) throws
+    public Fact createTaskFact(InformationExplorer ie, TaskFact task) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createTaskFact() with taskId: " + task.getTaskId());
 
         // check if task is already exists
-        Fact taskFact = getTaskById(task.getTaskId());
+        Fact taskFact = getTaskById(ie, task.getTaskId());
         if (taskFact == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("progressId", task.getProgressId());

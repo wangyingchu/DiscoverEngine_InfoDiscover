@@ -125,10 +125,6 @@ public class PrepareData {
             }
         }
 
-
-        ids.closeSpace();
-
-
         try {
             ProgressInitializer.initProgressRelationType("");
             logger.debug("Step 5: initialize the progress relation type");
@@ -139,13 +135,14 @@ public class PrepareData {
         logger.info("Step 6: import user and role demo data");
 
         try {
-            UserRoleDataImporter.createUsers(userFile);
-            UserRoleDataImporter.createRoles(roleFile);
+            UserRoleDataImporter.createUsers(ids.getInformationExplorer(),userFile);
+            UserRoleDataImporter.createRoles(ids.getInformationExplorer(),roleFile);
             logger.debug("Step 6: import user and role demo data");
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Step 6: Failed to import user and role demo data");
         }
 
+        ids.closeSpace();
         logger.info("End to prepare data");
     }
 }

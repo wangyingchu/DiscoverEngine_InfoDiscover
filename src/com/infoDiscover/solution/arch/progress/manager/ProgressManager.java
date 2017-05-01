@@ -32,22 +32,12 @@ public class ProgressManager {
         return QueryExecutor.executeFactQuery(ie, ep);
     }
 
-    public Fact getProgressById(String progressId, String factType) throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(factType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem("progressId", progressId));
-
-        return QueryExecutor.executeFactQuery(ep);
-    }
-
-    public Fact createProgressFact(ProgressFact progress) throws
+    public Fact createProgressFact(InformationExplorer ie, ProgressFact progress) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createProgressFact() with progressId: " + progress.getProgressId
                 ());
 
-        Fact progressFact = getProgressById(progress.getProgressId(), progress.getFactType());
+        Fact progressFact = getProgressById(ie, progress.getProgressId(), progress.getFactType());
         if (progressFact == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("progressId", progress.getProgressId());

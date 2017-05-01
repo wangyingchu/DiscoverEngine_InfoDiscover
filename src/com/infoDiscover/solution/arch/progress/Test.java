@@ -56,30 +56,30 @@ public class Test {
 
     }
 
-    private static void select() throws InfoDiscoveryEngineInfoExploreException {
+    private static void select(InfoDiscoverSpace ids) throws InfoDiscoveryEngineInfoExploreException {
         ProgressAnalytics analytics = new ProgressAnalytics();
         String progressId1 = "progressId1";
         String taskId1 = "taskId1";
         String userId1 = "userId1";
-        List<Relationable> taskList = analytics.getAllTasksOfProgress(progressId1);
+        List<Relationable> taskList = analytics.getAllTasksOfProgress(ids, progressId1);
         println("taskList.size " + taskList.size());
         for(Relationable fact : taskList) {
             println("id: " + fact.getId());
         }
 
-        List<Relationable> progressUserList = analytics.getAllUsersOfProgress(progressId1);
+        List<Relationable> progressUserList = analytics.getAllUsersOfProgress(ids, progressId1);
         println("progressUserList.size " + progressUserList.size());
         for(Relationable fact : progressUserList) {
             println("id: " + fact.getId());
         }
 
-        List<Relationable> taskUserList = analytics.getAllUsersOfTask(taskId1);
+        List<Relationable> taskUserList = analytics.getAllUsersOfTask(ids, taskId1);
         println("taskUserList.size " + taskUserList.size());
         for(Relationable fact : taskUserList) {
             println("id: " + fact.getId());
         }
 
-        List<Relationable> taskByUserIdList = analytics.getAllTasksOfUser(userId1);
+        List<Relationable> taskByUserIdList = analytics.getAllTasksOfUser(ids, userId1);
         println("taskByUserIdList.size" + taskByUserIdList.size());
         for(Relationable fact : taskByUserIdList) {
             println("id: " + fact.getId());
@@ -93,7 +93,8 @@ public class Test {
     }
 
 
-    private static void createFact(String prefix) throws InfoDiscoveryEngineRuntimeException,
+    private static void createFact(InformationExplorer ie, String prefix) throws
+            InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineInfoExploreException {
         ProgressInitializer.initProgressFactType(prefix);
         ProgressInitializer.initProgressRelationType(prefix);
@@ -101,36 +102,39 @@ public class Test {
         // create progress 1
         ProgressManager progressManager = new ProgressManager();
         TaskManager taskManager = new TaskManager();
-        Fact progress = progressManager.createProgressFact(new ProgressFact(ProgressConstants
+        Fact progress = progressManager.createProgressFact(ie, new ProgressFact(ProgressConstants
                 .FACT_PROGRESS, "progressId1",
                 "progressContent"));
         String progressId = progress.getId();
         println("progressId: " + progressId);
 
         // create task1
-        Fact task1 = taskManager.createTaskFact(new TaskFact("progressId1", "taskId1",
+        Fact task1 = taskManager.createTaskFact(ie, new TaskFact("progressId1", "taskId1",
                 "taskContent"));
         String taskId1 = task1.getId();
         println("taskId1: " + taskId1);
 
         // create task2
-        Fact task2 = taskManager.createTaskFact(new TaskFact("progressId1", "taskId2",
+        Fact task2 = taskManager.createTaskFact(ie, new TaskFact("progressId1", "taskId2",
                 "taskContent2"));
         String taskId2 = task2.getId();
         println("taskId2: " + taskId2);
 
         // create Role1
-        Dimension role = new RoleManager().createRoleDimension(new RoleDimension("roleId1", "role1"));
+        Dimension role = new RoleManager().createRoleDimension(ie, new RoleDimension("roleId1",
+                "role1"));
         String roleId = role.getId();
         println("roleId: " + roleId);
 
         // create User1
         UserManager userManager = new UserManager();
-        Dimension user1 = userManager.createUserDimension(new UserDimension("userId1", "user1"));
+        Dimension user1 = userManager.createUserDimension(ie, new UserDimension("userId1",
+                "user1"));
         String userId1 = user1.getId();
         println("userId1: " + userId1);
 
-        Dimension user2 = userManager.createUserDimension(new UserDimension("userId2", "user2"));
+        Dimension user2 = userManager.createUserDimension(ie, new UserDimension("userId2",
+                "user2"));
         String userId2 = user2.getId();
         println("userId2: " + userId2);
     }

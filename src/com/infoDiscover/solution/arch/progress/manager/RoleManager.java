@@ -22,13 +22,13 @@ import java.util.Map;
 public class RoleManager {
     private final static Logger logger = LoggerFactory.getLogger(RoleManager.class);
 
-    public Dimension createRoleDimension(RoleDimension role) throws
+    public Dimension createRoleDimension(InformationExplorer ie, RoleDimension role) throws
             InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createRoleDimension() with roleId: " + role.getRoleId());
 
         // check if role is already existed
-        Dimension roleDimension = getRoleById(role.getRoleId());
+        Dimension roleDimension = getRoleById(ie, role.getRoleId());
         if (roleDimension == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("roleId", role.getRoleId());
@@ -50,13 +50,4 @@ public class RoleManager {
         return QueryExecutor.executeDimensionQuery(ie, ep);
     }
 
-    public Dimension getRoleById(String roleId) throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.DIMENSION_ROLE);
-        ep.setDefaultFilteringItem(new EqualFilteringItem("roleId", roleId));
-
-        return QueryExecutor.executeDimensionQuery(ep);
-    }
 }

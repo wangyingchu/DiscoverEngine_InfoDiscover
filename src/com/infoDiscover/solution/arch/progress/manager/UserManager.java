@@ -33,22 +33,13 @@ public class UserManager {
         return QueryExecutor.executeDimensionQuery(ie, ep);
     }
 
-    public Dimension getUserById(String userId) throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.DIMENSION_USER);
-        ep.setDefaultFilteringItem(new EqualFilteringItem("userId", userId));
-
-        return QueryExecutor.executeDimensionQuery(ep);
-    }
-
-    public Dimension createUserDimension(UserDimension user) throws InfoDiscoveryEngineRuntimeException,
+    public Dimension createUserDimension(InformationExplorer ie, UserDimension user) throws
+            InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createUserDimension() with userId: " + user.getUserId());
 
         // first check if the user is already exists
-        Dimension userDimension = getUserById(user.getUserId());
+        Dimension userDimension = getUserById(ie, user.getUserId());
 
         if (userDimension == null) {
             Map<String, Object> props = new HashMap<String, Object>();

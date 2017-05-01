@@ -2,9 +2,11 @@ package com.infoDiscover.common.dimension.time.analytics;
 
 import com.infoDiscover.common.dimension.time.dimension.*;
 import com.infoDiscover.common.dimension.time.manager.TimeSqlBuilder;
-import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
-import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
+import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.executor.QueryExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,34 +19,39 @@ public class TimeAnalytics {
 
     private final static Logger logger = LoggerFactory.getLogger(TimeAnalytics.class);
 
-    public List<Relationable> drillDownByYear(YearDimensionVO year, String relationType) {
+    public List<Relationable> drillDownByYear(InfoDiscoverSpace ids, YearDimensionVO year, String
+            relationType) {
         String sql = TimeSqlBuilder.queryByYear(year, relationType);
         logger.info("queryByYear: {}", sql);
-        return QueryExecutor.executeFactQuery(sql);
+        return QueryExecutor.executeFactQuery(ids, sql);
     }
 
-    public List<Relationable> drillDownByMonth(MonthDimensionVO month, String relationType) {
+    public List<Relationable> drillDownByMonth(InfoDiscoverSpace ids, MonthDimensionVO month,
+                                               String relationType) {
         String sql = TimeSqlBuilder.queryByMonth(month, relationType);
         logger.info("queryByYear: {}", sql);
-        return QueryExecutor.executeFactQuery(sql);
+        return QueryExecutor.executeFactQuery(ids, sql);
     }
 
-    public List<Relationable> drillDownByDay(DayDimensionVO day, String relationType) {
+    public List<Relationable> drillDownByDay(InfoDiscoverSpace ids, DayDimensionVO day, String
+            relationType) {
         String sql = TimeSqlBuilder.queryByDay(day, relationType);
         logger.info("queryByYear: {}", sql);
-        return QueryExecutor.executeFactQuery(sql);
+        return QueryExecutor.executeFactQuery(ids, sql);
     }
 
-    public List<Relationable> drillDownByHour(HourDimensionVO hour, String relationType) {
+    public List<Relationable> drillDownByHour(InfoDiscoverSpace ids, HourDimensionVO hour, String
+            relationType) {
         String sql = TimeSqlBuilder.queryByHour(hour, relationType);
         logger.info("queryByYear: {}", sql);
-        return QueryExecutor.executeFactQuery(sql);
+        return QueryExecutor.executeFactQuery(ids, sql);
     }
 
-    public List<Relationable> drillDownByMinute(MinuteDimensionVO minute, String relationType) {
+    public List<Relationable> drillDownByMinute(InfoDiscoverSpace ids, MinuteDimensionVO minute,
+                                                String relationType) {
         String sql = TimeSqlBuilder.queryByMinute(minute, relationType);
         logger.info("queryByYear: {}", sql);
-        return QueryExecutor.executeFactQuery(sql);
+        return QueryExecutor.executeFactQuery(ids, sql);
     }
 
     public static void println(String message) {
@@ -57,7 +64,9 @@ public class TimeAnalytics {
         YearDimensionVO y = new YearDimensionVO(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION +
                 "y", 2018);
 
-        List<Relationable> list = a.drillDownByYear(y, "created");
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace("DemoArch");
+        List<Relationable> list = a.drillDownByYear(ids, y, "created");
         println("list: " + list.size());
+        ids.closeSpace();
     }
 }
