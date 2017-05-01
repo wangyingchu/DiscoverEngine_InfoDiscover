@@ -8,5 +8,4 @@ public class PrefixConstant {
 //    public final static String prefixWithout = "DEMO";
 
     public final static String prefix = "ZHUHAI_";
-    public final static String prefixWithout = "ZHUHAI";
 }

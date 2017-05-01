@@ -39,7 +39,7 @@ public class TimeDimensionManager {
 
         String prefix = "";
         if (dimensionPrefix != null || !dimensionPrefix.trim().equals("")) {
-            prefix = dimensionPrefix + "_";
+            prefix = normalizePrefix(dimensionPrefix);
         }
 
         String year = prefix + TimeDimensionConstants.YEAR;
@@ -229,4 +229,7 @@ public class TimeDimensionManager {
         return null;
     }
 
+    private String normalizePrefix(String value) {
+        return value.endsWith("_") ? value : value + "_";
+    }
 }

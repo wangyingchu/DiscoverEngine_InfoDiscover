@@ -30,6 +30,10 @@ public class ProgressRelationManager {
         this.ids = ids;
     }
 
+    //TODO:
+    public final static String prefix = PrefixConstant.prefix;
+
+
     public void batchAttachTasksToProgress(String progressId, String
             progressFactType, String taskFactType,
                                            String[]
@@ -146,7 +150,7 @@ public class ProgressRelationManager {
 
         Dimension day = QueryExecutor.executeDimensionQuery(ie, ep);
         if (day == null) {
-            TimeDimensionGenerator.generateYears(ids, PrefixConstant.prefixWithout, new
+            TimeDimensionGenerator.generateYears(ids, prefix, new
                     int[]{dayDimension
                     .getYear
                     ()}, 3);

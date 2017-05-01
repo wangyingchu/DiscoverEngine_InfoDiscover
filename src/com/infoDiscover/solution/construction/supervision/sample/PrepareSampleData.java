@@ -38,6 +38,9 @@ public class PrepareSampleData {
     // 随机完成流程中的前几个任务, false表示完成全部任务
     public final static boolean toGenerateRandomTasksNumber = false;
 
+    // solution prefix
+    public final static String prefix = PrefixConstant.prefix;
+
     public static void main(String[] args) {
 
         prepareSampleData(SupervisionSolutionConstants.DATABASE_SPACE, SampleDataSet.FILE_USER,
@@ -48,7 +51,7 @@ public class PrepareSampleData {
 
         ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
                 countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
-        
+
         ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
                 countOfNewProgressToGenerate,toGenerateRandomTasksNumber);
 
@@ -84,15 +87,15 @@ public class PrepareSampleData {
 
         logger.info("Step 2: initialize time dimension type");
         try {
-            TimeDimensionGenerator.initTimeDimensionType(ids, PrefixConstant.prefixWithout);
+            TimeDimensionGenerator.initTimeDimensionType(ids, prefix);
             logger.info("Step 2: end to initialize time dimension type with prefix: {}",
-                    PrefixConstant.prefixWithout);
+                    prefix);
         } catch (InfoDiscoveryEngineDataMartException e) {
             logger.error("Failed to initialize time dimension type");
         }
 
         logger.info("Step 3: generate the specified years");
-        TimeDimensionGenerator.generateYears(ids, PrefixConstant.prefixWithout, yearsToGenerate,
+        TimeDimensionGenerator.generateYears(ids, prefix, yearsToGenerate,
                 depth);
         logger.info("Step 3: end to generate the specified years: " + "{2010, 2011, 2012, 2013, " +
                 "2014, 2015, 2016, 2017}");
