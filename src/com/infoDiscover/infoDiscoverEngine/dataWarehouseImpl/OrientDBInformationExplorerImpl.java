@@ -5,18 +5,22 @@ import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBFactImpl;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.*;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.solution.common.path.OrientDBAllPaths;
+import com.infoDiscover.solution.common.path.OrientDBShortestPath;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
+import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.orient.*;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBDimensionImpl;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBRelationImpl;
-import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBRelationableImpl;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 public class OrientDBInformationExplorerImpl implements InformationExplorer {
 
@@ -99,9 +103,19 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
         for (Vertex v : (Iterable<Vertex>) graph.command(
                 new OCommandSQL(sql)).execute()) {
             OrientVertex ov=(OrientVertex)v;
-            OrientDBRelationableImpl targetRelationable=new OrientDBRelationableImpl();
-            targetRelationable.setRelationVertex(ov);
-            relationableList.add(targetRelationable);
+            String ovName=ov.getType().getName();
+            if(ovName.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_FACT)){
+                String factRealType=ov.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_FACT,"");
+                OrientDBFactImpl targetFact=new OrientDBFactImpl(factRealType);
+                targetFact.setFactVertex(ov);
+                relationableList.add(targetFact);
+            }
+            if(ovName.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION)){
+                String dimensionRealType = ov.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION, "");
+                OrientDBDimensionImpl targetDimension=new OrientDBDimensionImpl(dimensionRealType);
+                targetDimension.setDimensionVertex(ov);
+                relationableList.add(targetDimension);
+            }
         }
         return relationableList;
     }
@@ -397,7 +411,6 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
         }
     }
 
-
     @Override
     public List<Measurable> discoverMeasurablesByQuerySQL(InformationType informationType, String typeName, String querySQL) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException{
         informationTypeCheck(typeName, informationType);
@@ -451,6 +464,142 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
                 break;
         }
         return measurableList;
+    }
+
+    @Override
+    public Stack<Relation> discoverRelationablesShortestPath(String firstRelationableId, String secondRelationableId, RelationDirection relationDirection) throws InfoDiscoveryEngineRuntimeException{
+        OrientVertex firstOv = this.graph.getVertex(firstRelationableId);
+        if(firstOv==null){
+            String exceptionMessage = "Relationable id "+firstRelationableId+" not exists";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }
+        OrientVertex secondOv = this.graph.getVertex(secondRelationableId);
+        if(secondOv==null){
+            String exceptionMessage = "Relationable id "+secondRelationableId+" not exists";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }
+        List<Edge> relationPath= OrientDBShortestPath.getEdgesFromShortestPath(this.graph,firstRelationableId,secondRelationableId);
+        if(relationPath==null||relationPath.size()==0){
+            return null;
+        }else{
+            Stack<Relation> relationOnPathStack=new Stack();
+            for(Edge currentEdge:relationPath){
+                OrientEdge oe=(OrientEdge)currentEdge;
+                String relationRealType=oe.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION,"");
+                OrientDBRelationImpl targetRelation=new OrientDBRelationImpl(relationRealType);
+                targetRelation.setRelationEdge(oe);
+                relationOnPathStack.push(targetRelation);
+            }
+            return relationOnPathStack;
+        }
+    }
+
+    @Override
+    public List<Stack<Relation>> discoverRelationablesAllPaths(String firstRelationableId, String secondRelationableId) throws InfoDiscoveryEngineRuntimeException {
+        OrientVertex firstOv = this.graph.getVertex(firstRelationableId);
+        if(firstOv==null){
+            String exceptionMessage = "Relationable id "+firstRelationableId+" not exists";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }
+        OrientVertex secondOv = this.graph.getVertex(secondRelationableId);
+        if(secondOv==null){
+            String exceptionMessage = "Relationable id "+secondRelationableId+" not exists";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }
+        OrientDBAllPaths orientDBAllPaths=new OrientDBAllPaths(this.graph);
+        List<Stack<Edge>> relationPaths= orientDBAllPaths.getEdgesOfAllPaths(firstRelationableId,secondRelationableId);
+        if(relationPaths==null||relationPaths.size()==0){
+            return null;
+        }else{
+            List<Stack<Relation>> relationOnPathStackList=new ArrayList<>();
+            for(Stack<Edge> currentRelationStack:relationPaths){
+                Stack<Relation> relationOnPathStack=new Stack();
+                int stackSize=currentRelationStack.size();
+                for(int i=0;i<stackSize;i++){
+                    Edge currentEdge=currentRelationStack.elementAt(i);
+                    OrientEdge oe=(OrientEdge)currentEdge;
+                    String relationRealType=oe.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION,"");
+                    OrientDBRelationImpl targetRelation=new OrientDBRelationImpl(relationRealType);
+                    targetRelation.setRelationEdge(oe);
+                    relationOnPathStack.push(targetRelation);
+                }
+                relationOnPathStackList.add(relationOnPathStack);
+            }
+            return relationOnPathStackList;
+        }
+    }
+
+    @Override
+    public List<Relationable> discoverSimilarRelationablesRelatedToSameDimensions(String sourceRelationableId, List<String> dimensionIds,FilteringPattern filteringPattern) throws InfoDiscoveryEngineRuntimeException {
+        OrientVertex firstOv = this.graph.getVertex(sourceRelationableId);
+        if(firstOv==null){
+            String exceptionMessage = "Relationable id "+sourceRelationableId+" not exists";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }
+        List<Relationable> resultRelationableList=null;
+        StringBuilder dimensionRids = new StringBuilder();
+        for (String dimensionId: dimensionIds) {
+            dimensionRids.append(dimensionId + ",");
+        }
+        String rids = dimensionRids.toString().substring(0, dimensionRids.toString().length() - 1);
+        String innerQuery = null;
+        switch(filteringPattern){
+            case OR:
+                innerQuery = "(select from " + InfoDiscoverEngineConstant.DIMENSION_ROOTCLASSNAME+ " where  @rid in [" + rids + "])";
+                String sql = "select from (select from (TRAVERSE both() FROM " + innerQuery + " while " + "$depth < 2)) ";
+                resultRelationableList = discoverRelationables(sql);
+                Iterator<Relationable> relationableIterator= resultRelationableList.iterator();
+                while(relationableIterator.hasNext()){
+                    Relationable currentRelationable=relationableIterator.next();
+                    if(currentRelationable.getId().equals(sourceRelationableId)||dimensionIds.contains(currentRelationable.getId())){
+                        relationableIterator.remove();
+                    }
+                }
+                return resultRelationableList;
+            case AND:
+                resultRelationableList = new ArrayList<>();
+                innerQuery = "select from " + InfoDiscoverEngineConstant.DIMENSION_ROOTCLASSNAME+ " where @rid in [" + rids + "]";
+                List<OrientVertex> verticesList = new ArrayList<>();
+                for (OrientVertex v : (Iterable<OrientVertex>) graph.command(
+                        new OCommandSQL(innerQuery)).execute()) {
+                    verticesList.add(v);
+                }
+                List<Vertex> result = new ArrayList<>();
+                if (verticesList != null && verticesList.size() > 0) {
+                    for (int i = 0; i < verticesList.size(); i++) {
+                        List<Vertex> list = new ArrayList<>();
+                        Iterable<Vertex> it = verticesList.get(i).getVertices(Direction.BOTH);
+                        for (Vertex v : it) {
+                            String currentRecordId=((OrientVertex) v).getId().toString();
+                            if(!sourceRelationableId.equals(currentRecordId)){
+                                list.add(v);
+                            }
+                        }
+                        if (i == 0) {
+                            result = list;
+                        }
+                        result.retainAll(list);
+                    }
+                }
+                for(Vertex currentVertex:result){
+                    OrientVertex ov=(OrientVertex)currentVertex;
+                    String ovName=ov.getType().getName();
+                    if(ovName.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_FACT)){
+                        String factRealType=ov.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_FACT,"");
+                        OrientDBFactImpl targetFact=new OrientDBFactImpl(factRealType);
+                        targetFact.setFactVertex(ov);
+                        resultRelationableList.add(targetFact);
+                    }
+                    if(ovName.startsWith(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION)){
+                        String dimensionRealType = ov.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION, "");
+                        OrientDBDimensionImpl targetDimension=new OrientDBDimensionImpl(dimensionRealType);
+                        targetDimension.setDimensionVertex(ov);
+                        resultRelationableList.add(targetDimension);
+                    }
+                }
+                return resultRelationableList;
+        }
+        return null;
     }
 
     private void informationTypeCheck(String typeName,InformationType informationType)throws InfoDiscoveryEngineRuntimeException{
