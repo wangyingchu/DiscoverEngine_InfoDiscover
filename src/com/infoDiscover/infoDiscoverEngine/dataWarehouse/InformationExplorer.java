@@ -6,8 +6,13 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRun
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 
 import java.util.List;
+import java.util.Stack;
 
 public interface InformationExplorer {
+
+    public enum FilteringPattern{
+        AND,OR
+    }
 
     public List<Fact> discoverFacts(ExploreParameters exploreParameters) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
     public List<Dimension> discoverDimensions(ExploreParameters exploreParameters) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
@@ -21,5 +26,8 @@ public interface InformationExplorer {
     public List<Dimension> exploreDimensionsByRelatedFacts(RelationDirection relationDirection, List<String> factIds, ExploreParameters exploreParameters) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
     public List<Fact> exploreSimilarFactsByRelatedDimensions(RelationDirection relationDirection,String factId,String relationType,ExploreParameters exploreParameters)throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
     public List<Relationable> exploreRelatedRelationablesByRelationDepth(RelationDirection relationDirection,String sourceRelationableId,int depth,ExploreParameters exploreParameters) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
-    public List<Measurable> discoverMeasurablesByQuerySQL(InformationType informationType, String typeName, String querySQL)throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
+    public List<Measurable> discoverMeasurablesByQuerySQL(InformationType informationType, String typeName, String querySQL) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
+    public Stack<Relation> discoverRelationablesShortestPath(String firstRelationableId,String secondRelationableId,RelationDirection relationDirection) throws InfoDiscoveryEngineRuntimeException;
+    public List<Stack<Relation>> discoverRelationablesAllPaths(String firstRelationableId,String secondRelationableId) throws InfoDiscoveryEngineRuntimeException;
+    public List<Relationable> discoverSimilarRelationablesRelatedToSameDimensions(String sourceRelationableId,List<String> dimensionIds,FilteringPattern filteringPattern) throws InfoDiscoveryEngineRuntimeException;
 }
