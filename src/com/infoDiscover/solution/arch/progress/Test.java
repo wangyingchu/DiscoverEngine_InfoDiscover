@@ -1,7 +1,6 @@
 package com.infoDiscover.solution.arch.progress;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
-import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.solution.arch.progress.analytics.ProgressAnalytics;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.fact.ProgressFact;
@@ -9,7 +8,6 @@ import com.infoDiscover.solution.arch.progress.fact.RoleDimension;
 import com.infoDiscover.solution.arch.progress.fact.TaskFact;
 import com.infoDiscover.solution.arch.progress.fact.UserDimension;
 import com.infoDiscover.solution.arch.progress.manager.*;
-import com.infoDiscover.solution.common.relationship.RelationshipManager;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
@@ -93,7 +91,7 @@ public class Test {
     }
 
 
-    private static void createFact(InformationExplorer ie, String prefix) throws
+    private static void createFact(InfoDiscoverSpace ids, String prefix) throws
             InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineInfoExploreException {
         ProgressInitializer.initProgressFactType(prefix);
@@ -102,39 +100,40 @@ public class Test {
         // create progress 1
         ProgressManager progressManager = new ProgressManager();
         TaskManager taskManager = new TaskManager();
-        Fact progress = progressManager.createProgressFact(ie, new ProgressFact(ProgressConstants
-                .FACT_PROGRESS, "progressId1",
+        Fact progress = progressManager.createProgressFact(ids.getInformationExplorer(), new ProgressFact
+                (ProgressConstants
+                .FACT_PROGRESS_WITHPREFIX, "progressId1",
                 "progressContent"));
         String progressId = progress.getId();
         println("progressId: " + progressId);
 
         // create task1
-        Fact task1 = taskManager.createTaskFact(ie, new TaskFact("progressId1", "taskId1",
-                "taskContent"));
+        Fact task1 = taskManager.createTaskFact(ids.getInformationExplorer(), new TaskFact("progressId1", "taskId1",
+                "taskContent"), ProgressConstants.FACT_TASK_WITHPREFIX);
         String taskId1 = task1.getId();
         println("taskId1: " + taskId1);
 
         // create task2
-        Fact task2 = taskManager.createTaskFact(ie, new TaskFact("progressId1", "taskId2",
-                "taskContent2"));
+        Fact task2 = taskManager.createTaskFact(ids.getInformationExplorer(), new TaskFact("progressId1", "taskId2",
+                "taskContent2"), ProgressConstants.FACT_TASK_WITHPREFIX);
         String taskId2 = task2.getId();
         println("taskId2: " + taskId2);
 
         // create Role1
-        Dimension role = new RoleManager().createRoleDimension(ie, new RoleDimension("roleId1",
-                "role1"));
+        Dimension role = new RoleManager().createRoleDimension(ids, new RoleDimension("roleId1",
+                "role1"), ProgressConstants.DIMENSION_ROLE_WITHPREFIX);
         String roleId = role.getId();
         println("roleId: " + roleId);
 
         // create User1
         UserManager userManager = new UserManager();
-        Dimension user1 = userManager.createUserDimension(ie, new UserDimension("userId1",
-                "user1"));
+        Dimension user1 = userManager.createUserDimension(ids, new UserDimension("userId1",
+                "user1"), ProgressConstants.DIMENSION_USER_WITHPREFIX);
         String userId1 = user1.getId();
         println("userId1: " + userId1);
 
-        Dimension user2 = userManager.createUserDimension(ie, new UserDimension("userId2",
-                "user2"));
+        Dimension user2 = userManager.createUserDimension(ids, new UserDimension("userId2",
+                "user2"), ProgressConstants.DIMENSION_USER_WITHPREFIX);
         String userId2 = user2.getId();
         println("userId2: " + userId2);
     }

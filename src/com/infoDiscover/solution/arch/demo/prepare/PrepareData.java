@@ -54,9 +54,11 @@ public class PrepareData {
             System.exit(0);
         }
 
+        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
+
         logger.info("Step 2: initialize time dimension type");
         try {
-            TimeDimensionGenerator.initTimeDimensionType(PrefixConstant.prefixWithout);
+            TimeDimensionGenerator.initTimeDimensionType(ids, PrefixConstant.prefixWithout);
             logger.info("Step 2: end to initialize time dimension type with prefix: {}",
                     PrefixConstant.prefixWithout);
         } catch (InfoDiscoveryEngineDataMartException e) {
@@ -64,7 +66,7 @@ public class PrepareData {
         }
 
         logger.info("Step 3: generate the specified years");
-        TimeDimensionGenerator.generateYears(PrefixConstant.prefixWithout, DemoDataConfig
+        TimeDimensionGenerator.generateYears(ids, PrefixConstant.prefixWithout, DemoDataConfig
                 .yearsToGenerate, DemoDataConfig.depth);
         logger.info("Step 3: end to generate the specified years: " + "{2010, 2011, 2012, 2013, " +
                 "2014, 2015, 2016, 2017}");
@@ -78,7 +80,7 @@ public class PrepareData {
         }
 
         logger.info("Step 5: initialize the progress relation type");
-        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
+
         if (ids != null) {
 
             try {
@@ -103,7 +105,7 @@ public class PrepareData {
                 newProgressFactType.addTypeProperty("status", PropertyType.STRING);
 
                 // task fact type
-                FactType taskFactType = ids.addFactType(ProgressConstants.FACT_TASK);
+                FactType taskFactType = ids.addFactType(ProgressConstants.FACT_TASK_WITHPREFIX);
                 taskFactType.addTypeProperty("progressId", PropertyType.STRING);
                 taskFactType.addTypeProperty("taskId", PropertyType.STRING);
                 taskFactType.addTypeProperty("taskName", PropertyType.STRING);
@@ -114,10 +116,10 @@ public class PrepareData {
 
 
                 // role dimension
-                ids.addDimensionType(ProgressConstants.DIMENSION_ROLE);
+                ids.addDimensionType(ProgressConstants.DIMENSION_ROLE_WITHPREFIX);
 
                 // user dimension
-                ids.addDimensionType(ProgressConstants.DIMENSION_USER);
+                ids.addDimensionType(ProgressConstants.DIMENSION_USER_WITHPREFIX);
             } catch (InfoDiscoveryEngineDataMartException e) {
                 logger.error(e.getMessage());
             } catch (InfoDiscoveryEngineRuntimeException e) {
@@ -135,8 +137,10 @@ public class PrepareData {
         logger.info("Step 6: import user and role demo data");
 
         try {
-            UserRoleDataImporter.createUsers(ids.getInformationExplorer(),userFile);
-            UserRoleDataImporter.createRoles(ids.getInformationExplorer(),roleFile);
+            UserRoleDataImporter.createUsers(ids, userFile, ProgressConstants.DIMENSION_USER_WITHPREFIX);
+            UserRoleDataImporter.createRoles(ids, roleFile, ProgressConstants
+                    .DIMENSION_ROLE_WITHPREFIX, ProgressConstants.DIMENSION_USER_WITHPREFIX,
+                    ProgressConstants.RELATIONTYPE_ROLE_HASUSER_WITHPREFIX);
             logger.debug("Step 6: import user and role demo data");
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Step 6: Failed to import user and role demo data");

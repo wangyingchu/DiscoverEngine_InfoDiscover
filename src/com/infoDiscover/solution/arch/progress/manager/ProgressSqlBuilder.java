@@ -17,7 +17,7 @@ public class ProgressSqlBuilder {
 
     public static String buildSelectProgressSQL(String progressId) throws InfoDiscoveryEngineInfoExploreException {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.FACT_PROGRESS);
+        ep.setType(ProgressConstants.FACT_PROGRESS_WITHPREFIX);
         ep.setDefaultFilteringItem(new EqualFilteringItem("progressId", progressId));
 
         String sql = "(" + SQLBuilder.buildQuerySQL(InformationType.FACT, ep) + ")";
@@ -29,7 +29,7 @@ public class ProgressSqlBuilder {
     public static String buildSelectTaskByIdSQL(String taskId) throws
             InfoDiscoveryEngineInfoExploreException {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.FACT_TASK);
+        ep.setType(ProgressConstants.FACT_TASK_WITHPREFIX);
         ep.setDefaultFilteringItem(new EqualFilteringItem("taskId", taskId));
 
         String sql = "(" + SQLBuilder.buildQuerySQL(InformationType.FACT, ep) + ")";
@@ -41,7 +41,7 @@ public class ProgressSqlBuilder {
     public static String buildSelectTaskByUserIdSQL(String userId) throws
             InfoDiscoveryEngineInfoExploreException {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.DIMENSION_USER);
+        ep.setType(ProgressConstants.DIMENSION_USER_WITHPREFIX);
         ep.setDefaultFilteringItem(new EqualFilteringItem("userId", userId));
 
         String sql = "(" + SQLBuilder.buildQuerySQL(InformationType.FACT, ep) + ")";

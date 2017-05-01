@@ -3,11 +3,11 @@ package com.infoDiscover.common.dimension.time;
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.common.dimension.time.dimension.*;
 import com.infoDiscover.common.dimension.time.manager.TimeDimensionManager;
-import com.infoDiscover.solution.arch.database.DatabaseConstants;
-import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,13 +28,18 @@ public class TimeDimensionGenerator {
         String dimensionPrefix = "DEMO";
         int[] years = {2016, 1017, 2018};
         int depth = 3;
-        generateYears(dimensionPrefix, years, depth);
+
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
+                (SupervisionSolutionConstants.DATABASE_SPACE);
+        generateYears(ids, dimensionPrefix, years, depth);
+        ids.closeSpace();
     }
 
-    public static void generateYears(String dimensionPrefix, int[] years, int depth) {
+    public static void generateYears(InfoDiscoverSpace ids, String dimensionPrefix, int[] years,
+                                     int depth) {
         for (int year : years) {
             try {
-                yearGenerator(dimensionPrefix, year, depth);
+                yearGenerator(ids, dimensionPrefix, year, depth);
             } catch (InfoDiscoveryEngineDataMartException e) {
                 logger.error(e.getMessage());
             } catch (InfoDiscoveryEngineRuntimeException e) {
@@ -53,7 +58,8 @@ public class TimeDimensionGenerator {
     * 6 - second
     *
     * */
-    private static void yearGenerator(String dimensionPrefix, int year, int depth) throws
+    private static void yearGenerator(InfoDiscoverSpace ids, String dimensionPrefix, int year, int
+            depth) throws
             InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
         logger.info("Start to generate dimension with prefix: {}, and year: {} and depth: {}",
                 dimensionPrefix, year, depth);
@@ -67,29 +73,28 @@ public class TimeDimensionGenerator {
         }
 
         long startTime = System.currentTimeMillis();
-        initTimeDimensionType(dimensionPrefix);
+        initTimeDimensionType(ids, dimensionPrefix);
         long endTime = System.currentTimeMillis();
         logger.info("Elapsed time to create time dimension type: {}", (endTime - startTime));
 
         startTime = System.currentTimeMillis();
-        createTimeDimension(dimensionPrefix, year, depth);
+        createTimeDimension(ids, dimensionPrefix, year, depth);
         endTime = System.currentTimeMillis();
         logger.info("Elapsed time to create dimension: {}", (endTime - startTime));
         logger.info("End to generate time dimension");
     }
 
-    public static void initTimeDimensionType(String dimensionPrefix) throws
+    public static void initTimeDimensionType(InfoDiscoverSpace ids, String dimensionPrefix) throws
             InfoDiscoveryEngineDataMartException {
-        TimeDimensionManager manager = new TimeDimensionManager();
+        TimeDimensionManager manager = new TimeDimensionManager(ids);
         manager.createTimeDimensionType(dimensionPrefix);
     }
 
-    public static void createTimeDimension(String dimensionPrefix, int year, int depth) throws
+    public static void createTimeDimension(InfoDiscoverSpace ids, String dimensionPrefix, int year,
+                                           int depth) throws
             InfoDiscoveryEngineRuntimeException {
 
-        TimeDimensionManager manager = new TimeDimensionManager();
-
-        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
+        TimeDimensionManager manager = new TimeDimensionManager(ids);
 
         String prefix = "";
         if (dimensionPrefix != null || !dimensionPrefix.trim().equals("")) {
@@ -102,57 +107,49 @@ public class TimeDimensionGenerator {
         String hourType = prefix + TimeDimensionConstants.HOUR;
         String minuteType = prefix + TimeDimensionConstants.MINUTE;
 
-        if (ids != null) {
-            // create year
-            manager.createYearDimension(ids, new YearDimensionVO(yearType, year));
+        // create year
+        manager.createYearDimension(new YearDimensionVO(yearType, year));
 
-            // create month
-            if (depth > 1) {
-                for (int i = 1; i < 13; i++) {
-                    manager.createMonthDimension(ids, new MonthDimensionVO(monthType, year, i));
-                }
-
-                // create days
-                if (depth > 2) {
-                    Map<Integer, Integer> daysOfMonth = getDaysOfMonth(year);
-                    Set<Integer> keySet = daysOfMonth.keySet();
-                    Iterator<Integer> it = keySet.iterator();
-                    while (it.hasNext()) {
-                        int month = it.next().intValue();
-                        int days = daysOfMonth.get(month);
-                        for (int d = 1; d <= days; d++) {
-                            manager.createDayDimension(ids, new DayDimensionVO
-                                    (dayType, year, month, d));
-
-                            // create hour
-                            if (depth > 3) {
-                                for (int h = 0; h <= 23; h++) {
-                                    manager.createHourDimension(ids, new
-                                            HourDimensionVO(hourType, year, month, d, h));
-
-                                    // create minute
-                                    if (depth > 4) {
-                                        for (int m = 0; m <= 59; m++) {
-                                            manager.createMinuteDimension
-                                                    (ids, new MinuteDimensionVO
-                                                            (minuteType, year, month, d, h, m));
-                                        }
-                                    }
-                                }
-
-                            }
-                        }
-
-                    }
-                }
+        // create month
+        if (depth > 1) {
+            for (int i = 1; i < 13; i++) {
+                manager.createMonthDimension(new MonthDimensionVO(monthType, year, i));
             }
 
-        } else {
-            logger.error("Failed to connect to database: {}", DatabaseConstants
-                    .INFODISCOVER_SPACENAME);
-        }
+            // create days
+            if (depth > 2) {
+                Map<Integer, Integer> daysOfMonth = getDaysOfMonth(year);
+                Set<Integer> keySet = daysOfMonth.keySet();
+                Iterator<Integer> it = keySet.iterator();
+                while (it.hasNext()) {
+                    int month = it.next().intValue();
+                    int days = daysOfMonth.get(month);
+                    for (int d = 1; d <= days; d++) {
+                        manager.createDayDimension(new DayDimensionVO
+                                (dayType, year, month, d));
 
-        ids.closeSpace();
+                        // create hour
+                        if (depth > 3) {
+                            for (int h = 0; h <= 23; h++) {
+                                manager.createHourDimension(new
+                                        HourDimensionVO(hourType, year, month, d, h));
+
+                                // create minute
+                                if (depth > 4) {
+                                    for (int m = 0; m <= 59; m++) {
+                                        manager.createMinuteDimension
+                                                (new MinuteDimensionVO
+                                                        (minuteType, year, month, d, h, m));
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+            }
+        }
 
     }
 

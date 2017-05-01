@@ -1,14 +1,16 @@
 package com.infoDiscover.solution.common.analytics;
 
-import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.arch.database.DatabaseConstants;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
-import com.infoDiscover.solution.common.util.Helper;
+import com.orientechnologies.orient.core.sql.OCommandSQL;
+import com.tinkerpop.blueprints.Direction;
+import com.tinkerpop.blueprints.Vertex;
+import com.tinkerpop.blueprints.impls.orient.OrientGraph;
+import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,61 +43,64 @@ public class InfoDiscoverAnalytics {
         return results;
     }
 
-    public List<Relationable> getSimilarFacts(InfoDiscoverSpace ids, List<Dimension> dimensions,
-                                              String targetFactType) {
+    public List<Vertex> getSimilarFactList(OrientGraph graph, List<String>
+            dimensionRids, String targetFactType) {
+        logger.info("Enter getSimilarFactList with graph: {} and dimensionIds: {} and " +
+                "targetFactType: ", graph, dimensionRids, targetFactType);
 
-        List<String> ridList = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        for (String rid : dimensionRids) {
+            sb.append(rid + ",");
+        }
+        String rids = sb.toString().substring(0, sb.toString().length() - 1);
 
-        for (Dimension dimension : dimensions) {
-            ridList.add(dimension.getId());
+        String innerQuery = "select from " + InfoDiscoverEngineConstant.DIMENSION_ROOTCLASSNAME
+                + " where @rid in [" + rids + "]";
+        logger.info("innerQuery: " + innerQuery);
+
+        List<OrientVertex> verticesList = new ArrayList<>();
+
+        for (OrientVertex v : (Iterable<OrientVertex>) graph.command(
+                new OCommandSQL(innerQuery)).execute()) {
+            verticesList.add(v);
         }
 
-        return getSimilarFactList(ids, ridList, targetFactType);
-    }
+        List<Vertex> result = new ArrayList<>();
+        if (verticesList != null && verticesList.size() > 0) {
+            for (int i = 0; i < verticesList.size(); i++) {
+                List<Vertex> list = new ArrayList<>();
+                Iterable<Vertex> it = verticesList.get(i).getVertices(Direction.BOTH);
+                for (Vertex v : it) {
+                    String factType = ((OrientVertex) v).getRecord().getSchemaClass()
+                            .toString();
+                    if (factType.equalsIgnoreCase(targetFactType)) {
+                        list.add(v);
+                    }
+                }
 
-    public List<Relationable> getSimilarFactList(InfoDiscoverSpace ids, List<String> dimensionIds,
-                                                 String targetFactType) {
-        logger.info("Enter getSimilarFactList() with dimensionIs: {} and targetFactType: {}",
-                dimensionIds, targetFactType);
-        StringBuilder dimensionRids = new StringBuilder();
-        for (String rid : dimensionIds) {
-            dimensionRids.append(rid + ",");
+                if (i == 0) {
+                    result = list;
+                }
+
+                result.retainAll(list);
+            }
+
+            logger.debug("similarFactList: {}", result);
         }
-        String rids = dimensionRids.toString().substring(0, dimensionRids.toString().length() - 1);
-
-        String innerQuery = "(select from " + InfoDiscoverEngineConstant.DIMENSION_ROOTCLASSNAME
-                + " where " +
-                "@rid in [" + rids + "])";
-
-        String sql = "select from (select from (TRAVERSE both() FROM " + innerQuery + " while " +
-                "$depth < 2)) where" +
-                " @class=" + Helper.addDoubleQuotation(targetFactType);
-        logger.debug("sql: " + sql);
-
-        List<Relationable> results = QueryExecutor.executeFactQuery(ids, sql);
 
         logger.info("Exit getSimilarFactList()...");
-        return results;
+        return result;
     }
 
     public static void main(String[] args) {
         List<String> rids = new ArrayList<>();
         rids.add("#106:3");
+        rids.add("#50:60");
+        InfoDiscoverAnalytics analytics = new InfoDiscoverAnalytics();
 
-        InfoDiscoverSpace ids  = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                ("DemoArch");
-
-        InfoDiscoverAnalytics a = new InfoDiscoverAnalytics();
-        List<Relationable> results = a.getSimilarFactList(ids,rids, "ID_FACT_DEMO_TASK");
-        for (Relationable r : results) {
-            System.out.println("similarFacts: " + r.getId());
-        }
-
-        results = a.getAllLinkedFacts(ids, "#108:3", 1);
-        for (Relationable r : results) {
-            System.out.println("allLinkedFacts: " + r.getId());
-        }
-
-        ids.closeSpace();
+        OrientGraph graph = new OrientGraph("remote:localhost/DemoArch", "root", "wyc");
+        List<Vertex> list = analytics.getSimilarFactList(graph, rids, "ID_FACT_DEMO_TASK");
+        System.out.println("list: " + list);
+        graph.commit();
     }
 }

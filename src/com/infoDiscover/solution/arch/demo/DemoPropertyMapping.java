@@ -2,7 +2,7 @@ package com.infoDiscover.solution.arch.demo;
 
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
-import com.infoDiscover.solution.demo.util.JsonConstants;
+import com.infoDiscover.solution.sample.util.JsonConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;

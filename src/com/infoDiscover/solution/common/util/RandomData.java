@@ -3,7 +3,7 @@ package com.infoDiscover.solution.common.util;
 import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.RandomUtil;
-import com.infoDiscover.solution.demo.util.JsonConstants;
+import com.infoDiscover.solution.sample.util.JsonConstants;
 import org.codehaus.jackson.JsonNode;
 
 import java.text.DecimalFormat;

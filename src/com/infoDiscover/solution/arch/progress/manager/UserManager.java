@@ -4,6 +4,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
+import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
@@ -23,30 +24,32 @@ public class UserManager {
 
     private final static Logger logger = LoggerFactory.getLogger(UserManager.class);
 
-    public Dimension getUserById(InformationExplorer ie, String userId) throws
+    public Dimension getUserById(InformationExplorer ie, String userId, String dimensionType)
+            throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.DIMENSION_USER);
+        ep.setType(dimensionType);
         ep.setDefaultFilteringItem(new EqualFilteringItem("userId", userId));
 
         return QueryExecutor.executeDimensionQuery(ie, ep);
     }
 
-    public Dimension createUserDimension(InformationExplorer ie, UserDimension user) throws
+    public Dimension createUserDimension(InfoDiscoverSpace ids,
+                                         UserDimension user,
+                                         String dimensionType) throws
             InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createUserDimension() with userId: " + user.getUserId());
 
         // first check if the user is already exists
-        Dimension userDimension = getUserById(ie, user.getUserId());
-
+        Dimension userDimension = getUserById(ids.getInformationExplorer(), user.getUserId(),dimensionType);
         if (userDimension == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("userId", user.getUserId());
             props.put("userName", user.getUserName());
 
-            userDimension = ProgressUtil.createDimension(ProgressConstants.DIMENSION_USER, props);
+            userDimension = ProgressUtil.createDimension(ids,dimensionType, props);
         }
 
         logger.debug("Exit method createUserDimension()...");

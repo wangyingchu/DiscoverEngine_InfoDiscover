@@ -1,16 +1,14 @@
 package com.infoDiscover.common.dimension.time.manager;
 
-import com.infoDiscover.common.dimension.time.dimension.*;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
-import com.infoDiscover.solution.arch.database.DatabaseConstants;
-import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
+import com.infoDiscover.common.dimension.time.dimension.*;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.DimensionType;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -28,55 +26,52 @@ public class TimeDimensionManager {
     private final static Logger logger = LoggerFactory.getLogger
             (TimeDimensionManager.class);
 
+    private InfoDiscoverSpace ids;
+
+    public TimeDimensionManager(InfoDiscoverSpace ids) {
+        this.ids = ids;
+    }
+
     public void createTimeDimensionType(String dimensionPrefix) throws
             InfoDiscoveryEngineDataMartException {
         logger.info("Enter method createTimeDimensionType() with dimensionPrefix: {}",
                 dimensionPrefix);
 
-        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-        if (ids != null) {
-
-            String prefix = "";
-            if (dimensionPrefix != null || !dimensionPrefix.trim().equals("")) {
-                prefix = dimensionPrefix + "_";
-            }
-
-            String year = prefix + TimeDimensionConstants.YEAR;
-            if (!ids.hasDimensionType(year)) {
-                DimensionType yearType = ids.addDimensionType(year);
-            }
-
-            String month = prefix + TimeDimensionConstants.MONTH;
-            if (!ids.hasDimensionType(month)) {
-                DimensionType monthType = ids.addChildDimensionType(month, year);
-            }
-
-            String day = prefix + TimeDimensionConstants.DAY;
-            if (!ids.hasDimensionType(day)) {
-                DimensionType dayType = ids.addChildDimensionType(day, month);
-            }
-
-            String hour = prefix + TimeDimensionConstants.HOUR;
-            if (!ids.hasDimensionType(hour)) {
-                DimensionType hourType = ids.addChildDimensionType(hour, day);
-            }
-
-            String minute = prefix + TimeDimensionConstants.MINUTE;
-            if (!ids.hasDimensionType(minute)) {
-                DimensionType minuteType = ids.addChildDimensionType(minute, hour);
-            }
-
-        } else {
-            logger.error("Failed to connect to database: {}", DatabaseConstants
-                    .INFODISCOVER_SPACENAME);
+        String prefix = "";
+        if (dimensionPrefix != null || !dimensionPrefix.trim().equals("")) {
+            prefix = dimensionPrefix + "_";
         }
-        ids.closeSpace();
+
+        String year = prefix + TimeDimensionConstants.YEAR;
+        if (!ids.hasDimensionType(year)) {
+            DimensionType yearType = ids.addDimensionType(year);
+        }
+
+        String month = prefix + TimeDimensionConstants.MONTH;
+        if (!ids.hasDimensionType(month)) {
+            DimensionType monthType = ids.addChildDimensionType(month, year);
+        }
+
+        String day = prefix + TimeDimensionConstants.DAY;
+        if (!ids.hasDimensionType(day)) {
+            DimensionType dayType = ids.addChildDimensionType(day, month);
+        }
+
+        String hour = prefix + TimeDimensionConstants.HOUR;
+        if (!ids.hasDimensionType(hour)) {
+            DimensionType hourType = ids.addChildDimensionType(hour, day);
+        }
+
+        String minute = prefix + TimeDimensionConstants.MINUTE;
+        if (!ids.hasDimensionType(minute)) {
+            DimensionType minuteType = ids.addChildDimensionType(minute, hour);
+        }
 
         logger.info("Exit method createTimeDimensionType()...");
     }
 
 
-    private Dimension createTimeDimension(InfoDiscoverSpace ids, String type, Map<String, Object>
+    private Dimension createTimeDimension(String type, Map<String, Object>
             properties) throws InfoDiscoveryEngineRuntimeException {
 
         Dimension dimension = DiscoverEngineComponentFactory.createDimension(type);
@@ -86,7 +81,7 @@ public class TimeDimensionManager {
         return dimension;
     }
 
-    public Dimension createYearDimension(InfoDiscoverSpace ids, YearDimensionVO year) throws
+    public Dimension createYearDimension(YearDimensionVO year) throws
             InfoDiscoveryEngineRuntimeException {
         logger.info("Start to create year dimension");
         Map<String, Object> yearProps = new HashMap<String, Object>();
@@ -100,7 +95,7 @@ public class TimeDimensionManager {
             Dimension existingYearDimension = QueryExecutor.executeDimensionQuery(ids
                     .getInformationExplorer(), ep);
             if (existingYearDimension == null) {
-                return createTimeDimension(ids, year.getType(), yearProps);
+                return createTimeDimension(year.getType(), yearProps);
             }
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Failed to create year dimension");
@@ -112,7 +107,7 @@ public class TimeDimensionManager {
     }
 
 
-    public Dimension createMonthDimension(InfoDiscoverSpace ids, MonthDimensionVO month) throws
+    public Dimension createMonthDimension(MonthDimensionVO month) throws
             InfoDiscoveryEngineRuntimeException {
         logger.info("Start to create month dimension");
 
@@ -127,21 +122,18 @@ public class TimeDimensionManager {
                 .FilteringLogic.AND);
         try {
             if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(ids, month.getType(),
+                return createTimeDimension(month.getType(),
                         monthProps);
             }
-
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Failed to create month dimension");
         }
-
-
         logger.info("End to create month dimension");
 
         return null;
     }
 
-    public Dimension createDayDimension(InfoDiscoverSpace ids, DayDimensionVO day) throws
+    public Dimension createDayDimension(DayDimensionVO day) throws
             InfoDiscoveryEngineRuntimeException {
         logger.info("Start to create day dimension with day: {}", day.toString());
 
@@ -159,7 +151,7 @@ public class TimeDimensionManager {
                 .FilteringLogic.AND);
         try {
             if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(ids, day.getType(), dayProps);
+                return createTimeDimension(day.getType(), dayProps);
             }
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Failed to create day dimension");
@@ -170,7 +162,7 @@ public class TimeDimensionManager {
         return null;
     }
 
-    public Dimension createHourDimension(InfoDiscoverSpace ids, HourDimensionVO hour) throws
+    public Dimension createHourDimension(HourDimensionVO hour) throws
             InfoDiscoveryEngineRuntimeException {
         logger.info("Start to create hour dimension");
 
@@ -191,7 +183,7 @@ public class TimeDimensionManager {
                 .FilteringLogic.AND);
         try {
             if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(ids, hour.getType(), hourProps);
+                return createTimeDimension(hour.getType(), hourProps);
             }
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Failed to create hour dimension");
@@ -202,7 +194,7 @@ public class TimeDimensionManager {
         return null;
     }
 
-    public Dimension createMinuteDimension(InfoDiscoverSpace ids, MinuteDimensionVO minute) throws
+    public Dimension createMinuteDimension(MinuteDimensionVO minute) throws
             InfoDiscoveryEngineRuntimeException {
         logger.info("Start to create minute dimension");
         Map<String, Object> minuteProps = new HashMap<String, Object>();
@@ -225,7 +217,7 @@ public class TimeDimensionManager {
                 .FilteringLogic.AND);
         try {
             if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(ids, minute.getType(),
+                return createTimeDimension(minute.getType(),
                         minuteProps);
             }
         } catch (InfoDiscoveryEngineInfoExploreException e) {

@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.demo.util;
+package com.infoDiscover.solution.sample.util;
 
 /**
  * Created by sun.

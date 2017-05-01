@@ -4,6 +4,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
+import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
@@ -22,29 +23,30 @@ import java.util.Map;
 public class RoleManager {
     private final static Logger logger = LoggerFactory.getLogger(RoleManager.class);
 
-    public Dimension createRoleDimension(InformationExplorer ie, RoleDimension role) throws
+    public Dimension createRoleDimension(InfoDiscoverSpace ids, RoleDimension role, String
+            dimensionType) throws
             InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createRoleDimension() with roleId: " + role.getRoleId());
 
         // check if role is already existed
-        Dimension roleDimension = getRoleById(ie, role.getRoleId());
+        Dimension roleDimension = getRoleById(ids.getInformationExplorer(), role.getRoleId(), dimensionType);
         if (roleDimension == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("roleId", role.getRoleId());
             props.put("roleName", role.getRoleName());
 
-            roleDimension = ProgressUtil.createDimension(ProgressConstants.DIMENSION_ROLE, props);
+            roleDimension = ProgressUtil.createDimension(ids, dimensionType, props);
         }
         logger.debug("Exit method createRoleDimension()...");
         return roleDimension;
     }
 
-    public Dimension getRoleById(InformationExplorer ie, String roleId) throws
+    public Dimension getRoleById(InformationExplorer ie, String roleId, String dimensionType) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.DIMENSION_ROLE);
+        ep.setType(dimensionType);
         ep.setDefaultFilteringItem(new EqualFilteringItem("roleId", roleId));
 
         return QueryExecutor.executeDimensionQuery(ie, ep);

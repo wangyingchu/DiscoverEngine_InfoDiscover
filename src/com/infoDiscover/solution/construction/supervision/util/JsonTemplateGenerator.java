@@ -342,7 +342,7 @@ public class JsonTemplateGenerator {
             propertyValue = false;
         } else if (propertyType.equalsIgnoreCase("Date") || propertyType.equalsIgnoreCase
                 ("DateTime")) {
-            propertyValue = 0;
+            propertyValue = null;
         }
 
         return propertyValue;

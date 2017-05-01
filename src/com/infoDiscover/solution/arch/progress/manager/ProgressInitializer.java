@@ -25,22 +25,22 @@ public class ProgressInitializer {
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
 
         if (ids != null) {
-            if (!ids.hasFactType(prefix + ProgressConstants.FACT_PROGRESS)) {
-                FactType progressType = ids.addFactType(prefix + ProgressConstants.FACT_PROGRESS);
+            if (!ids.hasFactType(prefix + ProgressConstants.FACT_PROGRESS_WITHPREFIX)) {
+                FactType progressType = ids.addFactType(prefix + ProgressConstants.FACT_PROGRESS_WITHPREFIX);
                 logger.debug("Created progress fact type: " + progressType.getTypeName());
             }
-            if (!ids.hasFactType(prefix + ProgressConstants.FACT_TASK)) {
-                FactType taskType = ids.addFactType(prefix + ProgressConstants.FACT_TASK);
+            if (!ids.hasFactType(prefix + ProgressConstants.FACT_TASK_WITHPREFIX)) {
+                FactType taskType = ids.addFactType(prefix + ProgressConstants.FACT_TASK_WITHPREFIX);
                 logger.debug("Created task fact type: " + taskType.getTypeName());
             }
-            if (!ids.hasFactType(prefix + ProgressConstants.DIMENSION_ROLE)) {
+            if (!ids.hasFactType(prefix + ProgressConstants.DIMENSION_ROLE_WITHPREFIX)) {
                 DimensionType roleType = ids.addDimensionType(prefix + ProgressConstants
-                        .DIMENSION_ROLE);
+                        .DIMENSION_ROLE_WITHPREFIX);
                 logger.debug("Created role dimension type: " + roleType.getTypeName());
             }
-            if (!ids.hasFactType(ProgressConstants.DIMENSION_USER)) {
+            if (!ids.hasFactType(ProgressConstants.DIMENSION_USER_WITHPREFIX)) {
                 DimensionType userType = ids.addDimensionType(prefix + ProgressConstants
-                        .DIMENSION_USER);
+                        .DIMENSION_USER_WITHPREFIX);
                 logger.debug("Created user dimension type: " + userType.getTypeName());
             }
         } else {
@@ -61,51 +61,51 @@ public class ProgressInitializer {
             prefix = "";
         }
         if (ids != null) {
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_PROGRESS_HASTASK)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_PROGRESS_HASTASK_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_PROGRESS_HASTASK);
+                        .RELATIONTYPE_PROGRESS_HASTASK_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
 
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_TASK_EXECUTEBYROLE)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_TASK_EXECUTEBYROLE_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_TASK_EXECUTEBYROLE);
+                        .RELATIONTYPE_TASK_EXECUTEBYROLE_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
 
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_TASK_EXECUTEBYUSER)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_TASK_EXECUTEBYUSER_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_TASK_EXECUTEBYUSER);
+                        .RELATIONTYPE_TASK_EXECUTEBYUSER_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
 
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_SUBTASK)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_SUBTASK_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_SUBTASK);
+                        .RELATIONTYPE_SUBTASK_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
 
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_ROLE_HASUSER)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_ROLE_HASUSER_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_ROLE_HASUSER);
+                        .RELATIONTYPE_ROLE_HASUSER_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
 
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_TRANSFER)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_TRANSFER_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_TRANSFER);
+                        .RELATIONTYPE_TRANSFER_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
 
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_STARTAT)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_STARTAT_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_STARTAT);
+                        .RELATIONTYPE_STARTAT_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
 
-            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_ENDAT)) {
+            if (!ids.hasRelationType(prefix + ProgressConstants.RELATIONTYPE_ENDAT_WITHPREFIX)) {
                 RelationType relationType = ids.addRelationType(prefix + ProgressConstants
-                        .RELATIONTYPE_ENDAT);
+                        .RELATIONTYPE_ENDAT_WITHPREFIX);
                 logger.debug("Created relationType: " + relationType.getTypeName());
             }
         } else {

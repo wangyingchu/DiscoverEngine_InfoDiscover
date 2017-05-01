@@ -25,12 +25,12 @@
                 {
                     "propertyType": "Date",
                     "propertyName": "startDate",
-                    "propertyValue": 0
+                    "propertyValue": null
                 },
                 {
                     "propertyType": "Date",
                     "propertyName": "endDate",
-                    "propertyValue": 0
+                    "propertyValue": null
                 },
                 {
                     "propertyType": "String",
@@ -70,12 +70,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -171,12 +171,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -191,7 +191,7 @@
                         },
                         {
                             "propertyName": "projectLaunchingAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -242,12 +242,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -277,7 +277,7 @@
                         },
                         {
                             "propertyName": "biddingAgencyContractAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -323,12 +323,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -358,7 +358,7 @@
                         },
                         {
                             "propertyName": "projectPlanMakingContractAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -404,12 +404,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -439,17 +439,17 @@
                         },
                         {
                             "propertyName": "feasibilityReportCompletionDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "feasibilityReportApprovalDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "feasibilityReportApprover",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         }
                     ]
@@ -485,12 +485,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -510,12 +510,12 @@
                         },
                         {
                             "propertyName": "projectProposalCompletionDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "projectProposalApprovalDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -525,7 +525,7 @@
                         },
                         {
                             "propertyName": "landContractApprovalDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -535,7 +535,7 @@
                         },
                         {
                             "propertyName": "projectPlanningLocationApprovalDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         }
                     ]
@@ -571,12 +571,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -606,7 +606,7 @@
                         },
                         {
                             "propertyName": "surveyCompanyContractAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -662,12 +662,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -692,7 +692,7 @@
                         },
                         {
                             "propertyName": "surveyCompletionDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -733,12 +733,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -768,7 +768,7 @@
                         },
                         {
                             "propertyName": "designContractAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -778,7 +778,7 @@
                         },
                         {
                             "propertyName": "designContractApproveDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -819,12 +819,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -930,12 +930,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -960,7 +960,7 @@
                         },
                         {
                             "propertyName": "budgetaryEstimateCompletionDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -1321,12 +1321,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -1356,7 +1356,7 @@
                         },
                         {
                             "propertyName": "costConsultationContractAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -1402,12 +1402,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -1437,7 +1437,7 @@
                         },
                         {
                             "propertyName": "projectBudgetAuditCompletionDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -1793,12 +1793,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -1818,7 +1818,7 @@
                         },
                         {
                             "propertyName": "approvalDateOfProjectBudget",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2174,12 +2174,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2209,7 +2209,7 @@
                         },
                         {
                             "propertyName": "constructionContractAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2234,7 +2234,7 @@
                         },
                         {
                             "propertyName": "constructionContractApprovalDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         }
                     ]
@@ -2270,12 +2270,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2305,7 +2305,7 @@
                         },
                         {
                             "propertyName": "supervisionContractAssignDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2366,12 +2366,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2386,7 +2386,7 @@
                         },
                         {
                             "propertyName": "constructionStartDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2442,12 +2442,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2462,12 +2462,12 @@
                         },
                         {
                             "propertyName": "auditDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "securityCheckResult",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2513,12 +2513,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2533,7 +2533,7 @@
                         },
                         {
                             "propertyName": "finalAcceptanceDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2589,12 +2589,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
@@ -2640,12 +2640,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": 0,
+                            "propertyValue": null,
                             "propertyType": "Date"
                         },
                         {

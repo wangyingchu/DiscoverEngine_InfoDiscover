@@ -26,9 +26,9 @@ public class Test {
     public static void main(String[] args) throws InfoDiscoveryEngineInfoExploreException,
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
 
-        // get fact 2018-2-1
-        TimeDimensionManager manager = new TimeDimensionManager();
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
+        // get fact 2018-2-1
+        TimeDimensionManager manager = new TimeDimensionManager(ids);
 
         InformationExplorer ie = ids.getInformationExplorer();
         ExploreParameters ep = new ExploreParameters();

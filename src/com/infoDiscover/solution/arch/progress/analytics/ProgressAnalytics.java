@@ -29,7 +29,7 @@ public class ProgressAnalytics {
 
         String sql = "select from (TRAVERSE out() FROM " + selectProgressSql + ") where @class=" +
                 Helper.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
-                        ProgressConstants.FACT_TASK);
+                        ProgressConstants.FACT_TASK_WITHPREFIX);
 
         logger.info("getAllTasksOfProgress sql: {}", sql);
         List<Relationable> results = QueryExecutor.executeFactQuery(ids, sql);
@@ -42,7 +42,7 @@ public class ProgressAnalytics {
 
         String sql = "select from (TRAVERSE out() FROM " + selectProgressSql + ") where @class=" +
                 Helper.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
-                        ProgressConstants.DIMENSION_USER);
+                        ProgressConstants.DIMENSION_USER_WITHPREFIX);
 
         System.out.println("getAllUsersOfTask sql: " + sql);
 
@@ -56,7 +56,7 @@ public class ProgressAnalytics {
 
         String sql = "select from (TRAVERSE out() FROM " + selectProgressSql + ") where @class=" +
                 Helper.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
-                        ProgressConstants.DIMENSION_USER);
+                        ProgressConstants.DIMENSION_USER_WITHPREFIX);
 
         logger.info("getAllUsersOfProgress sql: {}", sql);
 
@@ -70,7 +70,7 @@ public class ProgressAnalytics {
 
         String sql = "select from (TRAVERSE in() FROM " + selectProgressSql + ") where @class=" +
                 Helper.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
-                        ProgressConstants.FACT_TASK);
+                        ProgressConstants.FACT_TASK_WITHPREFIX);
 
         System.out.println("getAllTasksOfUser sql: " + sql);
 

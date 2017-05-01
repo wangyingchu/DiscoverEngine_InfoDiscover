@@ -6,8 +6,8 @@ import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
-import com.infoDiscover.solution.demo.util.JsonConstants;
-import com.infoDiscover.solution.demo.util.ProgressJsonParser;
+import com.infoDiscover.solution.sample.util.JsonConstants;
+import com.infoDiscover.solution.sample.util.ProgressJsonParser;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,7 +86,6 @@ public class TaskSampleDataGenerator {
         return tasksArray;
     }
 
-
     private static Map<String, Object> updateRequiredPropertiesRandomData(
             Map<String, Object> properties,
             String progressId,
@@ -98,6 +97,9 @@ public class TaskSampleDataGenerator {
         properties.put(JsonConstants.PROGRESS_ID, progressId);
         properties.put(JsonConstants.TASK_ID, progressId + "_taskId" + (taskSequence + 1));
         properties.put(JsonConstants.TASK_NAME, getTasksList(projectType)[taskSequence]);
+
+        // TODO: update attachment
+        properties.put(JsonConstants.ATTACHMENT, "");
 
         //String departmentId = getDepartmentsList(projectType)[taskSequence];
         String departmentId = getRandomDepartment();

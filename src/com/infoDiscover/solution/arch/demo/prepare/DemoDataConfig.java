@@ -44,9 +44,9 @@ public class DemoDataConfig {
     public final static String PROJECTNAME_MAINTAIN = "维修工程";
     public final static String PROJECTNAME_NEW = "新建工程";
 
-    public final static String FACTTYPE_MAINTAIN_PROJECT = ProgressConstants.FACT_PROGRESS +
+    public final static String FACTTYPE_MAINTAIN_PROJECT = ProgressConstants.FACT_PROGRESS_WITHPREFIX +
             "_MAINTAIN";
-    public final static String FACTTYPE_NEW_PROJECT = ProgressConstants.FACT_PROGRESS +
+    public final static String FACTTYPE_NEW_PROJECT = ProgressConstants.FACT_PROGRESS_WITHPREFIX +
             "_NEWPROJECT";
 
     public final static String[] MAINTAIN_TASKS = {"WeiXiuShenqing", "ProjectStart", "KanchaBaojia",

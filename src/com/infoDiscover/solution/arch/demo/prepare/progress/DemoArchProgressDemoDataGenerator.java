@@ -5,22 +5,22 @@ import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.RandomUtil;
+import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.database.DatabaseManager;
-import com.infoDiscover.solution.arch.demo.FactTypeEnum;
 import com.infoDiscover.solution.arch.demo.DemoArchJsonConstants;
+import com.infoDiscover.solution.arch.demo.FactTypeEnum;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
-import com.infoDiscover.solution.arch.progress.manager.ProgressManager;
-import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
-import com.infoDiscover.solution.arch.progress.manager.TaskManager;
+import com.infoDiscover.solution.arch.progress.manager.*;
 import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
-import com.infoDiscover.solution.demo.util.JsonConstants;
-import com.infoDiscover.solution.demo.util.ProgressRandomData;
+import com.infoDiscover.solution.common.util.RandomData;
+import com.infoDiscover.solution.sample.util.JsonConstants;
+import com.infoDiscover.solution.sample.util.ProgressRandomData;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,13 +62,14 @@ public class DemoArchProgressDemoDataGenerator {
         for (int i = 1; i < countOfProgressToGenerate + 1; i++) {
             int firstNumberOfTasksToGenerate = maxTasksNumber;
             if (toGenerateRandomTaskNumber) {
-                firstNumberOfTasksToGenerate = RandomUtil.generateRandomInRange(0, 11);
+                firstNumberOfTasksToGenerate = RandomUtil.generateRandomInRange(0,
+                        firstNumberOfTasksToGenerate);
             }
 
-
+            long startDate = RandomData.getRandomTime(2010, 2016, 0);
             Map<String, Object> progressProperties = ProgressRandomData
                     .generateProgressRandomData(projectTemplate, projectType, getProjectName
-                            (projectType), i);
+                            (projectType), DateUtil.getDateTime(startDate).toDate(), i);
 
             String progressId = progressProperties.get("progressId").toString();
             long startTimeLongValue = ((Date) progressProperties.get("startTime")).getTime();
@@ -83,9 +84,10 @@ public class DemoArchProgressDemoDataGenerator {
                         progressProperties);
             } else {
 
-                Map<String, Object>[] tasksPropertiesArray = DemoArchTaskRandomData.generateTasksRandomData
-                        (projectTemplate, projectType, progressId,
-                                startTimeLongValue, firstNumberOfTasksToGenerate);
+                Map<String, Object>[] tasksPropertiesArray = DemoArchTaskRandomData
+                        .generateTasksRandomData
+                                (projectTemplate, projectType, progressId,
+                                        startTimeLongValue, firstNumberOfTasksToGenerate);
 
                 // deal with the tasks array for some special properties
                 if (factType.equalsIgnoreCase(DemoDataConfig.FACTTYPE_MAINTAIN_PROJECT)) {
@@ -254,7 +256,7 @@ public class DemoArchProgressDemoDataGenerator {
                 ProgressUtil.updateFact(progressFact, properties);
             }
 
-            ProgressRelationManager relationManager = new ProgressRelationManager();
+            ProgressRelationManager relationManager = new ProgressRelationManager(ids);
             // link starter to progress
             String starter = properties.get("starter").toString();
 
@@ -262,13 +264,13 @@ public class DemoArchProgressDemoDataGenerator {
             DayDimensionVO dayDimension = getDayDimension((Date) properties.get("startTime"));
             relationManager.attachTimeToProgress(ids, progressId, factType, dayDimension,
                     ProgressConstants
-                            .RELATIONTYPE_STARTAT);
+                            .RELATIONTYPE_STARTAT_WITHPREFIX);
 
             // link endTime to progress
             if (properties.get("endTime") != null) {
                 dayDimension = getDayDimension((Date) properties.get("endTime"));
                 relationManager.attachTimeToProgress(ids, progressId, factType, dayDimension,
-                        ProgressConstants.RELATIONTYPE_ENDAT);
+                        ProgressConstants.RELATIONTYPE_ENDAT_WITHPREFIX);
             }
 
         } catch (InfoDiscoveryEngineRuntimeException e) {
@@ -295,9 +297,9 @@ public class DemoArchProgressDemoDataGenerator {
     private static String getFact(String type) {
 
         if (type.trim().equalsIgnoreCase(FactTypeEnum.Progress.toString())) {
-            return ProgressConstants.FACT_PROGRESS;
+            return ProgressConstants.FACT_PROGRESS_WITHPREFIX;
         } else if (type.trim().equalsIgnoreCase(FactTypeEnum.Task.toString())) {
-            return ProgressConstants.FACT_TASK;
+            return ProgressConstants.FACT_TASK_WITHPREFIX;
         }
         return "";
     }
@@ -321,42 +323,54 @@ public class DemoArchProgressDemoDataGenerator {
         String taskId = properties.get("taskId").toString();
         TaskManager taskManager = new TaskManager();
         try {
-            String factType = getFact(properties.get(JsonConstants.JSON_TYPE).toString());
-            logger.info("Fact type is: {}", factType);
+            String taskFactType = getFact(properties.get(JsonConstants.JSON_TYPE).toString());
+            logger.info("Fact type is: {}", taskFactType);
 
             // remove type from properties
             properties.remove("type");
 
             // create or update fact
-            Fact taskTact = taskManager.getTaskById(ie, taskId);
+            Fact taskTact = taskManager.getTaskById(ie, taskId, taskFactType);
             if (taskTact == null) {
-                ProgressUtil.createFact(ids, factType, properties);
+                ProgressUtil.createFact(ids, taskFactType, properties);
             } else {
                 ProgressUtil.updateFact(taskTact, properties);
             }
 
             // link tasks to progress
-            ProgressRelationManager relationManager = new ProgressRelationManager();
-            relationManager.attachTaskToProgress(progressId, progressFactType, taskId);
+            ProgressRelationManager relationManager = new ProgressRelationManager(ids);
+            ProgressManager progressManager = new ProgressManager();
+            Fact progressFact = progressManager.getProgressById(ids.getInformationExplorer(),
+                    progressId,progressFactType);
+            relationManager.attachTaskToProgress(progressFact, taskTact,
+                    ProgressConstants.RELATIONTYPE_PROGRESS_HASTASK_WITHPREFIX);
 
             // link user to task
             String userId = properties.get(DemoArchJsonConstants.TASK_ASSIGNEE).toString();
-            relationManager.attachUserToTask(taskId, userId);
+            UserManager userManager = new UserManager();
+            Dimension userDimension = userManager.getUserById(ids.getInformationExplorer(),
+                    userId, ProgressConstants.DIMENSION_USER_WITHPREFIX);
+            relationManager.attachUserToTask(taskTact, userDimension, ProgressConstants
+                    .RELATIONTYPE_TASK_EXECUTEBYUSER_WITHPREFIX);
 
             // link role to task
             String roleId = properties.get(DemoArchJsonConstants.TASK_DEPARTMENTID).toString();
-            relationManager.attachRoleToTask(taskId, roleId);
+            RoleManager roleManager = new RoleManager();
+            Dimension roleDimension = roleManager.getRoleById(ids.getInformationExplorer(),
+                    roleId, ProgressConstants.DIMENSION_ROLE_WITHPREFIX);
+            relationManager.attachRoleToTask(taskTact, roleDimension, ProgressConstants
+                    .RELATIONTYPE_TASK_EXECUTEBYROLE_WITHPREFIX);
 
             // link startTime to task
             DayDimensionVO dayDimension = getDayDimension((Date) properties.get("startTime"));
-            relationManager.attachTimeToTask(ids, taskId, dayDimension, ProgressConstants
-                    .RELATIONTYPE_STARTAT);
+            relationManager.attachTimeToTask(ids, taskTact, dayDimension, ProgressConstants
+                    .RELATIONTYPE_STARTAT_WITHPREFIX);
 
             // link endTime to task
             if (properties.get("endTime") != null) {
                 dayDimension = getDayDimension((Date) properties.get("endTime"));
-                relationManager.attachTimeToTask(ids, taskId, dayDimension, ProgressConstants
-                        .RELATIONTYPE_ENDAT);
+                relationManager.attachTimeToTask(ids, taskTact, dayDimension, ProgressConstants
+                        .RELATIONTYPE_ENDAT_WITHPREFIX);
             }
 
         } catch (InfoDiscoveryEngineRuntimeException e) {

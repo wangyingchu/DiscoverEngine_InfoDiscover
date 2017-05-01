@@ -22,30 +22,30 @@ import java.util.Map;
 public class TaskManager {
     private final static Logger logger = LoggerFactory.getLogger(TaskManager.class);
 
-    public Fact getTaskById(InformationExplorer ie, String taskId) throws
+    public Fact getTaskById(InformationExplorer ie, String taskId, String factType) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(ProgressConstants.FACT_TASK);
+        ep.setType(factType);
         ep.setDefaultFilteringItem(new EqualFilteringItem("taskId", taskId));
 
         return QueryExecutor.executeFactQuery(ie, ep);
     }
 
 
-    public Fact createTaskFact(InformationExplorer ie, TaskFact task) throws
+    public Fact createTaskFact(InformationExplorer ie, TaskFact task, String factType) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createTaskFact() with taskId: " + task.getTaskId());
 
         // check if task is already exists
-        Fact taskFact = getTaskById(ie, task.getTaskId());
+        Fact taskFact = getTaskById(ie, task.getTaskId(), factType);
         if (taskFact == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("progressId", task.getProgressId());
             props.put("taskId", task.getTaskId());
             props.put("content", task.getContent());
 
-            taskFact = ProgressUtil.createFact(ProgressConstants.FACT_TASK, props);
+            taskFact = ProgressUtil.createFact(factType, props);
         }
         logger.debug("Exit method createTaskFact()...");
         return  taskFact;

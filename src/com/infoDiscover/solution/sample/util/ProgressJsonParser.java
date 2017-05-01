@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.demo.util;
+package com.infoDiscover.solution.sample.util;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;

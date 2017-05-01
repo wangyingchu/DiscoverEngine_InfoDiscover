@@ -52,17 +52,6 @@ public class ProgressUtil {
         return fact;
     }
 
-    public static Dimension createDimension(String type, Map<String, Object>
-            properties) throws InfoDiscoveryEngineRuntimeException {
-        logger.debug("Enter method createDimension() with type: " + type + " and properties: " +
-                properties);
-        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-        Dimension dimension = createDimension(ids, type, properties);
-        ids.closeSpace();
-        logger.debug("End method createDimension()...");
-        return dimension;
-    }
-
     public static Dimension createDimension(InfoDiscoverSpace ids, String type, Map<String,
             Object> properties) throws
             InfoDiscoveryEngineRuntimeException {
