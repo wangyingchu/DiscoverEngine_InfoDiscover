@@ -12,7 +12,7 @@ public class Test {
     public static void main(String[] args){
         String file = "/Users/sun/InfoDiscovery/Demodata/test.csv";
 
-        List<String> list = FileUtil.importCsv(file);
+        List<String> list = FileUtil.read(file);
 
         for(String line: list) {
 //            System.out.println("line: " + line);

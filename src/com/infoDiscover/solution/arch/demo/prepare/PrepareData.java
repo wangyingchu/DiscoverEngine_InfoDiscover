@@ -10,7 +10,7 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInf
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.arch.database.DatabaseManager;
-import com.infoDiscover.solution.arch.demo.prepare.progress.ProgressDemoDataGenerator;
+import com.infoDiscover.solution.arch.demo.prepare.progress.DemoArchProgressDemoDataGenerator;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.manager.ProgressInitializer;
 import org.slf4j.Logger;
@@ -25,11 +25,11 @@ public class PrepareData {
     public static void main(String[] args) {
         prepareData(DemoDataConfig.FILE_USER, DemoDataConfig.FILE_ROLE);
 
-        ProgressDemoDataGenerator.generateMaintainProjectDemoData
+        DemoArchProgressDemoDataGenerator.generateMaintainProjectDemoData
                 (DemoDataConfig.countOfMaintainProgressToGenerate, DemoDataConfig
                         .toGenerateRandomTasksNumber);
 
-        ProgressDemoDataGenerator.generateNewProjectDemoData(DemoDataConfig
+        DemoArchProgressDemoDataGenerator.generateNewProjectDemoData(DemoDataConfig
                 .countOfNewProgressToGenerate, DemoDataConfig.toGenerateRandomTasksNumber);
     }
 

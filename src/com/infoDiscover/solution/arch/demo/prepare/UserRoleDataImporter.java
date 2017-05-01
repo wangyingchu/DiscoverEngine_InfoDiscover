@@ -27,7 +27,7 @@ public class UserRoleDataImporter {
     public static void createUsers(String userFile) {
         logger.debug("Enter method createUsers with userFile: {}", userFile);
 
-        List<String> list = FileUtil.importCsv(userFile);
+        List<String> list = FileUtil.read(userFile);
 
         for (String line : list) {
             String[] users = line.split(",");
@@ -50,7 +50,7 @@ public class UserRoleDataImporter {
     public static void createRoles(String roleFile) throws InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createRoles with roleFile: {}", roleFile);
 
-        List<String> list = FileUtil.importCsv(roleFile);
+        List<String> list = FileUtil.read(roleFile);
 
         for (String line : list) {
             String[] roles = line.split("-");
@@ -81,7 +81,7 @@ public class UserRoleDataImporter {
 
     public static Map<String, String[]> readRoleAndUsers(String roleFile) {
         logger.info("Enter method readRoleAndUsers with roleFile: {}", roleFile);
-        List<String> list = FileUtil.importCsv(roleFile);
+        List<String> list = FileUtil.read(roleFile);
         Map<String, String[]> map = new HashMap<>();
         for (String line : list) {
             String[] roles = line.split("-");

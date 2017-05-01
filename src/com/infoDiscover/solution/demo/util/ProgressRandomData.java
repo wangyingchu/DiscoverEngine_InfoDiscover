@@ -1,12 +1,12 @@
-package com.infoDiscover.solution.arch.demo.prepare.progress;
+package com.infoDiscover.solution.demo.util;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
-import com.infoDiscover.solution.arch.demo.JsonConstants;
-import com.infoDiscover.solution.arch.demo.ProgressJsonParser;
+import com.infoDiscover.solution.arch.demo.DemoArchJsonConstants;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
-import com.infoDiscover.solution.arch.demo.prepare.RandomData;
+import com.infoDiscover.solution.arch.demo.prepare.DemoArchRandomData;
 import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
+import com.infoDiscover.solution.common.util.RandomData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
@@ -27,7 +27,7 @@ public class ProgressRandomData {
                 "projectName: {} and sequence: {}", projectTemplate, projectName, sequence);
 
         JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
-        JsonNode progressNodes = ProgressJsonParser.getProgressNodes(json.toString());
+        JsonNode progressNodes = ProgressJsonParser.getProgressesNode(json.toString());
 
         // if json is empty
         if (JsonUtil.isEmptyJsonNode(progressNodes)) {
@@ -37,7 +37,7 @@ public class ProgressRandomData {
 
         // in template, only one progress
         JsonNode progressJsonNode = progressNodes.get(0).get(JsonConstants.JSON_PROGRESS);
-        Map<String, Object> properties = RandomData.jsonNodeToMapWithRandomValue(progressJsonNode);
+        Map<String, Object> properties = DemoArchRandomData.jsonNodeToMapWithRandomValue(progressJsonNode);
         logger.info("properties: {}", properties);
 
         String progressType = "Progress";

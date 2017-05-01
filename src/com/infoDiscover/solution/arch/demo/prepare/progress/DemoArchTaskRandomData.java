@@ -3,11 +3,12 @@ package com.infoDiscover.solution.arch.demo.prepare.progress;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
-import com.infoDiscover.solution.arch.demo.JsonConstants;
-import com.infoDiscover.solution.arch.demo.ProgressJsonParser;
+import com.infoDiscover.solution.demo.util.JsonConstants;
+import com.infoDiscover.solution.demo.util.ProgressJsonParser;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
-import com.infoDiscover.solution.arch.demo.prepare.RandomData;
+import com.infoDiscover.solution.arch.demo.prepare.DemoArchRandomData;
 import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
+import com.infoDiscover.solution.common.util.RandomData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
@@ -20,8 +21,8 @@ import java.util.Map;
 /**
  * Created by sun.
  */
-public class TaskRandomData {
-    private final static Logger logger = LogManager.getLogger(TaskRandomData
+public class DemoArchTaskRandomData {
+    private final static Logger logger = LogManager.getLogger(DemoArchTaskRandomData
             .class);
 
     static String projectTemplate = DemoDataConfig.FILE_MAINTAIN_PROJECT;
@@ -55,7 +56,7 @@ public class TaskRandomData {
 
         for (int i = 0; i < tasksNumber; i++) {
             JsonNode taskJsonNode = taskNodes.get(i).get(JsonConstants.JSON_TASK);
-            Map<String, Object> properties = RandomData.jsonNodeToMapWithRandomValue(taskJsonNode);
+            Map<String, Object> properties = DemoArchRandomData.jsonNodeToMapWithRandomValue(taskJsonNode);
             properties.put("type", "Task");
             properties.put("progressId", progressId);
             properties.put("taskName", getTasksList(projectType)[i]);

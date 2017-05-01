@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.arch.demo;
+package com.infoDiscover.solution.demo.util;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
@@ -17,9 +17,14 @@ public class ProgressJsonParser {
 
     private final static Logger logger = LogManager.getLogger(ProgressJsonParser.class);
 
-    // get progresses JsonNode, it is an array
-    public static JsonNode getProgressNodes(String json) {
+    // get progresses JsonNode array
+    public static JsonNode getProgressesNode(String json) {
         return getJsonNodes(JsonConstants.JSON_PROGRESSES, json);
+    }
+
+    // get progress JsonNode
+    public static JsonNode getProgressNode(String json) {
+        return getJsonNodes(JsonConstants.JSON_PROGRESS, json);
     }
 
     public static JsonNode getTaskNodes(String json) {
@@ -42,12 +47,12 @@ public class ProgressJsonParser {
     }
 
 
-    public static JsonNode getJsonNodes(String type, String json) {
+    public static JsonNode getJsonNodes(String property, String json) {
         JsonNode dataNode = getDataNode(json);
         if (dataNode == null) {
             return null;
         }
-        return dataNode.get(type);
+        return dataNode.get(property);
     }
 
     /*
@@ -97,34 +102,30 @@ public class ProgressJsonParser {
     private static Object getPropertyValue(String propertyType, JsonNode jsonNode) {
         Object propertyValue = null;
 
+        JsonNode value = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE);
+        boolean isNotNullValue = (value != null);
+
         if (propertyType.equalsIgnoreCase("String")) {
-            if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null) {
-                propertyValue = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asText();
-            }
+            propertyValue = isNotNullValue ? value.asText() : null;
         } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
                 ("Integer")) {
-            if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null){
-                propertyValue = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asInt();}
+            propertyValue = isNotNullValue ? value.asInt() : null;
         } else if (propertyType.equalsIgnoreCase("Long")) {
-            if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null) {
-                propertyValue = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asLong();}
+            propertyValue = isNotNullValue ? value.asLong() : null;
         } else if (propertyType.equalsIgnoreCase("Float") || propertyType.equalsIgnoreCase
                 ("Double")) {
-            if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null){
-                propertyValue = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asDouble();}
+            propertyValue = isNotNullValue ? value.asDouble() : null;
         } else if (propertyType.equalsIgnoreCase("boolean") || propertyType.equalsIgnoreCase
                 ("bool")) {
-            if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null){
-                propertyValue = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asBoolean();}
+            propertyValue = isNotNullValue ? value.asBoolean() : null;
         } else if (propertyType.equalsIgnoreCase("Date") || propertyType.equalsIgnoreCase
                 ("DateTime")) {
-            if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null) {
-                Long dateValueInLong = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asLong();
+            if (isNotNullValue) {
+                Long dateValueInLong = value.asLong();
                 propertyValue = DateUtil.getDateTime(dateValueInLong).toDate();
             }
         } else {
-            if (jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE) != null)
-                propertyValue = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE).asText();
+            propertyValue = isNotNullValue ? value.asText() : null;
         }
 
         return propertyValue;

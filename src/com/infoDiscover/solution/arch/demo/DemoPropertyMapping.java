@@ -2,6 +2,7 @@ package com.infoDiscover.solution.arch.demo;
 
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
+import com.infoDiscover.solution.demo.util.JsonConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
@@ -43,7 +44,7 @@ public class DemoPropertyMapping {
 
         JsonNode dataNode = getDataNode(mappingFile);
         if (dataNode != null) {
-            JsonNode prefix = dataNode.get(JsonConstants.JSON_PREFIX);
+            JsonNode prefix = dataNode.get(DemoArchJsonConstants.JSON_PREFIX);
             if (prefix != null) {
                 properties.put(prefix.get(JsonConstants.JSON_PROPERTY_NAME).asText(), prefix.get
                         (JsonConstants.JSON_PROPERTY_VALUE).asText());
@@ -82,16 +83,16 @@ public class DemoPropertyMapping {
 
         JsonNode dataNode = getDataNode(mappingFile);
         if (dataNode != null) {
-            JsonNode prefix = dataNode.get(JsonConstants.JSON_PREFIX);
+            JsonNode prefix = dataNode.get(DemoArchJsonConstants.JSON_PREFIX);
             if (prefix != null) {
                 properties.put(prefix.get(JsonConstants.JSON_PROPERTY_NAME).asText(), prefix.get
-                        (JsonConstants.JSON_RELATION_TYPE_NAME).asText());
+                        (DemoArchJsonConstants.JSON_RELATION_TYPE_NAME).asText());
             }
 
-            JsonNode timesNode = dataNode.get(JsonConstants.JSON_TIMES);
+            JsonNode timesNode = dataNode.get(DemoArchJsonConstants.JSON_TIMES);
             for (JsonNode time : timesNode) {
                 String propertyName = time.get(JsonConstants.JSON_PROPERTY_NAME).asText();
-                String propertyValue = time.get(JsonConstants.JSON_RELATION_TYPE_NAME).asText();
+                String propertyValue = time.get(DemoArchJsonConstants.JSON_RELATION_TYPE_NAME).asText();
                 String classType = InfoDiscoverEngineConstant.DIMENSION_ROOTCLASSNAME;
 
                 RelationMapping mapping = new RelationMapping(propertyName,propertyValue,
@@ -99,10 +100,10 @@ public class DemoPropertyMapping {
                 properties.put(propertyName, mapping);
             }
 
-            JsonNode participantsNode = dataNode.get(JsonConstants.JSON_PARTICIPANTS);
+            JsonNode participantsNode = dataNode.get(DemoArchJsonConstants.JSON_PARTICIPANTS);
             for(JsonNode user: participantsNode) {
                 String propertyName = user.get(JsonConstants.JSON_PROPERTY_NAME).asText();
-                String propertyValue = user.get(JsonConstants.JSON_RELATION_TYPE_NAME).asText();
+                String propertyValue = user.get(DemoArchJsonConstants.JSON_RELATION_TYPE_NAME).asText();
                 String classType = InfoDiscoverEngineConstant.FACT_ROOTCLASSNAME;
 
                 RelationMapping mapping = new RelationMapping(propertyName,propertyValue,
@@ -110,10 +111,10 @@ public class DemoPropertyMapping {
                 properties.put(propertyName, mapping);
             }
 
-            JsonNode rolesNode = dataNode.get(JsonConstants.JSON_ROLES);
+            JsonNode rolesNode = dataNode.get(DemoArchJsonConstants.JSON_ROLES);
             for(JsonNode role: rolesNode) {
                 String propertyName = role.get(JsonConstants.JSON_PROPERTY_NAME).asText();
-                String propertyValue = role.get(JsonConstants.JSON_RELATION_TYPE_NAME).asText();
+                String propertyValue = role.get(DemoArchJsonConstants.JSON_RELATION_TYPE_NAME).asText();
                 String classType = InfoDiscoverEngineConstant.FACT_ROOTCLASSNAME;
 
                 RelationMapping mapping = new RelationMapping(propertyName,propertyValue,

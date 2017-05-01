@@ -8,6 +8,9 @@ import java.util.Random;
 public class RandomUtil {
 
     public static int generateRandomInRange(int min, int max) {
+        if(min == max){
+            return min;
+        }
         Random random = new Random();
         int value = random.nextInt(max) % (max - min + 1) + min;
         return value;
@@ -51,5 +54,8 @@ public class RandomUtil {
         System.out.println(generateRandomDouble(50000, 60000));
         System.out.println(generateRandomDouble(60000, 70000));
         System.out.println(generateRandomDouble(70000, 80000));
+
+
+        generateRandomInRange(0,0);
     }
 }

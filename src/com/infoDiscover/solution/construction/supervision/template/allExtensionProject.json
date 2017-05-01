@@ -1,0 +1,2696 @@
+{
+    "data": {
+        "progress": {
+            "properties": [
+                {
+                    "propertyType": "String",
+                    "propertyName": "type",
+                    "propertyValue": "Progress"
+                },
+                {
+                    "propertyType": "String",
+                    "propertyName": "progressId",
+                    "propertyValue": ""
+                },
+                {
+                    "propertyType": "String",
+                    "propertyName": "progressName",
+                    "propertyValue": "扩建工程"
+                },
+                {
+                    "propertyType": "String",
+                    "propertyName": "starter",
+                    "propertyValue": ""
+                },
+                {
+                    "propertyType": "Date",
+                    "propertyName": "startDate",
+                    "propertyValue": 0
+                },
+                {
+                    "propertyType": "Date",
+                    "propertyName": "endDate",
+                    "propertyValue": 0
+                },
+                {
+                    "propertyType": "String",
+                    "propertyName": "status",
+                    "propertyValue": ""
+                }
+            ]
+        },
+        "tasks": [
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "startProject",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectName",
+                            "propertyValue": "项目名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectNumber",
+                            "propertyValue": "项目编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "grossInvestment",
+                            "propertyValue": "总投资额",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectClassification",
+                            "propertyValue": "项目专业分类",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectConstructionClassification",
+                            "propertyValue": "项目建设分类",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectAddress",
+                            "propertyValue": "项目地址",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionCompany",
+                            "propertyValue": "建设单位",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectLeader",
+                            "propertyValue": "项目负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "longitude",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "latitude",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "launchProject",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectLaunchingAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "projectLeader",
+                            "propertyValue": "项目负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "assignModel",
+                            "propertyValue": "实施单位分派模式",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectComments",
+                            "propertyValue": "项目备注",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "biddingAgencyContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "biddingAgencyContractNumber",
+                            "propertyValue": "招标代理合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "biddingAgencyContractSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "biddingAgency",
+                            "propertyValue": "招标代理单位名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "biddingAgencyContractAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "biddingAgencyLeader",
+                            "propertyValue": "招标代理单位负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "biddingAgencyContractApprover",
+                            "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "earlyStageConsultationContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectPlanMakingContractNumber",
+                            "propertyValue": "立项编制合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectPlanMakingCompany",
+                            "propertyValue": "立项编制单位名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectPlanMakingContractSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "projectPlanMakingContractAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "consultationCompanyLeader",
+                            "propertyValue": "咨询单位负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectPlanMakingContractApprover",
+                            "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "feasibilityReport",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "feasibilityReportName",
+                            "propertyValue": "可研报告名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "feasibilityReportMakingCompany",
+                            "propertyValue": "可研报告编制单位",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "feasibilityReportMakingLeader",
+                            "propertyValue": "可研报告编制负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "feasibilityReportCompletionDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "feasibilityReportApprovalDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "feasibilityReportApprover",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "engineeringNecessaryInformation",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectProposalNumber",
+                            "propertyValue": "项目建议书编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectProposalCompletionDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "projectProposalApprovalDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "landContractNumber",
+                            "propertyValue": "土地合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "landContractApprovalDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "EIADocumentNumber",
+                            "propertyValue": "环评文件编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "projectPlanningLocationApprovalDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "surveyCompanyContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyCompanyContractNumber",
+                            "propertyValue": "勘察单位合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyCompanyContractSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "surveyCompanyName",
+                            "propertyValue": "勘察单位名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyCompanyContractAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "surveyCompanyLeader",
+                            "propertyValue": "勘察单位负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyCompanyContractApprover",
+                            "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "longitude",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "latitude",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "surveyResult",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyDesigner",
+                            "propertyValue": "勘察设计人员",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyTechnicalMember",
+                            "propertyValue": "勘察技术人员",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyCompletionDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "surveyResultDescription",
+                            "propertyValue": "勘察成果描述",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "designContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "designContractNumber",
+                            "propertyValue": "设计合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "designContractSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "designCompany",
+                            "propertyValue": "设计单位名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "designContractAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "designCompanyLeader",
+                            "propertyValue": "设计单位负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "designContractApproveDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "designContractApprover",
+                            "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "design",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionArea",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "landProperty",
+                            "propertyValue": "用地性质",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionType",
+                            "propertyValue": "主要功能或建筑类型",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "undergroundBuildingArea",
+                            "propertyValue": "地下建筑面积",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "greeningRatio",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "motorVehicleParking",
+                            "propertyValue": 0,
+                            "propertyType": "Int"
+                        },
+                        {
+                            "propertyName": "floorAreaRatio",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "plotRatio",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "groundFloorLevel",
+                            "propertyValue": 0,
+                            "propertyType": "Int"
+                        },
+                        {
+                            "propertyName": "undergroundBuildingLayer",
+                            "propertyValue": 0,
+                            "propertyType": "Int"
+                        },
+                        {
+                            "propertyName": "buildingHeight",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "designCompanyTechnicalLeader",
+                            "propertyValue": "设计单位技术负责人",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "investmentBudgetaryEstimate",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "budgetaryEstimateSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "budgetaryEstimateMakingLeader",
+                            "propertyValue": "概算编制负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "budgetaryEstimateCompletionDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "budgetaryEstimateAuditCompany",
+                            "propertyValue": "概算审核单位",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "budgetaryEstimateApprovalSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_BlackMetal",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_NonferrousMetals",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_ConstructionMaterials",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_ConcreteAndAdmixture",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_DoorsAndWindows",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_BuildingHardware",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_BuildingGlass",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_BuildingStructures",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_Paint",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_ThermalInsulationMaterials",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_WaterproofMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_FireprooMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_VentilationAndAirConditioning",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_KitchenAndWaterSupplyAndDrainage",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_Pipiline",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_Electric",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_OilsAndChemicals",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_DecorativeMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_GeneralEquipment",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_FireControl",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_IntelligentBuilding",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_budgetaryEstimate_Landscape",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_Earthwork",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_FoundationTreatmentAndSlopeSupportEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_PileFoundationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_MasonryEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_ConcreteAndReinforcedConcreteWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_MetalStructureEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_WoodStructureEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_DoorEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_RoofingAndWaterproofingWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_InsulationThermalInsulationAnti-corrosionEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_FloorDecorationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_WallCylinderDecorationPartitionCurtainWallProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_CeilingWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_PaintEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_OtherDecorationWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_budgetaryEstimate_DemolitionProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_Earthwork",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_RoadEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_BridgeEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_TunnelEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_PipelineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_WaterTreatmentWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_GarbageDisposalProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_StreetlightProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_ReinforcementEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_budgetaryEstimate_DemolitionProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_MechanicalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_ThermalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_MetalStructuresAndEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_ElectricalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_IntelligentBuildingEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_AutomaticControlInstrumentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_VentilationAndACEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_IndustrialPipelineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_FireEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_WaterSupplyAndDrainageHeatingAndGasEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_CommunicationEquipmentAndLineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_BrushOilAnti-corrosionInsulationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_budgetaryEstimate_LandscapingProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_budgetaryEstimate_GardenRoadAndBridgeProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_budgetaryEstimate_Garden",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "costConsultationContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "costConsultationContractNumber",
+                            "propertyValue": "造价咨询合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "costConsultationContractSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "costConsultationCompany",
+                            "propertyValue": "造价咨询单位名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "costConsultationContractAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "costConsultationCompanyLeader",
+                            "propertyValue": "造价咨询单位负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "costConsultationContractApprover",
+                            "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "costConsultation",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "priceOfProjectBudgetForReview",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPriceOfProjectBudget",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "budgetOfIncreaseOrDecrease",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "projectBudgetAuditCompletionDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "projectBudgetAuditLeader",
+                            "propertyValue": "工程预算审核负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_BlackMetal",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_NonferrousMetals",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_ConstructionMaterials",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_ConcreteAndAdmixture",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_DoorsAndWindows",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_BuildingHardware",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_BuildingGlass",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_BuildingStructures",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_Paint",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_ThermalInsulationMaterials",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_WaterproofMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_FireprooMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_VentilationAndAirConditioning",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_KitchenAndWaterSupplyAndDrainage",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_Pipiline",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_Electric",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_OilsAndChemicals",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_DecorativeMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_GeneralEquipment",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_FireControl",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_IntelligentBuilding",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_auditPrice_Landscape",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_Earthwork",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_FoundationTreatmentAndSlopeSupportEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_PileFoundationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_MasonryEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_ConcreteAndReinforcedConcreteWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_MetalStructureEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_WoodStructureEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_DoorEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_RoofingAndWaterproofingWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_InsulationThermalInsulationAnti-corrosionEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_FloorDecorationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_WallCylinderDecorationPartitionCurtainWallProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_CeilingWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_PaintEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_OtherDecorationWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_auditPrice_DemolitionProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_Earthwork",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_RoadEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_BridgeEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_TunnelEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_PipelineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_WaterTreatmentWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_GarbageDisposalProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_StreetlightProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_ReinforcementEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_auditPrice_DemolitionProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_MechanicalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_ThermalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_MetalStructuresAndEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_ElectricalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_IntelligentBuildingEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_AutomaticControlInstrumentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_VentilationAndACEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_IndustrialPipelineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_FireEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_WaterSupplyAndDrainageHeatingAndGasEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_CommunicationEquipmentAndLineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_auditPrice_BrushOilAnti-corrosionInsulationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_auditPrice_LandscapingProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_auditPrice_GardenRoadAndBridgeProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_auditPrice_Garden",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "projectBudgetCostApproval",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "approvalPriceOfProjectBudget",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "approvalDateOfProjectBudget",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "approvalLeaderOfProjectBudget",
+                            "propertyValue": "工程预算审批负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_BlackMetal",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_NonferrousMetals",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_ConstructionMaterials",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_ConcreteAndAdmixture",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_DoorsAndWindows",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_BuildingHardware",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_BuildingGlass",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_BuildingStructures",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_Paint",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_ThermalInsulationMaterials",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_WaterproofMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_FireprooMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_VentilationAndAirConditioning",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_KitchenAndWaterSupplyAndDrainage",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_Pipiline",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_Electric",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_OilsAndChemicals",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_DecorativeMaterial",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_GeneralEquipment",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_FireControl",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_IntelligentBuilding",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "material_approvalPrice_Landscape",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_Earthwork",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_FoundationTreatmentAndSlopeSupportEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_PileFoundationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_MasonryEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_ConcreteAndReinforcedConcreteWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_MetalStructureEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_WoodStructureEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_DoorEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_RoofingAndWaterproofingWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_InsulationThermalInsulationAnti-corrosionEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_FloorDecorationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_WallCylinderDecorationPartitionCurtainWallProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_CeilingWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_PaintEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_OtherDecorationWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "BuildingEngineering_approvalPrice_DemolitionProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_Earthwork",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_RoadEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_BridgeEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_TunnelEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_PipelineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_WaterTreatmentWorks",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_GarbageDisposalProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_StreetlightProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_ReinforcementEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "MunicipalEngineering_approvalPrice_DemolitionProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_MechanicalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_ThermalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_MetalStructuresAndEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_ElectricalEquipmentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_IntelligentBuildingEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_AutomaticControlInstrumentInstallationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_VentilationAndACEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_IndustrialPipelineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_FireEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_WaterSupplyAndDrainageHeatingAndGasEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_CommunicationEquipmentAndLineEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "GeneralInstallationEngineering_approvalPrice_BrushOilAnti-corrosionInsulationEngineering",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_approvalPrice_LandscapingProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_approvalPrice_GardenRoadAndBridgeProject",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "LandscapingProject_approvalPrice_Garden",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "constructionContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionContractNumber",
+                            "propertyValue": "施工合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionContractSum",
+                            "propertyValue": "施工合同金额",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionCompany",
+                            "propertyValue": "施工单位名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionContractAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "constructionCompanyLeader",
+                            "propertyValue": "施工单位负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionCompanyContact",
+                            "propertyValue": "施工单位联系人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionCompanyContactPhone",
+                            "propertyValue": "施工单位联系人电话",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionContractApprover",
+                            "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionContractApprovalDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "supervisionContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionContractNumber",
+                            "propertyValue": "监理合同编号",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionContractSum",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "supervisionCompany",
+                            "propertyValue": "监理单位名称",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionContractAssignDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "supervisionCompanyTechnicalLeader",
+                            "propertyValue": "监理单位技术负责人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionCompanyContact",
+                            "propertyValue": "监理单位联系人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionContactPhone",
+                            "propertyValue": "监理单位联系人电话",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionContractAuditor",
+                            "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionContractAuditDate",
+                            "propertyValue": "合同审批日期",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "construction",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "constructionStartDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "constructionPeriod",
+                            "propertyValue": 0,
+                            "propertyType": "Int"
+                        },
+                        {
+                            "propertyName": "supervisionCompany",
+                            "propertyValue": "监理单位",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "supervisionCompanyContact",
+                            "propertyValue": "监理单位联系人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "siteInspector",
+                            "propertyValue": "现场巡查人员",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "monthlyProgressReport",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "auditDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "securityCheckResult",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "monthlyCost",
+                            "propertyValue": 0,
+                            "propertyType": "Double"
+                        },
+                        {
+                            "propertyName": "qualityAssuranceResult",
+                            "propertyValue": "质量检测结果",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "projectFinalAcceptance",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "finalAcceptanceDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "finalAcceptanceCompany",
+                            "propertyValue": "验收单位",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "finalAcceptanceMembers",
+                            "propertyValue": "验收人员名单",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "finalAcceptanceComments",
+                            "propertyValue": "验收评价",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "passFinalAcceptance",
+                            "propertyValue": false,
+                            "propertyType": "Boolean"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "qualityAssurance",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            },
+            {
+                "task": {
+                    "properties": [
+                        {
+                            "propertyName": "type",
+                            "propertyValue": "Task",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "progressId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "startDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "endDate",
+                            "propertyValue": 0,
+                            "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "attachment",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskName",
+                            "propertyValue": "closeProject",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "commentOfPropertyDepartment",
+                            "propertyValue": "物业部审批意见",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "commentOfEngineeringDepartment",
+                            "propertyValue": "工程部审批意见",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "commentOfLeaderInCharge",
+                            "propertyValue": "分管领导审批意见",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "commentOfGeneralManager",
+                            "propertyValue": "总经理审批意见",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "commentOfFinanceDirector",
+                            "propertyValue": "区财务总监审批意见",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "commentOfMissionOwner",
+                            "propertyValue": "任务下达局室审批意见",
+                            "propertyType": "String"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

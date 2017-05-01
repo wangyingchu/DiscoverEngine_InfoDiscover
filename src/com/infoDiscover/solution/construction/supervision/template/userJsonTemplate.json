@@ -1,0 +1,71 @@
+{
+    "user": {
+        "properties": [
+            {
+                "propertyName": "userID",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "name",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "mobile",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "wechat",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "departmentID",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "departmentName",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "company",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "title",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "email",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "fixedTelephone",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "postcode",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "address",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "description",
+                "propertyValue": "",
+                "propertyType": "String"
+            }
+        ]
+    }
+}

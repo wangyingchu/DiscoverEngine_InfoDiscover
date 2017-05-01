@@ -24,7 +24,7 @@ import java.util.Set;
  * Created by sun.
  */
 public class JsonUtil {
-    public static JSONObject string2JSONObject(String jsonStr) throws JSONException {
+    public static JSONObject    string2JSONObject(String jsonStr) throws JSONException {
         JSONObject jsonObject = new JSONObject(jsonStr);
         return jsonObject;
     }

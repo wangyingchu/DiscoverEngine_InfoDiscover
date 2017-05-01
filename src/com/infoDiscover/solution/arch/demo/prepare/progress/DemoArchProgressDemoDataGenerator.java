@@ -12,13 +12,15 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInf
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.solution.arch.demo.FactTypeEnum;
-import com.infoDiscover.solution.arch.demo.JsonConstants;
+import com.infoDiscover.solution.arch.demo.DemoArchJsonConstants;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.manager.ProgressManager;
 import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
 import com.infoDiscover.solution.arch.progress.manager.TaskManager;
 import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
+import com.infoDiscover.solution.demo.util.JsonConstants;
+import com.infoDiscover.solution.demo.util.ProgressRandomData;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,8 +32,8 @@ import java.util.*;
 /**
  * Created by sun.
  */
-public class ProgressDemoDataGenerator {
-    private final static Logger logger = LoggerFactory.getLogger(ProgressDemoDataGenerator
+public class DemoArchProgressDemoDataGenerator {
+    private final static Logger logger = LoggerFactory.getLogger(DemoArchProgressDemoDataGenerator
             .class);
 
     public static void generateMaintainProjectDemoData(int countOfProgressToGenerate, boolean
@@ -81,7 +83,7 @@ public class ProgressDemoDataGenerator {
                         progressProperties);
             } else {
 
-                Map<String, Object>[] tasksPropertiesArray = TaskRandomData.generateTasksRandomData
+                Map<String, Object>[] tasksPropertiesArray = DemoArchTaskRandomData.generateTasksRandomData
                         (projectTemplate, projectType, progressId,
                                 startTimeLongValue, firstNumberOfTasksToGenerate);
 
@@ -338,11 +340,11 @@ public class ProgressDemoDataGenerator {
             relationManager.attachTaskToProgress(progressId, progressFactType, taskId);
 
             // link user to task
-            String userId = properties.get(JsonConstants.TASK_ASSIGNEE).toString();
+            String userId = properties.get(DemoArchJsonConstants.TASK_ASSIGNEE).toString();
             relationManager.attachUserToTask(taskId, userId);
 
             // link role to task
-            String roleId = properties.get(JsonConstants.TASK_DEPARTMENTID).toString();
+            String roleId = properties.get(DemoArchJsonConstants.TASK_DEPARTMENTID).toString();
             relationManager.attachRoleToTask(taskId, roleId);
 
             // link startTime to task

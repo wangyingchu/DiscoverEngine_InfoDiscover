@@ -25,6 +25,12 @@ public class QueryExecutor {
         return result;
     }
 
+    public static List<Relationable> executeFactQuery(InfoDiscoverSpace ids, String sql) {
+        InformationExplorer ie = ids.getInformationExplorer();
+        List<Relationable> result = ie.discoverRelationables(sql);
+        return result;
+    }
+
     public static Fact executeFactQuery(InformationExplorer ie, ExploreParameters ep) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
 

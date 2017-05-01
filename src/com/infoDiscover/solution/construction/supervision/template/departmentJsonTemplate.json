@@ -1,0 +1,21 @@
+{
+    "department": {
+        "properties": [
+            {
+                "propertyName": "departmentID",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "name",
+                "propertyValue": "",
+                "propertyType": "String"
+            },
+            {
+                "propertyName": "description",
+                "propertyValue": "",
+                "propertyType": "String"
+            }
+        ]
+    }
+}

@@ -20,7 +20,7 @@ public class ProgressInitializer {
 
     public static void initProgressFactType(String prefix) throws
             InfoDiscoveryEngineDataMartException {
-        logger.debug("Enter method initTaskFactType()");
+        logger.debug("Enter method initProgressFactType()");
 
         InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
 

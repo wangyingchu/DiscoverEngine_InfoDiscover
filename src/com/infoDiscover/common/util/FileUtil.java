@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class FileUtil {
 
-    public static List<String> importCsv(String fileName) {
+    public static List<String> read(String fileName) {
         List<String> dataList = new ArrayList<String>();
 
         BufferedReader br = null;
@@ -51,6 +51,7 @@ public class FileUtil {
     public static void saveToFile(String file, String content) {
         FileOutputStream fos;
         try {
+            createFolders(file);
             fos = new FileOutputStream(file);
             List<String> list = new ArrayList<String>();
             if (content != null) {
@@ -68,6 +69,16 @@ public class FileUtil {
         }
     }
 
+    public static boolean createFolders(String filePath) {
+        String dir = filePath.substring(0, filePath.lastIndexOf("/"));
+        File file = new File(dir);
+        if (!file.exists()) {
+            return file.mkdirs();
+        }
+        return false;
+    }
+
+
     public static List<String> readLinesIntoList(String filePath) {
         List<String> list = new ArrayList<String>();
         try {
@@ -84,7 +95,8 @@ public class FileUtil {
         return list;
     }
 
-    public static List<String> getFileList(String strPath) {
+    public static List<String> getFileList(String strPath, String filePrefix, boolean
+            includeExtension) {
 
         List<String> fileList = new ArrayList<>();
 
@@ -95,11 +107,18 @@ public class FileUtil {
             for (int i = 0; i < files.length; i++) {
                 String fileName = files[i].getName();
                 if (files[i].isDirectory()) { // 判断是文件还是文件夹
-                    getFileList(files[i].getAbsolutePath()); // 获取文件绝对路径
-                } else if (fileName.startsWith("Task")) { // 判断文件名是否以.avi结尾
+                    getFileList(files[i].getAbsolutePath(), filePrefix, includeExtension); //
+                    // 获取文件绝对路径
+                } else if (fileName.startsWith(filePrefix)) {
                     String strFileName = files[i].getName();
-                    System.out.println(strFileName.substring(0, strFileName.indexOf(".")));
-                    fileList.add(strFileName.substring(0, strFileName.indexOf(".")));
+                    if (includeExtension) {
+//                        System.out.println("fileName: " + strFileName);
+                        fileList.add(strFileName);
+                    } else {
+//                        System.out.println("fileName: " + strFileName.substring(0, strFileName
+//                                .indexOf(".")));
+                        fileList.add(strFileName.substring(0, strFileName.indexOf(".")));
+                    }
                 } else {
                     continue;
                 }
@@ -114,14 +133,14 @@ public class FileUtil {
     public static void main(String[] args) {
 
         String maintainTasks = "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com" +
-                "/infoDiscover/solution/arch/demo/template/maintainProject/task";
+                "/infoDiscover/solution/arch/demo/template/maintainProject/task/a.txt";
 
-        String newTaks = "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com" +
+        String newTasks = "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com" +
                 "/infoDiscover/solution/arch/demo/template/newProject/task";
 
-        List<String> fileNameList = new ArrayList<>();
-        fileNameList = getFileList(newTaks);
+//        List<String> fileNameList = getFileList(newTasks, "Task", true);
 
+        createFolders(maintainTasks);
 
     }
 }
