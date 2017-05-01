@@ -332,9 +332,9 @@ public class DemoArchProgressDemoDataGenerator {
             // create or update fact
             Fact taskTact = taskManager.getTaskById(ie, taskId, taskFactType);
             if (taskTact == null) {
-                ProgressUtil.createFact(ids, taskFactType, properties);
+                taskTact = ProgressUtil.createFact(ids, taskFactType, properties);
             } else {
-                ProgressUtil.updateFact(taskTact, properties);
+                taskTact = ProgressUtil.updateFact(taskTact, properties);
             }
 
             // link tasks to progress

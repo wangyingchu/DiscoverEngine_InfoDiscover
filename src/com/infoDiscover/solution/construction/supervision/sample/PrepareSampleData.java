@@ -48,10 +48,11 @@ public class PrepareSampleData {
 
         ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
                 countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
-        ids.closeSpace();
+        
+        ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
+                countOfNewProgressToGenerate,toGenerateRandomTasksNumber);
 
-//        ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
-//                countOfNewProgressToGenerate,toGenerateRandomTasksNumber);
+        ids.closeSpace();
     }
 
     public static void prepareSampleData(String spaceName, String userFile, String roleFile) {
