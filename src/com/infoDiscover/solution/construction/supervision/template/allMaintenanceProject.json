@@ -19,6 +19,11 @@
                 },
                 {
                     "propertyType": "String",
+                    "propertyName": "progressType",
+                    "propertyValue": "维修工程"
+                },
+                {
+                    "propertyType": "String",
                     "propertyName": "starter",
                     "propertyValue": ""
                 },

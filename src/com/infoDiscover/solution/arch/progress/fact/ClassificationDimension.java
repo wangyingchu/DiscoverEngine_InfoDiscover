@@ -6,10 +6,13 @@ package com.infoDiscover.solution.arch.progress.fact;
 abstract public class ClassificationDimension {
     private String classificationId;
     private String classificationName;
+    private String description;
 
-    public ClassificationDimension(String classificationId, String classificationName) {
+    public ClassificationDimension(String classificationId, String classificationName, String
+            description) {
         this.classificationId = classificationId;
         this.classificationName = classificationName;
+        this.description = description;
     }
 
     public String getClassificationId() {
@@ -26,5 +29,13 @@ abstract public class ClassificationDimension {
 
     public void setClassificationName(String classificationName) {
         this.classificationName = classificationName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

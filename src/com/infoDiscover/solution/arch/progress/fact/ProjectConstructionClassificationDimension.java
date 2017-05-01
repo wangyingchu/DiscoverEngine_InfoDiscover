@@ -5,7 +5,7 @@ package com.infoDiscover.solution.arch.progress.fact;
  */
 public class ProjectConstructionClassificationDimension extends ClassificationDimension {
     public ProjectConstructionClassificationDimension(String classificationId, String
-            classificationName) {
-        super(classificationId, classificationName);
+            classificationName, String description) {
+        super(classificationId, classificationName, description);
     }
 }

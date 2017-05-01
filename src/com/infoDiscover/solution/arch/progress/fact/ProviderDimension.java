@@ -3,7 +3,7 @@ package com.infoDiscover.solution.arch.progress.fact;
 /**
  * Created by sun.
  */
-public class CompanyDimension {
+public class ProviderDimension {
     private String providerID;
     private String providerName;
     private String providerClassification;
@@ -11,7 +11,7 @@ public class CompanyDimension {
     private String contact;
     private String contactMobile;
 
-    public CompanyDimension(String providerID, String providerName, String providerClassification, String
+    public ProviderDimension(String providerID, String providerName, String providerClassification, String
             address, String contact, String contactMobile) {
         this.providerID = providerID;
         this.providerName = providerName;
