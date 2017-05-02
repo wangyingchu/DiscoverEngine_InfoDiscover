@@ -97,6 +97,7 @@ public class TimeDimensionManager {
             if (existingYearDimension == null) {
                 return createTimeDimension(year.getType(), yearProps);
             }
+            return existingYearDimension;
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Failed to create year dimension");
         }

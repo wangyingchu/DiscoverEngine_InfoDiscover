@@ -25,8 +25,8 @@ public class TimeDimensionGenerator {
 
     public static void main(String[] args) throws InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineDataMartException {
-        String dimensionPrefix = "DEMO";
-        int[] years = {2016, 1017, 2018};
+        String dimensionPrefix = "DEMO2";
+        int[] years = {2016};
         int depth = 3;
 
         InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
@@ -98,7 +98,7 @@ public class TimeDimensionGenerator {
 
         String prefix = "";
         if (dimensionPrefix != null || !dimensionPrefix.trim().equals("")) {
-            prefix = dimensionPrefix + "_";
+            prefix = normalizePrefix(dimensionPrefix);
         }
 
         String yearType = prefix + TimeDimensionConstants.YEAR;
@@ -179,5 +179,9 @@ public class TimeDimensionGenerator {
         daysOfMonthMap.put(2, getDaysOfFeb(year));
 
         return daysOfMonthMap;
+    }
+
+    private static String normalizePrefix(String value) {
+        return value.endsWith("_") ? value : value + "_";
     }
 }

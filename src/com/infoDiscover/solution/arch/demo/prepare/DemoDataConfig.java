@@ -25,16 +25,16 @@ public class DemoDataConfig {
 
     // 生成年份
     public final static int[] yearsToGenerate = new int[]{2010, 2011, 2012, 2013, 2014,
-            2015, 2016, 2017, 2018, 2019, 2020};
+            2015, 2016, 2017, 2018};
 
     // 只生成年、月、日的时间维度
     public final static int depth = 3;
 
     //生成多少个maintain project
-    public final static int countOfMaintainProgressToGenerate = 1;
+    public final static int countOfMaintainProgressToGenerate = 10;
 
     // 生成多少个new project
-    public final static int countOfNewProgressToGenerate = 1;
+    public final static int countOfNewProgressToGenerate = 10;
 
     // 随机完成流程中的前几个任务, false表示完成全部任务
     public final static boolean toGenerateRandomTasksNumber = false;

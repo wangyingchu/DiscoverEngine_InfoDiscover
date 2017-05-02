@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 public class PrepareData {
     private final static Logger logger = LoggerFactory.getLogger(PrepareData.class);
 
-    public final static String prefix = "DEMO_";
+    public final static String prefix = "DEMO2_";
 
     public static void main(String[] args) {
         prepareData(DemoDataConfig.FILE_USER, DemoDataConfig.FILE_ROLE);
