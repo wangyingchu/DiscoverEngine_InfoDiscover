@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.arch.demo.prepare;
+package com.infoDiscover.solution.construction.supervision.sample;
 
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.common.util.RandomUtil;

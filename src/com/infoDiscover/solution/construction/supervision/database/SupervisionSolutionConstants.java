@@ -5,8 +5,9 @@ package com.infoDiscover.solution.construction.supervision.database;
  */
 public class SupervisionSolutionConstants {
     // database space
-    public final static String SOLUTION_PREFIX = "ZHUHAI_";
-    public final static String DATABASE_SPACE = "ConstructionEngineeringSupervision";
+    public final static String SOLUTION_PREFIX = "ZHUHAI1_";
+    public final static String DATABASE_SPACE = SOLUTION_PREFIX +
+    "ConstructionEngineeringSupervision";
 
     // Fact type
     public final static String FACT_PROGRESS_WITH_PREFIX = SOLUTION_PREFIX + "PROGRESS";
@@ -17,6 +18,34 @@ public class SupervisionSolutionConstants {
     public final static String DIMENSION_USER_WITH_PREFIX = SOLUTION_PREFIX + "USER";
     public final static String DIMENSION_DEPARTMENT_WITH_PREFIX = SOLUTION_PREFIX + "DEPARTMENT";
 
+    public final static String DIMENSION_CONSTRUCTIONTYPE_WITH_PREFIX = SOLUTION_PREFIX +
+            "CONSTRUCTIONTYPE";
+    public final static String DIMENSION_COMPANYCLASSIFICATION_WTIH_PREFIX = SOLUTION_PREFIX +
+            "COMPANY_CLASSIFICATION";
+    public final static String DIMENSION_ASSIGN_MODEL_WTIH_PREFIX = SOLUTION_PREFIX +
+            "ASSIGN_MODEL";
+    public final static String DIMENSION_EXECUTIVE_DEPARTMENT_WTIH_PREFIX = SOLUTION_PREFIX +
+            "EXECUTIVE_DEPARTMENT";
+    public final static String DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY_WTIH_PREFIX =
+            SOLUTION_PREFIX + "GOVERNMENT_APPROVAL_AUTHORITY";
+    public final static String DIMENSION_ISSUE_CLASSIFICATION_WTIH_PREFIX = SOLUTION_PREFIX +
+            "ISSUE_CLASSIFICATION";
+    public final static String DIMENSION_LAND_PROPERTY_WTIH_PREFIX = SOLUTION_PREFIX +
+            "LAND_PROPERTY";
+    public final static String DIMENSION_ASSERT_FIRST_CLASSIFICATION_WTIH_PREFIX = SOLUTION_PREFIX +
+            "ASSERT_FIRST_CLASSIFICATION";
+    public final static String DIMENSION_ASSET_SECOND_CLASSIFICATION_WTIH_PREFIX = SOLUTION_PREFIX
+            + "ASSET_SECOND_CLASSIFICATION";
+    public final static String DIMENSION_PROJECT_CLASSIFICATION_WTIH_PREFIX = SOLUTION_PREFIX +
+            "PROJECT_CLASSIFICATION";
+    public final static String DIMENSION_PROJECT_SITE_CLASSIFICATION_WTIH_PREFIX = SOLUTION_PREFIX
+            + "PROJECT_SITE_CLASSIFICATION";
+    public final static String DIMENSION_PROJECT_SCOPE_WTIH_PREFIX = SOLUTION_PREFIX +
+            "PROJECT_SCOPE";
+    public final static String DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WTIH_PREFIX =
+            SOLUTION_PREFIX + "PROJECT_CONSTRUCTION_CLASSIFICATION";
+
+    // Relation type
     public final static String DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX =
             SOLUTION_PREFIX + "ASSET_FIRST_CLASSIFICATION";
     public final static String DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX = SOLUTION_PREFIX +

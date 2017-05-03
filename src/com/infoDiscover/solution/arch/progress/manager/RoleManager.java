@@ -7,9 +7,8 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.Eq
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.fact.RoleDimension;
-import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
+import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +35,8 @@ public class RoleManager {
             props.put("roleId", role.getRoleId());
             props.put("roleName", role.getRoleName());
 
-            roleDimension = ProgressUtil.createDimension(ids, dimensionType, props);
+            DimensionManager manager = new DimensionManager(ids);
+            roleDimension = manager.createDimension(dimensionType, props);
         }
         logger.debug("Exit method createRoleDimension()...");
         return roleDimension;

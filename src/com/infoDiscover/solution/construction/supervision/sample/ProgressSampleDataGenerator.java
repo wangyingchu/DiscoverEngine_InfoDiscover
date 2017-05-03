@@ -14,7 +14,7 @@ import com.infoDiscover.solution.arch.demo.FactTypeEnum;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.manager.*;
-import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
+import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 import com.infoDiscover.solution.sample.util.JsonConstants;
@@ -274,10 +274,11 @@ public class ProgressSampleDataGenerator {
 
             // create or update fact
             Fact progressFact = progressManager.getProgressById(ie, progressId, factType);
+            FactManager factManager = new FactManager(ids);
             if (progressFact == null) {
-                ProgressUtil.createFact(ids, factType, properties);
+                factManager.createFact(factType, properties);
             } else {
-                ProgressUtil.updateFact(progressFact, properties);
+                factManager.updateFact(progressFact, properties);
             }
 
             ProgressRelationManager relationManager = new ProgressRelationManager(ids);
@@ -361,10 +362,11 @@ public class ProgressSampleDataGenerator {
 
             // create or update fact
             Fact taskTact = taskManager.getTaskById(ie, taskId, taskFactType);
+            FactManager factManager = new FactManager(ids);
             if (taskTact == null) {
-                taskTact = ProgressUtil.createFact(ids, taskFactType, properties);
+                taskTact = factManager.createFact(taskFactType, properties);
             } else {
-                taskTact = ProgressUtil.updateFact(taskTact, properties);
+                taskTact = factManager.updateFact(taskTact, properties);
             }
 
             // link tasks to progress

@@ -1,6 +1,5 @@
 package com.infoDiscover.solution.arch.demo.prepare;
 
-import com.infoDiscover.common.PrefixConstant;
 import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.infoDiscoverEngine.dataMart.FactType;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
@@ -13,6 +12,7 @@ import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.solution.arch.demo.prepare.progress.DemoArchProgressDemoDataGenerator;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.manager.ProgressInitializer;
+import com.infoDiscover.solution.construction.supervision.sample.UserRoleDataImporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

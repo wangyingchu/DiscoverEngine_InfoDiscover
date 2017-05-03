@@ -100,7 +100,7 @@ public class Test {
         // create progress 1
         ProgressManager progressManager = new ProgressManager();
         TaskManager taskManager = new TaskManager();
-        Fact progress = progressManager.createProgressFact(ids.getInformationExplorer(), new ProgressFact
+        Fact progress = progressManager.createProgressFact(ids, new ProgressFact
                 (ProgressConstants
                 .FACT_PROGRESS_WITHPREFIX, "progressId1",
                 "progressContent"));
@@ -108,13 +108,13 @@ public class Test {
         println("progressId: " + progressId);
 
         // create task1
-        Fact task1 = taskManager.createTaskFact(ids.getInformationExplorer(), new TaskFact("progressId1", "taskId1",
+        Fact task1 = taskManager.createTaskFact(ids, new TaskFact("progressId1", "taskId1",
                 "taskContent"), ProgressConstants.FACT_TASK_WITHPREFIX);
         String taskId1 = task1.getId();
         println("taskId1: " + taskId1);
 
         // create task2
-        Fact task2 = taskManager.createTaskFact(ids.getInformationExplorer(), new TaskFact("progressId1", "taskId2",
+        Fact task2 = taskManager.createTaskFact(ids, new TaskFact("progressId1", "taskId2",
                 "taskContent2"), ProgressConstants.FACT_TASK_WITHPREFIX);
         String taskId2 = task2.getId();
         println("taskId2: " + taskId2);

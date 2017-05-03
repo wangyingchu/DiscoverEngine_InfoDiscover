@@ -3,7 +3,7 @@ package com.infoDiscover.solution.sample.util;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
-import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
+import com.infoDiscover.solution.construction.supervision.sample.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.sample.SampleDataSet;
 import org.apache.logging.log4j.LogManager;

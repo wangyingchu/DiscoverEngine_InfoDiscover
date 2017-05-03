@@ -4,11 +4,12 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
+import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.progress.fact.ProgressFact;
-import com.infoDiscover.solution.arch.progress.util.ProgressUtil;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
+import com.infoDiscover.solution.common.fact.FactManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,18 +33,20 @@ public class ProgressManager {
         return QueryExecutor.executeFactQuery(ie, ep);
     }
 
-    public Fact createProgressFact(InformationExplorer ie, ProgressFact progress) throws
+    public Fact createProgressFact(InfoDiscoverSpace ids, ProgressFact progress) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createProgressFact() with progressId: " + progress.getProgressId
                 ());
 
-        Fact progressFact = getProgressById(ie, progress.getProgressId(), progress.getFactType());
+        Fact progressFact = getProgressById(ids.getInformationExplorer(), progress.getProgressId(), progress.getFactType
+                ());
         if (progressFact == null) {
             Map<String, Object> props = new HashMap<String, Object>();
             props.put("progressId", progress.getProgressId());
             props.put("content", progress.getContent());
 
-            progressFact = ProgressUtil.createFact(progress.getFactType(), props);
+            FactManager manager = new FactManager(ids);
+            progressFact = manager.createFact(progress.getFactType(), props);
         }
         logger.debug("Exit method createProgressFact()...");
         return progressFact;

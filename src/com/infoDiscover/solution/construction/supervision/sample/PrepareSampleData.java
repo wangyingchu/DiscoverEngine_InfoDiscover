@@ -9,7 +9,6 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDat
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.arch.demo.prepare.UserRoleDataImporter;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 import com.infoDiscover.solution.sample.util.JsonConstants;
@@ -176,6 +175,23 @@ public class PrepareSampleData {
             logger.debug("Step 6: import user and role sample data");
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Step 6: Failed to import user and role sample data");
+        }
+
+        logger.info("Step 7: create dimensions");
+        SampleDimensionGenerator generator = new SampleDimensionGenerator(ids);
+        try {
+            generator.createDimensionType();
+        } catch (InfoDiscoveryEngineDataMartException e) {
+            logger.error("Step 7: Failed to create dimensions: {}", e.getMessage());
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            logger.error("Step 7: Failed to create dimensions: {}", e.getMessage());
+        }
+
+        logger.info("Step 8: create dimension sample data");
+        try {
+            generator.createDimensionSampleData(ids);
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            logger.error("Step 8: Failed to create sample dimension data: {}", e.getMessage());
         }
 
         ids.closeSpace();
