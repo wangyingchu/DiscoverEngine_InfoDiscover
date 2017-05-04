@@ -19,7 +19,7 @@ public class GremlinAllPaths {
 
     private OrientGraph graph;
 
-    private int maxLoops = 4;
+    private int maxLoops = 5;
 
     public GremlinAllPaths(OrientGraph graph) {
         this.graph = graph;
@@ -48,9 +48,7 @@ public class GremlinAllPaths {
                 .both()
                 .loop("x", vertexLoopBundle -> vertexLoopBundle.getLoops() <= maxLoops,
                         vertexLoopBundle -> vertexLoopBundle.getObject() != fromVertex &&
-                                vertexLoopBundle
-                                        .getObject()
-                                        != toVertex).filter(vertex -> vertex.getId().toString()
+                                vertexLoopBundle.getObject() != toVertex).filter(vertex -> vertex.getId().toString()
                         .equals(toVertex.getId().toString())).path();
 
         for (final List path : pipeline) {
@@ -83,6 +81,9 @@ public class GremlinAllPaths {
 
         GremlinAllPaths allPaths = new GremlinAllPaths(graph);
         List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid);
+//        for(Stack<String > stack: result) {
+//            logger.debug("path: {}", stack);
+//        }
 
         List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
         for(Stack<Edge> stack: edges) {
