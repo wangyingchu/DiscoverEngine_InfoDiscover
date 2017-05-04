@@ -53,7 +53,7 @@ public class GremlinAllPaths {
                         vertexLoopBundle -> vertexLoopBundle.getObject() != fromVertex &&
                                 vertexLoopBundle.getObject() != toVertex).filter(vertex -> vertex
                         .getId().toString()
-                        .equals(toVertex.getId().toString())).path();
+                        .equals(toVertex.getId().toString())).simplePath().path();
 
         for (final List path : pipeline) {
             Stack<String> stack = new Stack<>();
@@ -74,10 +74,10 @@ public class GremlinAllPaths {
         List<Stack<String>> result = getVerticesOfAllPaths(fromRid, toRid);
 
         // get all paths from GenericGraph
-        List<Stack<String>> paths = getAllPaths(graph, result, fromRid, toRid);
+//        List<Stack<String>> paths = getAllPaths(graph, result, fromRid, toRid);
 
         OrientDBAllPaths orientDBAllPaths = new OrientDBAllPaths(graph);
-        return orientDBAllPaths.getEdgesFromAllPaths(paths);
+        return orientDBAllPaths.getEdgesFromAllPaths(result);
     }
 
     private static List<Stack<String>> getAllPaths(OrientGraph graph, List<Stack<String>> result,
@@ -141,19 +141,19 @@ public class GremlinAllPaths {
         String toRid = "#116:0";
 
         GremlinAllPaths allPaths = new GremlinAllPaths(graph);
-//        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid);
-//        for (Stack<String> stack : result) {
-//            logger.debug("path: {}", stack);
-//        }
-//
-//        System.out.println("result: " + result.size());
-
-        List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
-        for (Stack<Edge> stack : edges) {
-            logger.debug("edges: {}", stack);
+        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid);
+        for (Stack<String> stack : result) {
+            logger.debug("path: {}", stack);
         }
 
-        System.out.println("edges: " + edges.size());
+        System.out.println("result: " + result.size());
+
+//        List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
+//        for (Stack<Edge> stack : edges) {
+//            logger.debug("edges: {}", stack);
+//        }
+//
+//        System.out.println("edges: " + edges.size());
 
 
 //        List<Stack<String>> paths = getAllPaths(graph, result, "#115:0", "#116:0");
