@@ -79,47 +79,13 @@ public class GremlinAllPaths {
         return orientDBAllPaths.getEdgesFromAllPaths(paths);
     }
 
-
-
-
-    public static void main(String[] args) {
-
-        OrientGraph graph = new OrientGraph("remote:localhost/DemoArch2", "root", "wyc");
-        String fromRid = "#115:0";
-        String toRid = "#116:0";
-
-        GremlinAllPaths allPaths = new GremlinAllPaths(graph);
-//        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid);
-//        for (Stack<String> stack : result) {
-//            logger.debug("path: {}", stack);
-//        }
-//
-//        System.out.println("result: " + result.size());
-
-        List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
-        for(Stack<Edge> stack: edges) {
-            logger.debug("edges: {}", stack);
-        }
-
-        System.out.println("edges: " + edges.size());
-
-
-//        List<Stack<String>> paths = getAllPaths(graph, result, "#115:0", "#116:0");
-//
-//        for(Stack<String> stack : paths) {
-//            System.out.println("path: " + stack);
-//        }
-//
-//        System.out.println("paths: " + paths.size());
-    }
-
     private static List<Stack<String>> getAllPaths(OrientGraph graph, List<Stack<String>> result,
                                                    String fromRid, String toRid) {
 
         Set<String> set = removeDuplicateVertex(result);
         GenericGraph g = constructGraph(graph, set);
 
-        List<Stack<String>> paths = new AllPaths(g, "#115:0", "#116:0").getAllPaths();
+        List<Stack<String>> paths = new AllPaths(g, fromRid, toRid).getAllPaths();
         return paths;
     }
 
@@ -169,5 +135,36 @@ public class GremlinAllPaths {
         System.out.println("g: " + G);
 
         return G;
+    }
+
+    public static void main(String[] args) {
+
+        OrientGraph graph = new OrientGraph("remote:localhost/DemoArch2", "root", "wyc");
+        String fromRid = "#115:0";
+        String toRid = "#116:0";
+
+        GremlinAllPaths allPaths = new GremlinAllPaths(graph);
+//        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid);
+//        for (Stack<String> stack : result) {
+//            logger.debug("path: {}", stack);
+//        }
+//
+//        System.out.println("result: " + result.size());
+
+        List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
+        for(Stack<Edge> stack: edges) {
+            logger.debug("edges: {}", stack);
+        }
+
+        System.out.println("edges: " + edges.size());
+
+
+//        List<Stack<String>> paths = getAllPaths(graph, result, "#115:0", "#116:0");
+//
+//        for(Stack<String> stack : paths) {
+//            System.out.println("path: " + stack);
+//        }
+//
+//        System.out.println("paths: " + paths.size());
     }
 }
