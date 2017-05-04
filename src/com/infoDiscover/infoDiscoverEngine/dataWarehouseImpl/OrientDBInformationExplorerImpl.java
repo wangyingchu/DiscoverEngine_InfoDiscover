@@ -5,7 +5,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBFactImpl;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.*;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.solution.common.path.OrientDBAllPaths;
+import com.infoDiscover.solution.common.path.GremlinAllPaths;
 import com.infoDiscover.solution.common.path.OrientDBShortestPath;
 import com.orientechnologies.orient.core.sql.OCommandSQL;
 import com.tinkerpop.blueprints.Direction;
@@ -506,8 +506,9 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
             String exceptionMessage = "Relationable id "+secondRelationableId+" not exists";
             throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
         }
-        OrientDBAllPaths orientDBAllPaths=new OrientDBAllPaths(this.graph);
-        List<Stack<Edge>> relationPaths= orientDBAllPaths.getEdgesOfAllPaths(firstRelationableId,secondRelationableId);
+        GremlinAllPaths gremlinAllPaths=new GremlinAllPaths(this.graph);
+        List<Stack<Edge>> relationPaths= gremlinAllPaths.getEdgesOfAllPaths(firstRelationableId,secondRelationableId);
+
         if(relationPaths==null||relationPaths.size()==0){
             return null;
         }else{
