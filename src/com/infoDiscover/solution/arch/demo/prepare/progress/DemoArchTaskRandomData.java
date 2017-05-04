@@ -7,7 +7,7 @@ import com.infoDiscover.solution.sample.util.JsonConstants;
 import com.infoDiscover.solution.sample.util.ProgressJsonParser;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.demo.prepare.DemoArchRandomData;
-import com.infoDiscover.solution.construction.supervision.sample.UserRoleDataImporter;
+import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

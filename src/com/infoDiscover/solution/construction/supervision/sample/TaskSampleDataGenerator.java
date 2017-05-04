@@ -3,6 +3,7 @@ package com.infoDiscover.solution.construction.supervision.sample;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
+import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.sample.util.JsonConstants;

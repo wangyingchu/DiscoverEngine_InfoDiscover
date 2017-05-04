@@ -3,7 +3,7 @@ package com.infoDiscover.solution.sample.util;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
-import com.infoDiscover.solution.construction.supervision.sample.UserRoleDataImporter;
+import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.sample.SampleDataSet;
 import org.apache.logging.log4j.LogManager;
@@ -68,11 +68,11 @@ public class ProgressRandomData {
         String starter;
         if (projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN)) {
             progressId = "maintain" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_ROLE,
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
                     "Property_Department");
         } else {
             progressId = "newproject" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_ROLE,
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
                     "BuildingAndEnvironment_Bureau");
         }
         String progressName = projectName;

@@ -5,9 +5,13 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.DimensionType;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +22,7 @@ import java.util.Map;
  * Created by sun.
  */
 public class SampleDimensionGenerator {
+    private final static Logger logger = LoggerFactory.getLogger(SampleDimensionGenerator.class);
 
     private static String[][] DIMENSION_LIST_TO_CREATE = new String[][]{
             {SupervisionSolutionConstants.DIMENSION_ROLE_WITH_PREFIX, SampleDataSet.FILE_ROLE},
@@ -61,37 +66,72 @@ public class SampleDimensionGenerator {
             InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
         for (String[] array : DIMENSION_LIST_TO_CREATE) {
             String dimensionTypeName = array[0];
+
             if (!ids.hasDimensionType(dimensionTypeName)) {
+
                 DimensionType type = ids.addDimensionType(dimensionTypeName);
-                type.addTypeProperty("dimensionId", PropertyType.STRING);
-                type.addTypeProperty("dimensionName", PropertyType.STRING);
+
                 if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
-                        .DIMENSION_EXECUTIVE_DEPARTMENT_WTIH_PREFIX)) {
-                    type.addTypeProperty("isAuthorityDepartment", PropertyType.BOOLEAN);
+                        .DIMENSION_USER_WITH_PREFIX)) {
+                    type.addTypeProperty("userId", PropertyType.STRING);
+                    type.addTypeProperty("userName", PropertyType.STRING);
+                } else if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+                        .DIMENSION_ROLE_WITH_PREFIX)) {
+                    type.addTypeProperty("roleId", PropertyType.STRING);
+                    type.addTypeProperty("roleName", PropertyType.STRING);
+                } else {
+                    type.addTypeProperty("dimensionId", PropertyType.STRING);
+                    type.addTypeProperty("dimensionName", PropertyType.STRING);
+                    if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+                            .DIMENSION_EXECUTIVE_DEPARTMENT_WTIH_PREFIX)) {
+                        type.addTypeProperty("isAuthorityDepartment", PropertyType.BOOLEAN);
+                    }
                 }
             }
+
         }
+
+
     }
 
-    public void createDimensionSampleData(InfoDiscoverSpace ids) throws InfoDiscoveryEngineRuntimeException {
+    public void createDimensionSampleData(InfoDiscoverSpace ids) throws
+            InfoDiscoveryEngineRuntimeException {
         DimensionManager manager = new DimensionManager(this.ids);
 
         for (String[] array : DIMENSION_LIST_TO_CREATE) {
             String dimensionTypeName = array[0];
             String file = array[1];
 
-            // exclude User/Role
-            if (!dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
-                    .DIMENSION_USER_WITH_PREFIX) && !dimensionTypeName.equalsIgnoreCase
-                    (SupervisionSolutionConstants.DIMENSION_ROLE_WITH_PREFIX)) {
-
-                for (Map<String, Object> properties : getPropertiesFromLine(file)) {
+            if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+                    .DIMENSION_USER_WITH_PREFIX)) {
+                for (Map<String, Object> properties : getPropertiesFromLine(file, "userId",
+                        "userName")) {
                     addMoreProperty(dimensionTypeName, properties);
                     manager.createDimension(dimensionTypeName, properties);
                 }
-
+            } else if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+                    .DIMENSION_ROLE_WITH_PREFIX)) {
+                for (Map<String, Object> properties : getPropertiesFromLine(file, "roleId",
+                        "roleName")) {
+                    manager.createDimension(dimensionTypeName, properties);
+                }
+            } else {
+                for (Map<String, Object> properties : getPropertiesFromLine(file, "dimensionId",
+                        "dimensionName")) {
+                    manager.createDimension(dimensionTypeName, properties);
+                }
             }
+
         }
+    }
+
+
+    public void linkUsersToRole(InfoDiscoverSpace ids, String userRoleFile, String
+            roleDimensionType, String userDimensionType, String relationType) throws
+            InfoDiscoveryEngineInfoExploreException {
+
+        UserRoleDataImporter.createRoles(ids, userRoleFile, roleDimensionType,
+                userDimensionType, relationType);
     }
 
     public static void addMoreProperty(String dimensionType, Map<String, Object> properties) {
@@ -106,7 +146,8 @@ public class SampleDimensionGenerator {
         }
     }
 
-    public static List<Map<String, Object>> getPropertiesFromLine(String file) {
+    public static List<Map<String, Object>> getPropertiesFromLine(String file, String
+            propertyIdName, String propertyDisplayName) {
 
         List<Map<String, Object>> propertyList = new ArrayList<>();
 
@@ -116,8 +157,8 @@ public class SampleDimensionGenerator {
             String dimensionId = values[0];
             String dimensionName = values[1];
             Map<String, Object> map = new HashMap<>();
-            map.put("dimensionId", dimensionId);
-            map.put("dimensionName", dimensionName);
+            map.put(propertyIdName, dimensionId);
+            map.put(propertyDisplayName, dimensionName);
 
             propertyList.add(map);
         }

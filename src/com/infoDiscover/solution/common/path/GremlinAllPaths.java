@@ -73,6 +73,7 @@ public class GremlinAllPaths {
     public List<Stack<Edge>> getEdgesOfAllPaths(String fromRid, String toRid) {
         List<Stack<String>> result = getVerticesOfAllPaths(fromRid, toRid);
 
+        // get all paths from GenericGraph
         List<Stack<String>> paths = getAllPaths(graph, result, fromRid, toRid);
 
         OrientDBAllPaths orientDBAllPaths = new OrientDBAllPaths(graph);
@@ -81,11 +82,12 @@ public class GremlinAllPaths {
 
     private static List<Stack<String>> getAllPaths(OrientGraph graph, List<Stack<String>> result,
                                                    String fromRid, String toRid) {
-
+        logger.info("Start getAllPaths from Generic Graph");
         Set<String> set = removeDuplicateVertex(result);
         GenericGraph g = constructGraph(graph, set);
 
         List<Stack<String>> paths = new AllPaths(g, fromRid, toRid).getAllPaths();
+        logger.info("Start getAllPaths from Generic Graph");
         return paths;
     }
 
@@ -105,9 +107,8 @@ public class GremlinAllPaths {
         return set;
     }
 
-    private static GenericGraph G = new GenericGraph();
-
     private static GenericGraph constructGraph(OrientGraph graph, Set<String> ridSet) {
+        GenericGraph G = new GenericGraph();
 
         List<String> list = new ArrayList<>();
         list.addAll(ridSet);
@@ -127,13 +128,9 @@ public class GremlinAllPaths {
                 }
             }
 
-
-//            }
-
         }
 
-        System.out.println("g: " + G);
-
+        logger.debug("g: " + G);
         return G;
     }
 
@@ -152,7 +149,7 @@ public class GremlinAllPaths {
 //        System.out.println("result: " + result.size());
 
         List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
-        for(Stack<Edge> stack: edges) {
+        for (Stack<Edge> stack : edges) {
             logger.debug("edges: {}", stack);
         }
 

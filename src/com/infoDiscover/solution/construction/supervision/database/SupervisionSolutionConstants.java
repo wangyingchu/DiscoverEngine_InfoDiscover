@@ -1,11 +1,13 @@
 package com.infoDiscover.solution.construction.supervision.database;
 
+import com.infoDiscover.common.PrefixConstant;
+
 /**
  * Created by sun.
  */
 public class SupervisionSolutionConstants {
     // database space
-    public final static String SOLUTION_PREFIX = "ZHUHAI1_";
+    public final static String SOLUTION_PREFIX = PrefixConstant.prefix;
     public final static String DATABASE_SPACE = SOLUTION_PREFIX +
     "ConstructionEngineeringSupervision";
 

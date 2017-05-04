@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
-import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
+import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 
 /**
  * Created by sun.
@@ -16,11 +16,10 @@ public class SampleDataSet {
     public final static String PROJECTNAME_EXTENSION = "扩建工程";
     public final static String PROJECTTYPE_EXTENSION = "扩建工程";
 
-    public final static String FACTTYPE_MAINTENANCE_PROJECT = ProgressConstants
-            .FACT_PROGRESS_WITHPREFIX +
-            "_MAINTAIN";
-    public final static String FACTTYPE_NEW_PROJECT = ProgressConstants.FACT_PROGRESS_WITHPREFIX +
-            "_NEWPROJECT";
+    public final static String FACTTYPE_MAINTENANCE_PROJECT = SupervisionSolutionConstants
+            .FACT_PROGRESS_WITH_PREFIX + "_MAINTAIN";
+    public final static String FACTTYPE_NEW_PROJECT = SupervisionSolutionConstants
+            .FACT_PROGRESS_WITH_PREFIX + "_NEWPROJECT";
 
     public final static String[] TASKS_OF_MAINTENANCE = {
             "applyProjectMaintenance",
@@ -101,6 +100,7 @@ public class SampleDataSet {
                     "/solution/construction/supervision/template/";
     public final static String FILE_ROLE = ROOT_PATH + "/data/roles.csv";
     public final static String FILE_USER = ROOT_PATH + "/data/users.csv";
+    public final static String FILE_USER_ROLE = ROOT_PATH + "/data/user_role.csv";
     public final static String FILE_MAINTENANCE_PROJECT = ROOT_PATH + "allMaintenanceProject.json";
     public final static String FILE_NEW_PROJECT = ROOT_PATH + "allNewProject.json";
 

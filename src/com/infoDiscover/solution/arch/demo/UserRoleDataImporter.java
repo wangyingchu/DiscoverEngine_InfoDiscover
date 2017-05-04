@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.construction.supervision.sample;
+package com.infoDiscover.solution.arch.demo;
 
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.common.util.RandomUtil;
@@ -92,13 +92,12 @@ public class UserRoleDataImporter {
     }
 
 
-    public static Map<String, String[]> readRoleAndUsers(String roleFile) {
-        logger.info("Enter method readRoleAndUsers with roleFile: {}", roleFile);
-        List<String> list = FileUtil.read(roleFile);
+    public static Map<String, String[]> readRoleAndUsers(String userRoleFile) {
+        logger.info("Enter method readRoleAndUsers with roleFile: {}", userRoleFile);
+        List<String> list = FileUtil.read(userRoleFile);
         Map<String, String[]> map = new HashMap<>();
         for (String line : list) {
             String[] roles = line.split("-");
-            String roleName = roles[0].trim();
             String roleId = roles[1].trim();
             String userIds = roles[2].trim();
             map.put(roleId, userIds.split(","));
