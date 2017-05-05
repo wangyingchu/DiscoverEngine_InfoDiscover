@@ -32,7 +32,8 @@ public class GremlinAllPaths {
         this.maxLoops = maxLoops;
     }
 
-    private List<Stack<String>> getVerticesOfAllPaths(String fromRid, String toRid) {
+    private List<Stack<String>> getVerticesOfAllPaths(String fromRid, String toRid, List<String>
+            filterVertex) {
 
         Vertex fromVertex = graph.getVertex(fromRid);
         Vertex toVertex = graph.getVertex(toRid);
@@ -53,7 +54,7 @@ public class GremlinAllPaths {
                         vertexLoopBundle -> vertexLoopBundle.getObject() != fromVertex &&
                                 vertexLoopBundle.getObject() != toVertex).filter(vertex -> vertex
                         .getId().toString()
-                        .equals(toVertex.getId().toString())).simplePath().path();
+                        .equals(toVertex.getId().toString())).path();
 
         for (final List path : pipeline) {
             Stack<String> stack = new Stack<>();
@@ -65,13 +66,33 @@ public class GremlinAllPaths {
         long end = System.currentTimeMillis();
         logger.debug("******End at: " + DateUtil.getDateTime(end));
         logger.debug("******Elapsed time: {}", (end - start));
+
+        result = filterResult(result, filterVertex);
         logger.debug("Result size: {}", result.size());
 
         return result;
     }
 
+    private List<Stack<String>> filterResult(List<Stack<String>> allPaths, List<String> filter) {
+        if (allPaths == null || allPaths.size() == 0 || filter == null || filter.size() == 0) {
+            return allPaths;
+        }
+
+        List<Stack<String>> result = new ArrayList<>();
+
+        for (Stack<String> stack : allPaths) {
+            Stack<String> cloned = (Stack<String>) stack.clone();
+            stack.retainAll(filter);
+
+            if (stack.size() == filter.size()) {
+                result.add(cloned);
+            }
+        }
+        return result;
+    }
+
     public List<Stack<Edge>> getEdgesOfAllPaths(String fromRid, String toRid) {
-        List<Stack<String>> result = getVerticesOfAllPaths(fromRid, toRid);
+        List<Stack<String>> result = getVerticesOfAllPaths(fromRid, toRid, null);
 
         // get all paths from GenericGraph
 //        List<Stack<String>> paths = getAllPaths(graph, result, fromRid, toRid);
@@ -79,6 +100,15 @@ public class GremlinAllPaths {
         OrientDBAllPaths orientDBAllPaths = new OrientDBAllPaths(graph);
         return orientDBAllPaths.getEdgesFromAllPaths(result);
     }
+
+    public List<Stack<Edge>> getEdgesOfAllPaths(String fromRid, String toRid, List<String>
+            filterVertex) {
+        List<Stack<String>> allPaths = getVerticesOfAllPaths(fromRid, toRid, filterVertex);
+
+        OrientDBAllPaths orientDBAllPaths = new OrientDBAllPaths(graph);
+        return orientDBAllPaths.getEdgesFromAllPaths(allPaths);
+    }
+
 
     private static List<Stack<String>> getAllPaths(OrientGraph graph, List<Stack<String>> result,
                                                    String fromRid, String toRid) {
@@ -140,13 +170,22 @@ public class GremlinAllPaths {
         String fromRid = "#115:0";
         String toRid = "#116:0";
 
+        List<String> filter = new ArrayList<>();
+        filter.add("#89:4");
+        filter.add("#98:0");
+//        filter.add("#113:0");
+
+
         GremlinAllPaths allPaths = new GremlinAllPaths(graph);
-        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid);
-        for (Stack<String> stack : result) {
-            logger.debug("path: {}", stack);
+        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid, filter);
+
+
+        for (Stack<String> r : result) {
+            System.out.println("result: " + r);
         }
 
-        System.out.println("result: " + result.size());
+//        System.out.println("result: " + result.size());
+
 
 //        List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
 //        for (Stack<Edge> stack : edges) {
@@ -163,5 +202,23 @@ public class GremlinAllPaths {
 //        }
 //
 //        System.out.println("paths: " + paths.size());
+
+    }
+
+
+    private static void test() {
+        List<String> a = new ArrayList<>();
+        a.add("a");
+        a.add("b");
+        a.add("c");
+        a.add("d");
+
+        List<String> b = new ArrayList<>();
+        b.add("c");
+        b.add("d");
+
+        a.retainAll(b);
+
+        System.out.println("a: " + (a == b));
     }
 }
