@@ -105,10 +105,71 @@ public class GremlinAllPaths {
             filterVertex) {
         List<Stack<String>> allPaths = getVerticesOfAllPaths(fromRid, toRid, filterVertex);
 
-        OrientDBAllPaths orientDBAllPaths = new OrientDBAllPaths(graph);
-        return orientDBAllPaths.getEdgesFromAllPaths(allPaths);
+        return getEdgesOfAllPaths(allPaths);
     }
 
+    public List<Stack<Edge>> getEdgesOfAllPaths(List<Stack<String>> verticesOfAllPaths) {
+        OrientDBAllPaths orientDBAllPaths = new OrientDBAllPaths(graph);
+        return orientDBAllPaths.getEdgesFromAllPaths(verticesOfAllPaths);
+    }
+
+
+    public List<Stack<Edge>> getFirstShortestPath(String fromRid, String toRid, int
+            firstNumberOfShortestPath, List<String> filterVertex) {
+        List<Stack<String>> allPaths = getVerticesOfFirstShortestPath(fromRid, toRid,
+                firstNumberOfShortestPath,
+                filterVertex);
+
+        return getEdgesOfAllPaths(allPaths);
+    }
+
+    public List<Stack<Edge>> getFirstLongestPath(String fromRid, String toRid, int
+            firstNumberOfLongestPath, List<String> filterVertex) {
+        List<Stack<String>> allPaths = getVerticesOfFirstLongestPath(fromRid, toRid,
+                firstNumberOfLongestPath, filterVertex);
+
+        return getEdgesOfAllPaths(allPaths);
+    }
+
+    private List<Stack<String>> getVerticesOfPath(String fromRid, String toRid, int
+            firstNumberOfPath, List<String> filterVertex, boolean findFirstShortestPaths) {
+        List<Stack<String>> allPaths = getVerticesOfAllPaths(fromRid, toRid, filterVertex);
+
+        if (allPaths == null || allPaths.size() == 0) {
+            return null;
+        }
+
+        List<Stack<String>> result = new ArrayList<>();
+
+
+        if (findFirstShortestPaths) {
+            // first shortest paths
+            int sizeOfPath = (firstNumberOfPath < allPaths.size()) ? firstNumberOfPath
+                    : allPaths.size();
+            for (int i = 0; i < sizeOfPath; i++) {
+                result.add(allPaths.get(i));
+            }
+        } else {
+            // first longest paths
+            int sizeOfPath = (firstNumberOfPath > allPaths.size()) ? 0 : (allPaths.size() -
+                    firstNumberOfPath);
+            for (int i = allPaths.size() - 1; i >= sizeOfPath; i--) {
+                result.add(allPaths.get(i));
+            }
+        }
+
+        return result;
+    }
+
+    public List<Stack<String>> getVerticesOfFirstShortestPath(String fromRid, String toRid, int
+            firstNumberOfShortestPath, List<String> filterVertex) {
+        return getVerticesOfPath(fromRid, toRid, firstNumberOfShortestPath, filterVertex, true);
+    }
+
+    public List<Stack<String>> getVerticesOfFirstLongestPath(String fromRid, String toRid, int
+            firstNumberOfLongestPath, List<String> filterVertex) {
+        return getVerticesOfPath(fromRid, toRid, firstNumberOfLongestPath, filterVertex, false);
+    }
 
     private static List<Stack<String>> getAllPaths(OrientGraph graph, List<Stack<String>> result,
                                                    String fromRid, String toRid) {
@@ -203,22 +264,20 @@ public class GremlinAllPaths {
 //
 //        System.out.println("paths: " + paths.size());
 
+        List<Stack<String>> list = allPaths.getVerticesOfFirstShortestPath(fromRid, toRid, 5,
+                filter);
+
+        for (Stack<String> stack : list) {
+            System.out.println("first shortest: " + stack);
+        }
+
+        list = allPaths.getVerticesOfFirstLongestPath(fromRid, toRid, 50,
+                filter);
+
+        for (Stack<String> stack : list) {
+            System.out.println("longest shortest: " + stack);
+        }
     }
 
 
-    private static void test() {
-        List<String> a = new ArrayList<>();
-        a.add("a");
-        a.add("b");
-        a.add("c");
-        a.add("d");
-
-        List<String> b = new ArrayList<>();
-        b.add("c");
-        b.add("d");
-
-        a.retainAll(b);
-
-        System.out.println("a: " + (a == b));
-    }
 }
