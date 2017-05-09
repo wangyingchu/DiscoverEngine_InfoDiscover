@@ -20,7 +20,7 @@
                 {
                     "propertyType": "String",
                     "propertyName": "progressType",
-                    "propertyValue": "改建工程"
+                    "propertyValue": "RebuildingProject"
                 },
                 {
                     "propertyType": "String",

@@ -62,6 +62,33 @@ public class SampleFactGenerator {
             logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
         }
 
+        // progress for new project
+        if (!ids.hasFactType(SampleDataSet.FACTTYPE_EXTENSION_PROJECT)) {
+            FactType newProgressFactType = ids.addFactType(SampleDataSet
+                    .FACTTYPE_EXTENSION_PROJECT);
+            newProgressFactType.addTypeProperty(JsonConstants.PROGRESS_ID, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.PROGRESS_NAME, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.PROGRESS_STARTER, PropertyType
+                    .STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.START_DATE, PropertyType.DATE);
+            newProgressFactType.addTypeProperty(JsonConstants.END_DATE, PropertyType.DATE);
+            newProgressFactType.addTypeProperty(JsonConstants.STATUS, PropertyType.STRING);
+            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
+        }
+
+        // progress for new project
+        if (!ids.hasFactType(SampleDataSet.FACTTYPE_REBUILD_PROJECT)) {
+            FactType newProgressFactType = ids.addFactType(SampleDataSet
+                    .FACTTYPE_REBUILD_PROJECT);
+            newProgressFactType.addTypeProperty(JsonConstants.PROGRESS_ID, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.PROGRESS_NAME, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.PROGRESS_STARTER, PropertyType
+                    .STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.START_DATE, PropertyType.DATE);
+            newProgressFactType.addTypeProperty(JsonConstants.END_DATE, PropertyType.DATE);
+            newProgressFactType.addTypeProperty(JsonConstants.STATUS, PropertyType.STRING);
+            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
+        }
 
         // task fact type
         if (!ids.hasFactType(SupervisionSolutionConstants.FACT_TASK_WITH_PREFIX)) {

@@ -6,15 +6,14 @@ import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.common.util.RandomData;
+import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 import com.infoDiscover.solution.sample.util.JsonConstants;
 import com.infoDiscover.solution.sample.util.ProgressJsonParser;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by sun.
@@ -70,11 +69,15 @@ public class TaskSampleDataGenerator {
             updateRequiredPropertiesRandomData(properties,
                     progressId, projectType, startDate, i);
 
-            if (projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN)) {
-                // setup longitude and latitude
-                if (properties.containsKey("longitude")) {
-                    setRandomLongitudeLatitude(properties);
-                }
+            updateCustomizedTasksProperties(properties);
+
+            // setup longitude and latitude
+            if (properties.containsKey("longitude")) {
+                setRandomLongitudeLatitude(properties);
+            }
+
+            if (properties.containsKey("latitude")) {
+                setRandomLongitudeLatitude(properties);
             }
 
             tasksArray[i] = properties;
@@ -105,7 +108,7 @@ public class TaskSampleDataGenerator {
         String departmentId = getRandomDepartment();
         properties.put(JsonConstants.EXECUTIVEDEPARTMENT, departmentId);
         properties.put(JsonConstants.WORKER, UserRoleDataImporter.selectRandomUserFromRole
-                (DemoDataConfig.FILE_ROLE, departmentId));
+                (SampleDataSet.FILE_USER_ROLE, departmentId));
         // 1~9 中取随机数
         long taskStartDate = DateUtil.getLongDateValue(startDate, RandomUtil
                 .generateRandomInRange(1, 9));
@@ -118,6 +121,71 @@ public class TaskSampleDataGenerator {
         return properties;
     }
 
+    // TODO: to refine with the new project template
+    private static Map<String, Object> updateCustomizedTasksProperties(
+            Map<String, Object> taskProperties) {
+
+        List<String> list = Arrays.asList(SampleDataSet.dimensionArray);
+
+        Set<String> keySet = taskProperties.keySet();
+        Iterator<String> it = keySet.iterator();
+        String dimensionTypeName = "";
+        while (it.hasNext()) {
+            String key = it.next();
+            if (list.contains(key)) {
+                if (key.equalsIgnoreCase("constructionType")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("companyClassification")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("assignModel")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_ASSIGN_MODEL_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("executiveDepartment")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("governmentApprovalAuthority")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("issueClassification")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("landProperty")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_LAND_PROPERTY_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("assetFirstClassification")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("assetSecondClassification")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("projectClassification")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("projectSiteClassification")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("projectScope")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_PROJECT_SCOPE_WITH_PREFIX;
+                } else if (key.equalsIgnoreCase("projectConstructionClassification")) {
+                    dimensionTypeName = SupervisionSolutionConstants
+                            .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX;
+                }
+
+                List<String> values = SampleDimensionGenerator.dimensionCache.get
+                        (dimensionTypeName);
+                if (values != null && values.size() > 0) {
+                    String propertyValue = values.get(RandomUtil.generateRandomInRange(0,
+                            values.size()));
+                    taskProperties.put(key, propertyValue);
+                }
+            }
+        }
+
+        return taskProperties;
+    }
 
     private static void setRandomLongitudeLatitude(Map<String, Object> properties) {
         double longitude = SampleDataSet.LONGITUDE + RandomUtil

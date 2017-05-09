@@ -19,6 +19,7 @@ public class JsonConstants {
     // progress
     public final static String PROGRESS_ID = "progressId";
     public final static String PROGRESS_NAME = "progressName";
+    public final static String PROGRESS_TYPE = "progressType";
     public final static String PROGRESS_STARTER = "starter";
     public final static String START_DATE = "startDate";
     public final static String END_DATE = "endDate";

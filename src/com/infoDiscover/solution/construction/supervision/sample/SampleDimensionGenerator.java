@@ -1,6 +1,7 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
 import com.infoDiscover.common.util.FileUtil;
+import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.DimensionType;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
@@ -10,6 +11,7 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRun
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
+import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,32 +29,32 @@ public class SampleDimensionGenerator {
     private static String[][] DIMENSION_LIST_TO_CREATE = new String[][]{
             {SupervisionSolutionConstants.DIMENSION_ROLE_WITH_PREFIX, SampleDataSet.FILE_ROLE},
             {SupervisionSolutionConstants.DIMENSION_USER_WITH_PREFIX, SampleDataSet.FILE_USER},
-            {SupervisionSolutionConstants.DIMENSION_CONSTRUCTIONTYPE_WITH_PREFIX, SampleDataSet
+            {SupervisionSolutionConstants.DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_CONSTRUCTION_TYPE},
-            {SupervisionSolutionConstants.DIMENSION_COMPANYCLASSIFICATION_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_COMPANY_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_ASSIGN_MODEL_WTIH_PREFIX, SampleDataSet
+            {SupervisionSolutionConstants.DIMENSION_ASSIGN_MODEL_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_ASSIGN_MODEL},
-            {SupervisionSolutionConstants.DIMENSION_EXECUTIVE_DEPARTMENT_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_EXECUTIVE_DEPARTMENT},
-            {SupervisionSolutionConstants.DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY},
-            {SupervisionSolutionConstants.DIMENSION_ISSUE_CLASSIFICATION_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_ISSUE_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_LAND_PROPERTY_WTIH_PREFIX, SampleDataSet
+            {SupervisionSolutionConstants.DIMENSION_LAND_PROPERTY_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_LAND_PROPERTY},
-            {SupervisionSolutionConstants.DIMENSION_ASSERT_FIRST_CLASSIFICATION_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_ASSET_FIRST_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_ASSET_SECOND_CLASSIFICATION_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_ASSET_SECOND_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_PROJECT_CLASSIFICATION_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_PROJECT_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_PROJECT_SITE_CLASSIFICATION_WTIH_PREFIX,
+            {SupervisionSolutionConstants.DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_PROJECT_SITE_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_PROJECT_SCOPE_WTIH_PREFIX, SampleDataSet
+            {SupervisionSolutionConstants.DIMENSION_PROJECT_SCOPE_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_PROJECT_SCOPE},
             {SupervisionSolutionConstants
-                    .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WTIH_PREFIX, SampleDataSet
+                    .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION}
     };
 
@@ -83,7 +85,7 @@ public class SampleDimensionGenerator {
                     type.addTypeProperty("dimensionId", PropertyType.STRING);
                     type.addTypeProperty("dimensionName", PropertyType.STRING);
                     if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
-                            .DIMENSION_EXECUTIVE_DEPARTMENT_WTIH_PREFIX)) {
+                            .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX)) {
                         type.addTypeProperty("isAuthorityDepartment", PropertyType.BOOLEAN);
                     }
                 }
@@ -93,6 +95,9 @@ public class SampleDimensionGenerator {
 
 
     }
+
+
+    public static Map<String, List<String>> dimensionCache = new HashedMap();
 
     public void createDimensionSampleData(InfoDiscoverSpace ids) throws
             InfoDiscoveryEngineRuntimeException {
@@ -104,22 +109,34 @@ public class SampleDimensionGenerator {
 
             if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
                     .DIMENSION_USER_WITH_PREFIX)) {
+                List<String> dimensionRIDList = new ArrayList<>();
                 for (Map<String, Object> properties : getPropertiesFromLine(file, "userId",
                         "userName")) {
                     addMoreProperty(dimensionTypeName, properties);
-                    manager.createDimension(dimensionTypeName, properties);
+                    Dimension dimension = manager.createDimension(dimensionTypeName, properties);
+                    dimensionRIDList.add(dimension.getProperty("userId").getPropertyValue()
+                            .toString());
                 }
+                dimensionCache.put(dimensionTypeName, dimensionRIDList);
             } else if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
                     .DIMENSION_ROLE_WITH_PREFIX)) {
+                List<String> dimensionRIDList = new ArrayList<>();
                 for (Map<String, Object> properties : getPropertiesFromLine(file, "roleId",
                         "roleName")) {
-                    manager.createDimension(dimensionTypeName, properties);
+                    Dimension dimension = manager.createDimension(dimensionTypeName, properties);
+                    dimensionRIDList.add(dimension.getProperty("roleId").getPropertyValue()
+                            .toString());
                 }
+                dimensionCache.put(dimensionTypeName, dimensionRIDList);
             } else {
+                List<String> dimensionRIDList = new ArrayList<>();
                 for (Map<String, Object> properties : getPropertiesFromLine(file, "dimensionId",
                         "dimensionName")) {
-                    manager.createDimension(dimensionTypeName, properties);
+                    Dimension dimension = manager.createDimension(dimensionTypeName, properties);
+                    dimensionRIDList.add(dimension.getProperty("dimensionId").getPropertyValue()
+                            .toString());
                 }
+                dimensionCache.put(dimensionTypeName, dimensionRIDList);
             }
 
         }
@@ -136,7 +153,7 @@ public class SampleDimensionGenerator {
 
     public static void addMoreProperty(String dimensionType, Map<String, Object> properties) {
         if (dimensionType.equals(SupervisionSolutionConstants
-                .DIMENSION_EXECUTIVE_DEPARTMENT_WTIH_PREFIX)) {
+                .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX)) {
             String dimensionId = properties.get("dimensionId").toString();
             if (getGovernmentApprovalAuthority().contains(dimensionId)) {
                 properties.put("isAuthorityDepartment", true);

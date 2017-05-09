@@ -66,12 +66,21 @@ public class ProgressRandomData {
         String progressType = "Progress";
         String progressId;
         String starter;
-        if (projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN)) {
-            progressId = "maintain" + sequence;
+        if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+            progressId = "maintain_project" + sequence;
+            //TODO: to select a starter
             starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
                     "Property_Department");
+        } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)){
+            progressId = "new_project" + sequence;
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
+                    "BuildingAndEnvironment_Bureau");
+        } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
+            progressId = "rebuild_project" + sequence;
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
+                    "BuildingAndEnvironment_Bureau");
         } else {
-            progressId = "newproject" + sequence;
+            progressId = "extension_project" + sequence;
             starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
                     "BuildingAndEnvironment_Bureau");
         }

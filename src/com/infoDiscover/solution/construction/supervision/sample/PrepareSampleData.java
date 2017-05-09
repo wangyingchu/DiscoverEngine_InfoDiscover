@@ -16,24 +16,38 @@ import org.slf4j.LoggerFactory;
 public class PrepareSampleData {
     private final static Logger logger = LoggerFactory.getLogger(PrepareSampleData.class);
 
+    // ===============参数配置=====================//
     // 生成年份
     public final static int[] yearsToGenerate = new int[]{2010, 2011, 2012, 2013, 2014,
-            2015, 2016, 2017};
+            2015, 2016, 2017, 2018, 2019, 2020};
 
     // 只生成年、月、日的时间维度
     public final static int depth = 3;
 
-    //生成多少个maintain project
+    //生成多少个维修工程
     public final static int countOfMaintainProgressToGenerate = 1;
 
-    // 生成多少个new project
+    // 生成多少个新建工程
     public final static int countOfNewProgressToGenerate = 1;
+
+    // 生成多少个扩建工程
+    public final static int countOfExtensionProgressToGenerate = 1;
+
+    // 生成多少个改建工程
+    public final static int countOfRebuildProgressToGenerate = 1;
 
     // 随机完成流程中的前几个任务, false表示完成全部任务
     public final static boolean toGenerateRandomTasksNumber = false;
 
     // solution prefix
-    public final static String prefix = SupervisionSolutionConstants.SOLUTION_PREFIX;
+    public final static String prefix = "ZHUHAI_";
+
+    // template root path
+    public final static String ROOT_PATH =
+            "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
+                    "/solution/construction/supervision/template/";
+
+    // ===============参数配置=====================//
 
     public static void main(String[] args) {
 
@@ -48,6 +62,12 @@ public class PrepareSampleData {
 
         ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
                 countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
+
+        ProgressSampleDataGenerator.generateExtensionProjectSampleData(ids,
+                countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
+
+        ProgressSampleDataGenerator.generateRebuildProjectSampleData(ids,
+                countOfRebuildProgressToGenerate, toGenerateRandomTasksNumber);
 
         ids.closeSpace();
     }

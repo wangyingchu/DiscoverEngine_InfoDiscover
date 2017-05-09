@@ -12,14 +12,19 @@ public class SampleDataSet {
     public final static String PROJECTNAME_MAINTANENCE = "维修工程";
     public final static String PROJECTNAME_NEW = "新建工程";
     public final static String PROJECTNAME_REBUILD = "改建工程";
-    public final static String PROJECTTYPE_REBUILD = "改建工程";
+    public final static String PROJECTTYPE_REBUILD = "rebuild";
     public final static String PROJECTNAME_EXTENSION = "扩建工程";
-    public final static String PROJECTTYPE_EXTENSION = "扩建工程";
+    public final static String PROJECTTYPE_EXTENSION = "extension";
+
 
     public final static String FACTTYPE_MAINTENANCE_PROJECT = SupervisionSolutionConstants
             .FACT_PROGRESS_WITH_PREFIX + "_MAINTAIN";
     public final static String FACTTYPE_NEW_PROJECT = SupervisionSolutionConstants
-            .FACT_PROGRESS_WITH_PREFIX + "_NEWPROJECT";
+            .FACT_PROGRESS_WITH_PREFIX + "_NEW_PROJECT";
+    public final static String FACTTYPE_REBUILD_PROJECT = SupervisionSolutionConstants
+            .FACT_PROGRESS_WITH_PREFIX + "_REBUILD_PROJECT";
+    public final static String FACTTYPE_EXTENSION_PROJECT = SupervisionSolutionConstants
+            .FACT_PROGRESS_WITH_PREFIX + "_EXTENSION_PROJECT";
 
     public final static String[] TASKS_OF_MAINTENANCE = {
             "applyProjectMaintenance",
@@ -81,28 +86,36 @@ public class SampleDataSet {
             "Engineering_Department", "Engineering_Department", "Engineering_Department",
             "General_Manager"};
 
-    public final static String[] DEPARTMENTS = {"Property_Department",
-            "Engineering_Department",
-            "CostControl_Department", "Finance_Department",
-            "Management_LeadingGroup", "Area_Chief_Financial_Officer",
-            "Legal_Specialist", "Finance_Specialist",
-            "PartyAndGovernment_Office", "OverallPlanAndDevelopment_Bureau",
-            "BuildingAndEnvironment_Bureau", "Finance_Bureau", "LandAndResources_Bureau",
-            "Planning_Bureau", "Area_SuperiorLeader", "General_Manager"};
+    public final static String[] DEPARTMENTS = {
+            "OverallPlanAndDevelopment_Bureau",
+            "Planning_Bureau",
+            "BuildingAndEnvironment_Bureau",
+            "Finance_Department",
+            "PartyAndGovernment_Office",
+            "StateOwnedOffice",
+            "ConstructionDevelopmentCompany",
+            "PreProjectCompany",
+            "ReconnaissanceCompany",
+            "DesignCompany",
+            "AuditCompany",
+            "CostConsultingCompany",
+            "BiddingAgency",
+            "SupervisionCompany",
+            "ConstructionCompany"};
 
     public final static double LONGITUDE = 39.9910020000d;
     public final static double LATITUDE = 116.3288960000d;
 
 
     // json template path
-    public final static String ROOT_PATH =
-            "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
-                    "/solution/construction/supervision/template/";
+    public final static String ROOT_PATH = PrepareSampleData.ROOT_PATH;
     public final static String FILE_ROLE = ROOT_PATH + "/data/roles.csv";
     public final static String FILE_USER = ROOT_PATH + "/data/users.csv";
     public final static String FILE_USER_ROLE = ROOT_PATH + "/data/user_role.csv";
     public final static String FILE_MAINTENANCE_PROJECT = ROOT_PATH + "allMaintenanceProject.json";
     public final static String FILE_NEW_PROJECT = ROOT_PATH + "allNewProject.json";
+    public final static String FILE_EXTENSION_PROJECT = ROOT_PATH + "allExtensionProject.json";
+    public final static String FILE_REBUILD_PROJECT = ROOT_PATH + "allRebuildProject.json";
 
     public final static String FILE_DIMENSION_CONSTRUCTION_TYPE = ROOT_PATH +
             "/data/主要功能或建筑类型_constructionType.csv";
@@ -113,7 +126,7 @@ public class SampleDataSet {
     public final static String FILE_DIMENSION_EXECUTIVE_DEPARTMENT = ROOT_PATH +
             "/data/执行部门_executiveDepartment.csv";
     public final static String FILE_DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY = ROOT_PATH +
-            "/data/政府审批主管部门_GovernmentApprovalAuthority.csv";
+            "/data/政府审批主管部门_governmentApprovalAuthority.csv";
     public final static String FILE_DIMENSION_ISSUE_CLASSIFICATION = ROOT_PATH +
             "/data/故障问题分类_issueClassification.csv";
     public final static String FILE_DIMENSION_LAND_PROPERTY = ROOT_PATH +
@@ -130,4 +143,9 @@ public class SampleDataSet {
             "/data/项目实施范围_projectScope.csv";
     public final static String FILE_DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION = ROOT_PATH +
             "/data/项目建设分类_projectConstructionClassification.csv";
+
+    public final static String[] dimensionArray = {"constructionType", "companyClassification",
+            "assignModel", "executiveDepartment", "governmentApprovalAuthority", "issueClassification",
+            "landProperty", "assetFirstClassification", "assetSecondClassification",
+            "projectClassification", "projectSiteClassification", "projectScope","projectConstructionClassification"};
 }

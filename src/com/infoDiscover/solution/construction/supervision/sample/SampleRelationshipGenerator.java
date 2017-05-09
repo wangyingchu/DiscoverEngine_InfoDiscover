@@ -75,6 +75,94 @@ public class SampleRelationshipGenerator {
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_ASSIGN_MODEL_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_ASSIGN_MODEL_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_CONSTRUCTION_TYPE_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_CONSTRUCTION_TYPE_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_ISSUE_CLASSIFICATION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_ISSUE_CLASSIFICATION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_LAND_PROPERTY_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_LAND_PROPERTY_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_PROJECT_SCOPE_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_PROJECT_SCOPE_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_PROJECT_TYPE_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_PROJECT_TYPE_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_PROVIDER_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_PROVIDER_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_TASK_EXECUTEBYDEPARTMENT_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_TASK_EXECUTEBYDEPARTMENT_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_COMPANY_CLASSIFICATION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_COMPANY_CLASSIFICATION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_PROJECT_CLASSIFICATION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_PROJECT_CLASSIFICATION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+
+
         logger.debug("Exit method initProgressRelationType()...");
     }
 

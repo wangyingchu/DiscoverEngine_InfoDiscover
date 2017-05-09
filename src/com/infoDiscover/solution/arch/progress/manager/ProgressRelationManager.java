@@ -173,10 +173,9 @@ public class ProgressRelationManager {
                                                                toDimension,
                                                        String
                                                                relationType) {
-        logger.debug("Enter method linkFactToDimensionByRelationType() with fromFactId: " +
-                fromFact.getId() +
-                " " + "and " + "toDimensionId: " + toDimension.getId() + " and relationType: " +
-                relationType);
+        logger.info("Enter method linkFactToDimensionByRelationType() with fromFactId: {} and " +
+                        "toDimensionId: {} and relationType: {}", fromFact.getId(), toDimension
+                        .getId(), relationType);
 
         if (fromFact == null) {
             logger.error("fromFact should not be null");
