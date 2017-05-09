@@ -467,17 +467,9 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
     }
 
     @Override
-    public Stack<Relation> discoverRelationablesShortestPath(String firstRelationableId, String secondRelationableId, RelationDirection relationDirection) throws InfoDiscoveryEngineRuntimeException{
-        OrientVertex firstOv = this.graph.getVertex(firstRelationableId);
-        if(firstOv==null){
-            String exceptionMessage = "Relationable id "+firstRelationableId+" not exists";
-            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
-        }
-        OrientVertex secondOv = this.graph.getVertex(secondRelationableId);
-        if(secondOv==null){
-            String exceptionMessage = "Relationable id "+secondRelationableId+" not exists";
-            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
-        }
+    public Stack<Relation> discoverRelationablesShortestPath(String firstRelationableId, String secondRelationableId) throws InfoDiscoveryEngineRuntimeException{
+        checkRelationableExistance(firstRelationableId);
+        checkRelationableExistance(secondRelationableId);
         List<Edge> relationPath= OrientDBShortestPath.getEdgesFromShortestPath(this.graph,firstRelationableId,secondRelationableId);
         if(relationPath==null||relationPath.size()==0){
             return null;
@@ -495,39 +487,46 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
     }
 
     @Override
+    public List<Stack<Relation>> discoverRelationablesShortestPaths(String firstRelationableId, String secondRelationableId, int pathNumber) throws InfoDiscoveryEngineRuntimeException {
+        checkRelationableExistance(firstRelationableId);
+        checkRelationableExistance(secondRelationableId);
+        GremlinAllPaths gremlinAllPaths=new GremlinAllPaths(this.graph);
+        List<Stack<Edge>> relationPath= gremlinAllPaths.getFirstShortestPath(firstRelationableId,secondRelationableId,pathNumber,null);
+        return getRelationStackList(relationPath);
+    }
+
+    @Override
+    public List<Stack<Relation>> discoverRelationablesLongestPaths(String firstRelationableId, String secondRelationableId, int pathNumber) throws InfoDiscoveryEngineRuntimeException {
+        checkRelationableExistance(firstRelationableId);
+        checkRelationableExistance(secondRelationableId);
+        GremlinAllPaths gremlinAllPaths=new GremlinAllPaths(this.graph);
+        List<Stack<Edge>> relationPath= gremlinAllPaths.getFirstLongestPath(firstRelationableId,secondRelationableId,pathNumber,null);
+        return getRelationStackList(relationPath);
+    }
+
+    @Override
     public List<Stack<Relation>> discoverRelationablesAllPaths(String firstRelationableId, String secondRelationableId) throws InfoDiscoveryEngineRuntimeException {
-        OrientVertex firstOv = this.graph.getVertex(firstRelationableId);
-        if(firstOv==null){
-            String exceptionMessage = "Relationable id "+firstRelationableId+" not exists";
-            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
-        }
-        OrientVertex secondOv = this.graph.getVertex(secondRelationableId);
-        if(secondOv==null){
-            String exceptionMessage = "Relationable id "+secondRelationableId+" not exists";
-            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
-        }
+        checkRelationableExistance(firstRelationableId);
+        checkRelationableExistance(secondRelationableId);
         GremlinAllPaths gremlinAllPaths=new GremlinAllPaths(this.graph);
         List<Stack<Edge>> relationPaths= gremlinAllPaths.getEdgesOfAllPaths(firstRelationableId,secondRelationableId);
+        return getRelationStackList(relationPaths);
+    }
 
-        if(relationPaths==null||relationPaths.size()==0){
-            return null;
-        }else{
-            List<Stack<Relation>> relationOnPathStackList=new ArrayList<>();
-            for(Stack<Edge> currentRelationStack:relationPaths){
-                Stack<Relation> relationOnPathStack=new Stack();
-                int stackSize=currentRelationStack.size();
-                for(int i=0;i<stackSize;i++){
-                    Edge currentEdge=currentRelationStack.elementAt(i);
-                    OrientEdge oe=(OrientEdge)currentEdge;
-                    String relationRealType=oe.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION,"");
-                    OrientDBRelationImpl targetRelation=new OrientDBRelationImpl(relationRealType);
-                    targetRelation.setRelationEdge(oe);
-                    relationOnPathStack.push(targetRelation);
-                }
-                relationOnPathStackList.add(relationOnPathStack);
-            }
-            return relationOnPathStackList;
+    @Override
+    public List<Stack<Relation>> discoverPathsConnectedWithSpecifiedRelationables(String startRelationableId, String endRelationableId, List<String> passedRelationablesId) throws InfoDiscoveryEngineRuntimeException {
+        if(passedRelationablesId==null){
+            String exceptionMessage = "Connected relationables not set";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
         }
+        checkRelationableExistance(startRelationableId);
+        checkRelationableExistance(endRelationableId);
+        for(String currentRelationableId:passedRelationablesId){
+            checkRelationableExistance(currentRelationableId);
+        }
+        GremlinAllPaths gremlinAllPaths=new GremlinAllPaths(this.graph);
+        List<Stack<Edge>> relationPaths= gremlinAllPaths.getEdgesOfAllPaths(startRelationableId,endRelationableId,passedRelationablesId);
+        return getRelationStackList(relationPaths);
     }
 
     @Override
@@ -601,6 +600,36 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
                 return resultRelationableList;
         }
         return null;
+    }
+
+    private List<Stack<Relation>> getRelationStackList(List<Stack<Edge>> relationPaths){
+        if(relationPaths==null||relationPaths.size()==0){
+            return null;
+        }else{
+            List<Stack<Relation>> relationOnPathStackList=new ArrayList<>();
+            for(Stack<Edge> currentRelationStack:relationPaths){
+                Stack<Relation> relationOnPathStack=new Stack();
+                int stackSize=currentRelationStack.size();
+                for(int i=0;i<stackSize;i++){
+                    Edge currentEdge=currentRelationStack.elementAt(i);
+                    OrientEdge oe=(OrientEdge)currentEdge;
+                    String relationRealType=oe.getType().getName().replaceFirst(InfoDiscoverEngineConstant.CLASSPERFIX_RELATION,"");
+                    OrientDBRelationImpl targetRelation=new OrientDBRelationImpl(relationRealType);
+                    targetRelation.setRelationEdge(oe);
+                    relationOnPathStack.push(targetRelation);
+                }
+                relationOnPathStackList.add(relationOnPathStack);
+            }
+            return relationOnPathStackList;
+        }
+    }
+
+    private void checkRelationableExistance(String relationableId)throws InfoDiscoveryEngineRuntimeException{
+        OrientVertex firstOv = this.graph.getVertex(relationableId);
+        if(firstOv==null){
+            String exceptionMessage = "Relationable with id "+relationableId+" not exists";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        }
     }
 
     private void informationTypeCheck(String typeName,InformationType informationType)throws InfoDiscoveryEngineRuntimeException{

@@ -27,7 +27,10 @@ public interface InformationExplorer {
     public List<Fact> exploreSimilarFactsByRelatedDimensions(RelationDirection relationDirection,String factId,String relationType,ExploreParameters exploreParameters)throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
     public List<Relationable> exploreRelatedRelationablesByRelationDepth(RelationDirection relationDirection,String sourceRelationableId,int depth,ExploreParameters exploreParameters) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
     public List<Measurable> discoverMeasurablesByQuerySQL(InformationType informationType, String typeName, String querySQL) throws InfoDiscoveryEngineRuntimeException,InfoDiscoveryEngineInfoExploreException;
-    public Stack<Relation> discoverRelationablesShortestPath(String firstRelationableId,String secondRelationableId,RelationDirection relationDirection) throws InfoDiscoveryEngineRuntimeException;
+    public Stack<Relation> discoverRelationablesShortestPath(String firstRelationableId,String secondRelationableId) throws InfoDiscoveryEngineRuntimeException;
+    public List<Stack<Relation>> discoverRelationablesShortestPaths(String firstRelationableId,String secondRelationableId,int pathNumber) throws InfoDiscoveryEngineRuntimeException;
+    public List<Stack<Relation>> discoverRelationablesLongestPaths(String firstRelationableId,String secondRelationableId,int pathNumber) throws InfoDiscoveryEngineRuntimeException;
     public List<Stack<Relation>> discoverRelationablesAllPaths(String firstRelationableId,String secondRelationableId) throws InfoDiscoveryEngineRuntimeException;
+    public List<Stack<Relation>> discoverPathsConnectedWithSpecifiedRelationables(String startRelationableId,String endRelationableId,List<String> passedRelationablesId) throws InfoDiscoveryEngineRuntimeException;
     public List<Relationable> discoverSimilarRelationablesRelatedToSameDimensions(String sourceRelationableId,List<String> dimensionIds,FilteringPattern filteringPattern) throws InfoDiscoveryEngineRuntimeException;
 }
