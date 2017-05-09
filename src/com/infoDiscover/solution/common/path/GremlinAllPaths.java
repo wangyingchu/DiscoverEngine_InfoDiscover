@@ -54,7 +54,7 @@ public class GremlinAllPaths {
                         vertexLoopBundle -> vertexLoopBundle.getObject() != fromVertex &&
                                 vertexLoopBundle.getObject() != toVertex).filter(vertex -> vertex
                         .getId().toString()
-                        .equals(toVertex.getId().toString())).path();
+                        .equals(toVertex.getId().toString())).simplePath().path();
 
         for (final List path : pipeline) {
             Stack<String> stack = new Stack<>();
@@ -238,14 +238,14 @@ public class GremlinAllPaths {
 
 
         GremlinAllPaths allPaths = new GremlinAllPaths(graph);
-        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid, filter);
+        List<Stack<String>> result = allPaths.getVerticesOfAllPaths(fromRid, toRid, null);
 
 
         for (Stack<String> r : result) {
             System.out.println("result: " + r);
         }
 
-//        System.out.println("result: " + result.size());
+        System.out.println("result: " + result.size());
 
 
 //        List<Stack<Edge>> edges = allPaths.getEdgesOfAllPaths(fromRid, toRid);
@@ -264,19 +264,19 @@ public class GremlinAllPaths {
 //
 //        System.out.println("paths: " + paths.size());
 
-        List<Stack<String>> list = allPaths.getVerticesOfFirstShortestPath(fromRid, toRid, 5,
-                filter);
-
-        for (Stack<String> stack : list) {
-            System.out.println("first shortest: " + stack);
-        }
-
-        list = allPaths.getVerticesOfFirstLongestPath(fromRid, toRid, 50,
-                filter);
-
-        for (Stack<String> stack : list) {
-            System.out.println("longest shortest: " + stack);
-        }
+//        List<Stack<String>> list = allPaths.getVerticesOfFirstShortestPath(fromRid, toRid, 5,
+//                filter);
+//
+//        for (Stack<String> stack : list) {
+//            System.out.println("first shortest: " + stack);
+//        }
+//
+//        list = allPaths.getVerticesOfFirstLongestPath(fromRid, toRid, 50,
+//                filter);
+//
+//        for (Stack<String> stack : list) {
+//            System.out.println("longest shortest: " + stack);
+//        }
     }
 
 
