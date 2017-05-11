@@ -21,7 +21,7 @@ public class SupervisionSolutionConstants {
     public final static String DIMENSION_DEPARTMENT_WITH_PREFIX = SOLUTION_PREFIX + "DEPARTMENT";
 
     public final static String DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX = SOLUTION_PREFIX +
-            "CONSTRUCTIONTYPE";
+            "CONSTRUCTION_TYPE";
     public final static String DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX = SOLUTION_PREFIX +
             "COMPANY_CLASSIFICATION";
     public final static String DIMENSION_ASSIGN_MODEL_WITH_PREFIX = SOLUTION_PREFIX +

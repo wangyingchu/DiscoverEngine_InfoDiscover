@@ -12,8 +12,6 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.Eq
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.solution.arch.demo.FactTypeEnum;
-import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.manager.ProgressManager;
 import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
@@ -348,15 +346,15 @@ public class ProgressSampleDataGenerator {
 
 
     //TODO: to pass the factType prefix, not hard code to "ZHUHAI_"
-    private static String getFact(String type) {
-
-        if (type.trim().equalsIgnoreCase(FactTypeEnum.Progress.toString())) {
-            return SupervisionSolutionConstants.FACT_PROGRESS_WITH_PREFIX;
-        } else if (type.trim().equalsIgnoreCase(FactTypeEnum.Task.toString())) {
-            return SupervisionSolutionConstants.FACT_TASK_WITH_PREFIX;
-        }
-        return "";
-    }
+//    private static String getFact(String type) {
+//
+//        if (type.trim().equalsIgnoreCase(FactTypeEnum.Progress.toString())) {
+//            return SupervisionSolutionConstants.FACT_PROGRESS_WITH_PREFIX;
+//        } else if (type.trim().equalsIgnoreCase(FactTypeEnum.Task.toString())) {
+//            return SupervisionSolutionConstants.FACT_TASK_WITH_PREFIX;
+//        }
+//        return "";
+//    }
 
     private static void batchCreateNewOrUpdateTaskInstances(
             InfoDiscoverSpace ids,
@@ -377,7 +375,7 @@ public class ProgressSampleDataGenerator {
         String taskId = properties.get(JsonConstants.TASK_ID).toString();
         TaskManager taskManager = new TaskManager();
         try {
-            String taskFactType = getFact(properties.get(JsonConstants.JSON_TYPE).toString());
+            String taskFactType = SupervisionSolutionConstants.FACT_TASK_WITH_PREFIX;
             logger.info("Fact type is: {}", taskFactType);
 
             // remove type from properties

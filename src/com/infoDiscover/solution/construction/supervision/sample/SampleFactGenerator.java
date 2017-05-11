@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * Created by sun.
  */
 public class SampleFactGenerator {
-    private final static Logger logger = LoggerFactory.getLogger(SampleDimensionGenerator.class);
+    private final static Logger logger = LoggerFactory.getLogger(SampleFactGenerator.class);
 
     private InfoDiscoverSpace ids;
 
@@ -24,12 +24,6 @@ public class SampleFactGenerator {
 
     public void createFactType() throws InfoDiscoveryEngineDataMartException,
             InfoDiscoveryEngineRuntimeException {
-
-        if (!ids.hasFactType(SupervisionSolutionConstants.FACT_PROGRESS_WITH_PREFIX)) {
-            FactType progressType = ids.addFactType(SupervisionSolutionConstants
-                    .FACT_PROGRESS_WITH_PREFIX);
-            logger.debug("Created progress fact type: " + progressType.getTypeName());
-        }
 
         // progress for maintenance project
         if (!ids.hasFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {

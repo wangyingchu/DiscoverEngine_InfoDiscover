@@ -8,17 +8,16 @@ import com.infoDiscover.solution.construction.supervision.database.SupervisionSo
 public class SampleDataSet {
 
     public final static String PROJECTTYPE_MAINTENANCE = "maintain";
-    public final static String PROJECTTYPE_NEW = "new";
     public final static String PROJECTNAME_MAINTANENCE = "维修工程";
+    public final static String PROJECTTYPE_NEW = "new";
     public final static String PROJECTNAME_NEW = "新建工程";
-    public final static String PROJECTNAME_REBUILD = "改建工程";
     public final static String PROJECTTYPE_REBUILD = "rebuild";
-    public final static String PROJECTNAME_EXTENSION = "扩建工程";
+    public final static String PROJECTNAME_REBUILD = "改建工程";
     public final static String PROJECTTYPE_EXTENSION = "extension";
-
+    public final static String PROJECTNAME_EXTENSION = "扩建工程";
 
     public final static String FACTTYPE_MAINTENANCE_PROJECT = SupervisionSolutionConstants
-            .FACT_PROGRESS_WITH_PREFIX + "_MAINTAIN";
+            .FACT_PROGRESS_WITH_PREFIX + "_MAINTAIN_PROJECT";
     public final static String FACTTYPE_NEW_PROJECT = SupervisionSolutionConstants
             .FACT_PROGRESS_WITH_PREFIX + "_NEW_PROJECT";
     public final static String FACTTYPE_REBUILD_PROJECT = SupervisionSolutionConstants
@@ -112,15 +111,15 @@ public class SampleDataSet {
     public final static String FILE_ROLE = ROOT_PATH + "/data/roles.csv";
     public final static String FILE_USER = ROOT_PATH + "/data/users.csv";
     public final static String FILE_USER_ROLE = ROOT_PATH + "/data/user_role.csv";
-    public final static String FILE_MAINTENANCE_PROJECT = ROOT_PATH + "allMaintenanceProject.json";
-    public final static String FILE_NEW_PROJECT = ROOT_PATH + "allNewProject.json";
-    public final static String FILE_EXTENSION_PROJECT = ROOT_PATH + "allExtensionProject.json";
-    public final static String FILE_REBUILD_PROJECT = ROOT_PATH + "allRebuildProject.json";
+    public final static String FILE_MAINTENANCE_PROJECT = ROOT_PATH + "/allMaintenanceProject.json";
+    public final static String FILE_NEW_PROJECT = ROOT_PATH + "/allNewProject.json";
+    public final static String FILE_EXTENSION_PROJECT = ROOT_PATH + "/allExtensionProject.json";
+    public final static String FILE_REBUILD_PROJECT = ROOT_PATH + "/allRebuildProject.json";
 
     public final static String FILE_DIMENSION_CONSTRUCTION_TYPE = ROOT_PATH +
             "/data/主要功能或建筑类型_constructionType.csv";
     public final static String FILE_DIMENSION_COMPANY_CLASSIFICATION = ROOT_PATH +
-            "/dta/公司分类_companyClassification.csv";
+            "/data/公司类别_companyClassification.csv";
     public final static String FILE_DIMENSION_ASSIGN_MODEL = ROOT_PATH +
             "/data/实施单位分派模式_assignModel.csv";
     public final static String FILE_DIMENSION_EXECUTIVE_DEPARTMENT = ROOT_PATH +

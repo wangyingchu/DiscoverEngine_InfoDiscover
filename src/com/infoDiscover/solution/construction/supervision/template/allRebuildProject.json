@@ -20,7 +20,7 @@
                 {
                     "propertyType": "String",
                     "propertyName": "progressType",
-                    "propertyValue": "RebuildingProject"
+                    "propertyValue": "新建工程"
                 },
                 {
                     "propertyType": "String",
@@ -30,12 +30,12 @@
                 {
                     "propertyType": "Date",
                     "propertyName": "startDate",
-                    "propertyValue": null
+                    "propertyValue": 0
                 },
                 {
                     "propertyType": "Date",
                     "propertyName": "endDate",
-                    "propertyValue": null
+                    "propertyValue": 0
                 },
                 {
                     "propertyType": "String",
@@ -75,12 +75,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -105,8 +105,8 @@
                         },
                         {
                             "propertyName": "grossInvestment",
-                            "propertyValue": "总投资额",
-                            "propertyType": "String"
+                            "propertyValue": 0,
+                            "propertyType": "Double"
                         },
                         {
                             "propertyName": "projectClassification",
@@ -176,12 +176,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -196,7 +196,7 @@
                         },
                         {
                             "propertyName": "projectLaunchingAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -247,12 +247,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -282,7 +282,7 @@
                         },
                         {
                             "propertyName": "biddingAgencyContractAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -293,6 +293,11 @@
                         {
                             "propertyName": "biddingAgencyContractApprover",
                             "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "BiddingAgent",
                             "propertyType": "String"
                         }
                     ]
@@ -328,12 +333,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -363,7 +368,7 @@
                         },
                         {
                             "propertyName": "projectPlanMakingContractAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -374,6 +379,11 @@
                         {
                             "propertyName": "projectPlanMakingContractApprover",
                             "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "CostConsulting",
                             "propertyType": "String"
                         }
                     ]
@@ -409,12 +419,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -444,17 +454,17 @@
                         },
                         {
                             "propertyName": "feasibilityReportCompletionDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "feasibilityReportApprovalDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "feasibilityReportApprover",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         }
                     ]
@@ -490,12 +500,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -515,12 +525,12 @@
                         },
                         {
                             "propertyName": "projectProposalCompletionDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "projectProposalApprovalDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -530,7 +540,7 @@
                         },
                         {
                             "propertyName": "landContractApprovalDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -540,7 +550,7 @@
                         },
                         {
                             "propertyName": "projectPlanningLocationApprovalDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         }
                     ]
@@ -576,12 +586,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -611,7 +621,7 @@
                         },
                         {
                             "propertyName": "surveyCompanyContractAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -622,6 +632,11 @@
                         {
                             "propertyName": "surveyCompanyContractApprover",
                             "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "公司类别",
                             "propertyType": "String"
                         },
                         {
@@ -667,12 +682,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -697,7 +712,7 @@
                         },
                         {
                             "propertyName": "surveyCompletionDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -738,12 +753,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -773,7 +788,7 @@
                         },
                         {
                             "propertyName": "designContractAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -783,12 +798,17 @@
                         },
                         {
                             "propertyName": "designContractApproveDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "designContractApprover",
                             "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "Design",
                             "propertyType": "String"
                         }
                     ]
@@ -824,12 +844,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -935,12 +955,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -965,7 +985,7 @@
                         },
                         {
                             "propertyName": "budgetaryEstimateCompletionDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -979,317 +999,317 @@
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_BlackMetal",
+                            "propertyName": "M_quote_BlackMetal",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_NonferrousMetals",
+                            "propertyName": "M_quote_NonferrousMetals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_ConstructionMaterials",
+                            "propertyName": "M_quote_ConstructionMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_ConcreteAndAdmixture",
+                            "propertyName": "M_quote_ConcreteAndAdmixture",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_DoorsAndWindows",
+                            "propertyName": "M_quote_DoorsAndWindows",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_BuildingHardware",
+                            "propertyName": "M_quote_BuildingHardware",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_BuildingGlass",
+                            "propertyName": "M_quote_BuildingGlass",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_BuildingStructures",
+                            "propertyName": "M_quote_BuildingStructures",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_Paint",
+                            "propertyName": "M_quote_Paint",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_ThermalInsulationMaterials",
+                            "propertyName": "M_quote_TIMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_WaterproofMaterial",
+                            "propertyName": "M_quote_WPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_FireprooMaterial",
+                            "propertyName": "M_quote_FPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_VentilationAndAirConditioning",
+                            "propertyName": "M_quote_VAndAC",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_KitchenAndWaterSupplyAndDrainage",
+                            "propertyName": "M_quote_KWD",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_Pipiline",
+                            "propertyName": "M_quote_Pipiline",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_Electric",
+                            "propertyName": "M_quote_Electric",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_OilsAndChemicals",
+                            "propertyName": "M_quote_OilsAndChemicals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_DecorativeMaterial",
+                            "propertyName": "M_quote_DecorativeMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_GeneralEquipment",
+                            "propertyName": "M_quote_GeneralEquipment",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_FireControl",
+                            "propertyName": "M_quote_FireControl",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_IntelligentBuilding",
+                            "propertyName": "M_quote_IntelligentBuilding",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_budgetaryEstimate_Landscape",
+                            "propertyName": "M_quote_Landscape",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_Earthwork",
+                            "propertyName": "BE_quote_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_FoundationTreatmentAndSlopeSupportEngineering",
+                            "propertyName": "BE_quote_FTAndSSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_PileFoundationEngineering",
+                            "propertyName": "BE_quote_PFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_MasonryEngineering",
+                            "propertyName": "BE_quote_ME",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_ConcreteAndReinforcedConcreteWorks",
+                            "propertyName": "BE_quote_CRCE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_MetalStructureEngineering",
+                            "propertyName": "BE_quote_MSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_WoodStructureEngineering",
+                            "propertyName": "BE_quote_WSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_DoorEngineering",
+                            "propertyName": "BE_quote_DoorE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_RoofingAndWaterproofingWorks",
+                            "propertyName": "BE_quote_RWFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_InsulationThermalInsulationAnti-corrosionEngineering",
+                            "propertyName": "BE_quote_ITIAE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_FloorDecorationEngineering",
+                            "propertyName": "BE_quote_FDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_WallCylinderDecorationPartitionCurtainWallProject",
+                            "propertyName": "BE_quote_WCDPCWE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_CeilingWorks",
+                            "propertyName": "BE_quote_CeilingWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_PaintEngineering",
+                            "propertyName": "BE_quote_PaintE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_OtherDecorationWorks",
+                            "propertyName": "BE_quote_OtherDecorationWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_budgetaryEstimate_DemolitionProject",
+                            "propertyName": "BE_quote_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_Earthwork",
+                            "propertyName": "ME_quote_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_RoadEngineering",
+                            "propertyName": "ME_quote_RoadE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_BridgeEngineering",
+                            "propertyName": "ME_quote_BridgeE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_TunnelEngineering",
+                            "propertyName": "ME_quote_TunnelE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_PipelineEngineering",
+                            "propertyName": "ME_quote_PipelineE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_WaterTreatmentWorks",
+                            "propertyName": "ME_quote_WTE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_GarbageDisposalProject",
+                            "propertyName": "ME_quote_GDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_StreetlightProject",
+                            "propertyName": "ME_quote_SLE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_ReinforcementEngineering",
+                            "propertyName": "ME_quote_ReinforcementE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_budgetaryEstimate_DemolitionProject",
+                            "propertyName": "ME_quote_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_MechanicalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_MEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_ThermalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_TEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_MetalStructuresAndEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_MSAEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_ElectricalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_EEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_IntelligentBuildingEngineering",
+                            "propertyName": "GIE_quote_IBE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_AutomaticControlInstrumentInstallationEngineering",
+                            "propertyName": "GIE_quote_ACIIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_VentilationAndACEngineering",
+                            "propertyName": "GIE_quote_VAndACE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_IndustrialPipelineEngineering",
+                            "propertyName": "GIE_quote_IPE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_FireEngineering",
+                            "propertyName": "GIE_quote_FireE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_WaterSupplyAndDrainageHeatingAndGasEngineering",
+                            "propertyName": "GIE_quote_WSDGE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_CommunicationEquipmentAndLineEngineering",
+                            "propertyName": "GIE_quote_CELE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_budgetaryEstimate_BrushOilAnti-corrosionInsulationEngineering",
+                            "propertyName": "GIE_quote_BACIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_budgetaryEstimate_LandscapingProject",
+                            "propertyName": "LP_quote_LP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_budgetaryEstimate_GardenRoadAndBridgeProject",
+                            "propertyName": "LP_quote_GRAndBP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_budgetaryEstimate_Garden",
+                            "propertyName": "LP_quote_Garden",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         }
@@ -1326,12 +1346,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -1361,7 +1381,7 @@
                         },
                         {
                             "propertyName": "costConsultationContractAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -1372,6 +1392,11 @@
                         {
                             "propertyName": "costConsultationContractApprover",
                             "propertyValue": "合同审批人",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "CostConsulting",
                             "propertyType": "String"
                         }
                     ]
@@ -1407,12 +1432,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -1442,7 +1467,7 @@
                         },
                         {
                             "propertyName": "projectBudgetAuditCompletionDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -1451,317 +1476,317 @@
                             "propertyType": "String"
                         },
                         {
-                            "propertyName": "material_auditPrice_BlackMetal",
+                            "propertyName": "M_quote_BlackMetal",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_NonferrousMetals",
+                            "propertyName": "M_quote_NonferrousMetals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_ConstructionMaterials",
+                            "propertyName": "M_quote_ConstructionMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_ConcreteAndAdmixture",
+                            "propertyName": "M_quote_ConcreteAndAdmixture",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_DoorsAndWindows",
+                            "propertyName": "M_quote_DoorsAndWindows",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_BuildingHardware",
+                            "propertyName": "M_quote_BuildingHardware",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_BuildingGlass",
+                            "propertyName": "M_quote_BuildingGlass",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_BuildingStructures",
+                            "propertyName": "M_quote_BuildingStructures",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_Paint",
+                            "propertyName": "M_quote_Paint",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_ThermalInsulationMaterials",
+                            "propertyName": "M_quote_TIMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_WaterproofMaterial",
+                            "propertyName": "M_quote_WPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_FireprooMaterial",
+                            "propertyName": "M_quote_FPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_VentilationAndAirConditioning",
+                            "propertyName": "M_quote_VAndAC",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_KitchenAndWaterSupplyAndDrainage",
+                            "propertyName": "M_quote_KWD",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_Pipiline",
+                            "propertyName": "M_quote_Pipiline",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_Electric",
+                            "propertyName": "M_quote_Electric",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_OilsAndChemicals",
+                            "propertyName": "M_quote_OilsAndChemicals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_DecorativeMaterial",
+                            "propertyName": "M_quote_DecorativeMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_GeneralEquipment",
+                            "propertyName": "M_quote_GeneralEquipment",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_FireControl",
+                            "propertyName": "M_quote_FireControl",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_IntelligentBuilding",
+                            "propertyName": "M_quote_IntelligentBuilding",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_auditPrice_Landscape",
+                            "propertyName": "M_quote_Landscape",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_Earthwork",
+                            "propertyName": "BE_quote_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_FoundationTreatmentAndSlopeSupportEngineering",
+                            "propertyName": "BE_quote_FTAndSSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_PileFoundationEngineering",
+                            "propertyName": "BE_quote_PFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_MasonryEngineering",
+                            "propertyName": "BE_quote_ME",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_ConcreteAndReinforcedConcreteWorks",
+                            "propertyName": "BE_quote_CRCE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_MetalStructureEngineering",
+                            "propertyName": "BE_quote_MSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_WoodStructureEngineering",
+                            "propertyName": "BE_quote_WSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_DoorEngineering",
+                            "propertyName": "BE_quote_DoorE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_RoofingAndWaterproofingWorks",
+                            "propertyName": "BE_quote_RWFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_InsulationThermalInsulationAnti-corrosionEngineering",
+                            "propertyName": "BE_quote_ITIAE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_FloorDecorationEngineering",
+                            "propertyName": "BE_quote_FDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_WallCylinderDecorationPartitionCurtainWallProject",
+                            "propertyName": "BE_quote_WCDPCWE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_CeilingWorks",
+                            "propertyName": "BE_quote_CeilingWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_PaintEngineering",
+                            "propertyName": "BE_quote_PaintE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_OtherDecorationWorks",
+                            "propertyName": "BE_quote_OtherDecorationWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_auditPrice_DemolitionProject",
+                            "propertyName": "BE_quote_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_Earthwork",
+                            "propertyName": "ME_quote_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_RoadEngineering",
+                            "propertyName": "ME_quote_RoadE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_BridgeEngineering",
+                            "propertyName": "ME_quote_BridgeE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_TunnelEngineering",
+                            "propertyName": "ME_quote_TunnelE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_PipelineEngineering",
+                            "propertyName": "ME_quote_PipelineE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_WaterTreatmentWorks",
+                            "propertyName": "ME_quote_WTE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_GarbageDisposalProject",
+                            "propertyName": "ME_quote_GDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_StreetlightProject",
+                            "propertyName": "ME_quote_SLE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_ReinforcementEngineering",
+                            "propertyName": "ME_quote_ReinforcementE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_auditPrice_DemolitionProject",
+                            "propertyName": "ME_quote_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_MechanicalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_MEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_ThermalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_TEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_MetalStructuresAndEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_MSAEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_ElectricalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_EEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_IntelligentBuildingEngineering",
+                            "propertyName": "GIE_quote_IBE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_AutomaticControlInstrumentInstallationEngineering",
+                            "propertyName": "GIE_quote_ACIIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_VentilationAndACEngineering",
+                            "propertyName": "GIE_quote_VAndACE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_IndustrialPipelineEngineering",
+                            "propertyName": "GIE_quote_IPE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_FireEngineering",
+                            "propertyName": "GIE_quote_FireE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_WaterSupplyAndDrainageHeatingAndGasEngineering",
+                            "propertyName": "GIE_quote_WSDGE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_CommunicationEquipmentAndLineEngineering",
+                            "propertyName": "GIE_quote_CELE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_auditPrice_BrushOilAnti-corrosionInsulationEngineering",
+                            "propertyName": "GIE_quote_BACIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_auditPrice_LandscapingProject",
+                            "propertyName": "LP_quote_LP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_auditPrice_GardenRoadAndBridgeProject",
+                            "propertyName": "LP_quote_GRAndBP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_auditPrice_Garden",
+                            "propertyName": "LP_quote_Garden",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         }
@@ -1798,12 +1823,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -1823,7 +1848,7 @@
                         },
                         {
                             "propertyName": "approvalDateOfProjectBudget",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -1832,317 +1857,317 @@
                             "propertyType": "String"
                         },
                         {
-                            "propertyName": "material_approvalPrice_BlackMetal",
+                            "propertyName": "M_quote_BlackMetal",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_NonferrousMetals",
+                            "propertyName": "M_quote_NonferrousMetals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_ConstructionMaterials",
+                            "propertyName": "M_quote_ConstructionMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_ConcreteAndAdmixture",
+                            "propertyName": "M_quote_ConcreteAndAdmixture",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_DoorsAndWindows",
+                            "propertyName": "M_quote_DoorsAndWindows",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_BuildingHardware",
+                            "propertyName": "M_quote_BuildingHardware",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_BuildingGlass",
+                            "propertyName": "M_quote_BuildingGlass",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_BuildingStructures",
+                            "propertyName": "M_quote_BuildingStructures",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_Paint",
+                            "propertyName": "M_quote_Paint",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_ThermalInsulationMaterials",
+                            "propertyName": "M_quote_TIMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_WaterproofMaterial",
+                            "propertyName": "M_quote_WPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_FireprooMaterial",
+                            "propertyName": "M_quote_FPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_VentilationAndAirConditioning",
+                            "propertyName": "M_quote_VAndAC",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_KitchenAndWaterSupplyAndDrainage",
+                            "propertyName": "M_quote_KWD",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_Pipiline",
+                            "propertyName": "M_quote_Pipiline",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_Electric",
+                            "propertyName": "M_quote_Electric",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_OilsAndChemicals",
+                            "propertyName": "M_quote_OilsAndChemicals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_DecorativeMaterial",
+                            "propertyName": "M_quote_DecorativeMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_GeneralEquipment",
+                            "propertyName": "M_quote_GeneralEquipment",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_FireControl",
+                            "propertyName": "M_quote_FireControl",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_IntelligentBuilding",
+                            "propertyName": "M_quote_IntelligentBuilding",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "material_approvalPrice_Landscape",
+                            "propertyName": "M_quote_Landscape",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_Earthwork",
+                            "propertyName": "BE_quote_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_FoundationTreatmentAndSlopeSupportEngineering",
+                            "propertyName": "BE_quote_FTAndSSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_PileFoundationEngineering",
+                            "propertyName": "BE_quote_PFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_MasonryEngineering",
+                            "propertyName": "BE_quote_ME",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_ConcreteAndReinforcedConcreteWorks",
+                            "propertyName": "BE_quote_CRCE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_MetalStructureEngineering",
+                            "propertyName": "BE_quote_MSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_WoodStructureEngineering",
+                            "propertyName": "BE_quote_WSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_DoorEngineering",
+                            "propertyName": "BE_quote_DoorE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_RoofingAndWaterproofingWorks",
+                            "propertyName": "BE_quote_RWFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_InsulationThermalInsulationAnti-corrosionEngineering",
+                            "propertyName": "BE_quote_ITIAE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_FloorDecorationEngineering",
+                            "propertyName": "BE_quote_FDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_WallCylinderDecorationPartitionCurtainWallProject",
+                            "propertyName": "BE_quote_WCDPCWE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_CeilingWorks",
+                            "propertyName": "BE_quote_CeilingWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_PaintEngineering",
+                            "propertyName": "BE_quote_PaintE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_OtherDecorationWorks",
+                            "propertyName": "BE_quote_OtherDecorationWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BuildingEngineering_approvalPrice_DemolitionProject",
+                            "propertyName": "BE_quote_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_Earthwork",
+                            "propertyName": "ME_quote_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_RoadEngineering",
+                            "propertyName": "ME_quote_RoadE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_BridgeEngineering",
+                            "propertyName": "ME_quote_BridgeE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_TunnelEngineering",
+                            "propertyName": "ME_quote_TunnelE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_PipelineEngineering",
+                            "propertyName": "ME_quote_PipelineE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_WaterTreatmentWorks",
+                            "propertyName": "ME_quote_WTE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_GarbageDisposalProject",
+                            "propertyName": "ME_quote_GDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_StreetlightProject",
+                            "propertyName": "ME_quote_SLE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_ReinforcementEngineering",
+                            "propertyName": "ME_quote_ReinforcementE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "MunicipalEngineering_approvalPrice_DemolitionProject",
+                            "propertyName": "ME_quote_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_MechanicalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_MEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_ThermalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_TEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_MetalStructuresAndEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_MSAEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_ElectricalEquipmentInstallationEngineering",
+                            "propertyName": "GIE_quote_EEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_IntelligentBuildingEngineering",
+                            "propertyName": "GIE_quote_IBE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_AutomaticControlInstrumentInstallationEngineering",
+                            "propertyName": "GIE_quote_ACIIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_VentilationAndACEngineering",
+                            "propertyName": "GIE_quote_VAndACE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_IndustrialPipelineEngineering",
+                            "propertyName": "GIE_quote_IPE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_FireEngineering",
+                            "propertyName": "GIE_quote_FireE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_WaterSupplyAndDrainageHeatingAndGasEngineering",
+                            "propertyName": "GIE_quote_WSDGE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_CommunicationEquipmentAndLineEngineering",
+                            "propertyName": "GIE_quote_CELE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GeneralInstallationEngineering_approvalPrice_BrushOilAnti-corrosionInsulationEngineering",
+                            "propertyName": "GIE_quote_BACIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_approvalPrice_LandscapingProject",
+                            "propertyName": "LP_quote_LP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_approvalPrice_GardenRoadAndBridgeProject",
+                            "propertyName": "LP_quote_GRAndBP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LandscapingProject_approvalPrice_Garden",
+                            "propertyName": "LP_quote_Garden",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         }
@@ -2179,12 +2204,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2214,7 +2239,7 @@
                         },
                         {
                             "propertyName": "constructionContractAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2239,8 +2264,13 @@
                         },
                         {
                             "propertyName": "constructionContractApprovalDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "Construction",
+                            "propertyType": "String"
                         }
                     ]
                 }
@@ -2275,12 +2305,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2310,7 +2340,7 @@
                         },
                         {
                             "propertyName": "supervisionContractAssignDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2337,6 +2367,11 @@
                             "propertyName": "supervisionContractAuditDate",
                             "propertyValue": "合同审批日期",
                             "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "Supervisor",
+                            "propertyType": "String"
                         }
                     ]
                 }
@@ -2371,12 +2406,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2391,7 +2426,7 @@
                         },
                         {
                             "propertyName": "constructionStartDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2413,6 +2448,11 @@
                             "propertyName": "siteInspector",
                             "propertyValue": "现场巡查人员",
                             "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "companyClassification",
+                            "propertyValue": "Supervisor",
+                            "propertyType": "String"
                         }
                     ]
                 }
@@ -2447,12 +2487,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2467,12 +2507,12 @@
                         },
                         {
                             "propertyName": "auditDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "securityCheckResult",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2518,12 +2558,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2538,7 +2578,7 @@
                         },
                         {
                             "propertyName": "finalAcceptanceDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2594,12 +2634,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
@@ -2645,12 +2685,12 @@
                         },
                         {
                             "propertyName": "startDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {
                             "propertyName": "endDate",
-                            "propertyValue": null,
+                            "propertyValue": "",
                             "propertyType": "Date"
                         },
                         {

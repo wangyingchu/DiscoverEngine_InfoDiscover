@@ -10,6 +10,7 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInf
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
+import com.infoDiscover.solution.common.util.Constants;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
@@ -82,8 +83,8 @@ public class SampleDimensionGenerator {
                     type.addTypeProperty("roleId", PropertyType.STRING);
                     type.addTypeProperty("roleName", PropertyType.STRING);
                 } else {
-                    type.addTypeProperty("dimensionId", PropertyType.STRING);
-                    type.addTypeProperty("dimensionName", PropertyType.STRING);
+                    type.addTypeProperty(Constants.DIMENSION_ID, PropertyType.STRING);
+                    type.addTypeProperty(Constants.DIMENSION_NAME, PropertyType.STRING);
                     if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
                             .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX)) {
                         type.addTypeProperty("isAuthorityDepartment", PropertyType.BOOLEAN);
@@ -92,10 +93,7 @@ public class SampleDimensionGenerator {
             }
 
         }
-
-
     }
-
 
     public static Map<String, List<String>> dimensionCache = new HashedMap();
 
@@ -130,18 +128,16 @@ public class SampleDimensionGenerator {
                 dimensionCache.put(dimensionTypeName, dimensionRIDList);
             } else {
                 List<String> dimensionRIDList = new ArrayList<>();
-                for (Map<String, Object> properties : getPropertiesFromLine(file, "dimensionId",
-                        "dimensionName")) {
+                for (Map<String, Object> properties : getPropertiesFromLine(file, Constants.DIMENSION_ID,
+                        Constants.DIMENSION_NAME)) {
                     Dimension dimension = manager.createDimension(dimensionTypeName, properties);
-                    dimensionRIDList.add(dimension.getProperty("dimensionId").getPropertyValue()
+                    dimensionRIDList.add(dimension.getProperty(Constants.DIMENSION_ID).getPropertyValue()
                             .toString());
                 }
                 dimensionCache.put(dimensionTypeName, dimensionRIDList);
             }
-
         }
     }
-
 
     public void linkUsersToRole(InfoDiscoverSpace ids, String userRoleFile, String
             roleDimensionType, String userDimensionType, String relationType) throws
@@ -154,7 +150,7 @@ public class SampleDimensionGenerator {
     public static void addMoreProperty(String dimensionType, Map<String, Object> properties) {
         if (dimensionType.equals(SupervisionSolutionConstants
                 .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX)) {
-            String dimensionId = properties.get("dimensionId").toString();
+            String dimensionId = properties.get(Constants.DIMENSION_ID).toString();
             if (getGovernmentApprovalAuthority().contains(dimensionId)) {
                 properties.put("isAuthorityDepartment", true);
             } else {

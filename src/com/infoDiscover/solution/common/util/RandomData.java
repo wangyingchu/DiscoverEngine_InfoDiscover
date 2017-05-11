@@ -97,13 +97,10 @@ public class RandomData {
         JsonNode propertyValueNode = propertyJsonNode.get(JsonConstants.JSON_PROPERTY_VALUE);
 
         if (propertyType.equalsIgnoreCase("String")) {
-            if (reservedStringPropertyNames == null) {
+            if (reservedStringPropertyNames == null || !reservedStringPropertyNames.contains(propertyName)) {
                 propertyValue = getRandomString(propertyValueNode, randomStringLength);
             } else {
-                if (!reservedStringPropertyNames.contains
-                        (propertyName)) {
-                    propertyValue = getRandomString(propertyValueNode, randomStringLength);
-                }
+                propertyValue = propertyValueNode.asText();
             }
         } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
                 ("Integer")) {
@@ -112,14 +109,10 @@ public class RandomData {
             propertyValue = getRandomLong(propertyValueNode, longValue);
         } else if (propertyType.equalsIgnoreCase("Float") || propertyType.equalsIgnoreCase
                 ("Double")) {
-            if (reservedDoublePropertyNames == null) {
+            if (reservedDoublePropertyNames == null || !reservedDoublePropertyNames.contains(propertyName)) {
                 propertyValue = getRandomDouble(propertyValueNode, minDoubleValue, maxDoubleValue);
             } else {
-                if (!reservedDoublePropertyNames.contains
-                        (propertyName)) {
-                    propertyValue = getRandomDouble(propertyValueNode, minDoubleValue,
-                            maxDoubleValue);
-                }
+                propertyValue = propertyValueNode.asDouble();
             }
 
         } else if (propertyType.equalsIgnoreCase("boolean") || propertyType.equalsIgnoreCase
@@ -134,15 +127,11 @@ public class RandomData {
                     propertyValue = getDateValue(propertyValueNode);
                 }
             }
-
         } else {
-            if (reservedStringPropertyNames == null) {
+            if (reservedStringPropertyNames == null || !reservedStringPropertyNames.contains(propertyName)) {
                 propertyValue = getRandomString(propertyValueNode, randomStringLength);
             } else {
-                if (!reservedStringPropertyNames.contains
-                        (propertyName)) {
-                    propertyValue = getRandomString(propertyValueNode, randomStringLength);
-                }
+               propertyValue = propertyValueNode.asText();
             }
         }
 

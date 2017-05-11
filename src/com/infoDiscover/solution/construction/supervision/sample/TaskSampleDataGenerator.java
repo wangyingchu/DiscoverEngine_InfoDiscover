@@ -63,7 +63,7 @@ public class TaskSampleDataGenerator {
             Map<String, Object> properties = RandomData.propertiesJsonNodeToMapWithRandomValue
                     (propertiesJsonNode, randomStringLength,
                             minValue, maxValue, minDoubleValue, maxDoubleValue, longValue,
-                            null, null,
+                            reservedStringPropertyNames(), null,
                             null);
 
             updateRequiredPropertiesRandomData(properties,
@@ -220,6 +220,11 @@ public class TaskSampleDataGenerator {
         }
     }
 
+    private static List<String> reservedStringPropertyNames() {
+        List<String> reservedStringPropertyNames = new ArrayList<>();
+        reservedStringPropertyNames.add(ClassifiactionConstants.COMPANY_CLASSIFIACTION);
+        return reservedStringPropertyNames;
+    }
 
     public static void main(String[] args) {
         String projectTemplate = SampleDataSet.FILE_MAINTENANCE_PROJECT;

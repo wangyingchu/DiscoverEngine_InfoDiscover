@@ -34,11 +34,9 @@ public class JsonTemplateGenerator {
     public static void main(String[] args) {
 
         generateMaintenanceProjectJsonTemplate();
-
-
-//        generateNewProjectJsonTemplate();
-//        generateExtensionProjectJsonTemplate();
-//        generateRebuildProjectJsonTemplate();
+        generateNewProjectJsonTemplate();
+        generateExtensionProjectJsonTemplate();
+        generateRebuildProjectJsonTemplate();
 
 //        generateUserJsonTemplate("/Users/sun/Desktop/珠海/userJsonTemplate.json");
     }

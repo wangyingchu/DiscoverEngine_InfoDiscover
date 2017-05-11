@@ -5,6 +5,6 @@ package com.infoDiscover.solution.common.util;
  */
 public class Constants {
     // dimension vo
-    public final static String DIMENSION_ID = "dimensionId";
-    public final static String DIMENSION_NAME = "dimensionName";
+    public final static String DIMENSION_ID = "classificationId";
+    public final static String DIMENSION_NAME = "classificationName";
 }

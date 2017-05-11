@@ -45,7 +45,7 @@ public class PrepareSampleData {
     // template root path
     public final static String ROOT_PATH =
             "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
-                    "/solution/construction/supervision/template/";
+                    "/solution/construction/supervision/template";
 
     // ===============参数配置=====================//
 
