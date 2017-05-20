@@ -1,14 +1,12 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
-import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
-
 /**
  * Created by sun.
  */
-public class ClassifiactionConstants {
+public class ClassificationConstants {
 
     public final static String CONSTRUCTION_TYPE = "constructionType";
-    public final static String COMPANY_CLASSIFIACTION = "companyClassification";
+    public final static String COMPANY_CLASSIFICATION = "companyClassification";
     public final static String ASSIGN_MODEL = "assignModel";
     public final static String EXECUTIVE_DEPARTMENT = "executiveDepartment";
     public final static String ISSUE_CLASSIFICATION = "issueClassification";

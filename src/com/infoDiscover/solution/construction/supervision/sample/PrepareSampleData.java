@@ -52,22 +52,22 @@ public class PrepareSampleData {
     public static void main(String[] args) {
 
         prepareSampleData(SupervisionSolutionConstants.DATABASE_SPACE, SampleDataSet.FILE_USER,
-                SampleDataSet.FILE_ROLE);
+                SampleDataSet.FILE_DEPARTMENT);
 
         InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
                 (SupervisionSolutionConstants.DATABASE_SPACE);
 
-        ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
-                countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
+//        ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
+//                countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
 
         ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
                 countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
-
-        ProgressSampleDataGenerator.generateExtensionProjectSampleData(ids,
-                countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
-
-        ProgressSampleDataGenerator.generateRebuildProjectSampleData(ids,
-                countOfRebuildProgressToGenerate, toGenerateRandomTasksNumber);
+//
+//        ProgressSampleDataGenerator.generateExtensionProjectSampleData(ids,
+//                countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
+//
+//        ProgressSampleDataGenerator.generateRebuildProjectSampleData(ids,
+//                countOfRebuildProgressToGenerate, toGenerateRandomTasksNumber);
 
         ids.closeSpace();
     }
@@ -150,13 +150,13 @@ public class PrepareSampleData {
             logger.error("Step 7: Failed to create sample dimension data: {}", e.getMessage());
         }
 
-        logger.info("Step 8: link user and role");
+        logger.info("Step 8: link users to executive departments");
         try {
-            dimensionGenerator.linkUsersToRole(ids, SampleDataSet.FILE_USER_ROLE,
-                    SupervisionSolutionConstants
-                    .DIMENSION_ROLE_WITH_PREFIX, SupervisionSolutionConstants
+            dimensionGenerator.linkUsersToExecutiveDepartment(ids, SampleDataSet
+                    .FILE_USER_DEPARTMENT,SupervisionSolutionConstants
+                    .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX,SupervisionSolutionConstants
                     .DIMENSION_USER_WITH_PREFIX, SupervisionSolutionConstants
-                            .RELATION_ROLE_HASUSER_WITH_PREFIX);
+                    .RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX);
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Step 8: Failed to link users to role: {}", e.getMessage());
         }

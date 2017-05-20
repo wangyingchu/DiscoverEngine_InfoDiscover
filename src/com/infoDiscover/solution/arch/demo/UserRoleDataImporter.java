@@ -49,26 +49,26 @@ public class UserRoleDataImporter {
         logger.debug("Exit method createUsers()...");
     }
 
-    public static void createRoles(InfoDiscoverSpace ids, String roleFile, String
-            roleDimensionType, String userDimensionType, String relationType)
+    public static void createRoles(InfoDiscoverSpace ids, String userDepartmentFile,
+                                             String executiveDepartmentDimensionType, String userDimensionType, String relationType)
             throws InfoDiscoveryEngineInfoExploreException {
-        logger.debug("Enter method createRoles with roleFile: {}", roleFile);
+        logger.debug("Enter method createExecutiveDepartments with roleFile: {}", userDepartmentFile);
 
-        List<String> list = FileUtil.read(roleFile);
+        List<String> list = FileUtil.read(userDepartmentFile);
 
         for (String line : list) {
-            String[] roles = line.split("-");
-            String roleName = roles[0].trim();
-            String roleId = roles[1].trim();
-            String userIds = roles[2].trim();
+            String[] departments = line.split("-");
+            String departmentName = departments[0].trim();
+            String departmentId = departments[1].trim();
+            String userIds = departments[2].trim();
 
-            logger.debug("roleId: {}, roleName: {}, userIds: {}", roleId.trim(), roleName.trim(),
-                    userIds);
+            logger.debug("departmentId: {}, departmentName: {}, userIds: {}", departmentId.trim(),
+                    departmentName.trim(), userIds);
 
-            RoleDimension role = new RoleDimension(roleId, roleName);
+            RoleDimension role = new RoleDimension(departmentId, departmentName);
             try {
                 Dimension roleDimension = new RoleManager().createRoleDimension(ids, role,
-                        roleDimensionType);
+                        executiveDepartmentDimensionType);
                 logger.debug("roleFact id: {}", roleDimension.getId());
 
 
@@ -88,7 +88,7 @@ public class UserRoleDataImporter {
             }
         }
 
-        logger.debug("Exit method createRoles()...");
+        logger.debug("Exit method createDepartments()...");
     }
 
 
@@ -123,18 +123,38 @@ public class UserRoleDataImporter {
         return userId;
     }
 
+    public static String getUserName(String userFile, String userId) {
+        logger.debug("Enter method createUsers with userFile: {} and userId: {}", userFile, userId);
+
+        List<String> list = FileUtil.read(userFile);
+
+        String userName = "";
+        for (String line : list) {
+            String[] users = line.split(",");
+            userName = users[1];
+            String userIdInFile = users[0];
+            if(userId.equalsIgnoreCase(userIdInFile)){
+                return  userName;
+            }
+            logger.debug("userId: " + userId.trim() + ", username: " + userName.trim());
+        }
+
+        logger.debug("Exit method createUsers()...");
+        return userName;
+    }
+
     public static void main(String[] args) {
 //         import users
 //        String userFile = "/Users/sun/InfoDiscovery/Demodata/users.csv";
 //        createUsers(userFile);
 //
 //         import roles
-        String roleFile = "/Users/sun/InfoDiscovery/Demodata/roles.csv";
+//        String roleFile = "/Users/sun/InfoDiscovery/Demodata/roles.csv";
 //        try {
 //            createRoles(roleFile);
 //        } catch (InfoDiscoveryEngineInfoExploreException e) {
 //            e.printStackTrace();
 //        }
-        selectRandomUserFromRole(roleFile, "Proerty_Department");
+//        selectRandomUserFromRole(roleFile, "Proerty_Department");
     }
 }

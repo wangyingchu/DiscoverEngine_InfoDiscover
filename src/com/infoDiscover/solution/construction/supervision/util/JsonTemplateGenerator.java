@@ -305,8 +305,10 @@ public class JsonTemplateGenerator {
         //TODO: update
         List<String> reservedProperties = new ArrayList<>();
         reservedProperties.add("worker");
-        reservedProperties.add("attachment");
+        reservedProperties.add("workerId");
+//        reservedProperties.add("attachment");
         reservedProperties.add("executiveDepartment");
+        reservedProperties.add("executiveDepartmentId");
 
         if (!excludeRequiredProperties) {
             map.put("propertyType", propertyType);

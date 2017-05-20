@@ -29,7 +29,9 @@ public class JsonConstants {
     public final static String TASK_ID = "taskId";
     public final static String TASK_NAME = "taskName";
     public final static String WORKER = "worker";
-    public final static String EXECUTIVEDEPARTMENT = "executiveDepartment";
+    public final static String WORKER_ID = "workerId";
+    public final static String EXECUTIVE_DEPARTMENT_ID = "executiveDepartmentId";
+    public final static String EXECUTIVE_DEPARTMENT = "executiveDepartment";
     public final static String ATTACHMENT = "attachment";
 
 }

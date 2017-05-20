@@ -164,6 +164,11 @@ public class ProgressRelationManager {
         return linkDimensionsByRelationType(role, user, relationType);
     }
 
+    public Relation attachUserToExecuteDepartment(Dimension department, Dimension user, String
+            relationType) {
+        return linkDimensionsByRelationType(department, user, relationType);
+    }
+
     public Relation attachUserToUser(Dimension fromUser, Dimension toUser, String relationType) {
         return linkDimensionsByRelationType(fromUser, toUser, relationType);
     }

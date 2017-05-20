@@ -1,0 +1,12 @@
+Residential_Land,居住用地
+PublicFacilities_Land,公共设施用地
+Industrial_Land,工业用地
+Storage_Land,仓储用地
+ExternalTransport_Land,对外交通用地
+Road_Square_Land,道路广场用地
+Municipal_Utility_and,市政公用设施用地
+Greenland,绿地
+SpecialUse_Land,特殊用地
+WaterAndOtherUse_Land,水域和其他用地
+LandUnderConsider,待研究用地
+Other,其他

@@ -18,7 +18,6 @@ public class SupervisionSolutionConstants {
     // Dimension type
     public final static String DIMENSION_ROLE_WITH_PREFIX = SOLUTION_PREFIX + "ROLE";
     public final static String DIMENSION_USER_WITH_PREFIX = SOLUTION_PREFIX + "USER";
-    public final static String DIMENSION_DEPARTMENT_WITH_PREFIX = SOLUTION_PREFIX + "DEPARTMENT";
 
     public final static String DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX = SOLUTION_PREFIX +
             "CONSTRUCTION_TYPE";
@@ -83,7 +82,7 @@ public class SupervisionSolutionConstants {
             "EXECUTE_BY_DEPARTMENT";
     public final static String RELATION_TASK_EXECUTEBYUSER_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_USER";
-    public final static String RELATION_ROLE_HASUSER_WITH_PREFIX = SOLUTION_PREFIX + "HAS_USER";
+    public final static String RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX = SOLUTION_PREFIX + "HAS_USER";
     public final static String RELATION_TRANSFER_WITH_PREFIX = SOLUTION_PREFIX +
             "TRANSFER_TASK";
     public final static String RELATION_STARTAT_WITH_PREFIX = SOLUTION_PREFIX + "START_AT";

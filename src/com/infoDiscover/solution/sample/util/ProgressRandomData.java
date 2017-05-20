@@ -2,7 +2,6 @@ package com.infoDiscover.solution.sample.util;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
-import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.sample.SampleDataSet;
@@ -69,19 +68,19 @@ public class ProgressRandomData {
         if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
             progressId = "maintain_project" + sequence;
             //TODO: to select a starter
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
                     "Property_Department");
         } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)){
             progressId = "new_project" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
                     "BuildingAndEnvironment_Bureau");
         } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
             progressId = "rebuild_project" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
                     "BuildingAndEnvironment_Bureau");
         } else {
             progressId = "extension_project" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_ROLE,
+            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
                     "BuildingAndEnvironment_Bureau");
         }
         String progressName = projectName;

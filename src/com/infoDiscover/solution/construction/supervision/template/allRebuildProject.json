@@ -4,11 +4,6 @@
             "properties": [
                 {
                     "propertyType": "String",
-                    "propertyName": "type",
-                    "propertyValue": "Progress"
-                },
-                {
-                    "propertyType": "String",
                     "propertyName": "progressId",
                     "propertyValue": ""
                 },
@@ -20,7 +15,12 @@
                 {
                     "propertyType": "String",
                     "propertyName": "progressType",
-                    "propertyValue": "新建工程"
+                    "propertyValue": "改建工程"
+                },
+                {
+                    "propertyType": "String",
+                    "propertyName": "starterId",
+                    "propertyValue": ""
                 },
                 {
                     "propertyType": "String",
@@ -49,11 +49,6 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "progressId",
                             "propertyValue": "",
                             "propertyType": "String"
@@ -64,7 +59,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -84,13 +89,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "startProject",
+                            "propertyValue": "录入项目发起数据",
                             "propertyType": "String"
                         },
                         {
@@ -150,11 +150,6 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "progressId",
                             "propertyValue": "",
                             "propertyType": "String"
@@ -165,7 +160,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -185,13 +190,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "launchProject",
+                            "propertyValue": "录入项目启动及分派数据",
                             "propertyType": "String"
                         },
                         {
@@ -221,11 +221,6 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "progressId",
                             "propertyValue": "",
                             "propertyType": "String"
@@ -236,7 +231,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -256,13 +261,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "biddingAgencyContract",
+                            "propertyValue": "录入招标代理单位合同数据",
                             "propertyType": "String"
                         },
                         {
@@ -297,7 +297,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "BiddingAgent",
+                            "propertyValue": "招标代理单位",
                             "propertyType": "String"
                         }
                     ]
@@ -306,11 +306,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -322,7 +317,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -342,13 +347,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "earlyStageConsultationContract",
+                            "propertyValue": "录入项目前期咨询单位合同数据",
                             "propertyType": "String"
                         },
                         {
@@ -383,7 +383,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "CostConsulting",
+                            "propertyValue": "咨询单位",
                             "propertyType": "String"
                         }
                     ]
@@ -392,11 +392,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -408,7 +403,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -428,13 +433,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "feasibilityReport",
+                            "propertyValue": "录入可研数据",
                             "propertyType": "String"
                         },
                         {
@@ -466,6 +466,16 @@
                             "propertyName": "feasibilityReportApprover",
                             "propertyValue": "",
                             "propertyType": "Date"
+                        },
+                        {
+                            "propertyName": "approveDepartment",
+                            "propertyValue": "审批部门",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "replyDepartment",
+                            "propertyValue": "保税区区级领导",
+                            "propertyType": "String"
                         }
                     ]
                 }
@@ -473,11 +483,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -489,7 +494,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -509,13 +524,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "engineeringNecessaryInformation",
+                            "propertyValue": "录入工程必备资料数据",
                             "propertyType": "String"
                         },
                         {
@@ -560,11 +570,6 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "progressId",
                             "propertyValue": "",
                             "propertyType": "String"
@@ -575,7 +580,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -595,13 +610,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "surveyCompanyContract",
+                            "propertyValue": "录入勘察单位合同数据",
                             "propertyType": "String"
                         },
                         {
@@ -636,7 +646,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "公司类别",
+                            "propertyValue": "勘察单位",
                             "propertyType": "String"
                         },
                         {
@@ -656,11 +666,6 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "progressId",
                             "propertyValue": "",
                             "propertyType": "String"
@@ -671,7 +676,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -691,13 +706,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "surveyResult",
+                            "propertyValue": "录入勘察单位成果数据",
                             "propertyType": "String"
                         },
                         {
@@ -727,11 +737,6 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "progressId",
                             "propertyValue": "",
                             "propertyType": "String"
@@ -742,7 +747,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -762,13 +777,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "designContract",
+                            "propertyValue": "录入设计单位合同数据",
                             "propertyType": "String"
                         },
                         {
@@ -808,7 +818,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "Design",
+                            "propertyValue": "设计单位",
                             "propertyType": "String"
                         }
                     ]
@@ -817,11 +827,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -833,7 +838,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -853,13 +868,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "design",
+                            "propertyValue": "录入设计成果数据",
                             "propertyType": "String"
                         },
                         {
@@ -921,6 +931,11 @@
                             "propertyName": "designCompanyTechnicalLeader",
                             "propertyValue": "设计单位技术负责人",
                             "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "approveDepartment",
+                            "propertyValue": "审批部门",
+                            "propertyType": "String"
                         }
                     ]
                 }
@@ -928,11 +943,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -944,7 +954,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -964,13 +984,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "investmentBudgetaryEstimate",
+                            "propertyValue": "录入投资概算数据",
                             "propertyType": "String"
                         },
                         {
@@ -999,317 +1014,317 @@
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BlackMetal",
+                            "propertyName": "M_ibe_BlackMetal",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_NonferrousMetals",
+                            "propertyName": "M_ibe_NonferrousMetals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConstructionMaterials",
+                            "propertyName": "M_ibe_ConstructionMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConcreteAndAdmixture",
+                            "propertyName": "M_ibe_ConcreteAndAdmixture",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DoorsAndWindows",
+                            "propertyName": "M_ibe_DoorsAndWindows",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingHardware",
+                            "propertyName": "M_ibe_BuildingHardware",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingGlass",
+                            "propertyName": "M_ibe_BuildingGlass",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingStructures",
+                            "propertyName": "M_ibe_BuildingStructures",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Paint",
+                            "propertyName": "M_ibe_Paint",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_TIMaterials",
+                            "propertyName": "M_ibe_TIMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_WPMaterial",
+                            "propertyName": "M_ibe_WPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FPMaterial",
+                            "propertyName": "M_ibe_FPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_VAndAC",
+                            "propertyName": "M_ibe_VAndAC",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_KWD",
+                            "propertyName": "M_ibe_KWD",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Pipiline",
+                            "propertyName": "M_ibe_Pipiline",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Electric",
+                            "propertyName": "M_ibe_Electric",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_OilsAndChemicals",
+                            "propertyName": "M_ibe_OilsAndChemicals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DecorativeMaterial",
+                            "propertyName": "M_ibe_DecorativeMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_GeneralEquipment",
+                            "propertyName": "M_ibe_GeneralEquipment",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FireControl",
+                            "propertyName": "M_ibe_FireControl",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_IntelligentBuilding",
+                            "propertyName": "M_ibe_IntelligentBuilding",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Landscape",
+                            "propertyName": "M_ibe_Landscape",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_Earthwork",
+                            "propertyName": "BE_ibe_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FTAndSSE",
+                            "propertyName": "BE_ibe_FTAndSSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PFE",
+                            "propertyName": "BE_ibe_PFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ME",
+                            "propertyName": "BE_ibe_ME",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CRCE",
+                            "propertyName": "BE_ibe_CRCE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_MSE",
+                            "propertyName": "BE_ibe_MSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WSE",
+                            "propertyName": "BE_ibe_WSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DoorE",
+                            "propertyName": "BE_ibe_DoorE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_RWFE",
+                            "propertyName": "BE_ibe_RWFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ITIAE",
+                            "propertyName": "BE_ibe_ITIAE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FDE",
+                            "propertyName": "BE_ibe_FDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WCDPCWE",
+                            "propertyName": "BE_ibe_WCDPCWE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CeilingWorks",
+                            "propertyName": "BE_ibe_CeilingWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PaintE",
+                            "propertyName": "BE_ibe_PaintE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_OtherDecorationWorks",
+                            "propertyName": "BE_ibe_OtherDecorationWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DemolitionProject",
+                            "propertyName": "BE_ibe_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_Earthwork",
+                            "propertyName": "ME_ibe_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_RoadE",
+                            "propertyName": "ME_ibe_RoadE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_BridgeE",
+                            "propertyName": "ME_ibe_BridgeE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_TunnelE",
+                            "propertyName": "ME_ibe_TunnelE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_PipelineE",
+                            "propertyName": "ME_ibe_PipelineE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_WTE",
+                            "propertyName": "ME_ibe_WTE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_GDE",
+                            "propertyName": "ME_ibe_GDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_SLE",
+                            "propertyName": "ME_ibe_SLE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_ReinforcementE",
+                            "propertyName": "ME_ibe_ReinforcementE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_DemolitionProject",
+                            "propertyName": "ME_ibe_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MEIE",
+                            "propertyName": "GIE_ibe_MEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_TEIE",
+                            "propertyName": "GIE_ibe_TEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MSAEIE",
+                            "propertyName": "GIE_ibe_MSAEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_EEIE",
+                            "propertyName": "GIE_ibe_EEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IBE",
+                            "propertyName": "GIE_ibe_IBE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_ACIIE",
+                            "propertyName": "GIE_ibe_ACIIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_VAndACE",
+                            "propertyName": "GIE_ibe_VAndACE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IPE",
+                            "propertyName": "GIE_ibe_IPE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_FireE",
+                            "propertyName": "GIE_ibe_FireE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_WSDGE",
+                            "propertyName": "GIE_ibe_WSDGE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_CELE",
+                            "propertyName": "GIE_ibe_CELE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_BACIE",
+                            "propertyName": "GIE_ibe_BACIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_LP",
+                            "propertyName": "LP_ibe_LP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_GRAndBP",
+                            "propertyName": "LP_ibe_GRAndBP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_Garden",
+                            "propertyName": "LP_ibe_Garden",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         }
@@ -1319,11 +1334,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -1335,7 +1345,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -1355,13 +1375,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "costConsultationContract",
+                            "propertyValue": "录入造价咨询合同数据",
                             "propertyType": "String"
                         },
                         {
@@ -1396,7 +1411,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "CostConsulting",
+                            "propertyValue": "造价咨询单位",
                             "propertyType": "String"
                         }
                     ]
@@ -1405,11 +1420,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -1421,7 +1431,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -1441,13 +1461,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "costConsultation",
+                            "propertyValue": "录入造价咨询单位成果数据",
                             "propertyType": "String"
                         },
                         {
@@ -1476,317 +1491,317 @@
                             "propertyType": "String"
                         },
                         {
-                            "propertyName": "M_quote_BlackMetal",
+                            "propertyName": "M_cc_BlackMetal",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_NonferrousMetals",
+                            "propertyName": "M_cc_NonferrousMetals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConstructionMaterials",
+                            "propertyName": "M_cc_ConstructionMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConcreteAndAdmixture",
+                            "propertyName": "M_cc_ConcreteAndAdmixture",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DoorsAndWindows",
+                            "propertyName": "M_cc_DoorsAndWindows",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingHardware",
+                            "propertyName": "M_cc_BuildingHardware",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingGlass",
+                            "propertyName": "M_cc_BuildingGlass",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingStructures",
+                            "propertyName": "M_cc_BuildingStructures",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Paint",
+                            "propertyName": "M_cc_Paint",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_TIMaterials",
+                            "propertyName": "M_cc_TIMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_WPMaterial",
+                            "propertyName": "M_cc_WPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FPMaterial",
+                            "propertyName": "M_cc_FPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_VAndAC",
+                            "propertyName": "M_cc_VAndAC",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_KWD",
+                            "propertyName": "M_cc_KWD",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Pipiline",
+                            "propertyName": "M_cc_Pipiline",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Electric",
+                            "propertyName": "M_cc_Electric",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_OilsAndChemicals",
+                            "propertyName": "M_cc_OilsAndChemicals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DecorativeMaterial",
+                            "propertyName": "M_cc_DecorativeMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_GeneralEquipment",
+                            "propertyName": "M_cc_GeneralEquipment",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FireControl",
+                            "propertyName": "M_cc_FireControl",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_IntelligentBuilding",
+                            "propertyName": "M_cc_IntelligentBuilding",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Landscape",
+                            "propertyName": "M_cc_Landscape",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_Earthwork",
+                            "propertyName": "BE_cc_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FTAndSSE",
+                            "propertyName": "BE_cc_FTAndSSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PFE",
+                            "propertyName": "BE_cc_PFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ME",
+                            "propertyName": "BE_cc_ME",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CRCE",
+                            "propertyName": "BE_cc_CRCE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_MSE",
+                            "propertyName": "BE_cc_MSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WSE",
+                            "propertyName": "BE_cc_WSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DoorE",
+                            "propertyName": "BE_cc_DoorE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_RWFE",
+                            "propertyName": "BE_cc_RWFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ITIAE",
+                            "propertyName": "BE_cc_ITIAE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FDE",
+                            "propertyName": "BE_cc_FDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WCDPCWE",
+                            "propertyName": "BE_cc_WCDPCWE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CeilingWorks",
+                            "propertyName": "BE_cc_CeilingWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PaintE",
+                            "propertyName": "BE_cc_PaintE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_OtherDecorationWorks",
+                            "propertyName": "BE_cc_OtherDecorationWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DemolitionProject",
+                            "propertyName": "BE_cc_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_Earthwork",
+                            "propertyName": "ME_cc_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_RoadE",
+                            "propertyName": "ME_cc_RoadE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_BridgeE",
+                            "propertyName": "ME_cc_BridgeE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_TunnelE",
+                            "propertyName": "ME_cc_TunnelE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_PipelineE",
+                            "propertyName": "ME_cc_PipelineE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_WTE",
+                            "propertyName": "ME_cc_WTE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_GDE",
+                            "propertyName": "ME_cc_GDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_SLE",
+                            "propertyName": "ME_cc_SLE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_ReinforcementE",
+                            "propertyName": "ME_cc_ReinforcementE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_DemolitionProject",
+                            "propertyName": "ME_cc_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MEIE",
+                            "propertyName": "GIE_cc_MEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_TEIE",
+                            "propertyName": "GIE_cc_TEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MSAEIE",
+                            "propertyName": "GIE_cc_MSAEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_EEIE",
+                            "propertyName": "GIE_cc_EEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IBE",
+                            "propertyName": "GIE_cc_IBE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_ACIIE",
+                            "propertyName": "GIE_cc_ACIIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_VAndACE",
+                            "propertyName": "GIE_cc_VAndACE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IPE",
+                            "propertyName": "GIE_cc_IPE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_FireE",
+                            "propertyName": "GIE_cc_FireE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_WSDGE",
+                            "propertyName": "GIE_cc_WSDGE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_CELE",
+                            "propertyName": "GIE_cc_CELE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_BACIE",
+                            "propertyName": "GIE_cc_BACIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_LP",
+                            "propertyName": "LP_cc_LP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_GRAndBP",
+                            "propertyName": "LP_cc_GRAndBP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_Garden",
+                            "propertyName": "LP_cc_Garden",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         }
@@ -1796,11 +1811,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -1812,7 +1822,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -1832,13 +1852,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "projectBudgetCostApproval",
+                            "propertyValue": "录入工程预算造价审批数据",
                             "propertyType": "String"
                         },
                         {
@@ -1857,317 +1872,317 @@
                             "propertyType": "String"
                         },
                         {
-                            "propertyName": "M_quote_BlackMetal",
+                            "propertyName": "M_pbca_BlackMetal",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_NonferrousMetals",
+                            "propertyName": "M_pbca_NonferrousMetals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConstructionMaterials",
+                            "propertyName": "M_pbca_ConstructionMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConcreteAndAdmixture",
+                            "propertyName": "M_pbca_ConcreteAndAdmixture",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DoorsAndWindows",
+                            "propertyName": "M_pbca_DoorsAndWindows",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingHardware",
+                            "propertyName": "M_pbca_BuildingHardware",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingGlass",
+                            "propertyName": "M_pbca_BuildingGlass",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingStructures",
+                            "propertyName": "M_pbca_BuildingStructures",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Paint",
+                            "propertyName": "M_pbca_Paint",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_TIMaterials",
+                            "propertyName": "M_pbca_TIMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_WPMaterial",
+                            "propertyName": "M_pbca_WPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FPMaterial",
+                            "propertyName": "M_pbca_FPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_VAndAC",
+                            "propertyName": "M_pbca_VAndAC",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_KWD",
+                            "propertyName": "M_pbca_KWD",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Pipiline",
+                            "propertyName": "M_pbca_Pipiline",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Electric",
+                            "propertyName": "M_pbca_Electric",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_OilsAndChemicals",
+                            "propertyName": "M_pbca_OilsAndChemicals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DecorativeMaterial",
+                            "propertyName": "M_pbca_DecorativeMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_GeneralEquipment",
+                            "propertyName": "M_pbca_GeneralEquipment",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FireControl",
+                            "propertyName": "M_pbca_FireControl",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_IntelligentBuilding",
+                            "propertyName": "M_pbca_IntelligentBuilding",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Landscape",
+                            "propertyName": "M_pbca_Landscape",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_Earthwork",
+                            "propertyName": "BE_pbca_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FTAndSSE",
+                            "propertyName": "BE_pbca_FTAndSSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PFE",
+                            "propertyName": "BE_pbca_PFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ME",
+                            "propertyName": "BE_pbca_ME",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CRCE",
+                            "propertyName": "BE_pbca_CRCE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_MSE",
+                            "propertyName": "BE_pbca_MSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WSE",
+                            "propertyName": "BE_pbca_WSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DoorE",
+                            "propertyName": "BE_pbca_DoorE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_RWFE",
+                            "propertyName": "BE_pbca_RWFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ITIAE",
+                            "propertyName": "BE_pbca_ITIAE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FDE",
+                            "propertyName": "BE_pbca_FDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WCDPCWE",
+                            "propertyName": "BE_pbca_WCDPCWE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CeilingWorks",
+                            "propertyName": "BE_pbca_CeilingWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PaintE",
+                            "propertyName": "BE_pbca_PaintE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_OtherDecorationWorks",
+                            "propertyName": "BE_pbca_OtherDecorationWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DemolitionProject",
+                            "propertyName": "BE_pbca_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_Earthwork",
+                            "propertyName": "ME_pbca_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_RoadE",
+                            "propertyName": "ME_pbca_RoadE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_BridgeE",
+                            "propertyName": "ME_pbca_BridgeE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_TunnelE",
+                            "propertyName": "ME_pbca_TunnelE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_PipelineE",
+                            "propertyName": "ME_pbca_PipelineE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_WTE",
+                            "propertyName": "ME_pbca_WTE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_GDE",
+                            "propertyName": "ME_pbca_GDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_SLE",
+                            "propertyName": "ME_pbca_SLE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_ReinforcementE",
+                            "propertyName": "ME_pbca_ReinforcementE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_DemolitionProject",
+                            "propertyName": "ME_pbca_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MEIE",
+                            "propertyName": "GIE_pbca_MEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_TEIE",
+                            "propertyName": "GIE_pbca_TEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MSAEIE",
+                            "propertyName": "GIE_pbca_MSAEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_EEIE",
+                            "propertyName": "GIE_pbca_EEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IBE",
+                            "propertyName": "GIE_pbca_IBE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_ACIIE",
+                            "propertyName": "GIE_pbca_ACIIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_VAndACE",
+                            "propertyName": "GIE_pbca_VAndACE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IPE",
+                            "propertyName": "GIE_pbca_IPE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_FireE",
+                            "propertyName": "GIE_pbca_FireE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_WSDGE",
+                            "propertyName": "GIE_pbca_WSDGE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_CELE",
+                            "propertyName": "GIE_pbca_CELE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_BACIE",
+                            "propertyName": "GIE_pbca_BACIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_LP",
+                            "propertyName": "LP_pbca_LP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_GRAndBP",
+                            "propertyName": "LP_pbca_GRAndBP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_Garden",
+                            "propertyName": "LP_pbca_Garden",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         }
@@ -2177,11 +2192,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -2193,7 +2203,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2213,13 +2233,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "constructionContract",
+                            "propertyValue": "录入施工合同数据",
                             "propertyType": "String"
                         },
                         {
@@ -2269,7 +2284,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "Construction",
+                            "propertyValue": "施工单位",
                             "propertyType": "String"
                         }
                     ]
@@ -2278,11 +2293,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -2294,7 +2304,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2314,13 +2334,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "supervisionContract",
+                            "propertyValue": "录入监理单位合同数据",
                             "propertyType": "String"
                         },
                         {
@@ -2370,7 +2385,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "Supervisor",
+                            "propertyValue": "监理单位",
                             "propertyType": "String"
                         }
                     ]
@@ -2379,11 +2394,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -2395,7 +2405,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2415,13 +2435,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "construction",
+                            "propertyValue": "录入工程施工数据",
                             "propertyType": "String"
                         },
                         {
@@ -2451,7 +2466,7 @@
                         },
                         {
                             "propertyName": "companyClassification",
-                            "propertyValue": "Supervisor",
+                            "propertyValue": "监理单位",
                             "propertyType": "String"
                         }
                     ]
@@ -2460,11 +2475,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -2476,7 +2486,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2496,13 +2516,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "monthlyProgressReport",
+                            "propertyValue": "录入月进度报告数据",
                             "propertyType": "String"
                         },
                         {
@@ -2532,11 +2547,6 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "progressId",
                             "propertyValue": "",
                             "propertyType": "String"
@@ -2547,7 +2557,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2567,13 +2587,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "projectFinalAcceptance",
+                            "propertyValue": "录入工程竣工验收数据",
                             "propertyType": "String"
                         },
                         {
@@ -2600,6 +2615,11 @@
                             "propertyName": "passFinalAcceptance",
                             "propertyValue": false,
                             "propertyType": "Boolean"
+                        },
+                        {
+                            "propertyName": "approveDepartment",
+                            "propertyValue": "审批部门",
+                            "propertyType": "String"
                         }
                     ]
                 }
@@ -2607,11 +2627,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -2623,7 +2638,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2643,13 +2668,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "qualityAssurance",
+                            "propertyValue": "录入项目质保数据",
                             "propertyType": "String"
                         }
                     ]
@@ -2658,11 +2678,6 @@
             {
                 "task": {
                     "properties": [
-                        {
-                            "propertyName": "type",
-                            "propertyValue": "Task",
-                            "propertyType": "String"
-                        },
                         {
                             "propertyName": "progressId",
                             "propertyValue": "",
@@ -2674,7 +2689,17 @@
                             "propertyType": "String"
                         },
                         {
+                            "propertyName": "workerId",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
                             "propertyName": "worker",
+                            "propertyValue": "",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "executiveDepartmentId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2694,13 +2719,8 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "attachment",
-                            "propertyValue": "",
-                            "propertyType": "String"
-                        },
-                        {
                             "propertyName": "taskName",
-                            "propertyValue": "closeProject",
+                            "propertyValue": "项目关闭",
                             "propertyType": "String"
                         },
                         {

@@ -4,12 +4,19 @@ import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.DimensionType;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
+import com.infoDiscover.solution.arch.progress.fact.RoleDimension;
+import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
+import com.infoDiscover.solution.arch.progress.manager.RoleManager;
+import com.infoDiscover.solution.arch.progress.manager.UserManager;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
+import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.util.Constants;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 import org.apache.commons.collections.map.HashedMap;
@@ -28,7 +35,7 @@ public class SampleDimensionGenerator {
     private final static Logger logger = LoggerFactory.getLogger(SampleDimensionGenerator.class);
 
     private static String[][] DIMENSION_LIST_TO_CREATE = new String[][]{
-            {SupervisionSolutionConstants.DIMENSION_ROLE_WITH_PREFIX, SampleDataSet.FILE_ROLE},
+            {SupervisionSolutionConstants.DIMENSION_ROLE_WITH_PREFIX, SampleDataSet.FILE_DEPARTMENT},
             {SupervisionSolutionConstants.DIMENSION_USER_WITH_PREFIX, SampleDataSet.FILE_USER},
             {SupervisionSolutionConstants.DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_CONSTRUCTION_TYPE},
@@ -131,7 +138,7 @@ public class SampleDimensionGenerator {
                 for (Map<String, Object> properties : getPropertiesFromLine(file, Constants.DIMENSION_ID,
                         Constants.DIMENSION_NAME)) {
                     Dimension dimension = manager.createDimension(dimensionTypeName, properties);
-                    dimensionRIDList.add(dimension.getProperty(Constants.DIMENSION_ID).getPropertyValue()
+                    dimensionRIDList.add(dimension.getProperty(Constants.DIMENSION_NAME).getPropertyValue()
                             .toString());
                 }
                 dimensionCache.put(dimensionTypeName, dimensionRIDList);
@@ -139,12 +146,48 @@ public class SampleDimensionGenerator {
         }
     }
 
-    public void linkUsersToRole(InfoDiscoverSpace ids, String userRoleFile, String
-            roleDimensionType, String userDimensionType, String relationType) throws
+    public void linkUsersToExecutiveDepartment(InfoDiscoverSpace ids, String userDepartmentFile, String
+            executiveDepartmentDimensionType, String userDimensionType, String relationType) throws
             InfoDiscoveryEngineInfoExploreException {
 
-        UserRoleDataImporter.createRoles(ids, userRoleFile, roleDimensionType,
-                userDimensionType, relationType);
+        logger.debug("Enter method linkUsersToExecutiveDepartment with roleFile: {}", userDepartmentFile);
+
+        List<String> list = FileUtil.read(userDepartmentFile);
+
+        for (String line : list) {
+            String[] departments = line.split("-");
+            String departmentName = departments[0].trim();
+            String departmentId = departments[1].trim();
+            String userIds = departments[2].trim();
+
+            logger.debug("departmentId: {}, departmentName: {}, userIds: {}", departmentId.trim(),
+                    departmentName.trim(), userIds);
+
+            ExploreParameters ep = new ExploreParameters();
+            ep.setType(executiveDepartmentDimensionType);
+            ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_ID, departmentId));
+
+            try {
+                Dimension department = QueryExecutor.executeDimensionQuery(ids
+                        .getInformationExplorer(), ep);
+                ProgressRelationManager manager = new ProgressRelationManager(ids);
+                UserManager userManager = new UserManager();
+                for (String userId : userIds.split(",")) {
+                    try {
+                        Dimension user = userManager.getUserById(ids.getInformationExplorer(),
+                                userId.trim(), userDimensionType);
+                        manager.attachUserToExecuteDepartment(department,user,relationType);
+                    } catch (InfoDiscoveryEngineRuntimeException e) {
+                        logger.error("Failed to link user: {} to department: {}", userId, departmentId);
+                    }
+                }
+            } catch (InfoDiscoveryEngineRuntimeException e) {
+                logger.error("Failed to get execute department: {}", e.getMessage());
+            }
+
+        }
+
+        logger.debug("Exit method linkUsersToExecutiveDepartment()...");
     }
 
     public static void addMoreProperty(String dimensionType, Map<String, Object> properties) {

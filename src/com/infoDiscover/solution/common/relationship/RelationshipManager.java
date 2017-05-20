@@ -9,7 +9,6 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInf
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.path.OrientDBShortestPath;
-import com.infoDiscover.solution.common.util.Constants;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 import org.slf4j.Logger;
@@ -30,15 +29,44 @@ public class RelationshipManager {
         return list.size() > 0;
     }
 
-    public Relation attachFactToDimension(InfoDiscoverSpace ids, String factId, String dimensionId,
-                                          String dimensionType, String relationType) throws
+    public Relation attachFactToDimension(InfoDiscoverSpace ids, String factId, ExploreParameters
+            dimensionEp, String relationType) throws InfoDiscoveryEngineRuntimeException,
+            InfoDiscoveryEngineInfoExploreException {
+        Dimension dimension = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(),
+                dimensionEp);
+        if (dimension == null) {
+            return null;
+        }
+
+        return ids.attachFactToDimension(factId, dimension.getId(), relationType);
+    }
+
+    public Relation attachFactToDimension(InfoDiscoverSpace ids, String factId, String key, String
+            value, String dimensionType, String relationType) throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(dimensionType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_ID, dimensionId));
-        Dimension projectTypeDimension = QueryExecutor.executeDimensionQuery(ids
+        ep.setDefaultFilteringItem(new EqualFilteringItem(key, value));
+        Dimension dimension = QueryExecutor.executeDimensionQuery(ids
                 .getInformationExplorer(), ep);
 
-        return ids.attachFactToDimension(factId, projectTypeDimension.getId(), relationType);
+        if (dimension == null) {
+            return null;
+        }
+
+        return ids.attachFactToDimension(factId, dimension.getId(), relationType);
     }
+
+//    public Relation attachFactToDimension(InfoDiscoverSpace ids, String factId, String
+// dimensionId,
+//                                          String dimensionType, String relationType) throws
+//            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
+//        ExploreParameters ep = new ExploreParameters();
+//        ep.setType(dimensionType);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_ID, dimensionId));
+//        Dimension projectTypeDimension = QueryExecutor.executeDimensionQuery(ids
+//                .getInformationExplorer(), ep);
+//
+//        return ids.attachFactToDimension(factId, projectTypeDimension.getId(), relationType);
+//    }
 }

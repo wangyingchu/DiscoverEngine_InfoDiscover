@@ -51,9 +51,9 @@ public class SampleRelationshipGenerator {
         }
 
         if (!ids.hasRelationType(prefix + SupervisionSolutionConstants
-                .RELATION_ROLE_HASUSER_WITH_PREFIX)) {
+                .RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATION_ROLE_HASUSER_WITH_PREFIX);
+                    .RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 

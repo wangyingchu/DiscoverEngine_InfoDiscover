@@ -4,7 +4,6 @@ import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
-import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
 import com.infoDiscover.solution.sample.util.JsonConstants;
@@ -96,19 +95,35 @@ public class TaskSampleDataGenerator {
             long startDate,
             int taskSequence) {
 
-        properties.put(JsonConstants.JSON_TYPE, "Task");
+//        properties.put(JsonConstants.JSON_TYPE, "Task");
         properties.put(JsonConstants.PROGRESS_ID, progressId);
         properties.put(JsonConstants.TASK_ID, progressId + "_taskId" + (taskSequence + 1));
-        properties.put(JsonConstants.TASK_NAME, getTasksList(projectType)[taskSequence]);
+
+        String taskName = getTasksList(projectType)[taskSequence];
+        properties.put(JsonConstants.TASK_NAME, taskName);
 
         // TODO: update attachment
-        properties.put(JsonConstants.ATTACHMENT, "");
+        //properties.put(JsonConstants.ATTACHMENT, "");
 
-        //String departmentId = getDepartmentsList(projectType)[taskSequence];
-        String departmentId = getRandomDepartment();
-        properties.put(JsonConstants.EXECUTIVEDEPARTMENT, departmentId);
-        properties.put(JsonConstants.WORKER, UserRoleDataImporter.selectRandomUserFromRole
-                (SampleDataSet.FILE_USER_ROLE, departmentId));
+        String departmentId = getDepartmentIdList(projectType)[taskSequence];
+        String departmentName = getDepartmentNameList(projectType)[taskSequence];
+
+        if (taskName.equalsIgnoreCase(SampleDataSet.TASK1_OF_MAINTENANCE_PROJECT) || taskName
+                .equalsIgnoreCase(SampleDataSet.TASK1_OF_NEW_PROJECT)) {
+            int randomIndex = RandomUtil.generateRandomInRange(0,SampleDataSet
+                    .DEPARTMENTS_TO_ASSIGN_TASK.length);
+            departmentId = SampleDataSet.DEPARTMENTS_TO_ASSIGN_TASK[randomIndex];
+            departmentName = SampleDataSet.DEPARTMENT_NAMES_TO_ASSIGN_TASK[randomIndex];
+        }
+
+        properties.put(JsonConstants.EXECUTIVE_DEPARTMENT_ID, departmentId);
+        properties.put(JsonConstants.EXECUTIVE_DEPARTMENT,departmentName);
+        String userId = UserRoleDataImporter.selectRandomUserFromRole
+                (SampleDataSet.FILE_USER_DEPARTMENT, departmentId);
+        properties.put(JsonConstants.WORKER_ID, userId);
+        properties.put(JsonConstants.WORKER,UserRoleDataImporter.getUserName(SampleDataSet
+                .FILE_USER,userId));
+
         // 1~9 中取随机数
         long taskStartDate = DateUtil.getLongDateValue(startDate, RandomUtil
                 .generateRandomInRange(1, 9));
@@ -129,9 +144,10 @@ public class TaskSampleDataGenerator {
 
         Set<String> keySet = taskProperties.keySet();
         Iterator<String> it = keySet.iterator();
-        String dimensionTypeName = "";
+
         while (it.hasNext()) {
             String key = it.next();
+            String dimensionTypeName = "";
             if (list.contains(key)) {
                 if (key.equalsIgnoreCase("constructionType")) {
                     dimensionTypeName = SupervisionSolutionConstants
@@ -142,12 +158,6 @@ public class TaskSampleDataGenerator {
                 } else if (key.equalsIgnoreCase("assignModel")) {
                     dimensionTypeName = SupervisionSolutionConstants
                             .DIMENSION_ASSIGN_MODEL_WITH_PREFIX;
-                } else if (key.equalsIgnoreCase("executiveDepartment")) {
-                    dimensionTypeName = SupervisionSolutionConstants
-                            .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX;
-                } else if (key.equalsIgnoreCase("governmentApprovalAuthority")) {
-                    dimensionTypeName = SupervisionSolutionConstants
-                            .DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY_WITH_PREFIX;
                 } else if (key.equalsIgnoreCase("issueClassification")) {
                     dimensionTypeName = SupervisionSolutionConstants
                             .DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX;
@@ -199,45 +209,65 @@ public class TaskSampleDataGenerator {
 
     public static String[] getTasksList(String projectType) {
         if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            return SampleDataSet.TASKS_OF_MAINTENANCE;
+            return SampleDataSet.TASKS_OF_MAINTENANCE_PROJECT;
         } else {
-            return SampleDataSet.TASKS_OF_NEW;
+            return SampleDataSet.TASKS_OF_NEW_PROJECT;
         }
     }
 
-    public static String getRandomDepartment() {
-        int randomIndex = RandomUtil.generateRandomInRange(0, SampleDataSet.DEPARTMENTS.length);
-        return SampleDataSet.DEPARTMENTS[randomIndex];
+    public static String[] getDepartmentIdList(String projectType) {
+
+        if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+            return SampleDataSet.DEPARTMENTS_OF_MAINTENANCE_PROJECT;
+        } else {
+            return SampleDataSet.DEPARTMENTS_OF_NEW_PROJECT;
+        }
     }
 
-    public static String[] getDepartmentsList(String projectType) {
+    public static String[] getDepartmentNameList(String projectType) {
 
-        // TODO: to update the corresponding departments
-        if (projectType.equalsIgnoreCase(DemoDataConfig.PROJECTTYPE_MAINTAIN)) {
-            return SampleDataSet.DEPARTMENTS_OF_MAINTENANCE;
+        if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+            return SampleDataSet.DEPARTMENT_NAMES_OF_MAINTENANCE_PROJECT;
         } else {
-            return SampleDataSet.DEPARTMENTS_OF_NEW;
+            return SampleDataSet.DEPARTMENT_NAMES_OF_NEW_PROJECT;
         }
     }
 
     private static List<String> reservedStringPropertyNames() {
         List<String> reservedStringPropertyNames = new ArrayList<>();
-        reservedStringPropertyNames.add(ClassifiactionConstants.COMPANY_CLASSIFIACTION);
+        reservedStringPropertyNames.add(ClassificationConstants.CONSTRUCTION_TYPE);
+        reservedStringPropertyNames.add(ClassificationConstants.COMPANY_CLASSIFICATION);
+        reservedStringPropertyNames.add(ClassificationConstants.ASSIGN_MODEL);
+        reservedStringPropertyNames.add(ClassificationConstants.EXECUTIVE_DEPARTMENT);
+        reservedStringPropertyNames.add(ClassificationConstants.ISSUE_CLASSIFICATION);
+        reservedStringPropertyNames.add(ClassificationConstants.LAND_PROPERTY);
+        reservedStringPropertyNames.add(ClassificationConstants.ASSET_FIRST_CLASSIFICATION);
+        reservedStringPropertyNames.add(ClassificationConstants.ASSET_SECOND_CLASSIFICATION);
+        reservedStringPropertyNames.add(ClassificationConstants.PROJECT_CLASSIFICATION);
+        reservedStringPropertyNames.add(ClassificationConstants.PROJECT_SITE_CLASSIFICATION);
+        reservedStringPropertyNames.add(ClassificationConstants.PROJECT_SCOPE);
+        reservedStringPropertyNames.add(ClassificationConstants.PROJECT_CONSTRUCTION_CLASSIFICATION);
+
         return reservedStringPropertyNames;
     }
 
     public static void main(String[] args) {
-        String projectTemplate = SampleDataSet.FILE_MAINTENANCE_PROJECT;
+        String projectTemplate = SampleDataSet.FILE_NEW_PROJECT;
         Map<String, Object>[] array = generateTasksRandomData(projectTemplate,
-                SampleDataSet.PROJECTTYPE_MAINTENANCE,
-                "maintain1",
+                SampleDataSet.PROJECTNAME_NEW,
+                "newProject1",
                 RandomData
-                        .getRandomTime(2010, 2016, 0), 15);
-        logger.info("array.size: " + array.length);
+                        .getRandomTime(2010, 2016, 0), 21);
+//        logger.info("array.size: " + array.length);
         for (Map<String, Object> map : array) {
             System.out.println(map);
-//            logger.info("map's startTime: " + map.get("startDate"));
-//            logger.info("map's endTime: " + map.get("endDate"));
+            logger.info("taskId: " + map.get("taskId"));
+            logger.info("taskName: " + map.get("taskName"));
+            logger.info("executiveDepartmentId: " + map.get(JsonConstants.EXECUTIVE_DEPARTMENT_ID));
+            logger.info("EXECUTIVE_DEPARTMENT: " + map.get(JsonConstants.EXECUTIVE_DEPARTMENT));
+            logger.info("workerId: " + map.get(JsonConstants.WORKER_ID));
+            logger.info("worker: " + map.get(JsonConstants.WORKER));
+            logger.info("=================================================");
         }
     }
 }

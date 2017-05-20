@@ -91,8 +91,11 @@ public class SampleFactGenerator {
             taskFactType.addTypeProperty(JsonConstants.PROGRESS_ID, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.TASK_ID, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.TASK_NAME, PropertyType.STRING);
+            taskFactType.addTypeProperty(JsonConstants.WORKER_ID, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.WORKER, PropertyType.STRING);
-            taskFactType.addTypeProperty(JsonConstants.EXECUTIVEDEPARTMENT, PropertyType.STRING);
+            taskFactType.addTypeProperty(JsonConstants.EXECUTIVE_DEPARTMENT_ID, PropertyType
+                    .STRING);
+            taskFactType.addTypeProperty(JsonConstants.EXECUTIVE_DEPARTMENT, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.START_DATE, PropertyType.DATE);
             taskFactType.addTypeProperty(JsonConstants.END_DATE, PropertyType.DATE);
             taskFactType.addTypeProperty(JsonConstants.ATTACHMENT, PropertyType.STRING);
