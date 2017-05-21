@@ -2,15 +2,15 @@ package com.infoDiscover.solution.sample.util;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
-import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
+import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.sample.SampleDataSet;
+import com.infoDiscover.solution.construction.supervision.util.SampleFileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
 
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by sun.
@@ -30,8 +30,9 @@ public class ProgressRandomData {
             (String projectJsonTemplate, String projectType, String projectName, Date startDate,
              int sequence) {
         logger.info("Enter method generateProgressRandomData() with projectJsonTemplate: {} and " +
-                "projectType: {} and " +
-                "projectName: {} and sequence: {}", projectJsonTemplate, projectType,projectName,
+                        "projectType: {} and " +
+                        "projectName: {} and sequence: {}", projectJsonTemplate, projectType,
+                projectName,
                 sequence);
 
         JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
@@ -47,11 +48,12 @@ public class ProgressRandomData {
 
         Map<String, Object> properties = RandomData.propertiesJsonNodeToMapWithRandomValue
                 (progressPropertiesJsonNode, randomStringLength,
-                minValue, maxValue, minDoubleValue, maxDoubleValue, longValue,
-                null, null,
-                null);
+                        minValue, maxValue, minDoubleValue, maxDoubleValue, longValue,
+                        reservedStringPropertyNames(), null,
+                        null);
 
-        updateRequiredProperties(properties,projectType,projectName,startDate, sequence);
+        // update required properties
+        updateRequiredProperties(properties, projectType, projectName, startDate, sequence);
         logger.info("properties: {}", properties);
 
         logger.info("Exit method generateProgressRandomData()...");
@@ -59,41 +61,47 @@ public class ProgressRandomData {
     }
 
     private static void updateRequiredProperties(Map<String, Object> properties, String projectType,
-                                          String projectName,
-                                          Date startDate,
-                                          int sequence) {
+                                                 String projectName,
+                                                 Date startDate,
+                                                 int sequence) {
         String progressType = "Progress";
         String progressId;
+        String starterId;
         String starter;
-        if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            progressId = "maintain_project" + sequence;
-            //TODO: to select a starter
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
-                    "Property_Department");
-        } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)){
-            progressId = "new_project" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
-                    "BuildingAndEnvironment_Bureau");
-        } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
-            progressId = "rebuild_project" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
-                    "BuildingAndEnvironment_Bureau");
-        } else {
-            progressId = "extension_project" + sequence;
-            starter = UserRoleDataImporter.selectRandomUserFromRole(SampleDataSet.FILE_USER_DEPARTMENT,
-                    "BuildingAndEnvironment_Bureau");
+        Map<String, String> starterMap = SampleFileUtil.readStarter(SampleDataSet
+                .FILE_STARTER);
+        Set<String> keySet = starterMap.keySet();
+        Iterator<String> it = keySet.iterator();
+        List<String> keys = new ArrayList<>();
+        while (it.hasNext()) {
+            keys.add(it.next());
         }
-        String progressName = projectName;
+        int randomIndex = RandomUtil.generateRandomInRange(0, keys.size());
+        starterId = keys.get(randomIndex);
+        starter = starterMap.get(starterId);
 
+        if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+            progressId = SampleDataSet.PROJECTNAME_MAINTANENCE + "_" + sequence;
+        } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)) {
+            progressId = SampleDataSet.PROJECTNAME_NEW + "_" + sequence;
+        } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
+            progressId = SampleDataSet.PROJECTNAME_REBUILD + "_" + sequence;
+        } else {
+            progressId = SampleDataSet.PROJECTNAME_EXTENSION + "_" + sequence;
+        }
+
+        String progressName = projectName;
         String status = "On Progress";
 
-        properties.put("type", progressType);
-        properties.put("progressId", progressId);
-        properties.put("progressName", progressName);
-        properties.put("starter", starter);
-        properties.put("startDate", startDate);
-        properties.put("endDate", null);
-        properties.put("status", status);
+        properties.put(JsonConstants.JSON_TYPE, progressType);
+        properties.put(JsonConstants.PROGRESS_ID, progressId);
+        properties.put(JsonConstants.PROGRESS_TYPE, progressType);
+        properties.put(JsonConstants.PROGRESS_NAME, progressName);
+        properties.put(JsonConstants.PROGRESS_STARTER_ID, starterId);
+        properties.put(JsonConstants.PROGRESS_STARTER, starter);
+        properties.put(JsonConstants.START_DATE, startDate);
+        properties.put(JsonConstants.END_DATE, null);
+        properties.put(JsonConstants.STATUS, status);
     }
 
     private static JsonNode getProgressNode(String json) {
@@ -107,12 +115,18 @@ public class ProgressRandomData {
         return progressesNode.get(0).get(JsonConstants.JSON_PROGRESS);
     }
 
+    private static List<String> reservedStringPropertyNames() {
+        List<String> list = new ArrayList<>();
+        list.add(JsonConstants.PROGRESS_TYPE);
+        return list;
+    }
+
     public static void main(String[] args) {
         long startDate = RandomData.getRandomTime(2010, 2016, 0);
         Map<String, Object> properties = generateProgressRandomData(SampleDataSet
                 .FILE_MAINTENANCE_PROJECT, SampleDataSet
                 .PROJECTTYPE_MAINTENANCE, SampleDataSet.PROJECTNAME_MAINTANENCE, DateUtil
-                .getDateTime(startDate).toDate(),1);
+                .getDateTime(startDate).toDate(), 1);
         logger.info("result: {}", properties);
     }
 }

@@ -23,6 +23,7 @@ import com.infoDiscover.solution.common.relationship.RelationshipManager;
 import com.infoDiscover.solution.common.util.Constants;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
+import com.infoDiscover.solution.construction.supervision.util.SampleFileUtil;
 import com.infoDiscover.solution.sample.util.JsonConstants;
 import com.infoDiscover.solution.sample.util.ProgressRandomData;
 import org.joda.time.DateTime;
@@ -139,6 +140,11 @@ public class ProgressSampleDataGenerator {
             if (firstNumberOfTasksToGenerate == 0) {
                 // only create progress
                 // TODO: check if the progress is already created and the task is running
+                // update the progress name
+                DateTime dateTime = DateUtil.getDateTime(startDateLongValue);
+                String progressName = progressProperties.get(JsonConstants.PROGRESS_TYPE) + "_" +
+                        dateTime.toString().substring(0, 10);
+                progressProperties.put(JsonConstants.PROGRESS_NAME, progressName);
                 createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(), factType,
                         progressProperties);
             } else {
@@ -147,7 +153,14 @@ public class ProgressSampleDataGenerator {
                         .generateTasksRandomData(projectJsonTemplate, projectType, progressId,
                                 startDateLongValue, firstNumberOfTasksToGenerate);
 
-                // append task properties to progress
+                Map<String, Object> task1 = tasksPropertiesArray[0];
+                String issue = task1.get(ClassificationConstants.ISSUE_CLASSIFICATION).toString();
+                DateTime dateTime = DateUtil.getDateTime(startDateLongValue);
+                String progressName = progressProperties.get(JsonConstants.PROGRESS_TYPE) + "_" +
+                        issue + "_" + dateTime.toString().substring(0,10);
+                progressProperties.put(JsonConstants.PROGRESS_NAME, progressName);
+
+                // Append task properties to progress
                 progressProperties = appendTaskPropertiesToProgress(progressProperties,
                         tasksPropertiesArray);
 
@@ -205,6 +218,14 @@ public class ProgressSampleDataGenerator {
             return progressProperties;
         }
 
+        String progressType = progressProperties.get(JsonConstants.PROGRESS_TYPE).toString();
+        Map<String,String> taskNameMap = new HashMap<>();
+        if (progressType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+            taskNameMap = SampleFileUtil.readMaintenaceProjectTasks(null);
+        } else {
+            taskNameMap = SampleFileUtil.readNewProjectTasks(null);
+        }
+
         for (Map<String, Object> taskProps : tasksPropertiesArray) {
             Set<String> keySet = taskProps.keySet();
             Iterator<String> it = keySet.iterator();
@@ -212,17 +233,44 @@ public class ProgressSampleDataGenerator {
             String taskName = "";
             Date startDate = new Date();
             Date endDate = new Date();
+
+            String workerId = "";
+            String worker = "";
+            String executiveDepartmentId = "";
+            String executiveDepartment = "";
+            String companyClassification = "";
             while (it.hasNext()) {
                 String key = it.next();
                 Object value = taskProps.get(key);
                 if (key.equalsIgnoreCase(JsonConstants.TASK_NAME)) {
                     taskName = value.toString();
+                    taskName = taskNameMap.get(taskName);
                 }
                 if (key.equalsIgnoreCase(JsonConstants.START_DATE)) {
                     startDate = (Date) value;
                 }
                 if (key.equalsIgnoreCase(JsonConstants.END_DATE)) {
                     endDate = (Date) value;
+                }
+
+                if (key.equalsIgnoreCase(JsonConstants.WORKER_ID)) {
+                    workerId = value.toString();
+                }
+
+                if (key.equalsIgnoreCase(JsonConstants.WORKER)) {
+                    worker = value.toString();
+                }
+
+                if (key.equalsIgnoreCase(JsonConstants.EXECUTIVE_DEPARTMENT_ID)) {
+                    executiveDepartmentId = value.toString();
+                }
+
+                if (key.equalsIgnoreCase(JsonConstants.EXECUTIVE_DEPARTMENT)) {
+                    executiveDepartment = value.toString();
+                }
+
+                if (key.equalsIgnoreCase(ClassificationConstants.COMPANY_CLASSIFICATION)) {
+                    companyClassification = value.toString();
                 }
 
                 if (!reservedStringPropertyNames().contains(key)) {
@@ -236,6 +284,11 @@ public class ProgressSampleDataGenerator {
 
             progressProperties.put(taskName + "_startDate", startDate);
             progressProperties.put(taskName + "_endDate", endDate);
+            progressProperties.put(taskName + "_workerId", workerId);
+            progressProperties.put(taskName + "_worker", worker);
+            progressProperties.put(taskName + "_executiveDepartmentId", executiveDepartmentId);
+            progressProperties.put(taskName + "_executiveDepartment", executiveDepartment);
+            progressProperties.put(taskName + "_companyClassification", companyClassification);
         }
 
         return progressProperties;
@@ -436,7 +489,8 @@ public class ProgressSampleDataGenerator {
             RelationshipManager relationshipManager = new RelationshipManager();
 
             if (properties.get(ClassificationConstants.CONSTRUCTION_TYPE) != null) {
-                dimensionName = properties.get(ClassificationConstants.CONSTRUCTION_TYPE).toString();
+                dimensionName = properties.get(ClassificationConstants.CONSTRUCTION_TYPE)
+                        .toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants.RELATION_CONSTRUCTION_TYPE_WITH_PREFIX;
@@ -447,7 +501,8 @@ public class ProgressSampleDataGenerator {
             }
 
             if (properties.get(ClassificationConstants.COMPANY_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.COMPANY_CLASSIFICATION).toString();
+                dimensionName = properties.get(ClassificationConstants.COMPANY_CLASSIFICATION)
+                        .toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants
@@ -481,7 +536,8 @@ public class ProgressSampleDataGenerator {
 //            }
 //            }
             if (properties.get(ClassificationConstants.ISSUE_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.ISSUE_CLASSIFICATION).toString();
+                dimensionName = properties.get(ClassificationConstants.ISSUE_CLASSIFICATION)
+                        .toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants
@@ -504,7 +560,8 @@ public class ProgressSampleDataGenerator {
                 }
             }
             if (properties.get(ClassificationConstants.ASSET_FIRST_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.ASSET_FIRST_CLASSIFICATION).toString();
+                dimensionName = properties.get(ClassificationConstants
+                        .ASSET_FIRST_CLASSIFICATION).toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants
@@ -516,7 +573,8 @@ public class ProgressSampleDataGenerator {
                 }
             }
             if (properties.get(ClassificationConstants.ASSET_SECOND_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.ASSET_SECOND_CLASSIFICATION).toString();
+                dimensionName = properties.get(ClassificationConstants
+                        .ASSET_SECOND_CLASSIFICATION).toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants
@@ -528,7 +586,8 @@ public class ProgressSampleDataGenerator {
                 }
             }
             if (properties.get(ClassificationConstants.PROJECT_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.PROJECT_CLASSIFICATION).toString();
+                dimensionName = properties.get(ClassificationConstants.PROJECT_CLASSIFICATION)
+                        .toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants
@@ -540,7 +599,8 @@ public class ProgressSampleDataGenerator {
                 }
             }
             if (properties.get(ClassificationConstants.PROJECT_SITE_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.PROJECT_SITE_CLASSIFICATION).toString();
+                dimensionName = properties.get(ClassificationConstants
+                        .PROJECT_SITE_CLASSIFICATION).toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants
@@ -562,8 +622,10 @@ public class ProgressSampleDataGenerator {
                             dimensionTypeName, relationType);
                 }
             }
-            if (properties.get(ClassificationConstants.PROJECT_CONSTRUCTION_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.PROJECT_CONSTRUCTION_CLASSIFICATION).toString();
+            if (properties.get(ClassificationConstants.PROJECT_CONSTRUCTION_CLASSIFICATION) !=
+                    null) {
+                dimensionName = properties.get(ClassificationConstants
+                        .PROJECT_CONSTRUCTION_CLASSIFICATION).toString();
                 dimensionTypeName = SupervisionSolutionConstants
                         .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX;
                 relationType = SupervisionSolutionConstants

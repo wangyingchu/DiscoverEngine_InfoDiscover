@@ -124,7 +124,7 @@ public class UserRoleDataImporter {
     }
 
     public static String getUserName(String userFile, String userId) {
-        logger.debug("Enter method createUsers with userFile: {} and userId: {}", userFile, userId);
+        logger.debug("Enter method getUserName with userFile: {} and userId: {}", userFile, userId);
 
         List<String> list = FileUtil.read(userFile);
 
@@ -134,12 +134,13 @@ public class UserRoleDataImporter {
             userName = users[1];
             String userIdInFile = users[0];
             if(userId.equalsIgnoreCase(userIdInFile)){
+                logger.debug("userId: " + userId.trim() + ", username: " + userName.trim());
+                logger.debug("Exit method getUserName()...");
                 return  userName;
             }
-            logger.debug("userId: " + userId.trim() + ", username: " + userName.trim());
         }
 
-        logger.debug("Exit method createUsers()...");
+        logger.debug("Exit method getUserName()...");
         return userName;
     }
 

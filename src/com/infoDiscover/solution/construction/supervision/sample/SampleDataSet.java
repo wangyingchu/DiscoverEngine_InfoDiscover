@@ -310,6 +310,43 @@ public class SampleDataSet {
     public final static String FILE_DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION = ROOT_PATH +
             "/data/dimension/项目建设分类_projectConstructionClassification.csv";
 
+
+    // other file
+    public final static String FILE_STARTER = ROOT_PATH + "/data/starter.txt";
+    public final static String FILE_ISSUE_REPORTER = ROOT_PATH + "/data/issueReporter.txt";
+    public final static String FILE_ISSUE_DESCRIPTION = ROOT_PATH + "/data/issueDescription.txt";
+    public final static String FILE_PROJECT_ADDRESS = ROOT_PATH + "/data/建筑-道路-坐标映射.txt";
+
+
+    public final static String FILE_Reconnaissance_COMPANY = ROOT_PATH + "/data/勘察单位-user.txt";
+    public final static String FILE_Consulting_COMPANY = ROOT_PATH + "/data/咨询单位-user.txt";
+    public final static String FILE_BiddingAgent_COMPANY = ROOT_PATH + "/data/招标代理-user.txt";
+    public final static String FILE_Construction_COMPANY = ROOT_PATH + "/data/施工单位-user.txt";
+    public final static String FILE_Supervisor_COMPANY = ROOT_PATH + "/data/监理单位-user.txt";
+    public final static String FILE_Design_COMPANY = ROOT_PATH + "/data/设计单位-user.txt";
+    public final static String FILE_CostConsulting_COMPANY = ROOT_PATH + "/data/造价咨询单位-user.txt";
+
+    public final static String FILE_PROJECT_LEADER = ROOT_PATH + "/data/项目负责人.txt";
+    public final static String FILE_BUDGET_AUDIT_LEADER = ROOT_PATH + "/data/预算审核负责人.txt";
+    public final static String FILE_BUDGET_APPROVE_LEADER = ROOT_PATH + "/data/预算审批负责人.txt";
+    public final static String FILE_DESIGN_COMPANY_TECHNICAL_LEADER = ROOT_PATH +
+            "/data/设计公司技术负责人.txt";
+    public final static String FILE_SUPERVISION_TECHINICAL_LEADER = ROOT_PATH + "/data/监理公司技术负责人" +
+            ".txt";
+    public final static String FILE_SUPERVISION_CONTACT_AUDIT_LEADER = ROOT_PATH + "/data/监理合同审批人" +
+            ".txt";
+    public final static String FILE_SUPERVISION_CONTRACT_PHONE = ROOT_PATH + "/data/监理公司联系人电话.txt";
+
+    public final static String FILE_SITE_INSPECTOR = ROOT_PATH + "/data/现场巡查人员.txt";
+    public final static String FILE_SITE_INSPECT_PLACE = ROOT_PATH + "/data/现场巡查地点.txt";
+    public final static String FILE_FINAL_ACCEPTANCE_MEMBERS = ROOT_PATH +
+            "/data/验收人员名单.txt";
+
+
+    public final static String FILE_MAINTENACE_PROJECT_TASKS = ROOT_PATH + "/data/维修工程-任务.txt";
+    public final static String FILE_NEW_PROJECT_TASKS = ROOT_PATH + "/data/新建工程-任务.txt";
+
+
     public final static String[] dimensionArray = {"constructionType", "companyClassification",
             "assignModel", "executiveDepartment", "governmentApprovalAuthority",
             "issueClassification",

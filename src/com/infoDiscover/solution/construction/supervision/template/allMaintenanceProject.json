@@ -240,7 +240,7 @@
                             "propertyType": "String"
                         },
                         {
-                            "propertyName": "maintenaceProposal",
+                            "propertyName": "maintenanceProposal",
                             "propertyValue": "维修预案",
                             "propertyType": "String"
                         },
@@ -866,7 +866,7 @@
                         {
                             "propertyName": "undergroundBuildingArea",
                             "propertyValue": "地下建筑面积",
-                            "propertyType": "String"
+                            "propertyType": "Double"
                         },
                         {
                             "propertyName": "greeningRatio",

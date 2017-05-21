@@ -34,7 +34,7 @@ public class DateUtil {
 
     public static long getLongDateValue(long date, int plusDays) {
         if (plusDays <= 0) {
-            return date;
+            new DateTime(date).minus(plusDays).getMillis();
         }
         return new DateTime(date).plusDays(plusDays).getMillis();
     }

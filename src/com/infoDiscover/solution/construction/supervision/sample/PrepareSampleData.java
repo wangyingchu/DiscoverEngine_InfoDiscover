@@ -19,7 +19,7 @@ public class PrepareSampleData {
     // ===============参数配置=====================//
     // 生成年份
     public final static int[] yearsToGenerate = new int[]{2010, 2011, 2012, 2013, 2014,
-            2015, 2016, 2017, 2018, 2019, 2020};
+            2015, 2016, 2017, 2018};
 
     // 只生成年、月、日的时间维度
     public final static int depth = 3;
@@ -57,11 +57,11 @@ public class PrepareSampleData {
         InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
                 (SupervisionSolutionConstants.DATABASE_SPACE);
 
-//        ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
-//                countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
+        ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
+                countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
 
-        ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
-                countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
+//        ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
+//                countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
 //
 //        ProgressSampleDataGenerator.generateExtensionProjectSampleData(ids,
 //                countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
