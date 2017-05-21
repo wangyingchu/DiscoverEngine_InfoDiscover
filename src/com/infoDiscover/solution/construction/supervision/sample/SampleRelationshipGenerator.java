@@ -16,9 +16,9 @@ public class SampleRelationshipGenerator {
     private final static Logger logger = LoggerFactory.getLogger
             (SampleRelationshipGenerator.class);
 
-    public static void initProgressRelationType(InfoDiscoverSpace ids, String prefix) throws
+    public static void createRelationType(InfoDiscoverSpace ids, String prefix) throws
             InfoDiscoveryEngineDataMartException {
-        logger.debug("Enter method initProgressRelationType()");
+        logger.debug("Enter method createRelationType()");
 
         if (prefix == null) {
             prefix = "";
@@ -161,9 +161,25 @@ public class SampleRelationshipGenerator {
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_IS_MEMBER_OF_COMPANY_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_IS_MEMBER_OF_COMPANY_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
 
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_IS_COMPANY_CLASSIFIACTION_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_IS_COMPANY_CLASSIFIACTION_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
 
-        logger.debug("Exit method initProgressRelationType()...");
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_LOCATED_AT_ROAD_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_LOCATED_AT_ROAD_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        logger.debug("Exit method createRelationType()...");
     }
 
 }

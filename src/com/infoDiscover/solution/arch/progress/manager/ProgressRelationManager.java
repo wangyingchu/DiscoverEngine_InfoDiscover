@@ -173,6 +173,21 @@ public class ProgressRelationManager {
         return linkDimensionsByRelationType(fromUser, toUser, relationType);
     }
 
+    public Relation addExternalUserToCompany(Dimension fromUser, Dimension toCompany, String
+            relationType) {
+        return linkDimensionsByRelationType(fromUser, toCompany, relationType);
+    }
+
+    public Relation addCompanyToClassification(Dimension fromCompany, Dimension toClassificaiton,
+                                               String relationType) {
+        return linkDimensionsByRelationType(fromCompany, toClassificaiton,relationType);
+    }
+
+    public Relation addProjectAddressToRoad(Dimension fromAddress, Dimension
+            toRoad, String relationType) {
+        return linkDimensionsByRelationType(fromAddress, toRoad,relationType);
+    }
+
     private Relation linkFactToDimensionByRelationType(InfoDiscoverSpace ids, Fact fromFact,
                                                        Dimension
                                                                toDimension,

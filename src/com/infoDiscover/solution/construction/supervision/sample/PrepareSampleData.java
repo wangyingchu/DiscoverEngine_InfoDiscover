@@ -127,10 +127,10 @@ public class PrepareSampleData {
 
         logger.info("Step 5: initialize the progress relation type");
         try {
-            SampleRelationshipGenerator.initProgressRelationType(ids, "");
-            logger.debug("Step 5: initialize the progress relation type");
+            SampleRelationshipGenerator.createRelationType(ids, "");
+            logger.debug("Step 5: create relation type");
         } catch (InfoDiscoveryEngineDataMartException e) {
-            logger.info("Step 5: Failed to initialize the relation type");
+            logger.info("Step 5: Failed to create relation type");
         }
 
         logger.info("Step 6: create dimensions");
@@ -160,6 +160,13 @@ public class PrepareSampleData {
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Step 8: Failed to link users to role: {}", e.getMessage());
         }
+
+        logger.info("Step9: link external user to company");
+        dimensionGenerator.createCompanyAndUsers(ids);
+
+        logger.info("Step10: link company to road");
+        dimensionGenerator.createProjectAddressAndRoad(ids);
+
         ids.closeSpace();
         logger.info("End to prepare sample data");
     }

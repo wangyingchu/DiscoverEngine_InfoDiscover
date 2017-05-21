@@ -309,7 +309,8 @@ public class SampleDataSet {
             "/data/dimension/项目实施范围_projectScope.csv";
     public final static String FILE_DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION = ROOT_PATH +
             "/data/dimension/项目建设分类_projectConstructionClassification.csv";
-
+    public final static String FILE_DIMENSION_ROAD = ROOT_PATH +
+            "/data/dimension/道路.txt";
 
     // other file
     public final static String FILE_STARTER = ROOT_PATH + "/data/starter.txt";
@@ -317,7 +318,7 @@ public class SampleDataSet {
     public final static String FILE_ISSUE_DESCRIPTION = ROOT_PATH + "/data/issueDescription.txt";
     public final static String FILE_PROJECT_ADDRESS = ROOT_PATH + "/data/建筑-道路-坐标映射.txt";
 
-
+    // 单位和负责人
     public final static String FILE_Reconnaissance_COMPANY = ROOT_PATH + "/data/勘察单位-user.txt";
     public final static String FILE_Consulting_COMPANY = ROOT_PATH + "/data/咨询单位-user.txt";
     public final static String FILE_BiddingAgent_COMPANY = ROOT_PATH + "/data/招标代理-user.txt";

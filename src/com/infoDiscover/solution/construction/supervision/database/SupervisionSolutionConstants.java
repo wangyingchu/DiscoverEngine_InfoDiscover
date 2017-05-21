@@ -46,6 +46,16 @@ public class SupervisionSolutionConstants {
     public final static String DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX =
             SOLUTION_PREFIX + "PROJECT_CONSTRUCTION_CLASSIFICATION";
 
+    public final static String DIMENSION_ROAD_WITH_PREFIX = SOLUTION_PREFIX + "ROAD";
+    public final static String DIMENSION_COMPANY_WITH_PREFIX = SOLUTION_PREFIX + "COMPANY";
+
+
+    public final static String DIMENSION_EXTERNAL_USER_WITH_PREFIX = SOLUTION_PREFIX +
+            "EXTERNAL_USER";
+
+    public final static String DIMENSION_PROJECT_ADDRESS_WITH_PREFIX = SOLUTION_PREFIX +
+            "PROJECT_ADDRESS";
+
     // Relation type
     public final static String RELATION_PROJECT_CLASSIFICATION_WITH_PREFIX = SOLUTION_PREFIX +
             "PROJECT_CLASSIFICATION_IS";
@@ -88,6 +98,12 @@ public class SupervisionSolutionConstants {
     public final static String RELATION_STARTAT_WITH_PREFIX = SOLUTION_PREFIX + "START_AT";
     public final static String RELATION_ENDAT_WITH_PREFIX = SOLUTION_PREFIX + "END_AT";
 
+    public final static String RELATION_IS_MEMBER_OF_COMPANY_WITH_PREFIX = SOLUTION_PREFIX +
+            "IS_MEMBER_OF";
 
+    public final static String RELATION_IS_COMPANY_CLASSIFIACTION_WITH_PREFIX = SOLUTION_PREFIX +
+            "IS_COMPANY_OF";
 
+    public final static String RELATION_LOCATED_AT_ROAD_WITH_PREFIX = SOLUTION_PREFIX +
+            "LOCATED_AT_ROAD";
 }
