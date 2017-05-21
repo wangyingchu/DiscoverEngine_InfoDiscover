@@ -615,7 +615,7 @@
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "surveyCompanyName",
+                            "propertyName": "surveyCompany",
                             "propertyValue": "勘察单位名称",
                             "propertyType": "String"
                         },
@@ -879,7 +879,7 @@
                         },
                         {
                             "propertyName": "undergroundBuildingArea",
-                            "propertyValue": "地下建筑面积",
+                            "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {

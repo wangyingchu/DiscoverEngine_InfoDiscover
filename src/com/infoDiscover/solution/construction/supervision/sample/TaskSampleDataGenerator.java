@@ -243,7 +243,7 @@ public class TaskSampleDataGenerator {
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK3_OF_MAINTENANCE_PROJECT)) {
 //            录入现场勘察数据,taskName,String
 //            现场勘察日期,dateOfSurvey,Date
-//            现场勘察单位,companyOfSurvey,String
+//            现场勘察单位,surveyCompany,String
 //            现场勘察单位负责人,surveyCompanyLeader,String
 //            关联维修预警,relatedMaintenanceEarlyWarning,String
 //            问题诊断,issueDiagnosis,String
@@ -259,7 +259,7 @@ public class TaskSampleDataGenerator {
             String company = randomValue.keySet().iterator().next();
             String leader = randomValue.get(company);
             taskProperties.put("dateOfSurvey", getDateAfterStartDate(taskProperties, 2));
-            taskProperties.put("companyOfSurvey", company);
+            taskProperties.put("surveyCompany", company);
             taskProperties.put("surveyCompanyLeader", leader);
             taskProperties.put("relatedMaintenanceEarlyWarning", "");
             taskProperties.put("issueDiagnosis", "");
@@ -843,7 +843,7 @@ public class TaskSampleDataGenerator {
 //            录入勘察单位合同数据,taskName,String
 //            勘察单位合同编号,surveyCompanyContractNumber,String
 //            勘察单位合同金额,surveyCompanyContractSum,Double
-//            勘察单位名称,surveyCompanyName,String
+//            勘察单位名称,surveyCompany,String
 //            勘察单位合同签订时间,surveyCompanyContractAssignDate,Date
 //            勘察单位合同开始日期,startDate,Date
 //            勘察单位合同结束日期,endDate,Date
@@ -871,7 +871,7 @@ public class TaskSampleDataGenerator {
             String surveyCompanyContractApprover = randomApprover.get(approverId);
 
             taskProperties.put("surveyCompanyContractNumber", surveyCompanyContractNumber);
-            taskProperties.put("surveyCompanyName", surveyCompanyName);
+            taskProperties.put("surveyCompany", surveyCompanyName);
             taskProperties.put("surveyCompanyContractAssignDate", surveyCompanyContractAssignDate);
             taskProperties.put("surveyCompanyLeader", surveyCompanyLeader);
             taskProperties.put("surveyCompanyContractApprover", surveyCompanyContractApprover);

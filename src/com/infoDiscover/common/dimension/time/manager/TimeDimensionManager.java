@@ -8,7 +8,6 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -91,20 +90,13 @@ public class TimeDimensionManager {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(year.getType());
         ep.setDefaultFilteringItem(new EqualFilteringItem("year", year.getYear()));
-        try {
-            Dimension existingYearDimension = QueryExecutor.executeDimensionQuery(ids
-                    .getInformationExplorer(), ep);
-            if (existingYearDimension == null) {
-                return createTimeDimension(year.getType(), yearProps);
-            }
-            return existingYearDimension;
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.error("Failed to create year dimension");
+        Dimension existingYearDimension = QueryExecutor.executeDimensionQuery(ids
+                .getInformationExplorer(), ep);
+        if (existingYearDimension == null) {
+            existingYearDimension = createTimeDimension(year.getType(), yearProps);
         }
-
         logger.info("End to create year dimension");
-
-        return null;
+        return existingYearDimension;
     }
 
 
@@ -121,13 +113,9 @@ public class TimeDimensionManager {
         ep.setDefaultFilteringItem(new EqualFilteringItem("year", month.getYear()));
         ep.addFilteringItem(new EqualFilteringItem("month", month.getMonth()), ExploreParameters
                 .FilteringLogic.AND);
-        try {
-            if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(month.getType(),
-                        monthProps);
-            }
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.error("Failed to create month dimension");
+        if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
+            return createTimeDimension(month.getType(),
+                    monthProps);
         }
         logger.info("End to create month dimension");
 
@@ -150,16 +138,11 @@ public class TimeDimensionManager {
                 .FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("day", day.getDay()), ExploreParameters
                 .FilteringLogic.AND);
-        try {
-            if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(day.getType(), dayProps);
-            }
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.error("Failed to create day dimension");
+        if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
+            return createTimeDimension(day.getType(), dayProps);
         }
 
         logger.debug("End to create day dimension");
-
         return null;
     }
 
@@ -182,12 +165,8 @@ public class TimeDimensionManager {
                 .FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("hour", hour.getHour()), ExploreParameters
                 .FilteringLogic.AND);
-        try {
-            if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(hour.getType(), hourProps);
-            }
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.error("Failed to create hour dimension");
+        if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
+            return createTimeDimension(hour.getType(), hourProps);
         }
 
         logger.info("End to create hour dimension");
@@ -216,13 +195,9 @@ public class TimeDimensionManager {
                 .FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("minute", minute.getMinute()), ExploreParameters
                 .FilteringLogic.AND);
-        try {
-            if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
-                return createTimeDimension(minute.getType(),
-                        minuteProps);
-            }
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.error("Failed to create minute dimension");
+        if (QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep) == null) {
+            return createTimeDimension(minute.getType(),
+                    minuteProps);
         }
 
         logger.info("End to create minute dimension");

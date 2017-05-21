@@ -311,8 +311,13 @@
                             "propertyType": "Date"
                         },
                         {
-                            "propertyName": "companyOfSurvey",
+                            "propertyName": "surveyCompany",
                             "propertyValue": "现场勘察单位",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "surveyCompanyLeader",
+                            "propertyValue": "现场勘察单位负责人",
                             "propertyType": "String"
                         },
                         {
@@ -865,7 +870,7 @@
                         },
                         {
                             "propertyName": "undergroundBuildingArea",
-                            "propertyValue": "地下建筑面积",
+                            "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {

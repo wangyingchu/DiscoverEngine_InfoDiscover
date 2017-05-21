@@ -18,5 +18,6 @@ public class ClassificationConstants {
     public final static String PROJECT_SCOPE = "projectScope";
     public final static String PROJECT_CONSTRUCTION_CLASSIFICATION =
             "projectConstructionClassification";
+    public final static String PROJECT_ADDRESS = "projectAddress";
 
 }

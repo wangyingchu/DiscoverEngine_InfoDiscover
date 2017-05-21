@@ -57,16 +57,4 @@ public class RelationshipManager {
         return ids.attachFactToDimension(factId, dimension.getId(), relationType);
     }
 
-//    public Relation attachFactToDimension(InfoDiscoverSpace ids, String factId, String
-// dimensionId,
-//                                          String dimensionType, String relationType) throws
-//            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-//        ExploreParameters ep = new ExploreParameters();
-//        ep.setType(dimensionType);
-//        ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_ID, dimensionId));
-//        Dimension projectTypeDimension = QueryExecutor.executeDimensionQuery(ids
-//                .getInformationExplorer(), ep);
-//
-//        return ids.attachFactToDimension(factId, projectTypeDimension.getId(), relationType);
-//    }
 }

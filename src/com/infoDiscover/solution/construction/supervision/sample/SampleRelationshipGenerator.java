@@ -167,15 +167,40 @@ public class SampleRelationshipGenerator {
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_IS_COMPANY_CLASSIFIACTION_WITH_PREFIX)) {
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants
+                .RELATION_IS_COMPANY_CLASSIFICATION_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
-                    .RELATION_IS_COMPANY_CLASSIFIACTION_WITH_PREFIX);
+                    .RELATION_IS_COMPANY_CLASSIFICATION_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
         if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_LOCATED_AT_ROAD_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
                     .RELATION_LOCATED_AT_ROAD_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_START_BY_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_START_BY_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_PROJECT_ADDRESS_AT_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_PROJECT_ADDRESS_AT_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_IN_CHARGE_OF_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_IN_CHARGE_OF_WITH_PREFIX);
+            logger.debug("Created relationType: " + relationType.getTypeName());
+        }
+
+        if (!ids.hasRelationType(prefix + SupervisionSolutionConstants.RELATION_EXECUTE_BY_COMPANY_WITH_PREFIX)) {
+            RelationType relationType = ids.addRelationType(prefix + SupervisionSolutionConstants
+                    .RELATION_EXECUTE_BY_COMPANY_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 

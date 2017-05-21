@@ -6,9 +6,7 @@ import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
@@ -17,9 +15,7 @@ import com.infoDiscover.solution.arch.progress.manager.ProgressManager;
 import com.infoDiscover.solution.arch.progress.manager.ProgressRelationManager;
 import com.infoDiscover.solution.arch.progress.manager.TaskManager;
 import com.infoDiscover.solution.arch.progress.manager.UserManager;
-import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
-import com.infoDiscover.solution.common.relationship.RelationshipManager;
 import com.infoDiscover.solution.common.util.Constants;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
@@ -187,12 +183,11 @@ public class ProgressSampleDataGenerator {
                 }
 
 
-                // to create progress
-                // TODO: check if the progress is already created and the task is running
+                // to create or update progress
                 createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(), factType,
                         progressProperties);
 
-                // batch create tasks
+                // batch create or update tasks
                 batchCreateNewOrUpdateTaskInstances(ids, ids.getInformationExplorer(), factType,
                         tasksPropertiesArray);
             }
@@ -361,20 +356,16 @@ public class ProgressSampleDataGenerator {
             }
 
             ProgressRelationManager progressRelationManager = new ProgressRelationManager(ids);
-            //TODO:
+            SampleDimensionGenerator dimensionGenerator = new SampleDimensionGenerator(ids);
+
             // link starter to progress
-            String starter = properties.get(JsonConstants.PROGRESS_STARTER).toString();
-
-            // link project to projectConstructionClassification
-            if (properties.get(JsonConstants.PROGRESS_TYPE) != null) {
-                String projectType = properties.get(JsonConstants.PROGRESS_TYPE).toString();
-
-                RelationshipManager relationshipManager = new RelationshipManager();
-                relationshipManager.attachFactToDimension(ids, progressFact.getId(), Constants
-                                .DIMENSION_NAME, projectType, SupervisionSolutionConstants
-                                .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX,
-                        SupervisionSolutionConstants
-                                .RELATION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX);
+            Object starterId = properties.get(JsonConstants.PROGRESS_STARTER_ID);
+            if (starterId != null && !starterId.toString().isEmpty()) {
+                Dimension startDimension = dimensionGenerator.getUser(starterId.toString());
+                if (startDimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), startDimension.getId(),
+                            SupervisionSolutionConstants.RELATION_START_BY_WITH_PREFIX);
+                }
             }
 
             // link startDate to progress
@@ -391,6 +382,115 @@ public class ProgressSampleDataGenerator {
                         (Date) properties.get(JsonConstants.END_DATE));
                 progressRelationManager.attachTimeToProgress(ids, progressId, factType,
                         dayDimension, ProgressConstants.RELATIONTYPE_ENDAT_WITHPREFIX);
+            }
+
+            // link dimensions
+            Object constructionType = properties.get(ClassificationConstants.CONSTRUCTION_TYPE);
+            if (constructionType != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, constructionType.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants.RELATION_CONSTRUCTION_TYPE_WITH_PREFIX);
+                }
+            }
+
+            Object assignModel = properties.get(ClassificationConstants.ASSIGN_MODEL);
+            if (assignModel != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_ASSIGN_MODEL_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, assignModel.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants.RELATION_ASSIGN_MODEL_WITH_PREFIX);
+                }
+            }
+
+            Object issueClassification = properties.get(ClassificationConstants
+                    .ISSUE_CLASSIFICATION);
+            if (issueClassification != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, issueClassification.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants.RELATION_ISSUE_CLASSIFICATION_WITH_PREFIX);
+                }
+            }
+
+            Object landProperty = properties.get(ClassificationConstants.LAND_PROPERTY);
+            if (landProperty != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_LAND_PROPERTY_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, landProperty.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants.RELATION_LAND_PROPERTY_WITH_PREFIX);
+                }
+            }
+
+            Object projectClassification = properties.get(ClassificationConstants
+                    .PROJECT_CLASSIFICATION);
+            if (projectClassification != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, projectClassification.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants
+                                    .RELATION_PROJECT_CLASSIFICATION_WITH_PREFIX);
+                }
+            }
+
+            Object projectSiteClassification = properties.get(ClassificationConstants
+                    .PROJECT_SITE_CLASSIFICATION);
+            if (projectSiteClassification != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants
+                                        .DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, projectSiteClassification.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants
+                                    .RELATION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX);
+                }
+            }
+
+            Object projectScope = properties.get(ClassificationConstants.PROJECT_SCOPE);
+            if (projectScope != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_PROJECT_SCOPE_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, projectScope.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants.RELATION_PROJECT_SCOPE_WITH_PREFIX);
+                }
+            }
+
+            // link project to projectConstructionClassification
+            Object projectConstructionClassification = properties.get(ClassificationConstants
+                    .PROJECT_CONSTRUCTION_CLASSIFICATION);
+            if (projectConstructionClassification != null) {
+                Dimension dimension = dimensionGenerator.getDimension(SupervisionSolutionConstants
+                        .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX, Constants
+                        .DIMENSION_NAME, projectConstructionClassification.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants
+                                    .RELATION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX);
+                }
+            }
+
+            Object projectAddress = properties.get(ClassificationConstants.PROJECT_ADDRESS);
+            if (projectAddress != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, projectAddress.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(progressFact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants.RELATION_PROJECT_ADDRESS_AT_WITH_PREFIX);
+                }
             }
 
         } catch (InfoDiscoveryEngineRuntimeException e) {
@@ -456,7 +556,7 @@ public class ProgressSampleDataGenerator {
             relationManager.attachTaskToProgress(progressFact, taskTact,
                     SupervisionSolutionConstants.RELATION_PROGRESS_HASTASK_WITH_PREFIX);
 
-            // link user to task
+            // link worker to task
             String userId = properties.get(JsonConstants.WORKER_ID).toString();
             UserManager userManager = new UserManager();
             Dimension userDimension = userManager.getUserById(ids.getInformationExplorer(),
@@ -466,25 +566,22 @@ public class ProgressSampleDataGenerator {
 
             // link executive department to task
             String departmentId = properties.get(JsonConstants.EXECUTIVE_DEPARTMENT_ID).toString();
+            Dimension departmentDimension = new SampleDimensionGenerator(ids).getDimension
+                    (SupervisionSolutionConstants.DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX,
+                            Constants.DIMENSION_ID, departmentId);
+            if (departmentDimension != null) {
+                relationManager.attachRoleToTask(taskTact, departmentDimension,
+                        SupervisionSolutionConstants.RELATION_TASK_EXECUTEBYDEPARTMENT_WITH_PREFIX);
+            }
 
-            ExploreParameters ep = new ExploreParameters();
-            ep.setType(SupervisionSolutionConstants.DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX);
-            ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_ID,
-                    departmentId));
-            Dimension departmentDimension = QueryExecutor.executeDimensionQuery(ids
-                    .getInformationExplorer(), ep);
-
-            relationManager.attachRoleToTask(taskTact, departmentDimension,
-                    SupervisionSolutionConstants.RELATION_TASK_EXECUTEBYDEPARTMENT_WITH_PREFIX);
-
-            // link startTime to task
+            // link startDate to task
             DayDimensionVO dayDimension = getDayDimension(SupervisionSolutionConstants
                     .SOLUTION_PREFIX, (Date)
                     properties.get(JsonConstants.START_DATE));
             relationManager.attachTimeToTask(ids, taskTact, dayDimension, ProgressConstants
                     .RELATIONTYPE_STARTAT_WITHPREFIX);
 
-            // link endTime to task
+            // link endDate to task
             if (properties.get(JsonConstants.END_DATE) != null) {
                 dayDimension = getDayDimension(SupervisionSolutionConstants.SOLUTION_PREFIX,
                         (Date) properties.get(JsonConstants.END_DATE));
@@ -492,161 +589,89 @@ public class ProgressSampleDataGenerator {
                         .RELATIONTYPE_ENDAT_WITHPREFIX);
             }
 
-            // link dimensions
-            String dimensionName = "";
-            String dimensionTypeName = "";
-            String relationType = "";
-
-            RelationshipManager relationshipManager = new RelationshipManager();
-
-            if (properties.get(ClassificationConstants.CONSTRUCTION_TYPE) != null) {
-                dimensionName = properties.get(ClassificationConstants.CONSTRUCTION_TYPE)
-                        .toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants.RELATION_CONSTRUCTION_TYPE_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                            .DIMENSION_NAME, dimensionName, dimensionTypeName, relationType);
+            // link to company classification
+            SampleDimensionGenerator dimensionGenerator = new SampleDimensionGenerator(ids);
+            Object companyClassification = properties.get(ClassificationConstants
+                    .COMPANY_CLASSIFICATION);
+            if (companyClassification != null) {
+                Dimension dimension = dimensionGenerator.getDimension
+                        (SupervisionSolutionConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
+                                Constants.DIMENSION_NAME, companyClassification.toString());
+                if (dimension != null) {
+                    ids.attachFactToDimension(taskTact.getId(), dimension.getId(),
+                            SupervisionSolutionConstants
+                                    .RELATION_COMPANY_CLASSIFICATION_WITH_PREFIX);
                 }
             }
 
-            if (properties.get(ClassificationConstants.COMPANY_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.COMPANY_CLASSIFICATION)
-                        .toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants
-                        .RELATION_COMPANY_CLASSIFICATION_WITH_PREFIX;
+            // execute by company
+            Object biddingAgency = properties.get("biddingAgency");
+            if (biddingAgency != null) {
+                executeByCompany(ids, taskTact.getId(), biddingAgency.toString());
+            }
 
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                            .DIMENSION_NAME, dimensionName, dimensionTypeName, relationType);
-                }
+            Object projectPlanMakingCompany = properties.get("projectPlanMakingCompany");
+            if (projectPlanMakingCompany != null) {
+                executeByCompany(ids, taskTact.getId(), projectPlanMakingCompany.toString());
             }
-            if (properties.get(ClassificationConstants.ASSIGN_MODEL) != null) {
-                dimensionName = properties.get(ClassificationConstants.ASSIGN_MODEL).toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_ASSIGN_MODEL_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants.RELATION_ASSIGN_MODEL_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(),
-                            Constants.DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            Object surveyCompany = properties.get("surveyCompany");
+            if (surveyCompany != null) {
+                executeByCompany(ids, taskTact.getId(), surveyCompany.toString());
             }
-//            else if (properties.get("executiveDepartment") != null) {
-//                dimensionId = properties.get("executiveDepartment").toString();
-//                dimensionTypeName = SupervisionSolutionConstants
-//                        .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX;
-//                relationType = SupervisionSolutionConstants
-//                        .RELATION_TASK_EXECUTEBYDEPARTMENT_WITH_PREFIX;
-//            if (dimensionId != "" && dimensionTypeName != "" && relationType != "") {
-//                relationshipManager.attachFactToDimension(ids, taskTact.getId(), dimensionId,
-//                        dimensionTypeName, relationType);
-//            }
-//            }
-            if (properties.get(ClassificationConstants.ISSUE_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.ISSUE_CLASSIFICATION)
-                        .toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants
-                        .RELATION_ISSUE_CLASSIFICATION_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(),
-                            Constants.DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            Object designCompany = properties.get("designCompany");
+            if (designCompany != null) {
+                executeByCompany(ids, taskTact.getId(), designCompany.toString());
             }
-            if (properties.get(ClassificationConstants.LAND_PROPERTY) != null) {
-                dimensionName = properties.get(ClassificationConstants.LAND_PROPERTY).toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_LAND_PROPERTY_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants.RELATION_LAND_PROPERTY_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                                    .DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            Object costConsultationCompany = properties.get("costConsultationCompany");
+            if (costConsultationCompany != null) {
+                executeByCompany(ids, taskTact.getId(), costConsultationCompany.toString());
             }
-            if (properties.get(ClassificationConstants.ASSET_FIRST_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants
-                        .ASSET_FIRST_CLASSIFICATION).toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants
-                        .RELATION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                                    .DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            Object constructionCompany = properties.get("constructionCompany");
+            if (constructionCompany != null) {
+                executeByCompany(ids, taskTact.getId(), constructionCompany.toString());
             }
-            if (properties.get(ClassificationConstants.ASSET_SECOND_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants
-                        .ASSET_SECOND_CLASSIFICATION).toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants
-                        .RELATION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                                    .DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            Object supervisionCompany = properties.get("supervisionCompany");
+            if (supervisionCompany != null) {
+                executeByCompany(ids, taskTact.getId(), supervisionCompany.toString());
             }
-            if (properties.get(ClassificationConstants.PROJECT_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants.PROJECT_CLASSIFICATION)
-                        .toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants
-                        .RELATION_PROJECT_CLASSIFICATION_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                                    .DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            // is in charge of
+            Object biddingAgencyLeader = properties.get("biddingAgencyLeader");
+            if (biddingAgencyLeader != null) {
+                isInChargeOf(ids, taskTact.getId(), biddingAgencyLeader.toString());
             }
-            if (properties.get(ClassificationConstants.PROJECT_SITE_CLASSIFICATION) != null) {
-                dimensionName = properties.get(ClassificationConstants
-                        .PROJECT_SITE_CLASSIFICATION).toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants
-                        .RELATION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                                    .DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            Object consultationCompanyLeader = properties.get("consultationCompanyLeader");
+            if (consultationCompanyLeader != null) {
+                isInChargeOf(ids, taskTact.getId(), consultationCompanyLeader.toString());
             }
-            if (properties.get(ClassificationConstants.PROJECT_SCOPE) != null) {
-                dimensionName = properties.get(ClassificationConstants.PROJECT_SCOPE).toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_PROJECT_SCOPE_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants.RELATION_PROJECT_SCOPE_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                                    .DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+
+            Object surveyCompanyLeader = properties.get("surveyCompanyLeader");
+            if (surveyCompanyLeader != null) {
+                isInChargeOf(ids, taskTact.getId(), surveyCompanyLeader.toString());
             }
-            if (properties.get(ClassificationConstants.PROJECT_CONSTRUCTION_CLASSIFICATION) !=
-                    null) {
-                dimensionName = properties.get(ClassificationConstants
-                        .PROJECT_CONSTRUCTION_CLASSIFICATION).toString();
-                dimensionTypeName = SupervisionSolutionConstants
-                        .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX;
-                relationType = SupervisionSolutionConstants
-                        .RELATION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX;
-                if (dimensionName != "" && dimensionTypeName != "" && relationType != "") {
-                    relationshipManager.attachFactToDimension(ids, taskTact.getId(), Constants
-                                    .DIMENSION_NAME, dimensionName,
-                            dimensionTypeName, relationType);
-                }
+            Object designCompanyLeader = properties.get("designCompanyLeader");
+            if (designCompanyLeader != null) {
+                isInChargeOf(ids, taskTact.getId(), designCompanyLeader.toString());
             }
+            Object costConsultationCompanyLeader = properties.get("costConsultationCompanyLeader");
+            if (costConsultationCompanyLeader != null) {
+                isInChargeOf(ids, taskTact.getId(), costConsultationCompanyLeader.toString());
+            }
+            Object constructionCompanyLeader = properties.get("constructionCompanyLeader");
+            if (constructionCompanyLeader != null) {
+                isInChargeOf(ids, taskTact.getId(), constructionCompanyLeader.toString());
+            }
+            Object supervisionCompanyContact = properties.get("supervisionCompanyContact");
+            if (supervisionCompanyContact != null) {
+                isInChargeOf(ids, taskTact.getId(), supervisionCompanyContact.toString());
+            }
+
 
         } catch (InfoDiscoveryEngineRuntimeException e) {
             logger.error(e.getMessage());
@@ -655,6 +680,47 @@ public class ProgressSampleDataGenerator {
         }
 
         logger.info("Exit createNewOrUpdateTaskInstance()...");
+    }
+
+
+    private static void executeByCompany(InfoDiscoverSpace ids, String progressFactId, String
+            companyName) {
+
+        SampleDimensionGenerator dimensionGenerator = new SampleDimensionGenerator(ids);
+
+        Dimension dimension = dimensionGenerator.getDimension
+                (SupervisionSolutionConstants.DIMENSION_COMPANY_WITH_PREFIX,
+                        "companyName", companyName);
+        if (dimension != null) {
+            try {
+                ids.attachFactToDimension(progressFactId, dimension.getId(),
+                        SupervisionSolutionConstants.RELATION_EXECUTE_BY_COMPANY_WITH_PREFIX);
+            } catch (InfoDiscoveryEngineRuntimeException e) {
+                logger.error("Failed to add relationship executeByCompany: {} with error: ",
+                        companyName, e
+                                .getMessage());
+            }
+        }
+
+    }
+
+    private static void isInChargeOf(InfoDiscoverSpace ids, String progressFactId, String
+            userName) {
+
+        SampleDimensionGenerator dimensionGenerator = new SampleDimensionGenerator(ids);
+
+        Dimension dimension = dimensionGenerator.getDimension
+                (SupervisionSolutionConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX,
+                        "userName", userName);
+        if (dimension != null) {
+            try {
+                ids.attachFactToDimension(progressFactId, dimension.getId(),
+                        SupervisionSolutionConstants.RELATION_IN_CHARGE_OF_WITH_PREFIX);
+            } catch (InfoDiscoveryEngineRuntimeException e) {
+                logger.error("Failed to add relationship isInChargeOf: {} with error: ",
+                        userName, e.getMessage());
+            }
+        }
     }
 
 }

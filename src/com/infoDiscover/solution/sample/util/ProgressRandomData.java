@@ -3,6 +3,7 @@ package com.infoDiscover.solution.sample.util;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
+import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.sample.SampleDataSet;
 import com.infoDiscover.solution.construction.supervision.util.SampleFileUtil;
@@ -66,19 +67,12 @@ public class ProgressRandomData {
                                                  int sequence) {
         String progressType = "Progress";
         String progressId;
-        String starterId;
-        String starter;
-        Map<String, String> starterMap = SampleFileUtil.readStarter(SampleDataSet
-                .FILE_STARTER);
-        Set<String> keySet = starterMap.keySet();
-        Iterator<String> it = keySet.iterator();
-        List<String> keys = new ArrayList<>();
-        while (it.hasNext()) {
-            keys.add(it.next());
-        }
-        int randomIndex = RandomUtil.generateRandomInRange(0, keys.size());
-        starterId = keys.get(randomIndex);
-        starter = starterMap.get(starterId);
+
+        // TODO: now get starter as member of "Property_Department"
+        String starterId = UserRoleDataImporter.selectRandomUserFromRole
+                (SampleDataSet.FILE_USER_DEPARTMENT, SampleDataSet.DEPARTMENT_OF_TASK2_OF_MAINTENANCE_PROJECT);
+        String starter = UserRoleDataImporter.getUserName(SampleDataSet
+                .FILE_USER, starterId);
 
         if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
             progressId = SampleDataSet.PROJECTNAME_MAINTANENCE + "_" + sequence;

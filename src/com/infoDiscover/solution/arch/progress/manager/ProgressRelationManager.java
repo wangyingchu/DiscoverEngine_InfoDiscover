@@ -188,6 +188,7 @@ public class ProgressRelationManager {
         return linkDimensionsByRelationType(fromAddress, toRoad,relationType);
     }
 
+
     private Relation linkFactToDimensionByRelationType(InfoDiscoverSpace ids, Fact fromFact,
                                                        Dimension
                                                                toDimension,
@@ -258,7 +259,7 @@ public class ProgressRelationManager {
         return null;
     }
 
-    private Relation linkDimensionsByRelationType(Dimension fromDimension,
+    public Relation linkDimensionsByRelationType(Dimension fromDimension,
                                                   Dimension toDimension,
                                                   String relationType) {
         logger.debug("Enter method linkDimensionsByRelationType() with fromDimensionId: " +

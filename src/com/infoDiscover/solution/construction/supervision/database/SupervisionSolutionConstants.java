@@ -101,9 +101,20 @@ public class SupervisionSolutionConstants {
     public final static String RELATION_IS_MEMBER_OF_COMPANY_WITH_PREFIX = SOLUTION_PREFIX +
             "IS_MEMBER_OF";
 
-    public final static String RELATION_IS_COMPANY_CLASSIFIACTION_WITH_PREFIX = SOLUTION_PREFIX +
+    public final static String RELATION_IS_COMPANY_CLASSIFICATION_WITH_PREFIX = SOLUTION_PREFIX +
             "IS_COMPANY_OF";
 
     public final static String RELATION_LOCATED_AT_ROAD_WITH_PREFIX = SOLUTION_PREFIX +
             "LOCATED_AT_ROAD";
+
+    public final static String RELATION_START_BY_WITH_PREFIX = SOLUTION_PREFIX +
+            "START_BY";
+
+    public final static String RELATION_PROJECT_ADDRESS_AT_WITH_PREFIX = SOLUTION_PREFIX +
+            "PROJECT_AT";
+
+    public final static String RELATION_IN_CHARGE_OF_WITH_PREFIX = SOLUTION_PREFIX +
+            "IS_IN_CHARGE_OF";
+    public final static String RELATION_EXECUTE_BY_COMPANY_WITH_PREFIX = SOLUTION_PREFIX +
+            "EXECUTE_BY_COMPANY";
 }

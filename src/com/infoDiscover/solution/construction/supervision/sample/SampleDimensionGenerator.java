@@ -49,10 +49,10 @@ public class SampleDimensionGenerator {
                     SampleDataSet.FILE_DIMENSION_ISSUE_CLASSIFICATION},
             {SupervisionSolutionConstants.DIMENSION_LAND_PROPERTY_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_LAND_PROPERTY},
-            {SupervisionSolutionConstants.DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX,
-                    SampleDataSet.FILE_DIMENSION_ASSET_FIRST_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX,
-                    SampleDataSet.FILE_DIMENSION_ASSET_SECOND_CLASSIFICATION},
+//            {SupervisionSolutionConstants.DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX,
+//                    SampleDataSet.FILE_DIMENSION_ASSET_FIRST_CLASSIFICATION},
+//            {SupervisionSolutionConstants.DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX,
+//                    SampleDataSet.FILE_DIMENSION_ASSET_SECOND_CLASSIFICATION},
             {SupervisionSolutionConstants.DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_PROJECT_CLASSIFICATION},
             {SupervisionSolutionConstants.DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX,
@@ -129,7 +129,8 @@ public class SampleDimensionGenerator {
         }
 
         // create project address
-        if (!ids.hasDimensionType(SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX)) {
+        if (!ids.hasDimensionType(SupervisionSolutionConstants
+                .DIMENSION_PROJECT_ADDRESS_WITH_PREFIX)) {
             DimensionType type = ids.addDimensionType(SupervisionSolutionConstants
                     .DIMENSION_PROJECT_ADDRESS_WITH_PREFIX);
             type.addTypeProperty(Constants.DIMENSION_ID, PropertyType.STRING);
@@ -204,30 +205,20 @@ public class SampleDimensionGenerator {
             logger.debug("departmentId: {}, departmentName: {}, userIds: {}", departmentId.trim(),
                     departmentName.trim(), userIds);
 
-            ExploreParameters ep = new ExploreParameters();
-            ep.setType(executiveDepartmentDimensionType);
-            ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_ID,
-                    departmentId));
+            Dimension department = getDepartment(executiveDepartmentDimensionType, departmentId);
 
-            try {
-                Dimension department = QueryExecutor.executeDimensionQuery(ids
-                        .getInformationExplorer(), ep);
-                ProgressRelationManager manager = new ProgressRelationManager(ids);
-                UserManager userManager = new UserManager();
-                for (String userId : userIds.split(",")) {
-                    try {
-                        Dimension user = userManager.getUserById(ids.getInformationExplorer(),
-                                userId.trim(), userDimensionType);
-                        manager.attachUserToExecuteDepartment(department, user, relationType);
-                    } catch (InfoDiscoveryEngineRuntimeException e) {
-                        logger.error("Failed to link user: {} to department: {}", userId,
-                                departmentId);
-                    }
+            ProgressRelationManager manager = new ProgressRelationManager(ids);
+            UserManager userManager = new UserManager();
+            for (String userId : userIds.split(",")) {
+                try {
+                    Dimension user = userManager.getUserById(ids.getInformationExplorer(),
+                            userId.trim(), userDimensionType);
+                    manager.attachUserToExecuteDepartment(department, user, relationType);
+                } catch (InfoDiscoveryEngineRuntimeException e) {
+                    logger.error("Failed to link user: {} to department: {}", userId,
+                            departmentId);
                 }
-            } catch (InfoDiscoveryEngineRuntimeException e) {
-                logger.error("Failed to get execute department: {}", e.getMessage());
             }
-
         }
 
         logger.debug("Exit method linkUsersToExecutiveDepartment()...");
@@ -281,7 +272,7 @@ public class SampleDimensionGenerator {
 
     public void createCompanyAndUsers(InfoDiscoverSpace ids) {
 
-        DimensionManager dimensionManager = new  DimensionManager(ids);
+        DimensionManager dimensionManager = new DimensionManager(ids);
         ProgressRelationManager relationManager = new ProgressRelationManager(ids);
 
         for (String[] array : DIMENSION_COMPANY_AND_USER_TO_CREATE) {
@@ -289,7 +280,7 @@ public class SampleDimensionGenerator {
             String file = array[1];
 
             // get company classification dimension
-            Dimension companyClassification = getCompanyClassification(ids, companyClassificationName);
+            Dimension companyClassification = getCompanyClassification(companyClassificationName);
             if (companyClassification != null) {
                 List<String> list = FileUtil.readLinesIntoList(file);
                 for (String line : list) {
@@ -297,7 +288,7 @@ public class SampleDimensionGenerator {
                     String userName = line.split("-")[1];
 
                     // check if the company is already existed
-                    Dimension company = getCompany(ids, companyName);
+                    Dimension company = getCompany(companyName);
                     if (company == null) {
                         // create the company
                         Map<String, Object> props = new HashMap<>();
@@ -311,7 +302,7 @@ public class SampleDimensionGenerator {
                     }
 
                     // check if the user is already existed
-                    Dimension externalUser = getExternalUser(ids, userName);
+                    Dimension externalUser = getExternalUser(userName);
                     if (externalUser == null) {
                         // create the external user
                         Map<String, Object> props = new HashedMap();
@@ -326,17 +317,17 @@ public class SampleDimensionGenerator {
                     }
 
                     // add external user as member of company
-                    if(externalUser != null && company != null) {
+                    if (externalUser != null && company != null) {
                         relationManager.addExternalUserToCompany(externalUser, company,
                                 SupervisionSolutionConstants
                                         .RELATION_IS_MEMBER_OF_COMPANY_WITH_PREFIX);
                     }
 
                     // link company to companyClassification
-                    if(company != null && companyClassification != null) {
+                    if (company != null && companyClassification != null) {
                         relationManager.addCompanyToClassification(company,
                                 companyClassification, SupervisionSolutionConstants
-                                        .RELATION_IS_COMPANY_CLASSIFIACTION_WITH_PREFIX);
+                                        .RELATION_IS_COMPANY_CLASSIFICATION_WITH_PREFIX);
                     }
 
                 }
@@ -344,96 +335,34 @@ public class SampleDimensionGenerator {
         }
     }
 
-    private Dimension getCompanyClassification(InfoDiscoverSpace ids, String
-            companyClassificationName) {
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(SupervisionSolutionConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_NAME,
-                companyClassificationName));
-
-        try {
-            return QueryExecutor.executeDimensionQuery(ids
-                    .getInformationExplorer(), ep);
-        } catch (InfoDiscoveryEngineRuntimeException e) {
-            logger.info("Failed to get companyClassification with companyClassificationName: {}",
-                    companyClassificationName);
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.info("Failed to get companyClassification with companyClassificationName: {}",
-                    companyClassificationName);
-        }
-
-        return null;
-    }
-
-    private Dimension getCompany(InfoDiscoverSpace ids, String
-            companyName) {
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(SupervisionSolutionConstants.DIMENSION_COMPANY_WITH_PREFIX);
-        ep.setDefaultFilteringItem(new EqualFilteringItem("companyName",
-                companyName));
-
-        try {
-            return QueryExecutor.executeDimensionQuery(ids
-                    .getInformationExplorer(), ep);
-        } catch (InfoDiscoveryEngineRuntimeException e) {
-            logger.info("Failed to get company with companyName: {}",
-                    companyName);
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.info("Failed to get company with companyName: {}",
-                    companyName);
-        }
-
-        return null;
-    }
-
-    private Dimension getExternalUser(InfoDiscoverSpace ids, String
-            userName) {
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(SupervisionSolutionConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX);
-        ep.setDefaultFilteringItem(new EqualFilteringItem("userName",
-                userName));
-
-        try {
-            return QueryExecutor.executeDimensionQuery(ids
-                    .getInformationExplorer(), ep);
-        } catch (InfoDiscoveryEngineRuntimeException e) {
-            logger.info("Failed to get externalUser with userName: {}",
-                    userName);
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.info("Failed to get externalUser with userName: {}",
-                    userName);
-        }
-
-        return null;
-    }
-
     public void createProjectAddressAndRoad(InfoDiscoverSpace ids) {
 
-        DimensionManager dimensionManager = new  DimensionManager(ids);
+        DimensionManager dimensionManager = new DimensionManager(ids);
         ProgressRelationManager relationManager = new ProgressRelationManager(ids);
 
         List<String> list = FileUtil.readLinesIntoList(SampleDataSet.FILE_PROJECT_ADDRESS);
 
-        for(String line: list) {
+        for (String line : list) {
             String projectAddress = line.split("_")[0];
             String road = line.split("_")[2];
 
             // check if project address is existed
-            Dimension projectAddressDimension = getProjectAddress(ids, projectAddress);
+            Dimension projectAddressDimension = getProjectAddress(projectAddress);
             if (projectAddressDimension == null) {
                 Map<String, Object> props = new HashedMap();
                 props.put(Constants.DIMENSION_NAME, projectAddress);
                 try {
                     projectAddressDimension = dimensionManager.createDimension
-                            (SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX, props);
+                            (SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX,
+                                    props);
                 } catch (InfoDiscoveryEngineRuntimeException e) {
                     logger.error("Failed to create projectAddress: {}", projectAddress);
                 }
             }
 
             // check if road is existed
-            Dimension roadDimension = getRoad(ids, road);
-            if(roadDimension == null) {
+            Dimension roadDimension = getRoad(road);
+            if (roadDimension == null) {
                 Map<String, Object> props = new HashMap<>();
                 props.put(Constants.DIMENSION_NAME, road);
                 try {
@@ -444,7 +373,7 @@ public class SampleDimensionGenerator {
                 }
             }
 
-            if(projectAddressDimension != null && roadDimension != null) {
+            if (projectAddressDimension != null && roadDimension != null) {
                 relationManager.addProjectAddressToRoad(projectAddressDimension, roadDimension,
                         SupervisionSolutionConstants.RELATION_LOCATED_AT_ROAD_WITH_PREFIX);
             }
@@ -452,45 +381,46 @@ public class SampleDimensionGenerator {
 
     }
 
-    private Dimension getProjectAddress(InfoDiscoverSpace ids, String
-            projectAddress) {
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_NAME,
-                projectAddress));
-
-        try {
-            return QueryExecutor.executeDimensionQuery(ids
-                    .getInformationExplorer(), ep);
-        } catch (InfoDiscoveryEngineRuntimeException e) {
-            logger.info("Failed to get projectAddress with projectAddress: {}",
-                    projectAddress);
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.info("Failed to get projectAddress with projectAddress: {}",
-                    projectAddress);
-        }
-
-        return null;
+    private Dimension getProjectAddress(String projectAddress) {
+        return getDimension(SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX, Constants.DIMENSION_NAME,
+                projectAddress);
     }
 
-    private Dimension getRoad(InfoDiscoverSpace ids, String
-            roadName) {
+    private Dimension getRoad(String roadName) {
+        return getDimension(SupervisionSolutionConstants.DIMENSION_ROAD_WITH_PREFIX, Constants.DIMENSION_NAME,
+                roadName);
+    }
+
+    public Dimension getUser(String userId) {
+        return getDimension(SupervisionSolutionConstants.DIMENSION_USER_WITH_PREFIX, "userId",
+                userId);
+    }
+
+    public Dimension getDepartment(String dimensionType, String departmentId) {
+        return getDimension(dimensionType, Constants.DIMENSION_ID, departmentId);
+    }
+
+    private Dimension getCompanyClassification(String companyClassificationName) {
+        return getDimension(SupervisionSolutionConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
+                Constants.DIMENSION_NAME, companyClassificationName);
+    }
+
+    private Dimension getCompany(String companyName) {
+        return getDimension(SupervisionSolutionConstants.DIMENSION_COMPANY_WITH_PREFIX,
+                "companyName", companyName);
+    }
+
+    private Dimension getExternalUser(String userName) {
+        return getDimension(SupervisionSolutionConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX,
+                "userName", userName);
+    }
+
+    public Dimension getDimension(String dimensionType, String key, String value) {
+
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SupervisionSolutionConstants.DIMENSION_ROAD_WITH_PREFIX);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(Constants.DIMENSION_NAME,
-                roadName));
+        ep.setType(dimensionType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(key, value));
 
-        try {
-            return QueryExecutor.executeDimensionQuery(ids
-                    .getInformationExplorer(), ep);
-        } catch (InfoDiscoveryEngineRuntimeException e) {
-            logger.info("Failed to get road with roadName: {}",
-                    roadName);
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
-            logger.info("Failed to get road with roadName: {}",
-                    roadName);
-        }
-
-        return null;
+        return QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
     }
 }
