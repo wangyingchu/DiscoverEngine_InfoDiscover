@@ -325,6 +325,8 @@ public class SampleDataSet {
     public final static String FILE_Supervisor_COMPANY = ROOT_PATH + "/data/监理单位-user.txt";
     public final static String FILE_Design_COMPANY = ROOT_PATH + "/data/设计单位-user.txt";
     public final static String FILE_CostConsulting_COMPANY = ROOT_PATH + "/data/造价咨询单位-user.txt";
+    public final static String FILE_BudgetEstimate_COMPANY = ROOT_PATH + "/data/概算审核单位-user.txt";
+
 
     public final static String FILE_PROJECT_LEADER = ROOT_PATH + "/data/项目负责人.txt";
     public final static String FILE_BUDGET_AUDIT_LEADER = ROOT_PATH + "/data/预算审核负责人.txt";
@@ -341,6 +343,37 @@ public class SampleDataSet {
     public final static String FILE_SITE_INSPECT_PLACE = ROOT_PATH + "/data/现场巡查地点.txt";
     public final static String FILE_FINAL_ACCEPTANCE_MEMBERS = ROOT_PATH +
             "/data/验收人员名单.txt";
+
+    public final static String FILE_BIDDING_AGENCY_CONTRACT_APPROVER = ROOT_PATH +
+            "/data/招标代理合同审批人.txt";
+    public final static String FILE_CONSULTING_CONTRACT_APPROVER = ROOT_PATH +
+            "/data/咨询合同审批人.txt";
+    public final static String FILE_FEASIBILITY_REPORT_APPROVER = ROOT_PATH +
+            "/data/可研报告批复人.txt";
+    public final static String FILE_SURVEY_CONTRACT_APPROVER = ROOT_PATH +
+            "/data/勘察合同审批人.txt";
+    public final static String FILE_DESIGN_CONTRACT_APPROVER = ROOT_PATH +
+            "/data/设计合同审批人.txt";
+    public final static String FILE_COST_CONSULTING_CONTRACT_APPROVER = ROOT_PATH +
+            "/data/造价咨询合同审批人.txt";
+
+    public final static String FILE_SURVEY_DESIGN_MEMBER = ROOT_PATH +
+            "/data/勘察设计人员-user.txt";
+    public final static String FILE_SURVEY_TECHNICAL_MEMBER = ROOT_PATH +
+            "/data/勘察技术人员-user.txt";
+
+    public final static String FILE_PROJECT_BUDGET_AUDIT_LEADER = ROOT_PATH +
+            "/data/工程预算审核负责人.txt";
+    public final static String FILE_PROJECT_BUDGET_APPROVER_LEADER = ROOT_PATH +
+            "/data/工程预算审批负责人.txt";
+
+    public final static String FILE_CONSTRUCTION_CONTACT = ROOT_PATH +
+            "/data/施工单位联系人.txt";
+    public final static String FILE_CONSTRUCTION_CONTRACT_APPROVER = ROOT_PATH +
+            "/data/施工合同审批人.txt";
+    public final static String FILE_FINAL_ACCEPTANCE_COMPANY = ROOT_PATH +
+            "/data/验收单位.txt";
+
 
 
     public final static String FILE_MAINTENACE_PROJECT_TASKS = ROOT_PATH + "/data/维修工程-任务.txt";

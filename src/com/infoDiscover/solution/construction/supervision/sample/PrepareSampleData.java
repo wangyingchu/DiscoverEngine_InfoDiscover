@@ -60,14 +60,14 @@ public class PrepareSampleData {
         ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
                 countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
 
-//        ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
-//                countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
-//
-//        ProgressSampleDataGenerator.generateExtensionProjectSampleData(ids,
-//                countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
-//
-//        ProgressSampleDataGenerator.generateRebuildProjectSampleData(ids,
-//                countOfRebuildProgressToGenerate, toGenerateRandomTasksNumber);
+        ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
+                countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
+
+        ProgressSampleDataGenerator.generateExtensionProjectSampleData(ids,
+                countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
+
+        ProgressSampleDataGenerator.generateRebuildProjectSampleData(ids,
+                countOfRebuildProgressToGenerate, toGenerateRandomTasksNumber);
 
         ids.closeSpace();
     }

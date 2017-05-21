@@ -68,6 +68,12 @@ public class SampleFileUtil {
         }
         return readValuesFromFile(file,"-");
     }
+    public static Map<String, String> readBudgetEstimateCompany(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_BudgetEstimate_COMPANY;
+        }
+        return readValuesFromFile(file,"-");
+    }
 
     public static Map<String, String> readBiddingAgentCompany(String file) {
         if(file == null) {
@@ -152,6 +158,7 @@ public class SampleFileUtil {
         return FileUtil.readLinesIntoList(file);
     }
 
+
     public static List<String> readSiteInspector(String file) {
         if(file == null) {
             file = SampleDataSet.FILE_SITE_INSPECTOR;
@@ -166,11 +173,100 @@ public class SampleFileUtil {
         return FileUtil.readLinesIntoList(file);
     }
 
+    public static List<String> readFinalAcceptanceCompany(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_FINAL_ACCEPTANCE_COMPANY;
+        }
+        return FileUtil.readLinesIntoList(file);
+    }
+
     public static String readFinalAcceptanceMembers(String file) {
         if(file == null) {
             file = SampleDataSet.FILE_FINAL_ACCEPTANCE_MEMBERS;
         }
         return FileUtil.readLinesIntoList(file).get(0);
+    }
+
+    public static Map<String, String> readBiddingAgencyContractApprover(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_BIDDING_AGENCY_CONTRACT_APPROVER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readCostConsultingContractApprover(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_COST_CONSULTING_CONTRACT_APPROVER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readConstructionContactAndPhone(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_CONSTRUCTION_CONTACT;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readProjectBudgetAuditLeader(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_PROJECT_BUDGET_AUDIT_LEADER;
+        }
+        return readValuesFromFile(file,",");
+    }
+    public static Map<String, String> readProjectBudgetApproverLeader(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_PROJECT_BUDGET_APPROVER_LEADER;
+        }
+        return readValuesFromFile(file,",");
+    }
+    public static Map<String, String> readConstructionContractApprover(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_CONSTRUCTION_CONTRACT_APPROVER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readSurveyContractApprover(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_SURVEY_CONTRACT_APPROVER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readConsultingContractApprover(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_CONSULTING_CONTRACT_APPROVER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readDesignContractApprover(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_DESIGN_CONTRACT_APPROVER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readSurveyDesignMember(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_SURVEY_DESIGN_MEMBER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readSurveryTechinicalMember(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_SURVEY_TECHNICAL_MEMBER;
+        }
+        return readValuesFromFile(file,",");
+    }
+
+    public static Map<String, String> readFeasibleReportApprover(String file) {
+        if(file == null) {
+            file = SampleDataSet.FILE_FEASIBILITY_REPORT_APPROVER;
+        }
+        return readValuesFromFile(file,",");
     }
 
     public static Map<String, String> readValuesFromFile(String file, String separator){

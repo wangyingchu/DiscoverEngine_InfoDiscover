@@ -153,11 +153,20 @@ public class ProgressSampleDataGenerator {
                         .generateTasksRandomData(projectJsonTemplate, projectType, progressId,
                                 startDateLongValue, firstNumberOfTasksToGenerate);
 
+                // generate progress name
                 Map<String, Object> task1 = tasksPropertiesArray[0];
-                String issue = task1.get(ClassificationConstants.ISSUE_CLASSIFICATION).toString();
-                DateTime dateTime = DateUtil.getDateTime(startDateLongValue);
-                String progressName = progressProperties.get(JsonConstants.PROGRESS_TYPE) + "_" +
-                        issue + "_" + dateTime.toString().substring(0,10);
+                String dateTime = DateUtil.getDateTime(startDateLongValue).toString().substring
+                        (0, 10);
+                String progressName = progressProperties.get(JsonConstants.PROGRESS_TYPE)
+                        .toString();
+                if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+                    String issue = task1.get(ClassificationConstants.ISSUE_CLASSIFICATION)
+                            .toString();
+                    progressName += "_" + issue + "_" + dateTime;
+                } else {
+                    String projectAddress = task1.get("projectAddress").toString();
+                    progressName += "_" + projectAddress + "_" + dateTime;
+                }
                 progressProperties.put(JsonConstants.PROGRESS_NAME, progressName);
 
                 // Append task properties to progress
@@ -219,7 +228,7 @@ public class ProgressSampleDataGenerator {
         }
 
         String progressType = progressProperties.get(JsonConstants.PROGRESS_TYPE).toString();
-        Map<String,String> taskNameMap = new HashMap<>();
+        Map<String, String> taskNameMap = new HashMap<>();
         if (progressType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
             taskNameMap = SampleFileUtil.readMaintenaceProjectTasks(null);
         } else {
@@ -288,7 +297,9 @@ public class ProgressSampleDataGenerator {
             progressProperties.put(taskName + "_worker", worker);
             progressProperties.put(taskName + "_executiveDepartmentId", executiveDepartmentId);
             progressProperties.put(taskName + "_executiveDepartment", executiveDepartment);
-            progressProperties.put(taskName + "_companyClassification", companyClassification);
+            if (companyClassification != null && !companyClassification.trim().isEmpty()) {
+                progressProperties.put(taskName + "_companyClassification", companyClassification);
+            }
         }
 
         return progressProperties;

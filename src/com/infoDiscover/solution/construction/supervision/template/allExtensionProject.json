@@ -453,11 +453,6 @@
                             "propertyType": "String"
                         },
                         {
-                            "propertyName": "feasibilityReportCompletionDate",
-                            "propertyValue": "",
-                            "propertyType": "Date"
-                        },
-                        {
                             "propertyName": "feasibilityReportApprovalDate",
                             "propertyValue": "",
                             "propertyType": "Date"
@@ -532,11 +527,6 @@
                             "propertyName": "projectProposalNumber",
                             "propertyValue": "项目建议书编号",
                             "propertyType": "String"
-                        },
-                        {
-                            "propertyName": "projectProposalCompletionDate",
-                            "propertyValue": "",
-                            "propertyType": "Date"
                         },
                         {
                             "propertyName": "projectProposalApprovalDate",
@@ -890,7 +880,7 @@
                         {
                             "propertyName": "undergroundBuildingArea",
                             "propertyValue": "地下建筑面积",
-                            "propertyType": "String"
+                            "propertyType": "Double"
                         },
                         {
                             "propertyName": "greeningRatio",
