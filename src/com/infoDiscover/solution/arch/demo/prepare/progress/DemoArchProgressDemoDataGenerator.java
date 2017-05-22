@@ -19,8 +19,8 @@ import com.infoDiscover.solution.arch.progress.constants.ProgressConstants;
 import com.infoDiscover.solution.arch.progress.manager.*;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.RandomData;
-import com.infoDiscover.solution.sample.util.JsonConstants;
-import com.infoDiscover.solution.sample.util.ProgressRandomData;
+import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
+import com.infoDiscover.solution.construction.supervision.sample.ProgressSampleDataGenerator;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +67,7 @@ public class DemoArchProgressDemoDataGenerator {
             }
 
             long startDate = RandomData.getRandomTime(2010, 2016, 0);
-            Map<String, Object> progressProperties = ProgressRandomData
+            Map<String, Object> progressProperties = ProgressSampleDataGenerator
                     .generateProgressRandomData(projectTemplate, projectType, getProjectName
                             (projectType), DateUtil.getDateTime(startDate).toDate(), i);
 
@@ -242,14 +242,14 @@ public class DemoArchProgressDemoDataGenerator {
 
         String progressId = properties.get("progressId").toString();
 
-        ProgressManager progressManager = new ProgressManager();
+        DemoProgressManager demoProgressManager = new DemoProgressManager();
         try {
 
             // remove type from properties
             properties.remove("type");
 
             // create or update fact
-            Fact progressFact = progressManager.getProgressById(ie, progressId, factType);
+            Fact progressFact = demoProgressManager.getProgressById(ie, progressId, factType);
             FactManager factManager = new FactManager(ids);
             if (progressFact == null) {
                 factManager.createFact(factType, properties);
@@ -275,8 +275,6 @@ public class DemoArchProgressDemoDataGenerator {
             }
 
         } catch (InfoDiscoveryEngineRuntimeException e) {
-            logger.error(e.getMessage());
-        } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error(e.getMessage());
         }
 
@@ -322,7 +320,7 @@ public class DemoArchProgressDemoDataGenerator {
 
         String progressId = properties.get("progressId").toString();
         String taskId = properties.get("taskId").toString();
-        TaskManager taskManager = new TaskManager();
+        DemoTaskManager taskManager = new DemoTaskManager();
         try {
             String taskFactType = getFact(properties.get(JsonConstants.JSON_TYPE).toString());
             logger.info("Fact type is: {}", taskFactType);
@@ -341,8 +339,8 @@ public class DemoArchProgressDemoDataGenerator {
 
             // link tasks to progress
             ProgressRelationManager relationManager = new ProgressRelationManager(ids);
-            ProgressManager progressManager = new ProgressManager();
-            Fact progressFact = progressManager.getProgressById(ids.getInformationExplorer(),
+            DemoProgressManager demoProgressManager = new DemoProgressManager();
+            Fact progressFact = demoProgressManager.getProgressById(ids.getInformationExplorer(),
                     progressId,progressFactType);
             relationManager.attachTaskToProgress(progressFact, taskTact,
                     ProgressConstants.RELATIONTYPE_PROGRESS_HASTASK_WITHPREFIX);

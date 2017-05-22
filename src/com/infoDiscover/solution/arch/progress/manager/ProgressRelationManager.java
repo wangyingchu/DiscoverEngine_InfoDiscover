@@ -45,9 +45,9 @@ public class ProgressRelationManager {
 
         for (String taskId : taskIds) {
             try {
-                Fact progress = new ProgressManager().getProgressById(ie, progressId,
+                Fact progress = new DemoProgressManager().getProgressById(ie, progressId,
                         progressFactType);
-                Fact task = new TaskManager().getTaskById(ie, taskId, taskFactType);
+                Fact task = new DemoTaskManager().getTaskById(ie, taskId, taskFactType);
 
                 linkFactsByRelationType(ids, progress, task, relationType);
             } catch (InfoDiscoveryEngineRuntimeException e) {
@@ -84,12 +84,12 @@ public class ProgressRelationManager {
                 " " +
                 "dayDimension: " + dayDimension.toString());
 
-        ProgressManager progressManager = new ProgressManager();
+        DemoProgressManager demoProgressManager = new DemoProgressManager();
 
         InformationExplorer ie = ids.getInformationExplorer();
 
         try {
-            Fact progress = progressManager.getProgressById(ie, progressId, progressFactType);
+            Fact progress = demoProgressManager.getProgressById(ie, progressId, progressFactType);
 
             Dimension day = getDayDimension(ids, ie, dayDimension);
 

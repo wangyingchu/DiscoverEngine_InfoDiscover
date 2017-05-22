@@ -21,15 +21,21 @@ public class DimensionManager {
     }
 
     public Dimension createDimension(String type, Map<String,
-            Object> properties) throws InfoDiscoveryEngineRuntimeException {
-        logger.debug("Enter method createDimension() with InfoDiscoverSpace: " + ids +
-                " and type: " + type +
-                " and properties: " + properties);
-        Dimension dimension = DiscoverEngineComponentFactory.createDimension(type);
-        dimension = ids.addDimension(dimension);
-        dimension.addProperties(properties);
+            Object> properties) {
+        logger.debug("Enter method createDimension() with InfoDiscoverSpace: {}" +
+                " and type: {}" +
+                " and properties: {}", ids, type, properties);
+        try {
+            Dimension dimension = DiscoverEngineComponentFactory.createDimension(type);
+            dimension = ids.addDimension(dimension);
+            dimension.addProperties(properties);
+            return dimension;
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            logger.error("Failed to create dimension: {}", e.getMessage());
+        }
+
         logger.debug("Exit createNewOrUpdateFact()...");
-        return dimension;
+        return null;
     }
 
     public Dimension updateDimension(Dimension dimension, Map<String, Object> properties) throws

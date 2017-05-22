@@ -5,10 +5,9 @@ import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
-import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
-import com.infoDiscover.solution.construction.supervision.util.SampleFileUtil;
-import com.infoDiscover.solution.sample.util.JsonConstants;
-import com.infoDiscover.solution.sample.util.ProgressJsonParser;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
+import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
+import com.infoDiscover.solution.construction.supervision.util.ProgressJsonParser;
 import org.codehaus.jackson.JsonNode;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -92,7 +91,7 @@ public class TaskSampleDataGenerator {
 
             tasksArray[i] = properties;
 
-            startDate = ((Date) properties.get(JsonConstants.END_DATE)).getTime();
+            startDate = ((Date) properties.get(JsonConstants.JSON_END_DATE)).getTime();
         }
 
         logger.info("Exit method generateMainProjectTasksRandomData()...");
@@ -107,10 +106,10 @@ public class TaskSampleDataGenerator {
             int taskSequence) {
 
 //        properties.put(JsonConstants.JSON_TYPE, "Task");
-        properties.put(JsonConstants.PROGRESS_ID, progressId);
+        properties.put(JsonConstants.JSON_PROGRESS_ID, progressId);
         String taskName = getTasksList(projectType)[taskSequence];
-        properties.put(JsonConstants.TASK_NAME, taskName);
-        properties.put(JsonConstants.TASK_ID, progressId + "_" + taskName + "_" + (taskSequence +
+        properties.put(JsonConstants.JSON_TASK_NAME, taskName);
+        properties.put(JsonConstants.JSON_TASK_ID, progressId + "_" + taskName + "_" + (taskSequence +
                 1));
 
         // TODO: update attachment
@@ -127,21 +126,21 @@ public class TaskSampleDataGenerator {
             departmentName = SampleDataSet.DEPARTMENT_NAMES_TO_ASSIGN_TASK[randomIndex];
         }
 
-        properties.put(JsonConstants.EXECUTIVE_DEPARTMENT_ID, departmentId);
-        properties.put(JsonConstants.EXECUTIVE_DEPARTMENT, departmentName);
+        properties.put(JsonConstants.JSON_EXECUTIVE_DEPARTMENT_ID, departmentId);
+        properties.put(JsonConstants.JSON_EXECUTIVE_DEPARTMENT, departmentName);
         String userId = UserRoleDataImporter.selectRandomUserFromRole
                 (SampleDataSet.FILE_USER_DEPARTMENT, departmentId);
-        properties.put(JsonConstants.WORKER_ID, userId);
-        properties.put(JsonConstants.WORKER, UserRoleDataImporter.getUserName(SampleDataSet
+        properties.put(JsonConstants.JSON_WORKER_ID, userId);
+        properties.put(JsonConstants.JSON_WORKER, UserRoleDataImporter.getUserName(SampleDataSet
                 .FILE_USER, userId));
 
         // 1~9 中取随机数
         long taskStartDate = DateUtil.getLongDateValue(startDate, RandomUtil
                 .generateRandomInRange(1, 9));
-        properties.put(JsonConstants.START_DATE, DateUtil.getDateTime(taskStartDate).toDate());
+        properties.put(JsonConstants.JSON_START_DATE, DateUtil.getDateTime(taskStartDate).toDate());
         long taskEndDate = DateUtil.getLongDateValue(taskStartDate, RandomUtil
                 .generateRandomInRange(10, 40));
-        properties.put(JsonConstants.END_DATE, DateUtil.getDateTime(taskEndDate).toDate());
+        properties.put(JsonConstants.JSON_END_DATE, DateUtil.getDateTime(taskEndDate).toDate());
 
         logger.debug("properties: {}", properties);
         return properties;
@@ -176,7 +175,7 @@ public class TaskSampleDataGenerator {
     private static void updateMaintenanceProjectTasksPropertyValue(Map<String, Object>
                                                                            taskProperties) {
         // task1 of maintenance project
-        String taskName = taskProperties.get(JsonConstants.TASK_NAME).toString();
+        String taskName = taskProperties.get(JsonConstants.JSON_TASK_NAME).toString();
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK1_OF_MAINTENANCE_PROJECT)) {
             Map<String, String> issueReporterMap = SampleFileUtil.readIssueReporterAndPhone
                     (SampleDataSet.FILE_ISSUE_REPORTER);
@@ -187,8 +186,8 @@ public class TaskSampleDataGenerator {
             String issueReporterPhone = issueReporterMap.get(issueReporter);
             String applyDepartment = "第三方物业管理公司";
 
-            String issueClassification = taskProperties.get(ClassificationConstants
-                    .ISSUE_CLASSIFICATION).toString();
+            String issueClassification = taskProperties.get(JsonConstants
+                    .JSON_ISSUE_CLASSIFICATION).toString();
             String issueDescription = SampleFileUtil.selectIssueDescription(SampleDataSet
                     .FILE_ISSUE_DESCRIPTION, issueClassification);
 
@@ -206,7 +205,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("applyDepartment", applyDepartment);
             taskProperties.put("projectAddress", projectAddress);
             taskProperties.put("projectName", projectName);
-            taskProperties.put(ClassificationConstants.PROJECT_CONSTRUCTION_CLASSIFICATION,
+            taskProperties.put(JsonConstants.JSON_PROJECT_CONSTRUCTION_CLASSIFICATION,
                     SampleDataSet.PROJECTNAME_MAINTANENCE);
 
             taskProperties.put("estimatedDateOfInvestigation", getDateAfterStartDate
@@ -605,7 +604,7 @@ public class TaskSampleDataGenerator {
             taskProperties) {
 
         // task1 of new project
-        String taskName = taskProperties.get(JsonConstants.TASK_NAME).toString();
+        String taskName = taskProperties.get(JsonConstants.JSON_TASK_NAME).toString();
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK1_OF_NEW_PROJECT)) {
 //            录入项目发起数据,taskName,String
 //            项目名称,projectName,String
@@ -653,7 +652,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("latitude", longitudeMap.get("latitude"));
             taskProperties.put("longitude", longitudeMap.get("longitude"));
 
-            taskProperties.put(ClassificationConstants.PROJECT_CONSTRUCTION_CLASSIFICATION,
+            taskProperties.put(JsonConstants.JSON_PROJECT_CONSTRUCTION_CLASSIFICATION,
                     SampleDataSet.PROJECTTYPE_NEW);
 
         }
@@ -715,7 +714,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("biddingAgencyContractAssignDate", biddingAgencyContractAssignDate);
             taskProperties.put("biddingAgencyLeader", biddingAgencyLeader);
             taskProperties.put("biddingAgencyContractApprover", biddingAgencyContractApprover);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION, "招标代理单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "招标代理单位");
 
         }
 
@@ -757,7 +756,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("consultationCompanyLeader", consultationCompanyLeader);
             taskProperties.put("projectPlanMakingContractApprover",
                     projectPlanMakingContractApprover);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION, "咨询单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "咨询单位");
         }
         // task5 of new project
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK5_OF_NEW_PROJECT)) {
@@ -768,7 +767,7 @@ public class TaskSampleDataGenerator {
 //            可研报告开始日期,startDate,Date
 //            可研报告完成日期,endDate,Date
 //            可研报告批复日期,feasibilityReportApprovalDate,Date
-//            可研报告批复负责人,feasibilityReportApprover,Date
+//            可研报告批复负责人,feasibilityReportApprover,String
 //            经办人ID,workerId,String
 //            经办人,worker,String
 //            执行部门ID,executiveDepartmentId,String,Cost_Department
@@ -875,7 +874,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("surveyCompanyContractAssignDate", surveyCompanyContractAssignDate);
             taskProperties.put("surveyCompanyLeader", surveyCompanyLeader);
             taskProperties.put("surveyCompanyContractApprover", surveyCompanyContractApprover);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION, "勘察单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "勘察单位");
             taskProperties.put("latitude", longitudeMap.get("latitude"));
             taskProperties.put("longitude", longitudeMap.get("longitude"));
         }
@@ -951,7 +950,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("designCompanyLeader", designCompanyLeader);
             taskProperties.put("designContractApproveDate", designContractApproveDate);
             taskProperties.put("designContractApprover", designContractApprover);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION, "设计单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "设计单位");
         }
         // task10 of new project
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK10_OF_NEW_PROJECT)) {
@@ -1056,7 +1055,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("costConsultationCompanyLeader", costConsultationCompanyLeader);
             taskProperties.put("costConsultationContractApprover",
                     costConsultationContractApprover);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION, "造价咨询单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "造价咨询单位");
         }
         // task13 of new project
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK13_OF_NEW_PROJECT)) {
@@ -1165,7 +1164,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("constructionContractApprover", constructionContractApprover);
             taskProperties.put("constructionContractApprovalDate",
                     constructionContractApprovalDate);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION, "施工单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "施工单位");
         }
         // task16 of new project
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK16_OF_NEW_PROJECT)) {
@@ -1230,7 +1229,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("supervisionContactPhone", supervisionContactPhone);
             taskProperties.put("supervisionContractAuditor", supervisionContractAuditor);
             taskProperties.put("supervisionContractAuditDate", supervisionContractAuditDate);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION, "监理单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "监理单位");
         }
         // task17 of new project
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK17_OF_NEW_PROJECT)) {
@@ -1256,14 +1255,14 @@ public class TaskSampleDataGenerator {
             taskProperties.put("supervisionCompany",supervisionCompany);
             taskProperties.put("supervisionCompanyContact",supervisionCompanyContact);
             taskProperties.put("siteInspector",siteInspector);
-            taskProperties.put(ClassificationConstants.COMPANY_CLASSIFICATION,"监理单位");
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION,"监理单位");
 
         }
         // task18 of new project
         if (taskName.equalsIgnoreCase(SampleDataSet.TASK18_OF_NEW_PROJECT)) {
 //            录入月进度报告数据,taskName,String
 //            审核日期,auditDate,Date
-//            安全检测结果,securityCheckResult,Date
+//            安全检测结果,securityCheckResult,String
 //            月资金费用,monthlyCost,Double
 //            质量检测结果,qualityAssuranceResult,String
 //            经办人ID,workerId,String
@@ -1354,7 +1353,7 @@ public class TaskSampleDataGenerator {
     }
 
     private static Date getDateAfterStartDate(Map<String, Object> taskProperties, int afterDays) {
-        long startDateInLongValue = ((Date) taskProperties.get(JsonConstants.START_DATE))
+        long startDateInLongValue = ((Date) taskProperties.get(JsonConstants.JSON_START_DATE))
                 .getTime();
         long dateAfterStartDate = DateUtil.getLongDateValue(startDateInLongValue, afterDays);
         return DateUtil.getDateTime(dateAfterStartDate).toDate();
@@ -1372,37 +1371,37 @@ public class TaskSampleDataGenerator {
             taskProperties) {
         String dimensionTypeName = "";
         if (key.equalsIgnoreCase("constructionType")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("companyClassification")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("assignModel")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_ASSIGN_MODEL_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("issueClassification")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("landProperty")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_LAND_PROPERTY_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("assetFirstClassification")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("assetSecondClassification")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("projectClassification")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("projectSiteClassification")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("projectScope")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_SCOPE_WITH_PREFIX;
         } else if (key.equalsIgnoreCase("projectConstructionClassification")) {
-            dimensionTypeName = SupervisionSolutionConstants
+            dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX;
         }
 
@@ -1454,19 +1453,19 @@ public class TaskSampleDataGenerator {
 
     private static List<String> reservedStringPropertyNames() {
         List<String> reservedStringPropertyNames = new ArrayList<>();
-        reservedStringPropertyNames.add(ClassificationConstants.CONSTRUCTION_TYPE);
-        reservedStringPropertyNames.add(ClassificationConstants.COMPANY_CLASSIFICATION);
-        reservedStringPropertyNames.add(ClassificationConstants.ASSIGN_MODEL);
-        reservedStringPropertyNames.add(ClassificationConstants.EXECUTIVE_DEPARTMENT);
-        reservedStringPropertyNames.add(ClassificationConstants.ISSUE_CLASSIFICATION);
-        reservedStringPropertyNames.add(ClassificationConstants.LAND_PROPERTY);
-        reservedStringPropertyNames.add(ClassificationConstants.ASSET_FIRST_CLASSIFICATION);
-        reservedStringPropertyNames.add(ClassificationConstants.ASSET_SECOND_CLASSIFICATION);
-        reservedStringPropertyNames.add(ClassificationConstants.PROJECT_CLASSIFICATION);
-        reservedStringPropertyNames.add(ClassificationConstants.PROJECT_SITE_CLASSIFICATION);
-        reservedStringPropertyNames.add(ClassificationConstants.PROJECT_SCOPE);
-        reservedStringPropertyNames.add(ClassificationConstants
-                .PROJECT_CONSTRUCTION_CLASSIFICATION);
+        reservedStringPropertyNames.add(JsonConstants.JSON_CONSTRUCTION_TYPE);
+        reservedStringPropertyNames.add(JsonConstants.JSON_COMPANY_CLASSIFICATION);
+        reservedStringPropertyNames.add(JsonConstants.JSON_ASSIGN_MODEL);
+        reservedStringPropertyNames.add(JsonConstants.JSON_EXECUTIVE_DEPARTMENT);
+        reservedStringPropertyNames.add(JsonConstants.JSON_ISSUE_CLASSIFICATION);
+        reservedStringPropertyNames.add(JsonConstants.JSON_LAND_PROPERTY);
+        reservedStringPropertyNames.add(JsonConstants.JSON_ASSET_FIRST_CLASSIFICATION);
+        reservedStringPropertyNames.add(JsonConstants.JSON_ASSET_SECOND_CLASSIFICATION);
+        reservedStringPropertyNames.add(JsonConstants.JSON_PROJECT_CLASSIFICATION);
+        reservedStringPropertyNames.add(JsonConstants.JSON_PROJECT_SITE_CLASSIFICATION);
+        reservedStringPropertyNames.add(JsonConstants.JSON_PROJECT_SCOPE);
+        reservedStringPropertyNames.add(JsonConstants
+                .JSON_PROJECT_CONSTRUCTION_CLASSIFICATION);
 
         return reservedStringPropertyNames;
     }
@@ -1483,13 +1482,13 @@ public class TaskSampleDataGenerator {
             System.out.println(map);
             logger.info("taskId: " + map.get("taskId"));
             logger.info("taskName: " + map.get("taskName"));
-            logger.info("executiveDepartmentId: " + map.get(JsonConstants.EXECUTIVE_DEPARTMENT_ID));
-            logger.info("EXECUTIVE_DEPARTMENT: " + map.get(JsonConstants.EXECUTIVE_DEPARTMENT));
-            logger.info("workerId: " + map.get(JsonConstants.WORKER_ID));
-            logger.info("worker: " + map.get(JsonConstants.WORKER));
-            logger.info("startDate: " + map.get(JsonConstants.START_DATE));
+            logger.info("executiveDepartmentId: " + map.get(JsonConstants.JSON_EXECUTIVE_DEPARTMENT_ID));
+            logger.info("EXECUTIVE_DEPARTMENT: " + map.get(JsonConstants.JSON_EXECUTIVE_DEPARTMENT));
+            logger.info("workerId: " + map.get(JsonConstants.JSON_WORKER_ID));
+            logger.info("worker: " + map.get(JsonConstants.JSON_WORKER));
+            logger.info("startDate: " + map.get(JsonConstants.JSON_START_DATE));
 
-            long date = ((Date) map.get(JsonConstants.START_DATE)).getTime();
+            long date = ((Date) map.get(JsonConstants.JSON_START_DATE)).getTime();
             logger.info("startDate: " + date);
             DateTime time = DateUtil.getDateTime(date);
             logger.info("==: " + time.toString().substring(0, 10));

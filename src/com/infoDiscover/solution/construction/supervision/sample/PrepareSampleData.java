@@ -6,7 +6,7 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDat
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,28 +45,28 @@ public class PrepareSampleData {
     // template root path
     public final static String ROOT_PATH =
             "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
-                    "/solution/construction/supervision/template";
+                    "/solution/construction/supervision/sample/template";
 
     // ===============参数配置=====================//
 
     public static void main(String[] args) {
 
-        prepareSampleData(SupervisionSolutionConstants.DATABASE_SPACE, SampleDataSet.FILE_USER,
+        prepareSampleData(DatabaseConstants.DATABASE_SPACE, SampleDataSet.FILE_USER,
                 SampleDataSet.FILE_DEPARTMENT);
 
         InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                (SupervisionSolutionConstants.DATABASE_SPACE);
+                (DatabaseConstants.DATABASE_SPACE);
 
-        ProgressSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
+        ProjectSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
                 countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
 
-        ProgressSampleDataGenerator.generateNewProjectSampleData(ids,
+        ProjectSampleDataGenerator.generateNewProjectSampleData(ids,
                 countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
 
-        ProgressSampleDataGenerator.generateExtensionProjectSampleData(ids,
+        ProjectSampleDataGenerator.generateExtensionProjectSampleData(ids,
                 countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
 
-        ProgressSampleDataGenerator.generateRebuildProjectSampleData(ids,
+        ProjectSampleDataGenerator.generateRebuildProjectSampleData(ids,
                 countOfRebuildProgressToGenerate, toGenerateRandomTasksNumber);
 
         ids.closeSpace();
@@ -153,9 +153,9 @@ public class PrepareSampleData {
         logger.info("Step 8: link users to executive departments");
         try {
             dimensionGenerator.linkUsersToExecutiveDepartment(ids, SampleDataSet
-                    .FILE_USER_DEPARTMENT,SupervisionSolutionConstants
-                    .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX,SupervisionSolutionConstants
-                    .DIMENSION_USER_WITH_PREFIX, SupervisionSolutionConstants
+                    .FILE_USER_DEPARTMENT, DatabaseConstants
+                    .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX, DatabaseConstants
+                    .DIMENSION_USER_WITH_PREFIX, DatabaseConstants
                     .RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX);
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             logger.error("Step 8: Failed to link users to role: {}", e.getMessage());

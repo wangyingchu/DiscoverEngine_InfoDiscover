@@ -16,14 +16,6 @@ import java.util.List;
  */
 public class QueryExecutor {
 
-//    public static List<Relationable> executeFactQuery(String sql) {
-//        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-//        InformationExplorer ie = ids.getInformationExplorer();
-//        List<Relationable> result = ie.discoverRelationables(sql);
-//        ids.closeSpace();
-//        return result;
-//    }
-
     public static List<Relationable> executeFactQuery(InfoDiscoverSpace ids, String sql) {
         InformationExplorer ie = ids.getInformationExplorer();
         List<Relationable> result = ie.discoverRelationables(sql);
@@ -46,19 +38,6 @@ public class QueryExecutor {
         return null;
     }
 
-//    public static Fact executeFactQuery(ExploreParameters ep) throws
-//            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-//        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-//        InformationExplorer ie = ids.getInformationExplorer();
-//
-//        List<Fact> facts = ie.discoverFacts(ep);
-//        ids.closeSpace();
-//        if (facts != null && facts.size() > 0) {
-//            return facts.get(0);
-//        }
-//        return null;
-//    }
-
     public static Dimension executeDimensionQuery(InformationExplorer ie, ExploreParameters ep) {
         try {
             List<Dimension> dimensionList = ie.discoverDimensions(ep);
@@ -73,21 +52,5 @@ public class QueryExecutor {
         }
         return null;
     }
-
-//    public static Dimension executeDimensionQuery(ExploreParameters ep)
-//            throws
-//            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-//
-//        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
-//        InformationExplorer ie = ids.getInformationExplorer();
-//        List<Dimension> dimensionList = ie.discoverDimensions(ep);
-//
-//        ids.closeSpace();
-//
-//        if (dimensionList != null && dimensionList.size() > 0) {
-//            return dimensionList.get(0);
-//        }
-//        return null;
-//    }
 
 }

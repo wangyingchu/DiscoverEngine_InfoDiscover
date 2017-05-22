@@ -7,7 +7,7 @@ import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -30,7 +30,7 @@ public class TimeDimensionGenerator {
         int depth = 3;
 
         InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                (SupervisionSolutionConstants.DATABASE_SPACE);
+                (DatabaseConstants.DATABASE_SPACE);
         generateYears(ids, dimensionPrefix, years, depth);
         ids.closeSpace();
     }

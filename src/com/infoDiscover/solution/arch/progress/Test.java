@@ -97,9 +97,9 @@ public class Test {
         ProgressInitializer.initProgressRelationType(prefix);
 
         // create progress 1
-        ProgressManager progressManager = new ProgressManager();
-        TaskManager taskManager = new TaskManager();
-        Fact progress = progressManager.createProgressFact(ids, new ProgressFact
+        DemoProgressManager demoProgressManager = new DemoProgressManager();
+        DemoTaskManager taskManager = new DemoTaskManager();
+        Fact progress = demoProgressManager.createProgressFact(ids, new ProgressFact
                 (ProgressConstants
                 .FACT_PROGRESS_WITHPREFIX, "progressId1",
                 "progressContent"));

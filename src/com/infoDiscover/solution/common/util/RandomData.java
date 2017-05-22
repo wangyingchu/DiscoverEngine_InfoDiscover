@@ -3,7 +3,7 @@ package com.infoDiscover.solution.common.util;
 import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.RandomUtil;
-import com.infoDiscover.solution.sample.util.JsonConstants;
+import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import org.codehaus.jackson.JsonNode;
 
 import java.text.DecimalFormat;
@@ -55,7 +55,7 @@ public class RandomData {
 
         for (JsonNode propertyNode : propertiesNode) {
             String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
-            Object propertyValue = RandomData.generateRandomPropertyValue(propertyNode,
+            Object propertyValue = generateRandomPropertyValue(propertyNode,
                     randomStringLength,
                     minValue, maxValue,
                     minDoubleValue, maxDoubleValue,

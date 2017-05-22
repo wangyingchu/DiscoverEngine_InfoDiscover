@@ -10,12 +10,12 @@
                 {
                     "propertyType": "String",
                     "propertyName": "progressName",
-                    "propertyValue": "新建工程"
+                    "propertyValue": "改建工程"
                 },
                 {
                     "propertyType": "String",
                     "propertyName": "progressType",
-                    "propertyValue": "新建工程"
+                    "propertyValue": "改建工程"
                 },
                 {
                     "propertyType": "String",
@@ -460,7 +460,7 @@
                         {
                             "propertyName": "feasibilityReportApprover",
                             "propertyValue": "",
-                            "propertyType": "Date"
+                            "propertyType": "String"
                         },
                         {
                             "propertyName": "approveDepartment",
@@ -2518,7 +2518,7 @@
                         {
                             "propertyName": "securityCheckResult",
                             "propertyValue": "",
-                            "propertyType": "Date"
+                            "propertyType": "String"
                         },
                         {
                             "propertyName": "monthlyCost",

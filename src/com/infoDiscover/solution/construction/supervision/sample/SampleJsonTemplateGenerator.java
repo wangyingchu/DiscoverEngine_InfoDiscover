@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.construction.supervision.util;
+package com.infoDiscover.solution.construction.supervision.sample;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -13,9 +13,9 @@ import java.util.*;
 /**
  * Created by sun.
  */
-public class JsonTemplateGenerator {
+public class SampleJsonTemplateGenerator {
 
-    private final static Logger logger = LoggerFactory.getLogger(JsonTemplateGenerator.class);
+    private final static Logger logger = LoggerFactory.getLogger(SampleJsonTemplateGenerator.class);
 
 
     private static String taskRequiredPropertiesFile =

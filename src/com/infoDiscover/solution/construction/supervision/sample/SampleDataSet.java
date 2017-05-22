@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
-import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 
 /**
  * Created by sun.
@@ -16,13 +16,13 @@ public class SampleDataSet {
     public final static String PROJECTTYPE_EXTENSION = "扩建工程";
     public final static String PROJECTNAME_EXTENSION = "扩建工程";
 
-    public final static String FACTTYPE_MAINTENANCE_PROJECT = SupervisionSolutionConstants
+    public final static String FACTTYPE_MAINTENANCE_PROJECT = DatabaseConstants
             .FACT_PROGRESS_WITH_PREFIX + "_MAINTAIN_PROJECT";
-    public final static String FACTTYPE_NEW_PROJECT = SupervisionSolutionConstants
+    public final static String FACTTYPE_NEW_PROJECT = DatabaseConstants
             .FACT_PROGRESS_WITH_PREFIX + "_NEW_PROJECT";
-    public final static String FACTTYPE_REBUILD_PROJECT = SupervisionSolutionConstants
+    public final static String FACTTYPE_REBUILD_PROJECT = DatabaseConstants
             .FACT_PROGRESS_WITH_PREFIX + "_REBUILD_PROJECT";
-    public final static String FACTTYPE_EXTENSION_PROJECT = SupervisionSolutionConstants
+    public final static String FACTTYPE_EXTENSION_PROJECT = DatabaseConstants
             .FACT_PROGRESS_WITH_PREFIX + "_EXTENSION_PROJECT";
 
 

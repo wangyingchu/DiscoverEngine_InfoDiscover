@@ -15,7 +15,7 @@ import com.infoDiscover.solution.arch.progress.manager.UserManager;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.util.Constants;
-import com.infoDiscover.solution.construction.supervision.database.SupervisionSolutionConstants;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,37 +32,37 @@ public class SampleDimensionGenerator {
     private final static Logger logger = LoggerFactory.getLogger(SampleDimensionGenerator.class);
 
     private static String[][] DIMENSION_LIST_TO_CREATE = new String[][]{
-            {SupervisionSolutionConstants.DIMENSION_ROLE_WITH_PREFIX, SampleDataSet
+            {DatabaseConstants.DIMENSION_ROLE_WITH_PREFIX, SampleDataSet
                     .FILE_DEPARTMENT},
-            {SupervisionSolutionConstants.DIMENSION_USER_WITH_PREFIX, SampleDataSet.FILE_USER},
-            {SupervisionSolutionConstants.DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX, SampleDataSet
+            {DatabaseConstants.DIMENSION_USER_WITH_PREFIX, SampleDataSet.FILE_USER},
+            {DatabaseConstants.DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_CONSTRUCTION_TYPE},
-            {SupervisionSolutionConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
+            {DatabaseConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_COMPANY_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_ASSIGN_MODEL_WITH_PREFIX, SampleDataSet
+            {DatabaseConstants.DIMENSION_ASSIGN_MODEL_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_ASSIGN_MODEL},
-            {SupervisionSolutionConstants.DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX,
+            {DatabaseConstants.DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_EXECUTIVE_DEPARTMENT},
-            {SupervisionSolutionConstants.DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY_WITH_PREFIX,
+            {DatabaseConstants.DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_GOVERNMENT_APPROVAL_AUTHORITY},
-            {SupervisionSolutionConstants.DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX,
+            {DatabaseConstants.DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_ISSUE_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_LAND_PROPERTY_WITH_PREFIX, SampleDataSet
+            {DatabaseConstants.DIMENSION_LAND_PROPERTY_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_LAND_PROPERTY},
 //            {SupervisionSolutionConstants.DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX,
 //                    SampleDataSet.FILE_DIMENSION_ASSET_FIRST_CLASSIFICATION},
 //            {SupervisionSolutionConstants.DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX,
 //                    SampleDataSet.FILE_DIMENSION_ASSET_SECOND_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX,
+            {DatabaseConstants.DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_PROJECT_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX,
+            {DatabaseConstants.DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX,
                     SampleDataSet.FILE_DIMENSION_PROJECT_SITE_CLASSIFICATION},
-            {SupervisionSolutionConstants.DIMENSION_PROJECT_SCOPE_WITH_PREFIX, SampleDataSet
+            {DatabaseConstants.DIMENSION_PROJECT_SCOPE_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_PROJECT_SCOPE},
-            {SupervisionSolutionConstants
+            {DatabaseConstants
                     .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX, SampleDataSet
                     .FILE_DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION},
-            {SupervisionSolutionConstants
+            {DatabaseConstants
                     .DIMENSION_ROAD_WITH_PREFIX, SampleDataSet.FILE_DIMENSION_ROAD}
     };
 
@@ -92,18 +92,18 @@ public class SampleDimensionGenerator {
 
                 DimensionType type = ids.addDimensionType(dimensionTypeName);
 
-                if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+                if (dimensionTypeName.equalsIgnoreCase(DatabaseConstants
                         .DIMENSION_USER_WITH_PREFIX)) {
                     type.addTypeProperty("userId", PropertyType.STRING);
                     type.addTypeProperty("userName", PropertyType.STRING);
-                } else if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+                } else if (dimensionTypeName.equalsIgnoreCase(DatabaseConstants
                         .DIMENSION_ROLE_WITH_PREFIX)) {
                     type.addTypeProperty("roleId", PropertyType.STRING);
                     type.addTypeProperty("roleName", PropertyType.STRING);
                 } else {
                     type.addTypeProperty(Constants.DIMENSION_ID, PropertyType.STRING);
                     type.addTypeProperty(Constants.DIMENSION_NAME, PropertyType.STRING);
-                    if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+                    if (dimensionTypeName.equalsIgnoreCase(DatabaseConstants
                             .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX)) {
                         type.addTypeProperty("isAuthorityDepartment", PropertyType.BOOLEAN);
                     }
@@ -112,26 +112,26 @@ public class SampleDimensionGenerator {
         }
 
         // create external user dimension type
-        if (!ids.hasDimensionType(SupervisionSolutionConstants
+        if (!ids.hasDimensionType(DatabaseConstants
                 .DIMENSION_EXTERNAL_USER_WITH_PREFIX)) {
-            DimensionType type = ids.addDimensionType(SupervisionSolutionConstants
+            DimensionType type = ids.addDimensionType(DatabaseConstants
                     .DIMENSION_EXTERNAL_USER_WITH_PREFIX);
             type.addTypeProperty("userId", PropertyType.STRING);
             type.addTypeProperty("userName", PropertyType.STRING);
         }
 
         // create third-party company
-        if (!ids.hasDimensionType(SupervisionSolutionConstants.DIMENSION_COMPANY_WITH_PREFIX)) {
-            DimensionType type = ids.addDimensionType(SupervisionSolutionConstants
+        if (!ids.hasDimensionType(DatabaseConstants.DIMENSION_COMPANY_WITH_PREFIX)) {
+            DimensionType type = ids.addDimensionType(DatabaseConstants
                     .DIMENSION_COMPANY_WITH_PREFIX);
             type.addTypeProperty("companyId", PropertyType.STRING);
             type.addTypeProperty("companyName", PropertyType.STRING);
         }
 
         // create project address
-        if (!ids.hasDimensionType(SupervisionSolutionConstants
+        if (!ids.hasDimensionType(DatabaseConstants
                 .DIMENSION_PROJECT_ADDRESS_WITH_PREFIX)) {
-            DimensionType type = ids.addDimensionType(SupervisionSolutionConstants
+            DimensionType type = ids.addDimensionType(DatabaseConstants
                     .DIMENSION_PROJECT_ADDRESS_WITH_PREFIX);
             type.addTypeProperty(Constants.DIMENSION_ID, PropertyType.STRING);
             type.addTypeProperty(Constants.DIMENSION_NAME, PropertyType.STRING);
@@ -148,7 +148,7 @@ public class SampleDimensionGenerator {
             String dimensionTypeName = array[0];
             String file = array[1];
 
-            if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+            if (dimensionTypeName.equalsIgnoreCase(DatabaseConstants
                     .DIMENSION_USER_WITH_PREFIX)) {
                 List<String> dimensionRIDList = new ArrayList<>();
                 for (Map<String, Object> properties : getPropertiesFromLine(file, "userId",
@@ -159,7 +159,7 @@ public class SampleDimensionGenerator {
                             .toString());
                 }
                 dimensionCache.put(dimensionTypeName, dimensionRIDList);
-            } else if (dimensionTypeName.equalsIgnoreCase(SupervisionSolutionConstants
+            } else if (dimensionTypeName.equalsIgnoreCase(DatabaseConstants
                     .DIMENSION_ROLE_WITH_PREFIX)) {
                 List<String> dimensionRIDList = new ArrayList<>();
                 for (Map<String, Object> properties : getPropertiesFromLine(file, "roleId",
@@ -225,7 +225,7 @@ public class SampleDimensionGenerator {
     }
 
     public static void addMoreProperty(String dimensionType, Map<String, Object> properties) {
-        if (dimensionType.equals(SupervisionSolutionConstants
+        if (dimensionType.equals(DatabaseConstants
                 .DIMENSION_EXECUTIVE_DEPARTMENT_WITH_PREFIX)) {
             String dimensionId = properties.get(Constants.DIMENSION_ID).toString();
             if (getGovernmentApprovalAuthority().contains(dimensionId)) {
@@ -293,12 +293,8 @@ public class SampleDimensionGenerator {
                         // create the company
                         Map<String, Object> props = new HashMap<>();
                         props.put("companyName", companyName);
-                        try {
-                            company = dimensionManager.createDimension(SupervisionSolutionConstants
-                                    .DIMENSION_COMPANY_WITH_PREFIX, props);
-                        } catch (InfoDiscoveryEngineRuntimeException e) {
-                            logger.error("Failed to create company: {}", companyName);
-                        }
+                        company = dimensionManager.createDimension(DatabaseConstants
+                                .DIMENSION_COMPANY_WITH_PREFIX, props);
                     }
 
                     // check if the user is already existed
@@ -307,26 +303,22 @@ public class SampleDimensionGenerator {
                         // create the external user
                         Map<String, Object> props = new HashedMap();
                         props.put("userName", userName);
-                        try {
-                            externalUser = dimensionManager.createDimension
-                                    (SupervisionSolutionConstants
-                                            .DIMENSION_EXTERNAL_USER_WITH_PREFIX, props);
-                        } catch (InfoDiscoveryEngineRuntimeException e) {
-                            logger.error("Failed to create external user: {}", userName);
-                        }
+                        externalUser = dimensionManager.createDimension
+                                (DatabaseConstants
+                                        .DIMENSION_EXTERNAL_USER_WITH_PREFIX, props);
                     }
 
                     // add external user as member of company
                     if (externalUser != null && company != null) {
                         relationManager.addExternalUserToCompany(externalUser, company,
-                                SupervisionSolutionConstants
+                                DatabaseConstants
                                         .RELATION_IS_MEMBER_OF_COMPANY_WITH_PREFIX);
                     }
 
                     // link company to companyClassification
                     if (company != null && companyClassification != null) {
                         relationManager.addCompanyToClassification(company,
-                                companyClassification, SupervisionSolutionConstants
+                                companyClassification, DatabaseConstants
                                         .RELATION_IS_COMPANY_CLASSIFICATION_WITH_PREFIX);
                     }
 
@@ -351,13 +343,9 @@ public class SampleDimensionGenerator {
             if (projectAddressDimension == null) {
                 Map<String, Object> props = new HashedMap();
                 props.put(Constants.DIMENSION_NAME, projectAddress);
-                try {
-                    projectAddressDimension = dimensionManager.createDimension
-                            (SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX,
-                                    props);
-                } catch (InfoDiscoveryEngineRuntimeException e) {
-                    logger.error("Failed to create projectAddress: {}", projectAddress);
-                }
+                projectAddressDimension = dimensionManager.createDimension
+                        (DatabaseConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX,
+                                props);
             }
 
             // check if road is existed
@@ -365,34 +353,31 @@ public class SampleDimensionGenerator {
             if (roadDimension == null) {
                 Map<String, Object> props = new HashMap<>();
                 props.put(Constants.DIMENSION_NAME, road);
-                try {
                     roadDimension = dimensionManager.createDimension
-                            (SupervisionSolutionConstants.DIMENSION_ROAD_WITH_PREFIX, props);
-                } catch (InfoDiscoveryEngineRuntimeException e) {
-                    logger.error("Failed to create road: {}", road);
-                }
+                            (DatabaseConstants.DIMENSION_ROAD_WITH_PREFIX, props);
             }
 
             if (projectAddressDimension != null && roadDimension != null) {
                 relationManager.addProjectAddressToRoad(projectAddressDimension, roadDimension,
-                        SupervisionSolutionConstants.RELATION_LOCATED_AT_ROAD_WITH_PREFIX);
+                        DatabaseConstants.RELATION_LOCATED_AT_ROAD_WITH_PREFIX);
             }
         }
 
     }
 
     private Dimension getProjectAddress(String projectAddress) {
-        return getDimension(SupervisionSolutionConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX, Constants.DIMENSION_NAME,
+        return getDimension(DatabaseConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX, Constants
+                        .DIMENSION_NAME,
                 projectAddress);
     }
 
     private Dimension getRoad(String roadName) {
-        return getDimension(SupervisionSolutionConstants.DIMENSION_ROAD_WITH_PREFIX, Constants.DIMENSION_NAME,
+        return getDimension(DatabaseConstants.DIMENSION_ROAD_WITH_PREFIX, Constants.DIMENSION_NAME,
                 roadName);
     }
 
     public Dimension getUser(String userId) {
-        return getDimension(SupervisionSolutionConstants.DIMENSION_USER_WITH_PREFIX, "userId",
+        return getDimension(DatabaseConstants.DIMENSION_USER_WITH_PREFIX, "userId",
                 userId);
     }
 
@@ -401,17 +386,17 @@ public class SampleDimensionGenerator {
     }
 
     private Dimension getCompanyClassification(String companyClassificationName) {
-        return getDimension(SupervisionSolutionConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
+        return getDimension(DatabaseConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
                 Constants.DIMENSION_NAME, companyClassificationName);
     }
 
     private Dimension getCompany(String companyName) {
-        return getDimension(SupervisionSolutionConstants.DIMENSION_COMPANY_WITH_PREFIX,
+        return getDimension(DatabaseConstants.DIMENSION_COMPANY_WITH_PREFIX,
                 "companyName", companyName);
     }
 
     private Dimension getExternalUser(String userName) {
-        return getDimension(SupervisionSolutionConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX,
+        return getDimension(DatabaseConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX,
                 "userName", userName);
     }
 

@@ -22,20 +22,26 @@ public class FactManager {
         this.ids = ids;
     }
 
-    public Fact createFact(String type, Map<String, Object> properties) throws
-            InfoDiscoveryEngineRuntimeException {
-        logger.debug("Enter method createFact() with type: {} and properties: {}",type, properties);
+    public Fact createFact(String type, Map<String, Object> properties) {
+        logger.debug("Enter method createFact() with type: {} and properties: {}", type,
+                properties);
+        try {
+            Fact fact = DiscoverEngineComponentFactory.createFact(type);
+            fact = ids.addFact(fact);
+            fact.addProperties(properties);
+            return fact;
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            e.printStackTrace();
+        }
 
-        Fact fact = DiscoverEngineComponentFactory.createFact(type);
-        fact = ids.addFact(fact);
-        fact.addProperties(properties);
         logger.debug("Exit createFact()...");
-        return fact;
+        return null;
     }
 
     public Fact updateFact(Fact fact, Map<String, Object> properties) throws
             InfoDiscoveryEngineRuntimeException {
-        logger.debug("Enter method updateFact() with factId: " + fact.getId() + " and properties: " +
+        logger.debug("Enter method updateFact() with factId: " + fact.getId() + " and properties:" +
+                " " +
                 properties);
         fact.addNewOrUpdateProperties(properties);
         logger.debug("End method updateFact()...");

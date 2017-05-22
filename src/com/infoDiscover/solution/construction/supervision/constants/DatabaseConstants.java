@@ -1,11 +1,11 @@
-package com.infoDiscover.solution.construction.supervision.database;
+package com.infoDiscover.solution.construction.supervision.constants;
 
 import com.infoDiscover.solution.construction.supervision.sample.PrepareSampleData;
 
 /**
  * Created by sun.
  */
-public class SupervisionSolutionConstants {
+public class DatabaseConstants {
     // database space
     public final static String SOLUTION_PREFIX = PrepareSampleData.prefix;
     public final static String DATABASE_SPACE = SOLUTION_PREFIX +
@@ -86,11 +86,11 @@ public class SupervisionSolutionConstants {
     public final static String RELATION_PROGRESS_HASTASK_WITH_PREFIX = SOLUTION_PREFIX +
             "HAS_TASK";
     public final static String RELATION_SUBTASK_WITH_PREFIX = SOLUTION_PREFIX + "SUBTASK";
-    public final static String RELATION_TASK_EXECUTEBYROLE_WITH_PREFIX = SOLUTION_PREFIX +
+    public final static String RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_ROLE";
-    public final static String RELATION_TASK_EXECUTEBYDEPARTMENT_WITH_PREFIX = SOLUTION_PREFIX +
+    public final static String RELATION_TASK_EXECUTE_BY_DEPARTMENT_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_DEPARTMENT";
-    public final static String RELATION_TASK_EXECUTEBYUSER_WITH_PREFIX = SOLUTION_PREFIX +
+    public final static String RELATION_TASK_EXECUTE_BY_USER_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_USER";
     public final static String RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX = SOLUTION_PREFIX + "HAS_USER";
     public final static String RELATION_TRANSFER_WITH_PREFIX = SOLUTION_PREFIX +
