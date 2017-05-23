@@ -15,12 +15,12 @@ public class ProgressJsonParser {
 
     // get progresses JsonNode array
     public static JsonNode getProgressesNode(String json) {
-        return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_PROGRESSES, json);
+        return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_PROJECTS, json);
     }
 
     // get progress JsonNode
     public static JsonNode getProgressNode(String json) {
-        return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_PROGRESS, json);
+        return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_PROJECT, json);
     }
 
     // get tasks JsonNode array

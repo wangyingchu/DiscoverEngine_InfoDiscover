@@ -10,6 +10,7 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRun
 import com.infoDiscover.solution.arch.progress.fact.ProgressFact;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
+import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class DemoProgressManager {
 
         ExploreParameters ep = new ExploreParameters();
         ep.setType(factType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem("progressId", progressId));
+        ep.setDefaultFilteringItem(new EqualFilteringItem(JsonConstants.JSON_PROJECT_ID, progressId));
 
         return QueryExecutor.executeFactQuery(ie, ep);
     }

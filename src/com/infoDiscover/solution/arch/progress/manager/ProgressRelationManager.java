@@ -190,10 +190,8 @@ public class ProgressRelationManager {
 
 
     private Relation linkFactToDimensionByRelationType(InfoDiscoverSpace ids, Fact fromFact,
-                                                       Dimension
-                                                               toDimension,
-                                                       String
-                                                               relationType) {
+                                                       Dimension toDimension,
+                                                       String relationType) {
         logger.info("Enter method linkFactToDimensionByRelationType() with fromFactId: {} and " +
                         "toDimensionId: {} and relationType: {}", fromFact.getId(), toDimension
                         .getId(), relationType);

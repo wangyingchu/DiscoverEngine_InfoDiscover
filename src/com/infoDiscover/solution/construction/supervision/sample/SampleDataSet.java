@@ -17,13 +17,13 @@ public class SampleDataSet {
     public final static String PROJECTNAME_EXTENSION = "扩建工程";
 
     public final static String FACTTYPE_MAINTENANCE_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "_MAINTAIN_PROJECT";
+            .FACT_PROGRESS_WITH_PREFIX + "MAINTAIN_PROJECT";
     public final static String FACTTYPE_NEW_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "_NEW_PROJECT";
+            .FACT_PROGRESS_WITH_PREFIX + "NEW_PROJECT";
     public final static String FACTTYPE_REBUILD_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "_REBUILD_PROJECT";
+            .FACT_PROGRESS_WITH_PREFIX + "REBUILD_PROJECT";
     public final static String FACTTYPE_EXTENSION_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "_EXTENSION_PROJECT";
+            .FACT_PROGRESS_WITH_PREFIX + "EXTENSION_PROJECT";
 
 
     public final static String TASK1_OF_MAINTENANCE_PROJECT = "录入项目维修申请数据";
@@ -42,7 +42,7 @@ public class SampleDataSet {
     public final static String TASK14_OF_MAINTENANCE_PROJECT = "录入项目质保数据";
     public final static String TASK15_OF_MAINTENANCE_PROJECT = "项目关闭";
 
-    public final static String[] TASKS_OF_MAINTENANCE_PROJECT = {
+    public final static String[] TASK_DISPLAY_NAMES_OF_MAINTENANCE_PROJECT = {
             TASK1_OF_MAINTENANCE_PROJECT, TASK2_OF_MAINTENANCE_PROJECT,
             TASK3_OF_MAINTENANCE_PROJECT, TASK4_OF_MAINTENANCE_PROJECT,
             TASK5_OF_MAINTENANCE_PROJECT, TASK6_OF_MAINTENANCE_PROJECT,
@@ -75,7 +75,7 @@ public class SampleDataSet {
     public final static String TASK20_OF_NEW_PROJECT = "录入项目质保数据";
     public final static String TASK21_OF_NEW_PROJECT = "项目关闭";
 
-    public final static String[] TASKS_OF_NEW_PROJECT = {
+    public final static String[] TASK_DISPLAY_NAMES_OF_NEW_PROJECT = {
             TASK1_OF_NEW_PROJECT, TASK2_OF_NEW_PROJECT, TASK3_OF_NEW_PROJECT,
             TASK4_OF_NEW_PROJECT, TASK5_OF_NEW_PROJECT, TASK6_OF_NEW_PROJECT,
             TASK7_OF_NEW_PROJECT, TASK8_OF_NEW_PROJECT, TASK9_OF_NEW_PROJECT,

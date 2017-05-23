@@ -29,11 +29,11 @@ public class SampleFactGenerator {
         if (!ids.hasFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
             FactType maintainProgressFactType = ids.addFactType(SampleDataSet
                     .FACTTYPE_MAINTENANCE_PROJECT);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_ID, PropertyType
+            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
                     .STRING);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_NAME, PropertyType
+            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
                     .STRING);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_STARTER, PropertyType
+            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
                     .STRING);
             maintainProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
             maintainProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
@@ -46,9 +46,9 @@ public class SampleFactGenerator {
         if (!ids.hasFactType(SampleDataSet.FACTTYPE_NEW_PROJECT)) {
             FactType newProgressFactType = ids.addFactType(SampleDataSet
                     .FACTTYPE_NEW_PROJECT);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_ID, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_NAME, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_STARTER, PropertyType
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
                     .STRING);
             newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
             newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
@@ -60,9 +60,9 @@ public class SampleFactGenerator {
         if (!ids.hasFactType(SampleDataSet.FACTTYPE_EXTENSION_PROJECT)) {
             FactType newProgressFactType = ids.addFactType(SampleDataSet
                     .FACTTYPE_EXTENSION_PROJECT);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_ID, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_NAME, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_STARTER, PropertyType
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
                     .STRING);
             newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
             newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
@@ -74,9 +74,9 @@ public class SampleFactGenerator {
         if (!ids.hasFactType(SampleDataSet.FACTTYPE_REBUILD_PROJECT)) {
             FactType newProgressFactType = ids.addFactType(SampleDataSet
                     .FACTTYPE_REBUILD_PROJECT);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_ID, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_NAME, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_STARTER, PropertyType
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
+            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
                     .STRING);
             newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
             newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
@@ -88,9 +88,10 @@ public class SampleFactGenerator {
         if (!ids.hasFactType(DatabaseConstants.FACT_TASK_WITH_PREFIX)) {
             FactType taskFactType = ids.addFactType(DatabaseConstants
                     .FACT_TASK_WITH_PREFIX);
-            taskFactType.addTypeProperty(JsonConstants.JSON_PROGRESS_ID, PropertyType.STRING);
+            taskFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.JSON_TASK_ID, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.JSON_TASK_NAME, PropertyType.STRING);
+            taskFactType.addTypeProperty(JsonConstants.JSON_TASK_DISPLAY_NAME, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.JSON_WORKER_ID, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.JSON_WORKER, PropertyType.STRING);
             taskFactType.addTypeProperty(JsonConstants.JSON_EXECUTIVE_DEPARTMENT_ID, PropertyType

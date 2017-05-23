@@ -1,21 +1,21 @@
 {
     "data": {
-        "progress": {
+        "project": {
             "properties": [
                 {
                     "propertyType": "String",
-                    "propertyName": "progressId",
+                    "propertyName": "projectId",
                     "propertyValue": ""
                 },
                 {
                     "propertyType": "String",
-                    "propertyName": "progressName",
-                    "propertyValue": "扩建工程"
+                    "propertyName": "projectName",
+                    "propertyValue": "新建工程"
                 },
                 {
                     "propertyType": "String",
-                    "propertyName": "progressType",
-                    "propertyValue": "扩建工程"
+                    "propertyName": "projectType",
+                    "propertyValue": "新建工程"
                 },
                 {
                     "propertyType": "String",
@@ -49,7 +49,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -90,6 +90,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "Start",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入项目发起数据",
                             "propertyType": "String"
                         },
@@ -150,7 +155,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -191,6 +196,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "Launch",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入项目启动及分派数据",
                             "propertyType": "String"
                         },
@@ -221,7 +231,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -262,6 +272,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "BAContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入招标代理单位合同数据",
                             "propertyType": "String"
                         },
@@ -307,7 +322,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -348,6 +363,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "ESCContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入项目前期咨询单位合同数据",
                             "propertyType": "String"
                         },
@@ -393,7 +413,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -434,6 +454,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "FReport",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入可研数据",
                             "propertyType": "String"
                         },
@@ -459,7 +484,7 @@
                         },
                         {
                             "propertyName": "feasibilityReportApprover",
-                            "propertyValue": "",
+                            "propertyValue": "可研报告批复负责人",
                             "propertyType": "String"
                         },
                         {
@@ -479,7 +504,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -520,6 +545,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "ENInformation",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入工程必备资料数据",
                             "propertyType": "String"
                         },
@@ -560,7 +590,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -601,6 +631,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "SurveyContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入勘察单位合同数据",
                             "propertyType": "String"
                         },
@@ -656,7 +691,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -697,6 +732,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "SurveyResult",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入勘察单位成果数据",
                             "propertyType": "String"
                         },
@@ -727,7 +767,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -768,6 +808,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "DesignContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入设计单位合同数据",
                             "propertyType": "String"
                         },
@@ -818,7 +863,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -859,6 +904,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "Design",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入设计成果数据",
                             "propertyType": "String"
                         },
@@ -934,7 +984,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -975,6 +1025,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "IBEstimate",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入投资概算数据",
                             "propertyType": "String"
                         },
@@ -1325,7 +1380,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -1366,6 +1421,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "CCContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入造价咨询合同数据",
                             "propertyType": "String"
                         },
@@ -1411,7 +1471,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -1452,6 +1512,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "CostConsultation",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入造价咨询单位成果数据",
                             "propertyType": "String"
                         },
@@ -1802,7 +1867,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -1843,6 +1908,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "BudgetCostApproval",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入工程预算造价审批数据",
                             "propertyType": "String"
                         },
@@ -2183,7 +2253,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2224,6 +2294,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "ConstructionContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入施工合同数据",
                             "propertyType": "String"
                         },
@@ -2234,8 +2309,8 @@
                         },
                         {
                             "propertyName": "constructionContractSum",
-                            "propertyValue": "施工合同金额",
-                            "propertyType": "String"
+                            "propertyValue": 0,
+                            "propertyType": "Double"
                         },
                         {
                             "propertyName": "constructionCompany",
@@ -2284,7 +2359,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2325,6 +2400,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "SupervisionContract",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入监理单位合同数据",
                             "propertyType": "String"
                         },
@@ -2385,7 +2465,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2426,6 +2506,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "Construction",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入工程施工数据",
                             "propertyType": "String"
                         },
@@ -2466,7 +2551,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2507,6 +2592,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "MonthlyReport",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入月进度报告数据",
                             "propertyType": "String"
                         },
@@ -2517,7 +2607,7 @@
                         },
                         {
                             "propertyName": "securityCheckResult",
-                            "propertyValue": "",
+                            "propertyValue": "安全检测结果",
                             "propertyType": "String"
                         },
                         {
@@ -2537,7 +2627,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2578,6 +2668,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "FinalAcceptance",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入工程竣工验收数据",
                             "propertyType": "String"
                         },
@@ -2618,7 +2713,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2659,6 +2754,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "QA",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "录入项目质保数据",
                             "propertyType": "String"
                         }
@@ -2669,7 +2769,7 @@
                 "task": {
                     "properties": [
                         {
-                            "propertyName": "progressId",
+                            "propertyName": "projectId",
                             "propertyValue": "",
                             "propertyType": "String"
                         },
@@ -2710,6 +2810,11 @@
                         },
                         {
                             "propertyName": "taskName",
+                            "propertyValue": "Close",
+                            "propertyType": "String"
+                        },
+                        {
+                            "propertyName": "taskDisplayName",
                             "propertyValue": "项目关闭",
                             "propertyType": "String"
                         },

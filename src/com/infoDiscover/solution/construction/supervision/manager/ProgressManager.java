@@ -21,7 +21,7 @@ public class ProgressManager {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(factType);
         if(key == null) {
-            key = JsonConstants.JSON_PROGRESS_ID;
+            key = JsonConstants.JSON_PROJECT_ID;
         }
         ep.setDefaultFilteringItem(new EqualFilteringItem(key, progressId));
 

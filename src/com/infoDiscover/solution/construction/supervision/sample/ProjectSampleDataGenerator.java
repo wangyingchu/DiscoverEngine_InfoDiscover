@@ -45,7 +45,7 @@ public class ProjectSampleDataGenerator {
                 ids,
                 SampleDataSet.FILE_MAINTENANCE_PROJECT,
                 SampleDataSet.PROJECTTYPE_MAINTENANCE,
-                SampleDataSet.TASKS_OF_MAINTENANCE_PROJECT.length,
+                SampleDataSet.TASK_DISPLAY_NAMES_OF_MAINTENANCE_PROJECT.length,
                 countOfProgressToGenerate,
                 toGenerateRandomTaskNumber);
 
@@ -60,7 +60,7 @@ public class ProjectSampleDataGenerator {
                 ids,
                 SampleDataSet.FILE_NEW_PROJECT,
                 SampleDataSet.PROJECTTYPE_NEW,
-                SampleDataSet.TASKS_OF_NEW_PROJECT.length,
+                SampleDataSet.TASK_DISPLAY_NAMES_OF_NEW_PROJECT.length,
                 countOfProgressToGenerate,
                 toGenerateRandomTaskNumber);
     }
@@ -74,7 +74,7 @@ public class ProjectSampleDataGenerator {
                 ids,
                 SampleDataSet.FILE_EXTENSION_PROJECT,
                 SampleDataSet.PROJECTTYPE_EXTENSION,
-                SampleDataSet.TASKS_OF_NEW_PROJECT.length,
+                SampleDataSet.TASK_DISPLAY_NAMES_OF_NEW_PROJECT.length,
                 countOfProgressToGenerate,
                 toGenerateRandomTaskNumber);
     }
@@ -88,7 +88,7 @@ public class ProjectSampleDataGenerator {
                 ids,
                 SampleDataSet.FILE_REBUILD_PROJECT,
                 SampleDataSet.PROJECTTYPE_REBUILD,
-                SampleDataSet.TASKS_OF_NEW_PROJECT.length,
+                SampleDataSet.TASK_DISPLAY_NAMES_OF_NEW_PROJECT.length,
                 countOfProgressToGenerate,
                 toGenerateRandomTaskNumber);
     }
@@ -118,20 +118,20 @@ public class ProjectSampleDataGenerator {
                     .generateProgressRandomData(projectJsonTemplate, projectType, getProjectName
                             (projectType), startDate, i);
             if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-                progressProperties.put(JsonConstants.JSON_PROGRESS_TYPE, SampleDataSet
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
                         .PROJECTTYPE_MAINTENANCE);
             } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)) {
-                progressProperties.put(JsonConstants.JSON_PROGRESS_TYPE, SampleDataSet
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
                         .PROJECTTYPE_NEW);
             } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_EXTENSION)) {
-                progressProperties.put(JsonConstants.JSON_PROGRESS_TYPE, SampleDataSet
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
                         .PROJECTTYPE_EXTENSION);
             } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
-                progressProperties.put(JsonConstants.JSON_PROGRESS_TYPE, SampleDataSet
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
                         .PROJECTTYPE_REBUILD);
             }
 
-            String progressId = progressProperties.get("progressId").toString();
+            String progressId = progressProperties.get(JsonConstants.JSON_PROJECT_ID).toString();
             String factType = getFactType(projectType);
 
             if (firstNumberOfTasksToGenerate == 0) {
@@ -139,10 +139,10 @@ public class ProjectSampleDataGenerator {
                 // TODO: check if the progress is already created and the task is running
                 // update the progress name
                 DateTime dateTime = DateUtil.getDateTime(startDateLongValue);
-                String progressName = progressProperties.get(JsonConstants.JSON_PROGRESS_TYPE) +
+                String progressName = progressProperties.get(JsonConstants.JSON_PROJECT_TYPE) +
                         "_" +
                         dateTime.toString().substring(0, 10);
-                progressProperties.put(JsonConstants.JSON_PROGRESS_NAME, progressName);
+                progressProperties.put(JsonConstants.JSON_PROJECT_NAME, progressName);
                 createNewOrUpdateProgressInstance(ids, ids.getInformationExplorer(), factType,
                         progressProperties);
             } else {
@@ -155,7 +155,7 @@ public class ProjectSampleDataGenerator {
                 Map<String, Object> task1 = tasksPropertiesArray[0];
                 String dateTime = DateUtil.getDateTime(startDateLongValue).toString().substring
                         (0, 10);
-                String progressName = progressProperties.get(JsonConstants.JSON_PROGRESS_TYPE)
+                String progressName = progressProperties.get(JsonConstants.JSON_PROJECT_TYPE)
                         .toString();
                 if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
                     String issue = task1.get(JsonConstants.JSON_ISSUE_CLASSIFICATION)
@@ -165,7 +165,7 @@ public class ProjectSampleDataGenerator {
                     String projectAddress = task1.get("projectAddress").toString();
                     progressName += "_" + projectAddress + "_" + dateTime;
                 }
-                progressProperties.put(JsonConstants.JSON_PROGRESS_NAME, progressName);
+                progressProperties.put(JsonConstants.JSON_PROJECT_NAME, progressName);
 
                 // Append task properties to progress
                 progressProperties = appendTaskPropertiesToProgress(progressProperties,
@@ -218,25 +218,20 @@ public class ProjectSampleDataGenerator {
     }
 
     private static Map<String, Object> appendTaskPropertiesToProgress(
-            Map<String, Object> progressProperties,
+            Map<String, Object> projectProperties,
             Map<String, Object>[] tasksPropertiesArray) {
         if (tasksPropertiesArray == null || tasksPropertiesArray.length == 0) {
-            return progressProperties;
+            return projectProperties;
         }
 
-        String progressType = progressProperties.get(JsonConstants.JSON_PROGRESS_TYPE).toString();
-        Map<String, String> taskNameMap = new HashMap<>();
-        if (progressType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            taskNameMap = SampleFileUtil.readMaintenaceProjectTasks(null);
-        } else {
-            taskNameMap = SampleFileUtil.readNewProjectTasks(null);
-        }
+//        String progressType = progressProperties.get(JsonConstants.JSON_PROJECT_TYPE).toString();
 
         for (Map<String, Object> taskProps : tasksPropertiesArray) {
             Set<String> keySet = taskProps.keySet();
             Iterator<String> it = keySet.iterator();
 
             String taskName = "";
+            String taskDisplayName = "";
             Date startDate = new Date();
             Date endDate = new Date();
 
@@ -248,9 +243,9 @@ public class ProjectSampleDataGenerator {
             while (it.hasNext()) {
                 String key = it.next();
                 Object value = taskProps.get(key);
-                if (key.equalsIgnoreCase(JsonConstants.JSON_TASK_NAME)) {
-                    taskName = value.toString();
-                    taskName = taskNameMap.get(taskName);
+                if (key.equalsIgnoreCase(JsonConstants.JSON_TASK_DISPLAY_NAME)) {
+                    taskDisplayName = value.toString();
+                    taskName = TaskSampleDataGenerator.taskNameMap.get(taskDisplayName);
                 }
                 if (key.equalsIgnoreCase(JsonConstants.JSON_START_DATE)) {
                     startDate = (Date) value;
@@ -280,7 +275,7 @@ public class ProjectSampleDataGenerator {
                 }
 
                 if (!reservedStringPropertyNames().contains(key)) {
-                    progressProperties.put(key, value);
+                    projectProperties.put(key, value);
                 }
             }
 
@@ -288,32 +283,34 @@ public class ProjectSampleDataGenerator {
                 taskName = "taskName";
             }
 
-            progressProperties.put(taskName + "_startDate", startDate);
-            progressProperties.put(taskName + "_endDate", endDate);
-            progressProperties.put(taskName + "_workerId", workerId);
-            progressProperties.put(taskName + "_worker", worker);
-            progressProperties.put(taskName + "_executiveDepartmentId", executiveDepartmentId);
-            progressProperties.put(taskName + "_executiveDepartment", executiveDepartment);
+            projectProperties.put(taskName+ "_taskName", taskDisplayName);
+            projectProperties.put(taskName + "_startDate", startDate);
+            projectProperties.put(taskName + "_endDate", endDate);
+            projectProperties.put(taskName + "_workerId", workerId);
+            projectProperties.put(taskName + "_worker", worker);
+            projectProperties.put(taskName + "_executiveDepartmentId", executiveDepartmentId);
+            projectProperties.put(taskName + "_executiveDepartment", executiveDepartment);
             if (companyClassification != null && !companyClassification.trim().isEmpty()) {
-                progressProperties.put(taskName + "_companyClassification", companyClassification);
+                projectProperties.put(taskName + "_companyClassification", companyClassification);
             }
         }
 
-        return progressProperties;
+        return projectProperties;
     }
 
     public static List<String> reservedStringPropertyNames() {
         List<String> list = new ArrayList<>();
-        list.add("type");
-        list.add("progressId");
-        list.add("taskId");
-        list.add("taskName");
-        list.add("executiveDepartment");
-        list.add("executiveDepartmentId");
-        list.add("worker");
-        list.add("workerId");
-        list.add("startDate");
-        list.add("endDate");
+        list.add(JsonConstants.JSON_TYPE);
+        list.add(JsonConstants.JSON_PROJECT_ID);
+        list.add(JsonConstants.JSON_TASK_ID);
+        list.add(JsonConstants.JSON_TASK_NAME);
+        list.add(JsonConstants.JSON_TASK_DISPLAY_NAME);
+        list.add(JsonConstants.JSON_EXECUTIVE_DEPARTMENT);
+        list.add(JsonConstants.JSON_EXECUTIVE_DEPARTMENT_ID);
+        list.add(JsonConstants.JSON_WORKER);
+        list.add(JsonConstants.JSON_WORKER_ID);
+        list.add(JsonConstants.JSON_START_DATE);
+        list.add(JsonConstants.JSON_END_DATE);
 
         return list;
     }
@@ -341,7 +338,7 @@ public class ProjectSampleDataGenerator {
             return;
         }
 
-        String progressId = properties.get(JsonConstants.JSON_PROGRESS_ID).toString();
+        String progressId = properties.get(JsonConstants.JSON_PROJECT_ID).toString();
         ProgressManager progressManager = new ProgressManager();
         try {
 
@@ -349,11 +346,11 @@ public class ProjectSampleDataGenerator {
 //            properties.remove(JsonConstants.JSON_TYPE);
 
             // add properties types to progress fact type
-            if(factType.equalsIgnoreCase(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
-                updateFactTypeProperties(ids,factType,properties,SampleAllProperties.getMaintenanceProjectProperties());
-            } else {
-                updateFactTypeProperties(ids, factType,properties,SampleAllProperties.getNewProjectProperties());
-            }
+//            if(factType.equalsIgnoreCase(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
+//                updateFactTypeProperties(ids,factType,properties,SampleAllProperties.getMaintenanceProjectProperties());
+//            } else {
+//                updateFactTypeProperties(ids, factType,properties,SampleAllProperties.getNewProjectProperties());
+//            }
 
             // create or update fact
             Fact progressFact = progressManager.getProgressById(ie, factType, null, progressId);
@@ -368,7 +365,7 @@ public class ProjectSampleDataGenerator {
             SampleDimensionGenerator dimensionGenerator = new SampleDimensionGenerator(ids);
 
             // link starter to progress
-            Object starterId = properties.get(JsonConstants.JSON_PROGRESS_STARTER_ID);
+            Object starterId = properties.get(JsonConstants.JSON_PROJECT_STARTER_ID);
             if (starterId != null && !starterId.toString().isEmpty()) {
                 Dimension startDimension = dimensionGenerator.getUser(starterId.toString());
                 if (startDimension != null) {
@@ -380,8 +377,7 @@ public class ProjectSampleDataGenerator {
             // link startDate to progress
             DayDimensionVO dayDimension = getDayDimension(DatabaseConstants
                     .SOLUTION_PREFIX, (Date)
-                    properties.get(JsonConstants
-                            .JSON_START_DATE));
+                    properties.get(JsonConstants.JSON_START_DATE));
             progressRelationManager.attachTimeToProgress(ids, progressId, factType, dayDimension,
                     ProgressConstants.RELATIONTYPE_STARTAT_WITHPREFIX);
 
@@ -556,7 +552,7 @@ public class ProjectSampleDataGenerator {
         logger.info("Enter method createNewOrUpdateTaskInstance() with ids: {} with " +
                 "progressFactType: {} and properties: {}", ids, progressFactType, properties);
 
-        String progressId = properties.get(JsonConstants.JSON_PROGRESS_ID).toString();
+        String progressId = properties.get(JsonConstants.JSON_PROJECT_ID).toString();
         String taskId = properties.get(JsonConstants.JSON_TASK_ID).toString();
         TaskManager taskManager = new TaskManager();
         try {
@@ -568,13 +564,13 @@ public class ProjectSampleDataGenerator {
 
 
             // add properties types to task fact type
-            if (progressFactType.equalsIgnoreCase(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
-                updateFactTypeProperties(ids,taskFactType,properties, SampleAllProperties
-                        .getMaintenanceProjectProperties());
-            } else {
-                updateFactTypeProperties(ids,taskFactType,properties, SampleAllProperties
-                        .getNewProjectProperties());
-            }
+//            if (progressFactType.equalsIgnoreCase(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
+//                updateFactTypeProperties(ids,taskFactType,properties, SampleAllProperties
+//                        .getMaintenanceProjectProperties());
+//            } else {
+//                updateFactTypeProperties(ids,taskFactType,properties, SampleAllProperties
+//                        .getNewProjectProperties());
+//            }
 
             // create or update fact
             Fact taskTact = taskManager.getTaskById(ie, taskFactType, null, taskId);

@@ -6,9 +6,9 @@ package com.infoDiscover.solution.construction.supervision.constants;
 public class JsonConstants {
     public final static String JSON_DATA = "data";
     public final static String JSON_TYPE = "type";
-    public final static String JSON_PROGRESSES = "progresses";
+    public final static String JSON_PROJECTS = "projects";
     public final static String JSON_TASKS = "tasks";
-    public final static String JSON_PROGRESS = "progress";
+    public final static String JSON_PROJECT = "project";
     public final static String JSON_TASK = "task";
 
     public final static String JSON_PROPERTIES = "properties";
@@ -17,11 +17,11 @@ public class JsonConstants {
     public final static String JSON_PROPERTY_TYPE = "propertyType";
 
     // progress
-    public final static String JSON_PROGRESS_ID = "progressId";
-    public final static String JSON_PROGRESS_NAME = "progressName";
-    public final static String JSON_PROGRESS_TYPE = "progressType";
-    public final static String JSON_PROGRESS_STARTER_ID = "starterId";
-    public final static String JSON_PROGRESS_STARTER = "starter";
+    public final static String JSON_PROJECT_ID = "projectId";
+    public final static String JSON_PROJECT_NAME = "projectName";
+    public final static String JSON_PROJECT_TYPE = "projectType";
+    public final static String JSON_PROJECT_STARTER_ID = "starterId";
+    public final static String JSON_PROJECT_STARTER = "starter";
     public final static String JSON_START_DATE = "startDate";
     public final static String JSON_END_DATE = "endDate";
     public final static String JSON_STATUS = "status";
@@ -29,6 +29,7 @@ public class JsonConstants {
     // task
     public final static String JSON_TASK_ID = "taskId";
     public final static String JSON_TASK_NAME = "taskName";
+    public final static String JSON_TASK_DISPLAY_NAME = "taskDisplayName";
     public final static String JSON_WORKER = "worker";
     public final static String JSON_WORKER_ID = "workerId";
     public final static String JSON_EXECUTIVE_DEPARTMENT_ID = "executiveDepartmentId";

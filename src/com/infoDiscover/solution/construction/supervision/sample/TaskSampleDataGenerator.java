@@ -98,6 +98,22 @@ public class TaskSampleDataGenerator {
         return tasksArray;
     }
 
+    public static Map<String, String> taskNameMap = new HashMap<>();
+
+    public static Map<String, String> getTaskNamesMap(String projectType) {
+
+        if (taskNameMap == null || taskNameMap.size() == 0) {
+            if (projectType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+                taskNameMap = SampleFileUtil.readMaintenaceProjectTasks(null);
+            } else {
+                taskNameMap = SampleFileUtil.readNewProjectTasks(null);
+            }
+        }
+
+        return taskNameMap;
+    }
+
+
     private static Map<String, Object> updateRequiredPropertiesRandomData(
             Map<String, Object> properties,
             String progressId,
@@ -106,11 +122,12 @@ public class TaskSampleDataGenerator {
             int taskSequence) {
 
 //        properties.put(JsonConstants.JSON_TYPE, "Task");
-        properties.put(JsonConstants.JSON_PROGRESS_ID, progressId);
-        String taskName = getTasksList(projectType)[taskSequence];
+        properties.put(JsonConstants.JSON_PROJECT_ID, progressId);
+        String taskDisplayNames = getTasksList(projectType)[taskSequence];
+        String taskName = getTaskNamesMap(projectType).get(taskDisplayNames);
         properties.put(JsonConstants.JSON_TASK_NAME, taskName);
-        properties.put(JsonConstants.JSON_TASK_ID, progressId + "_" + taskName + "_" + (taskSequence +
-                1));
+        properties.put(JsonConstants.JSON_TASK_DISPLAY_NAME, taskDisplayNames);
+        properties.put(JsonConstants.JSON_TASK_ID, progressId + "_" + taskDisplayNames);
 
         // TODO: update attachment
         //properties.put(JsonConstants.ATTACHMENT, "");
@@ -118,8 +135,9 @@ public class TaskSampleDataGenerator {
         String departmentId = getDepartmentIdList(projectType)[taskSequence];
         String departmentName = getDepartmentNameList(projectType)[taskSequence];
 
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK1_OF_MAINTENANCE_PROJECT) || taskName
-                .equalsIgnoreCase(SampleDataSet.TASK1_OF_NEW_PROJECT)) {
+        if (taskDisplayNames.equalsIgnoreCase(SampleDataSet.TASK1_OF_MAINTENANCE_PROJECT) ||
+                taskDisplayNames
+                        .equalsIgnoreCase(SampleDataSet.TASK1_OF_NEW_PROJECT)) {
             int randomIndex = RandomUtil.generateRandomInRange(0, SampleDataSet
                     .DEPARTMENTS_TO_ASSIGN_TASK.length);
             departmentId = SampleDataSet.DEPARTMENTS_TO_ASSIGN_TASK[randomIndex];
@@ -175,8 +193,8 @@ public class TaskSampleDataGenerator {
     private static void updateMaintenanceProjectTasksPropertyValue(Map<String, Object>
                                                                            taskProperties) {
         // task1 of maintenance project
-        String taskName = taskProperties.get(JsonConstants.JSON_TASK_NAME).toString();
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK1_OF_MAINTENANCE_PROJECT)) {
+        String taskDisplayName = taskProperties.get(JsonConstants.JSON_TASK_DISPLAY_NAME).toString();
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK1_OF_MAINTENANCE_PROJECT)) {
             Map<String, String> issueReporterMap = SampleFileUtil.readIssueReporterAndPhone
                     (SampleDataSet.FILE_ISSUE_REPORTER);
 
@@ -213,7 +231,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task2 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK2_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK2_OF_MAINTENANCE_PROJECT)) {
 //            maintenanceProposal,equipment,specialRequirement,maintenanceCompany,projectLeader
             taskProperties.put("maintenanceProposal", "");
             taskProperties.put("equipment", "");
@@ -239,7 +257,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task3 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK3_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK3_OF_MAINTENANCE_PROJECT)) {
 //            录入现场勘察数据,taskName,String
 //            现场勘察日期,dateOfSurvey,Date
 //            现场勘察单位,surveyCompany,String
@@ -269,7 +287,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task5 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK5_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK5_OF_MAINTENANCE_PROJECT)) {
 //            录入设计单位合同数据,taskName,String
 //            设计合同编号,designContractNumber,String
 //            设计合同金额,designContractSum,Double
@@ -301,7 +319,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task6 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK6_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK6_OF_MAINTENANCE_PROJECT)) {
 //            录入设计成果数据,taskName,String
 //            建设用地面积,constructionArea,Double
 //            用地性质,landProperty,String
@@ -328,7 +346,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task7 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK7_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK7_OF_MAINTENANCE_PROJECT)) {
 //        录入造价咨询合同数据,taskName,String
 //        造价咨询合同编号,costConsultationContractNumber,String
 //        造价咨询合同金额,costConsultationContractSum,Double
@@ -364,7 +382,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task8 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK8_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK8_OF_MAINTENANCE_PROJECT)) {
 //            录入造价咨询单位成果数据,taskName,String
 //            工程预算送审价,priceOfProjectBudgetForReview,Double
 //            工程预算审核价,material_auditPriceOfProjectBudget,Double
@@ -390,7 +408,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task9 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK9_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK9_OF_MAINTENANCE_PROJECT)) {
 //            录入工程预算造价审批数据,taskName,String
 //            工程预算审定价,approvalPriceOfProjectBudget,Double
 //            工程预算审批完成日期,approvalDateOfProjectBudget,Date
@@ -409,10 +427,10 @@ public class TaskSampleDataGenerator {
         }
 
         // task10 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK10_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK10_OF_MAINTENANCE_PROJECT)) {
 //            录入施工合同数据,taskName,String
 //            施工合同编号,constructionContractNumber,String
-//            施工合同金额,constructionContractSum,String
+//            施工合同金额,constructionContractSum,Double
 //            施工单位名称,constructionCompany,String
 //            施工合同签订日期,constructionContractAssignDate,Date
 //            施工合同开始日期,startDate,Date
@@ -443,7 +461,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task11 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK11_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK11_OF_MAINTENANCE_PROJECT)) {
 //            录入监理单位合同数据,taskName,String
 //            监理合同编号,supervisionContractNumber,String
 //            监理合同金额,supervisionContractSum,Double
@@ -509,7 +527,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task12 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK12_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK12_OF_MAINTENANCE_PROJECT)) {
 //            录入工程施工数据,taskName,String
 //            开工日期,constructionStartDate,Date
 //            施工工期,constructionPeriod,Int
@@ -544,7 +562,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task13 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK13_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK13_OF_MAINTENANCE_PROJECT)) {
 //            录入工程竣工验收数据,taskName,String
 //            验收日期,finalAcceptanceDate,Date
 //            验收人员名单,finalAcceptanceMembers,String
@@ -567,12 +585,12 @@ public class TaskSampleDataGenerator {
         }
 
         // task14 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK14_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK14_OF_MAINTENANCE_PROJECT)) {
 
         }
 
         // task15 of maintenance project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK15_OF_MAINTENANCE_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK15_OF_MAINTENANCE_PROJECT)) {
 //            项目关闭,taskName,String
 //            物业部审批意见,commentOfPropertyDepartment,String
 //            工程部审批意见,commentOfEngineeringDepartment,String
@@ -604,8 +622,8 @@ public class TaskSampleDataGenerator {
             taskProperties) {
 
         // task1 of new project
-        String taskName = taskProperties.get(JsonConstants.JSON_TASK_NAME).toString();
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK1_OF_NEW_PROJECT)) {
+        String taskDisplayName = taskProperties.get(JsonConstants.JSON_TASK_DISPLAY_NAME).toString();
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK1_OF_NEW_PROJECT)) {
 //            录入项目发起数据,taskName,String
 //            项目名称,projectName,String
 //            项目编号,projectNumber,String
@@ -658,7 +676,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task2 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK2_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK2_OF_NEW_PROJECT)) {
 //            录入项目启动及分派数据,taskName,String
 //            项目启动日期,startDate,Date
 //            项目结束日期,endDate,Date
@@ -678,7 +696,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task3 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK3_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK3_OF_NEW_PROJECT)) {
 //            录入招标代理单位合同数据,taskName,String
 //            招标代理合同编号,biddingAgencyContractNumber,String
 //            招标代理合同金额,biddingAgencyContractSum,Double
@@ -719,7 +737,7 @@ public class TaskSampleDataGenerator {
         }
 
         // task4 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK4_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK4_OF_NEW_PROJECT)) {
 //            录入项目前期咨询单位合同数据,taskName,String
 //            立项编制合同编号,projectPlanMakingContractNumber,String
 //            立项编制单位名称,projectPlanMakingCompany,String
@@ -759,7 +777,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "咨询单位");
         }
         // task5 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK5_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK5_OF_NEW_PROJECT)) {
 //            录入可研数据,taskName,String
 //            可研报告名称,feasibilityReportName,String
 //            可研报告编制单位,feasibilityReportMakingCompany,String
@@ -807,7 +825,7 @@ public class TaskSampleDataGenerator {
 
         }
         // task6 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK6_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK6_OF_NEW_PROJECT)) {
 //            录入工程必备资料数据,taskName,String
 //            项目建议书编号,projectProposalNumber,String
 //            项目建议书开始日期,startDate,Date
@@ -838,7 +856,7 @@ public class TaskSampleDataGenerator {
                     projectPlanningLocationApprovalDate);
         }
         // task7 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK7_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK7_OF_NEW_PROJECT)) {
 //            录入勘察单位合同数据,taskName,String
 //            勘察单位合同编号,surveyCompanyContractNumber,String
 //            勘察单位合同金额,surveyCompanyContractSum,Double
@@ -879,7 +897,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("longitude", longitudeMap.get("longitude"));
         }
         // task8 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK8_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK8_OF_NEW_PROJECT)) {
 //            录入勘察单位成果数据,taskName,String
 //            勘察设计人员,surveyDesigner,String
 //            勘察技术人员,surveyTechnicalMember,String
@@ -910,7 +928,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("surveyCompletionDate", surveyCompletionDate);
         }
         // task9 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK9_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK9_OF_NEW_PROJECT)) {
 //            录入设计单位合同数据,taskName,String
 //            设计合同编号,designContractNumber,String
 //            设计合同金额,designContractSum,Double
@@ -953,7 +971,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "设计单位");
         }
         // task10 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK10_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK10_OF_NEW_PROJECT)) {
 //            录入设计成果数据,taskName,String
 //            建设用地面积,constructionArea,Double
 //            用地性质,landProperty,String
@@ -989,7 +1007,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("approveDepartment", approveDepartment);
         }
         // task11 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK11_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK11_OF_NEW_PROJECT)) {
 //            录入投资概算数据,taskName,String
 //            概算总金额,budgetaryEstimateSum,Double
 //            概算编制负责人,budgetaryEstimateMakingLeader,String
@@ -1015,7 +1033,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("budgetaryEstimateMakingLeader", budgetaryEstimateMakingLeader);
         }
         // task12 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK12_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK12_OF_NEW_PROJECT)) {
 //            录入造价咨询合同数据,taskName,String
 //            造价咨询合同编号,costConsultationContractNumber,String
 //            造价咨询合同金额,costConsultationContractSum,Double
@@ -1058,7 +1076,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "造价咨询单位");
         }
         // task13 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK13_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK13_OF_NEW_PROJECT)) {
 //            录入造价咨询单位成果数据,taskName,String
 //            工程预算送审价,priceOfProjectBudgetForReview,Double
 //            工程预算审核价,material_auditPriceOfProjectBudget,Double
@@ -1084,7 +1102,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put("projectBudgetAuditLeader", projectBudgetAuditLeader);
         }
         // task14 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK14_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK14_OF_NEW_PROJECT)) {
 //            录入工程预算造价审批数据,taskName,String
 //            工程预算审定价,approvalPriceOfProjectBudget,Double
 //            工程预算审批完成日期,approvalDateOfProjectBudget,Date
@@ -1108,10 +1126,10 @@ public class TaskSampleDataGenerator {
             taskProperties.put("approvalLeaderOfProjectBudget", approvalLeaderOfProjectBudget);
         }
         // task15 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK15_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK15_OF_NEW_PROJECT)) {
 //            录入施工合同数据,taskName,String
 //            施工合同编号,constructionContractNumber,String
-//            施工合同金额,constructionContractSum,String
+//            施工合同金额,constructionContractSum,Double
 //            施工单位名称,constructionCompany,String
 //            施工合同签订日期,constructionContractAssignDate,Date
 //            施工合同开始日期,startDate,Date
@@ -1167,7 +1185,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "施工单位");
         }
         // task16 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK16_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK16_OF_NEW_PROJECT)) {
 //            录入监理单位合同数据,taskName,String
 //            监理合同编号,supervisionContractNumber,String
 //            监理合同金额,supervisionContractSum,Double
@@ -1232,7 +1250,7 @@ public class TaskSampleDataGenerator {
             taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "监理单位");
         }
         // task17 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK17_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK17_OF_NEW_PROJECT)) {
 //            录入工程施工数据,taskName,String
 //            开工日期,constructionStartDate,Date
 //            施工工期,constructionPeriod,Int
@@ -1244,22 +1262,22 @@ public class TaskSampleDataGenerator {
 //            执行部门ID,executiveDepartmentId,String,Engineering_Department
 //            执行部门,executiveDepartment,String,工程部
 //            公司类别,companyClassification,String,监理单位
-            Date constructionStartDate = getDateAfterStartDate(taskProperties,5);
+            Date constructionStartDate = getDateAfterStartDate(taskProperties, 5);
 
             List<String> siteInspectorList = SampleFileUtil
                     .readSiteInspector(null);
             String siteInspector = siteInspectorList.get(RandomUtil.generateRandomInRange(0,
                     siteInspectorList.size()));
 
-            taskProperties.put("constructionStartDate",constructionStartDate);
-            taskProperties.put("supervisionCompany",supervisionCompany);
-            taskProperties.put("supervisionCompanyContact",supervisionCompanyContact);
-            taskProperties.put("siteInspector",siteInspector);
-            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION,"监理单位");
+            taskProperties.put("constructionStartDate", constructionStartDate);
+            taskProperties.put("supervisionCompany", supervisionCompany);
+            taskProperties.put("supervisionCompanyContact", supervisionCompanyContact);
+            taskProperties.put("siteInspector", siteInspector);
+            taskProperties.put(JsonConstants.JSON_COMPANY_CLASSIFICATION, "监理单位");
 
         }
         // task18 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK18_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK18_OF_NEW_PROJECT)) {
 //            录入月进度报告数据,taskName,String
 //            审核日期,auditDate,Date
 //            安全检测结果,securityCheckResult,String
@@ -1270,15 +1288,15 @@ public class TaskSampleDataGenerator {
 //            执行部门ID,executiveDepartmentId,String,Engineering_Department
 //            执行部门,executiveDepartment,String,工程部
 
-            Date auditDate = getDateAfterStartDate(taskProperties,10);
+            Date auditDate = getDateAfterStartDate(taskProperties, 10);
             String securityCheckResult = "安全检测通过";
             String qualityAssuranceResult = "质量检测通过";
-            taskProperties.put("auditDate",auditDate);
-            taskProperties.put("securityCheckResult",securityCheckResult);
-            taskProperties.put("qualityAssuranceResult",qualityAssuranceResult);
+            taskProperties.put("auditDate", auditDate);
+            taskProperties.put("securityCheckResult", securityCheckResult);
+            taskProperties.put("qualityAssuranceResult", qualityAssuranceResult);
         }
         // task19 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK19_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK19_OF_NEW_PROJECT)) {
 //            录入工程竣工验收数据,taskName,String
 //            验收日期,finalAcceptanceDate,Date
 //            验收单位,finalAcceptanceCompany,String
@@ -1299,7 +1317,7 @@ public class TaskSampleDataGenerator {
             String finalAcceptanceCompany = finalAcceptanceCompanyList.get(RandomUtil
                     .generateRandomInRange(0, finalAcceptanceCompanyList.size()));
 
-            String finalAcceptanceComments= "通过";
+            String finalAcceptanceComments = "通过";
             Boolean passFinalAcceptance = true;
 
             int randomIndex = RandomUtil.generateRandomInRange(0, SampleDataSet
@@ -1307,15 +1325,15 @@ public class TaskSampleDataGenerator {
             String departmentId = SampleDataSet.DEPARTMENTS_TO_ASSIGN_TASK[randomIndex];
             String approveDepartment = SampleDataSet.DEPARTMENT_NAMES_TO_ASSIGN_TASK[randomIndex];
 
-            taskProperties.put("finalAcceptanceDate",finalAcceptanceDate);
-            taskProperties.put("finalAcceptanceCompany",finalAcceptanceCompany);
-            taskProperties.put("finalAcceptanceMembers",finalAcceptanceMembers);
-            taskProperties.put("finalAcceptanceComments",finalAcceptanceComments);
-            taskProperties.put("passFinalAcceptance",passFinalAcceptance);
-            taskProperties.put("approveDepartment",approveDepartment);
+            taskProperties.put("finalAcceptanceDate", finalAcceptanceDate);
+            taskProperties.put("finalAcceptanceCompany", finalAcceptanceCompany);
+            taskProperties.put("finalAcceptanceMembers", finalAcceptanceMembers);
+            taskProperties.put("finalAcceptanceComments", finalAcceptanceComments);
+            taskProperties.put("passFinalAcceptance", passFinalAcceptance);
+            taskProperties.put("approveDepartment", approveDepartment);
         }
         // task20 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK20_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK20_OF_NEW_PROJECT)) {
 //            录入项目质保数据,taskName,String
 //            经办人ID,workerId,String
 //            经办人,worker,String
@@ -1323,7 +1341,7 @@ public class TaskSampleDataGenerator {
 //            执行部门,executiveDepartment,String,工程部
         }
         // task21 of new project
-        if (taskName.equalsIgnoreCase(SampleDataSet.TASK21_OF_NEW_PROJECT)) {
+        if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK21_OF_NEW_PROJECT)) {
 //            项目关闭,taskName,String
 //            物业部审批意见,commentOfPropertyDepartment,String
 //            工程部审批意见,commentOfEngineeringDepartment,String
@@ -1343,12 +1361,12 @@ public class TaskSampleDataGenerator {
             String commentOfFinanceDirector = "通过";
             String commentOfMissionOwner = "通过";
 
-            taskProperties.put("commentOfPropertyDepartment",commentOfPropertyDepartment);
-            taskProperties.put("commentOfEngineeringDepartment",commentOfEngineeringDepartment);
-            taskProperties.put("commentOfLeaderInCharge",commentOfLeaderInCharge);
-            taskProperties.put("commentOfGeneralManager",commentOfGeneralManager);
-            taskProperties.put("commentOfFinanceDirector",commentOfFinanceDirector);
-            taskProperties.put("commentOfMissionOwner",commentOfMissionOwner);
+            taskProperties.put("commentOfPropertyDepartment", commentOfPropertyDepartment);
+            taskProperties.put("commentOfEngineeringDepartment", commentOfEngineeringDepartment);
+            taskProperties.put("commentOfLeaderInCharge", commentOfLeaderInCharge);
+            taskProperties.put("commentOfGeneralManager", commentOfGeneralManager);
+            taskProperties.put("commentOfFinanceDirector", commentOfFinanceDirector);
+            taskProperties.put("commentOfMissionOwner", commentOfMissionOwner);
         }
     }
 
@@ -1427,9 +1445,9 @@ public class TaskSampleDataGenerator {
 
     public static String[] getTasksList(String projectType) {
         if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            return SampleDataSet.TASKS_OF_MAINTENANCE_PROJECT;
+            return SampleDataSet.TASK_DISPLAY_NAMES_OF_MAINTENANCE_PROJECT;
         } else {
-            return SampleDataSet.TASKS_OF_NEW_PROJECT;
+            return SampleDataSet.TASK_DISPLAY_NAMES_OF_NEW_PROJECT;
         }
     }
 
@@ -1482,8 +1500,10 @@ public class TaskSampleDataGenerator {
             System.out.println(map);
             logger.info("taskId: " + map.get("taskId"));
             logger.info("taskName: " + map.get("taskName"));
-            logger.info("executiveDepartmentId: " + map.get(JsonConstants.JSON_EXECUTIVE_DEPARTMENT_ID));
-            logger.info("EXECUTIVE_DEPARTMENT: " + map.get(JsonConstants.JSON_EXECUTIVE_DEPARTMENT));
+            logger.info("executiveDepartmentId: " + map.get(JsonConstants
+                    .JSON_EXECUTIVE_DEPARTMENT_ID));
+            logger.info("EXECUTIVE_DEPARTMENT: " + map.get(JsonConstants
+                    .JSON_EXECUTIVE_DEPARTMENT));
             logger.info("workerId: " + map.get(JsonConstants.JSON_WORKER_ID));
             logger.info("worker: " + map.get(JsonConstants.JSON_WORKER));
             logger.info("startDate: " + map.get(JsonConstants.JSON_START_DATE));

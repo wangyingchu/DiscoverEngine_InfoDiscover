@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.common.util.JsonUtil;
+import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -213,7 +214,7 @@ public class SampleJsonTemplateGenerator {
 
         List<Map<String, Object>> list = removeDuplicateWithOrder(result);
 
-        JsonObject taskJsonObject = generateJsonFromPropertiesMap(list, "task");
+        JsonObject taskJsonObject = generateJsonFromPropertiesMap(list, JsonConstants.JSON_TASK);
         // write to file
         FileUtil.saveToFile(targetFile, taskJsonObject.toString());
     }
@@ -227,7 +228,7 @@ public class SampleJsonTemplateGenerator {
         }
 
         JsonObject propertiesJsonObject = new JsonObject();
-        propertiesJsonObject.add("properties", jsonArray);
+        propertiesJsonObject.add(JsonConstants.JSON_PROPERTIES, jsonArray);
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.add(jsonPrefix, propertiesJsonObject);

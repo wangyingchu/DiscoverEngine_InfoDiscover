@@ -87,11 +87,11 @@ public class ProgressSampleDataGenerator {
         String status = "On Progress";
 
         properties.put(JsonConstants.JSON_TYPE, progressType);
-        properties.put(JsonConstants.JSON_PROGRESS_ID, progressId);
-        properties.put(JsonConstants.JSON_PROGRESS_TYPE, progressType);
-        properties.put(JsonConstants.JSON_PROGRESS_NAME, progressName);
-        properties.put(JsonConstants.JSON_PROGRESS_STARTER_ID, starterId);
-        properties.put(JsonConstants.JSON_PROGRESS_STARTER, starter);
+        properties.put(JsonConstants.JSON_PROJECT_ID, progressId);
+        properties.put(JsonConstants.JSON_PROJECT_TYPE, progressType);
+        properties.put(JsonConstants.JSON_PROJECT_NAME, progressName);
+        properties.put(JsonConstants.JSON_PROJECT_STARTER_ID, starterId);
+        properties.put(JsonConstants.JSON_PROJECT_STARTER, starter);
         properties.put(JsonConstants.JSON_START_DATE, startDate);
         properties.put(JsonConstants.JSON_END_DATE, null);
         properties.put(JsonConstants.JSON_STATUS, status);
@@ -105,12 +105,12 @@ public class ProgressSampleDataGenerator {
             return ProgressJsonParser.getProgressNode(json);
         }
 
-        return progressesNode.get(0).get(JsonConstants.JSON_PROGRESS);
+        return progressesNode.get(0).get(JsonConstants.JSON_PROJECT);
     }
 
     private static List<String> reservedStringPropertyNames() {
         List<String> list = new ArrayList<>();
-        list.add(JsonConstants.JSON_PROGRESS_TYPE);
+        list.add(JsonConstants.JSON_PROJECT_TYPE);
         return list;
     }
 
