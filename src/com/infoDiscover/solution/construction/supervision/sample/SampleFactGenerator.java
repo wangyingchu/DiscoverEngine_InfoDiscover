@@ -25,10 +25,9 @@ public class SampleFactGenerator {
     public void createFactType() throws InfoDiscoveryEngineDataMartException,
             InfoDiscoveryEngineRuntimeException {
 
-        // progress for maintenance project
-        if (!ids.hasFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
-            FactType maintainProgressFactType = ids.addFactType(SampleDataSet
-                    .FACTTYPE_MAINTENANCE_PROJECT);
+        // project
+        if (!ids.hasFactType(DatabaseConstants.FACT_PROJECT_WITH_PREFIX)) {
+            FactType maintainProgressFactType = ids.addFactType(DatabaseConstants.FACT_PROJECT_WITH_PREFIX);
             maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
                     .STRING);
             maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
@@ -42,47 +41,64 @@ public class SampleFactGenerator {
                     .getTypeName());
         }
 
-        // progress for new project
-        if (!ids.hasFactType(SampleDataSet.FACTTYPE_NEW_PROJECT)) {
-            FactType newProgressFactType = ids.addFactType(SampleDataSet
-                    .FACTTYPE_NEW_PROJECT);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
-                    .STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
-            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
-        }
-
-        // progress for new project
-        if (!ids.hasFactType(SampleDataSet.FACTTYPE_EXTENSION_PROJECT)) {
-            FactType newProgressFactType = ids.addFactType(SampleDataSet
-                    .FACTTYPE_EXTENSION_PROJECT);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
-                    .STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
-            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
-        }
-
-        // progress for new project
-        if (!ids.hasFactType(SampleDataSet.FACTTYPE_REBUILD_PROJECT)) {
-            FactType newProgressFactType = ids.addFactType(SampleDataSet
-                    .FACTTYPE_REBUILD_PROJECT);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
-                    .STRING);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
-            newProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
-            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
-        }
+        // progress for maintenance project
+//        if (!ids.hasFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
+//            FactType maintainProgressFactType = ids.addFactType(SampleDataSet
+//                    .FACTTYPE_MAINTENANCE_PROJECT);
+//            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
+//                    .STRING);
+//            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
+//                    .STRING);
+//            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
+//                    .STRING);
+//            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
+//            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
+//            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
+//            logger.debug("Created maintenance progress fact type: " + maintainProgressFactType
+//                    .getTypeName());
+//        }
+//
+//        // progress for new project
+//        if (!ids.hasFactType(SampleDataSet.FACTTYPE_NEW_PROJECT)) {
+//            FactType newProgressFactType = ids.addFactType(SampleDataSet
+//                    .FACTTYPE_NEW_PROJECT);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
+//                    .STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
+//            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
+//        }
+//
+//        // progress for new project
+//        if (!ids.hasFactType(SampleDataSet.FACTTYPE_EXTENSION_PROJECT)) {
+//            FactType newProgressFactType = ids.addFactType(SampleDataSet
+//                    .FACTTYPE_EXTENSION_PROJECT);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
+//                    .STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
+//            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
+//        }
+//
+//        // progress for new project
+//        if (!ids.hasFactType(SampleDataSet.FACTTYPE_REBUILD_PROJECT)) {
+//            FactType newProgressFactType = ids.addFactType(SampleDataSet
+//                    .FACTTYPE_REBUILD_PROJECT);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType.STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType.STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
+//                    .STRING);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
+//            newProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
+//            logger.debug("Created new progress fact type: " + newProgressFactType.getTypeName());
+//        }
 
         // task fact type
         if (!ids.hasFactType(DatabaseConstants.FACT_TASK_WITH_PREFIX)) {

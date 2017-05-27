@@ -7,6 +7,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.common.util.RandomData;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import com.infoDiscover.solution.construction.supervision.manager.ProjectManager;
 import com.infoDiscover.solution.construction.supervision.manager.TaskManager;
@@ -198,18 +199,17 @@ public class ProjectSampleDataGenerator {
     }
 
     public static String getFactType(String projectType) {
-        if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            return SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT;
-        } else if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)) {
-            return SampleDataSet.FACTTYPE_NEW_PROJECT;
-        } else if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
-            return SampleDataSet.FACTTYPE_REBUILD_PROJECT;
-        } else {
-            return SampleDataSet.FACTTYPE_EXTENSION_PROJECT;
-        }
+//        if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+//            return SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT;
+//        } else if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)) {
+//            return SampleDataSet.FACTTYPE_NEW_PROJECT;
+//        } else if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
+//            return SampleDataSet.FACTTYPE_REBUILD_PROJECT;
+//        } else {
+//            return SampleDataSet.FACTTYPE_EXTENSION_PROJECT;
+//        }
+        return DatabaseConstants.FACT_PROJECT_WITH_PREFIX;
     }
-
-
 
     private static String getProjectName(String projectType) {
         if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {

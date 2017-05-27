@@ -1,7 +1,5 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
-import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
-
 /**
  * Created by sun.
  */
@@ -16,14 +14,14 @@ public class SampleDataSet {
     public final static String PROJECTTYPE_EXTENSION = "扩建工程";
     public final static String PROJECTNAME_EXTENSION = "扩建工程";
 
-    public final static String FACTTYPE_MAINTENANCE_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "MAINTAIN_PROJECT";
-    public final static String FACTTYPE_NEW_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "NEW_PROJECT";
-    public final static String FACTTYPE_REBUILD_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "REBUILD_PROJECT";
-    public final static String FACTTYPE_EXTENSION_PROJECT = DatabaseConstants
-            .FACT_PROGRESS_WITH_PREFIX + "EXTENSION_PROJECT";
+//    public final static String FACTTYPE_MAINTENANCE_PROJECT = DatabaseConstants
+//            .FACT_PROGRESS_WITH_PREFIX + "MAINTAIN_PROJECT";
+//    public final static String FACTTYPE_NEW_PROJECT = DatabaseConstants
+//            .FACT_PROGRESS_WITH_PREFIX + "NEW_PROJECT";
+//    public final static String FACTTYPE_REBUILD_PROJECT = DatabaseConstants
+//            .FACT_PROGRESS_WITH_PREFIX + "REBUILD_PROJECT";
+//    public final static String FACTTYPE_EXTENSION_PROJECT = DatabaseConstants
+//            .FACT_PROGRESS_WITH_PREFIX + "EXTENSION_PROJECT";
 
 
     public final static String TASK1_OF_MAINTENANCE_PROJECT = "录入项目维修申请数据";

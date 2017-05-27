@@ -152,24 +152,25 @@ public class Importer {
 
 
     private String getProjectFactType(String projectType) throws Exception {
-        String projectFactType;
-        if (projectType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            projectFactType = SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT;
-        } else if (projectType.equals(SampleDataSet.PROJECTTYPE_NEW)) {
-            projectFactType = SampleDataSet.FACTTYPE_NEW_PROJECT;
-        } else if (projectType.equals(SampleDataSet.PROJECTTYPE_EXTENSION)) {
-            projectFactType = SampleDataSet.FACTTYPE_EXTENSION_PROJECT;
-        } else if (projectType.equals(SampleDataSet.PROJECTTYPE_REBUILD)) {
-            projectFactType = SampleDataSet.FACTTYPE_REBUILD_PROJECT;
-        } else {
-            throw new Exception("Project Type must be one of [" +
-                    SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT + ", "
-                    + SampleDataSet.FACTTYPE_NEW_PROJECT + ","
-                    + SampleDataSet.FACTTYPE_EXTENSION_PROJECT + ", "
-                    + SampleDataSet.FACTTYPE_REBUILD_PROJECT + "]");
-        }
-
-        return projectFactType;
+//        String projectFactType;
+//        if (projectType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+//            projectFactType = SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT;
+//        } else if (projectType.equals(SampleDataSet.PROJECTTYPE_NEW)) {
+//            projectFactType = SampleDataSet.FACTTYPE_NEW_PROJECT;
+//        } else if (projectType.equals(SampleDataSet.PROJECTTYPE_EXTENSION)) {
+//            projectFactType = SampleDataSet.FACTTYPE_EXTENSION_PROJECT;
+//        } else if (projectType.equals(SampleDataSet.PROJECTTYPE_REBUILD)) {
+//            projectFactType = SampleDataSet.FACTTYPE_REBUILD_PROJECT;
+//        } else {
+//            throw new Exception("Project Type must be one of [" +
+//                    SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT + ", "
+//                    + SampleDataSet.FACTTYPE_NEW_PROJECT + ","
+//                    + SampleDataSet.FACTTYPE_EXTENSION_PROJECT + ", "
+//                    + SampleDataSet.FACTTYPE_REBUILD_PROJECT + "]");
+//        }
+//
+//        return projectFactType;
+        return DatabaseConstants.FACT_PROJECT_WITH_PREFIX;
     }
 
     public static void main(String[] args) {

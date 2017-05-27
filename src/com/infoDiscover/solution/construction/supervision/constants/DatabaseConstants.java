@@ -12,8 +12,8 @@ public class DatabaseConstants {
     "ConstructionEngineeringSupervision";
 
     // Fact type
-//    public final static String FACT_PROGRESS_WITH_PREFIX = SOLUTION_PREFIX + "PROGRESS";
-    public final static String FACT_PROGRESS_WITH_PREFIX = SOLUTION_PREFIX;
+    public final static String FACT_PROJECT_WITH_PREFIX = SOLUTION_PREFIX + "PROJECT";
+    //public final static String FACT_PROGRESS_WITH_PREFIX = SOLUTION_PREFIX;
     public final static String FACT_TASK_WITH_PREFIX = SOLUTION_PREFIX + "TASK";
 
     // Dimension type

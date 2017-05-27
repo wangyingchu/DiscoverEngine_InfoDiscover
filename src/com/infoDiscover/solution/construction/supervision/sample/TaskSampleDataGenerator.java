@@ -64,7 +64,7 @@ public class TaskSampleDataGenerator {
             Map<String, Object> properties = RandomData.propertiesJsonNodeToMapWithRandomValue
                     (propertiesJsonNode, SampleDataSet.randomStringLength,
                             SampleDataSet.randomIntRange, SampleDataSet.randomDoubleRange,
-                            SampleDataSet.longValue,SampleDataSet.randomYearRange,
+                            SampleDataSet.longValue, SampleDataSet.randomYearRange,
                             reservedStringPropertyNames());
 
             updateRequiredPropertiesRandomData(properties,
@@ -662,8 +662,17 @@ public class TaskSampleDataGenerator {
             taskProperties.put("latitude", longitudeMap.get("latitude"));
             taskProperties.put("longitude", longitudeMap.get("longitude"));
 
+            String projectConstructionClassification = "";
+            if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)) {
+                projectConstructionClassification = SampleDataSet.PROJECTTYPE_NEW;
+            } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
+                projectConstructionClassification = SampleDataSet.PROJECTTYPE_REBUILD;
+            } else if (projectType.equalsIgnoreCase(SampleDataSet
+                    .PROJECTTYPE_EXTENSION)) {
+                projectConstructionClassification = SampleDataSet.PROJECTTYPE_EXTENSION;
+            }
             taskProperties.put(JsonConstants.JSON_PROJECT_CONSTRUCTION_CLASSIFICATION,
-                    SampleDataSet.PROJECTTYPE_NEW);
+                    projectConstructionClassification);
 
         }
 

@@ -22,8 +22,6 @@ public class RandomUtil {
         return generateRandomInRange(min, max);
     }
 
-
-
     public static int generateRandomInRange(int min, int max) {
         if(min == max){
             return min;
