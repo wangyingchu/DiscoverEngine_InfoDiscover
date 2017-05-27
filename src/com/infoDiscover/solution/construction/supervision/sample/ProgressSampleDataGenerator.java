@@ -93,10 +93,10 @@ public class ProgressSampleDataGenerator {
 
     private static JsonNode getProgressNode(String json) {
         // check if "Progresses" node array
-        JsonNode progressesNode = ProjectJsonParser.getProgressesNode(json);
+        JsonNode progressesNode = ProjectJsonParser.getProjectsNode(json);
         if (progressesNode == null) {
             // check if "Progress" node
-            return ProjectJsonParser.getProgressNode(json);
+            return ProjectJsonParser.getProjectNode(json);
         }
 
         return progressesNode.get(0).get(JsonConstants.JSON_PROJECT);

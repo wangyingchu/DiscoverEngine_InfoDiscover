@@ -43,7 +43,7 @@ public class TaskSampleDataGenerator {
                 (progressStartDate), firstTasks);
 
         JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
-        JsonNode taskNodes = ProjectJsonParser.getTaskNodes(json.toString());
+        JsonNode taskNodes = ProjectJsonParser.getTasksNode(json.toString());
 
         // if json is empty
         if (JsonUtil.isEmptyJsonNode(taskNodes)) {

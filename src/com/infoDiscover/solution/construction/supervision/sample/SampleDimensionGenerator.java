@@ -392,12 +392,12 @@ public class SampleDimensionGenerator {
 
     private Dimension getCompany(String companyName) {
         return new DimensionManager(ids).getDimension(DatabaseConstants.DIMENSION_COMPANY_WITH_PREFIX,
-                "companyName", companyName);
+                DatabaseConstants.PROPERTY_COMPANY_NAME, companyName);
     }
 
     private Dimension getExternalUser(String userName) {
         return new DimensionManager(ids).getDimension(DatabaseConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX,
-                "userName", userName);
+                DatabaseConstants.PROPERTY_USER_NAME, userName);
     }
 
 }

@@ -44,14 +44,14 @@ public class SampleAllProperties {
         logger.info("Start to getProjectProperties with template: {}", projectJsonTemplate);
 
         JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
-        JsonNode progressPropertiesJsonNode = ProjectJsonParser.getProgressNode(json.toString());
+        JsonNode progressPropertiesJsonNode = ProjectJsonParser.getProjectNode(json.toString());
 
         JsonNode progressPropertiesNode = JsonNodeUtil.getPropertiesJsonNode
                 (progressPropertiesJsonNode);
 
         setProperties(progressPropertiesNode, allProperties);
 
-        JsonNode taskNodes = ProjectJsonParser.getTaskNodes(json.toString());
+        JsonNode taskNodes = ProjectJsonParser.getTasksNode(json.toString());
         for (JsonNode taskNode : taskNodes) {
             JsonNode taskPropertiesJsonNode = taskNode.get(JsonConstants.JSON_TASK);
             JsonNode propertiesNode = JsonNodeUtil.getPropertiesJsonNode(taskPropertiesJsonNode);

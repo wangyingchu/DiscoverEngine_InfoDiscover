@@ -38,7 +38,7 @@ public class DemoArchTaskRandomData {
                 (progressStartTime), firstNumberTasks);
 
         JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
-        JsonNode taskNodes = ProjectJsonParser.getTaskNodes(json.toString());
+        JsonNode taskNodes = ProjectJsonParser.getTasksNode(json.toString());
 
         // if json is empty
         if (JsonUtil.isEmptyJsonNode(taskNodes)) {

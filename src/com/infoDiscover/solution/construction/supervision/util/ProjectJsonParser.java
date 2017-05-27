@@ -13,18 +13,18 @@ public class ProjectJsonParser {
 
     private final static Logger logger = LogManager.getLogger(ProjectJsonParser.class);
 
-    // get progresses JsonNode array
-    public static JsonNode getProgressesNode(String json) {
+    // get projects JsonNode array
+    public static JsonNode getProjectsNode(String json) {
         return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_PROJECTS, json);
     }
 
-    // get progress JsonNode
-    public static JsonNode getProgressNode(String json) {
+    // get project JsonNode
+    public static JsonNode getProjectNode(String json) {
         return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_PROJECT, json);
     }
 
     // get tasks JsonNode array
-    public static JsonNode getTaskNodes(String json) {
+    public static JsonNode getTasksNode(String json) {
         return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_TASKS, json);
     }
 
