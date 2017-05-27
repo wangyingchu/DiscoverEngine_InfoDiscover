@@ -220,8 +220,10 @@ public class Importer {
 
     public static void main(String[] args) {
         Importer importer = new Importer();
+        String spaceName = DatabaseConstants.DATABASE_SPACE;
+
         InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                (DatabaseConstants.DATABASE_SPACE);
+                (spaceName);
 
         // create a project
         String projectFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com" +

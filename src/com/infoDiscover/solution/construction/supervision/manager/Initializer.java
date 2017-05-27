@@ -4,6 +4,8 @@ import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import com.infoDiscover.solution.construction.supervision.sample.PrepareSampleData;
 import com.infoDiscover.solution.construction.supervision.sample.SampleDimensionGenerator;
 import com.infoDiscover.solution.construction.supervision.sample.SampleFactGenerator;
@@ -62,5 +64,36 @@ public class Initializer {
         }
 
         logger.info("End method initialize()...");
+    }
+
+    public static void main(String[] args) {
+        String spaceName = "Test";
+        if (DiscoverEngineComponentFactory.checkDiscoverSpaceExistence
+                (spaceName)) {
+            logger.error("Database: " + spaceName + " is already existed, " +
+                    "please specify another one");
+            System.exit(0);
+        }
+        boolean created = DiscoverEngineComponentFactory.createInfoDiscoverSpace
+                (spaceName);
+        logger.info("Step 1: end to create {} database: {}", spaceName, created);
+
+        if (!created) {
+            logger.error("Failed to create {} database", spaceName);
+            System.exit(0);
+        }
+
+        // connect to database
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+
+        if (ids == null) {
+            logger.error("Failed to connect to database: {} ", spaceName);
+            System.exit(0);
+        }
+
+        initialize(ids);
+
+        ids.closeSpace();
+
     }
 }

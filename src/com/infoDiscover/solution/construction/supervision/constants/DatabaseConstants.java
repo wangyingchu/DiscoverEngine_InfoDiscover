@@ -127,8 +127,5 @@ public class DatabaseConstants {
 
     //
     public final static String PROPERTY_COMPANY_NAME = "companyName";
-
-
-    public final static String STATAUS_ON_GOING = "进行中";
-    public final static String STATAUS_COMPLETED = "完成";
+    
 }
