@@ -25,19 +25,35 @@ public class SampleFactGenerator {
     public void createFactType() throws InfoDiscoveryEngineDataMartException,
             InfoDiscoveryEngineRuntimeException {
 
-        // project
-        if (!ids.hasFactType(DatabaseConstants.FACT_PROJECT_WITH_PREFIX)) {
-            FactType maintainProgressFactType = ids.addFactType(DatabaseConstants.FACT_PROJECT_WITH_PREFIX);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
+        // maintenance project
+        if (!ids.hasFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
+            FactType maintenanceProjectFactType = ids.addFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT);
+            maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
                     .STRING);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
+            maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
                     .STRING);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
+            maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
                     .STRING);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
-            maintainProgressFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
-            logger.debug("Created maintenance progress fact type: " + maintainProgressFactType
+            maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
+            maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
+            maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
+            logger.debug("Created maintenance project fact type: " + maintenanceProjectFactType
+                    .getTypeName());
+        }
+
+        // construction project
+        if (!ids.hasFactType(SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT)) {
+            FactType constructionProjectFactType = ids.addFactType(SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
+                    .STRING);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
+                    .STRING);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
+                    .STRING);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);
+            logger.debug("Created construction project fact type: " + constructionProjectFactType
                     .getTypeName());
         }
 

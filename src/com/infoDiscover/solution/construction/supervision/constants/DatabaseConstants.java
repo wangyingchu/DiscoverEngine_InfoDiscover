@@ -9,11 +9,11 @@ public class DatabaseConstants {
     // database space
     public final static String SOLUTION_PREFIX = PrepareSampleData.prefix;
     public final static String DATABASE_SPACE = SOLUTION_PREFIX +
-    "ConstructionEngineeringSupervision";
+            "ConstructionEngineeringSupervision";
 
     // Fact type
-    public final static String FACT_PROJECT_WITH_PREFIX = SOLUTION_PREFIX + "PROJECT";
-    //public final static String FACT_PROGRESS_WITH_PREFIX = SOLUTION_PREFIX;
+    //public final static String FACT_PROJECT_WITH_PREFIX = SOLUTION_PREFIX + "PROJECT";
+    public final static String FACT_PROJECT_WITH_PREFIX = SOLUTION_PREFIX;
     public final static String FACT_TASK_WITH_PREFIX = SOLUTION_PREFIX + "TASK";
 
     // Dimension type
@@ -84,7 +84,7 @@ public class DatabaseConstants {
             "PROJECT_TYPE_IS";
     public final static String RELATION_PROVIDER_WITH_PREFIX = SOLUTION_PREFIX + "PROVIDER_IS";
 
-    public final static String RELATION_PROGRESS_HASTASK_WITH_PREFIX = SOLUTION_PREFIX +
+    public final static String RELATION_PROJECT_HASTASK_WITH_PREFIX = SOLUTION_PREFIX +
             "HAS_TASK";
     public final static String RELATION_SUBTASK_WITH_PREFIX = SOLUTION_PREFIX + "SUBTASK";
     public final static String RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX = SOLUTION_PREFIX +
@@ -93,7 +93,8 @@ public class DatabaseConstants {
             "EXECUTE_BY_DEPARTMENT";
     public final static String RELATION_TASK_EXECUTE_BY_USER_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_USER";
-    public final static String RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX = SOLUTION_PREFIX + "HAS_USER";
+    public final static String RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX =
+            SOLUTION_PREFIX + "HAS_USER";
     public final static String RELATION_TRANSFER_WITH_PREFIX = SOLUTION_PREFIX +
             "TRANSFER_TASK";
     public final static String RELATION_STARTAT_WITH_PREFIX = SOLUTION_PREFIX + "START_AT";
@@ -121,6 +122,13 @@ public class DatabaseConstants {
 
 
     //
-    public final static String DIMENSION_USER_ID = "userId";
-    public final static String DIMENSION_USER_NAME = "userName";
+    public final static String PROPERTY_USER_ID = "userId";
+    public final static String PROPERTY_USER_NAME = "userName";
+
+    //
+    public final static String PROPERTY_COMPANY_NAME = "companyName";
+
+
+    public final static String STATAUS_ON_GOING = "进行中";
+    public final static String STATAUS_COMPLETED = "完成";
 }

@@ -24,9 +24,9 @@ public class SampleRelationshipGenerator {
             prefix = "";
         }
         if (!ids.hasRelationType(prefix + DatabaseConstants
-                .RELATION_PROGRESS_HASTASK_WITH_PREFIX)) {
+                .RELATION_PROJECT_HASTASK_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
-                    .RELATION_PROGRESS_HASTASK_WITH_PREFIX);
+                    .RELATION_PROJECT_HASTASK_WITH_PREFIX);
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 

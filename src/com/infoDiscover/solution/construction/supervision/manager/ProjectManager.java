@@ -117,15 +117,15 @@ public class ProjectManager {
         if (starterId != null && !starterId.toString().isEmpty()) {
             Dimension starterDimension = dimensionManager.getDimension
                     (DatabaseConstants.DIMENSION_USER_WITH_PREFIX,
-                            DatabaseConstants.DIMENSION_USER_ID, starterId.toString());
+                            DatabaseConstants.PROPERTY_USER_ID, starterId.toString());
 
             // if starterDimension is null, create it
             if (starterDimension == null) {
                 Map<String, Object> props = new HashedMap();
-                props.put(DatabaseConstants.DIMENSION_USER_ID, starterId);
+                props.put(DatabaseConstants.PROPERTY_USER_ID, starterId);
                 Object userName = properties.get(JsonConstants.JSON_PROJECT_STARTER);
                 if (userName != null) {
-                    props.put(DatabaseConstants.DIMENSION_USER_NAME, userName.toString());
+                    props.put(DatabaseConstants.PROPERTY_USER_NAME, userName.toString());
                 }
 
                 starterDimension = dimensionManager.createDimension(DatabaseConstants
@@ -237,13 +237,18 @@ public class ProjectManager {
         // link project to projectConstructionClassification
         Object projectConstructionClassification = properties.get(JsonConstants
                 .JSON_PROJECT_CONSTRUCTION_CLASSIFICATION);
-        if (projectConstructionClassification != null) {
-            relationshipManager.attachFactToDimension(projectFactId,
-                    DatabaseConstants.DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX,
-                    dimensionKey, projectConstructionClassification.toString(),
-                    DatabaseConstants.RELATION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX,
-                    true);
+        Object projectType = properties.get(JsonConstants.JSON_PROJECT_TYPE);
+        String typeValue = "";
+        if (projectType != null) {
+            typeValue = projectType.toString();
+        } else if (projectConstructionClassification != null) {
+            typeValue = projectConstructionClassification.toString();
         }
+        relationshipManager.attachFactToDimension(projectFactId,
+                DatabaseConstants.DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX,
+                dimensionKey, typeValue,
+                DatabaseConstants.RELATION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX,
+                true);
 
         Object projectAddress = properties.get(JsonConstants.JSON_PROJECT_ADDRESS);
         if (projectAddress != null) {
@@ -254,110 +259,6 @@ public class ProjectManager {
                     true);
         }
 
-
     }
 
-
-    public Map<String, Object> appendTaskPropertiesToProject(
-            Map<String, Object> projectProperties,
-            Map<String, Object>[] tasksPropertiesArray) {
-
-        if (tasksPropertiesArray == null || tasksPropertiesArray.length == 0) {
-            return projectProperties;
-        }
-
-//        String progressType = progressProperties.get(JsonConstants.JSON_PROJECT_TYPE).toString();
-
-        for (Map<String, Object> taskProps : tasksPropertiesArray) {
-            Set<String> keySet = taskProps.keySet();
-            Iterator<String> it = keySet.iterator();
-
-            String taskName = "";
-            String taskDisplayName = "";
-            Date startDate = new Date();
-            Date endDate = new Date();
-
-            String workerId = "";
-            String worker = "";
-            String executiveDepartmentId = "";
-            String executiveDepartment = "";
-            String companyClassification = "";
-            while (it.hasNext()) {
-                String key = it.next();
-                Object value = taskProps.get(key);
-                if (key.equalsIgnoreCase(JsonConstants.JSON_TASK_NAME)) {
-                    taskName = value.toString();
-                    //taskName = TaskSampleDataGenerator.taskNameMap.get(taskDisplayName);
-                }
-                if (key.equalsIgnoreCase(JsonConstants.JSON_TASK_DISPLAY_NAME)) {
-                    taskDisplayName = value.toString();
-                    //taskName = TaskSampleDataGenerator.taskNameMap.get(taskDisplayName);
-                }
-                if (key.equalsIgnoreCase(JsonConstants.JSON_START_DATE)) {
-                    startDate = (Date) value;
-                }
-                if (key.equalsIgnoreCase(JsonConstants.JSON_END_DATE)) {
-                    endDate = (Date) value;
-                }
-
-                if (key.equalsIgnoreCase(JsonConstants.JSON_WORKER_ID)) {
-                    workerId = value.toString();
-                }
-
-                if (key.equalsIgnoreCase(JsonConstants.JSON_WORKER)) {
-                    worker = value.toString();
-                }
-
-                if (key.equalsIgnoreCase(JsonConstants.JSON_EXECUTIVE_DEPARTMENT_ID)) {
-                    executiveDepartmentId = value.toString();
-                }
-
-                if (key.equalsIgnoreCase(JsonConstants.JSON_EXECUTIVE_DEPARTMENT)) {
-                    executiveDepartment = value.toString();
-                }
-
-                if (key.equalsIgnoreCase(JsonConstants.JSON_COMPANY_CLASSIFICATION)) {
-                    companyClassification = value.toString();
-                }
-
-                if (!reservedStringPropertyNames().contains(key)) {
-                    projectProperties.put(key, value);
-                }
-            }
-
-            if (taskName == null || taskName.equalsIgnoreCase("")) {
-                taskName = "taskName";
-            }
-
-            projectProperties.put(taskName + "_taskName", taskDisplayName);
-            projectProperties.put(taskName + "_startDate", startDate);
-            projectProperties.put(taskName + "_endDate", endDate);
-            projectProperties.put(taskName + "_workerId", workerId);
-            projectProperties.put(taskName + "_worker", worker);
-            projectProperties.put(taskName + "_executiveDepartmentId", executiveDepartmentId);
-            projectProperties.put(taskName + "_executiveDepartment", executiveDepartment);
-            if (companyClassification != null && !companyClassification.trim().isEmpty()) {
-                projectProperties.put(taskName + "_companyClassification", companyClassification);
-            }
-        }
-
-        return projectProperties;
-    }
-
-    public static List<String> reservedStringPropertyNames() {
-        List<String> list = new ArrayList<>();
-        list.add(JsonConstants.JSON_TYPE);
-        list.add(JsonConstants.JSON_PROJECT_ID);
-        list.add(JsonConstants.JSON_TASK_ID);
-        list.add(JsonConstants.JSON_TASK_NAME);
-        list.add(JsonConstants.JSON_TASK_DISPLAY_NAME);
-        list.add(JsonConstants.JSON_EXECUTIVE_DEPARTMENT);
-        list.add(JsonConstants.JSON_EXECUTIVE_DEPARTMENT_ID);
-        list.add(JsonConstants.JSON_WORKER);
-        list.add(JsonConstants.JSON_WORKER_ID);
-        list.add(JsonConstants.JSON_START_DATE);
-        list.add(JsonConstants.JSON_END_DATE);
-
-        return list;
-    }
 }

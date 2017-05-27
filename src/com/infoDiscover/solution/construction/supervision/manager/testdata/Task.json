@@ -3,7 +3,12 @@
     "properties": [
       {
         "propertyName": "projectId",
-        "propertyValue": "project_1",
+        "propertyValue": "projectId_1",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "projectType",
+        "propertyValue": "新建工程",
         "propertyType": "String"
       },
       {
@@ -23,22 +28,22 @@
       },
       {
         "propertyName": "executiveDepartmentId",
-        "propertyValue": "",
+        "propertyValue": "Cost_Department",
         "propertyType": "String"
       },
       {
         "propertyName": "executiveDepartment",
-        "propertyValue": "",
+        "propertyValue": "成本部",
         "propertyType": "String"
       },
       {
         "propertyName": "startDate",
-        "propertyValue": 1000000,
+        "propertyValue": 1462550400000,
         "propertyType": "Date"
       },
       {
         "propertyName": "endDate",
-        "propertyValue": 200000,
+        "propertyValue": 1467907200000,
         "propertyType": "Date"
       },
       {
@@ -53,52 +58,52 @@
       },
       {
         "propertyName": "projectName",
-        "propertyValue": "项目名称",
+        "propertyValue": "项目名称aaaa",
         "propertyType": "String"
       },
       {
         "propertyName": "projectNumber",
-        "propertyValue": "项目编号",
+        "propertyValue": "项目编号a1111",
         "propertyType": "String"
       },
       {
         "propertyName": "grossInvestment",
-        "propertyValue": 0,
+        "propertyValue": 189800,
         "propertyType": "Double"
       },
       {
         "propertyName": "projectClassification",
-        "propertyValue": "项目专业分类",
+        "propertyValue": "公路工程",
         "propertyType": "String"
       },
       {
         "propertyName": "projectConstructionClassification",
-        "propertyValue": "项目建设分类",
+        "propertyValue": "新建工程",
         "propertyType": "String"
       },
       {
         "propertyName": "projectAddress",
-        "propertyValue": "项目地址",
+        "propertyValue": "珠海市中富实业公司－3栋",
         "propertyType": "String"
       },
       {
         "propertyName": "constructionCompany",
-        "propertyValue": "建设单位",
+        "propertyValue": "中色十二冶金建设有限公司",
         "propertyType": "String"
       },
       {
         "propertyName": "projectLeader",
-        "propertyValue": "项目负责人",
+        "propertyValue": "赵育玮",
         "propertyType": "String"
       },
       {
         "propertyName": "longitude",
-        "propertyValue": 0,
+        "propertyValue": 22.177163,
         "propertyType": "Double"
       },
       {
         "propertyName": "latitude",
-        "propertyValue": 0,
+        "propertyValue": 113.491115,
         "propertyType": "Double"
       }
     ]
