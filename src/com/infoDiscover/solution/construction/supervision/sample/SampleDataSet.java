@@ -387,4 +387,11 @@ public class SampleDataSet {
             "landProperty", "assetFirstClassification", "assetSecondClassification",
             "projectClassification", "projectSiteClassification", "projectScope",
             "projectConstructionClassification"};
+
+
+    public static int randomIntRange[] = {1, 20};
+    public static double randomDoubleRange[] = {1000.0d, 10000.0d};
+    public static int randomStringLength = 9;
+    public static long longValue = 10000l;
+    public static int randomYearRange[] = {2010, 2020};
 }

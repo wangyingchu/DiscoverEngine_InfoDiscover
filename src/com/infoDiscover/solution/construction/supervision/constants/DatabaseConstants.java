@@ -118,4 +118,9 @@ public class DatabaseConstants {
             "IS_IN_CHARGE_OF";
     public final static String RELATION_EXECUTE_BY_COMPANY_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_COMPANY";
+
+
+    //
+    public final static String DIMENSION_USER_ID = "userId";
+    public final static String DIMENSION_USER_NAME = "userName";
 }

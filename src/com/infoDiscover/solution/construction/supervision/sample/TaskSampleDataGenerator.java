@@ -7,7 +7,7 @@ import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
-import com.infoDiscover.solution.construction.supervision.util.ProgressJsonParser;
+import com.infoDiscover.solution.construction.supervision.util.ProjectJsonParser;
 import org.codehaus.jackson.JsonNode;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -21,14 +21,6 @@ import java.util.*;
 public class TaskSampleDataGenerator {
     private final static Logger logger = LoggerFactory.getLogger(TaskSampleDataGenerator
             .class);
-
-    public static int minValue = 1;
-    public static int maxValue = 20;
-    public static double minDoubleValue = 1000.0d;
-    public static double maxDoubleValue = 100000.0d;
-    public static int randomStringLength = 9;
-    public static long longValue = 10000l;
-
 
     //
     public static Map<String, Double> longitudeMap = new HashMap<>();
@@ -51,7 +43,7 @@ public class TaskSampleDataGenerator {
                 (progressStartDate), firstTasks);
 
         JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
-        JsonNode taskNodes = ProgressJsonParser.getTaskNodes(json.toString());
+        JsonNode taskNodes = ProjectJsonParser.getTaskNodes(json.toString());
 
         // if json is empty
         if (JsonUtil.isEmptyJsonNode(taskNodes)) {
@@ -70,10 +62,10 @@ public class TaskSampleDataGenerator {
             JsonNode propertiesJsonNode = taskNodes.get(i).get(JsonConstants.JSON_TASK);
 
             Map<String, Object> properties = RandomData.propertiesJsonNodeToMapWithRandomValue
-                    (propertiesJsonNode, randomStringLength,
-                            minValue, maxValue, minDoubleValue, maxDoubleValue, longValue,
-                            reservedStringPropertyNames(), null,
-                            null);
+                    (propertiesJsonNode, SampleDataSet.randomStringLength,
+                            SampleDataSet.randomIntRange, SampleDataSet.randomDoubleRange,
+                            SampleDataSet.longValue,SampleDataSet.randomYearRange,
+                            reservedStringPropertyNames());
 
             updateRequiredPropertiesRandomData(properties,
                     progressId, projectType, startDate, i);
@@ -102,12 +94,10 @@ public class TaskSampleDataGenerator {
 
     public static Map<String, String> getTaskNamesMap(String projectType) {
 
-        if (taskNameMap == null || taskNameMap.size() == 0) {
-            if (projectType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-                taskNameMap = SampleFileUtil.readMaintenaceProjectTasks(null);
-            } else {
-                taskNameMap = SampleFileUtil.readNewProjectTasks(null);
-            }
+        if (projectType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+            taskNameMap = SampleFileUtil.readMaintenaceProjectTasks(null);
+        } else {
+            taskNameMap = SampleFileUtil.readNewProjectTasks(null);
         }
 
         return taskNameMap;
@@ -193,7 +183,8 @@ public class TaskSampleDataGenerator {
     private static void updateMaintenanceProjectTasksPropertyValue(Map<String, Object>
                                                                            taskProperties) {
         // task1 of maintenance project
-        String taskDisplayName = taskProperties.get(JsonConstants.JSON_TASK_DISPLAY_NAME).toString();
+        String taskDisplayName = taskProperties.get(JsonConstants.JSON_TASK_DISPLAY_NAME)
+                .toString();
         if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK1_OF_MAINTENANCE_PROJECT)) {
             Map<String, String> issueReporterMap = SampleFileUtil.readIssueReporterAndPhone
                     (SampleDataSet.FILE_ISSUE_REPORTER);
@@ -622,7 +613,8 @@ public class TaskSampleDataGenerator {
             taskProperties) {
 
         // task1 of new project
-        String taskDisplayName = taskProperties.get(JsonConstants.JSON_TASK_DISPLAY_NAME).toString();
+        String taskDisplayName = taskProperties.get(JsonConstants.JSON_TASK_DISPLAY_NAME)
+                .toString();
         if (taskDisplayName.equalsIgnoreCase(SampleDataSet.TASK1_OF_NEW_PROJECT)) {
 //            录入项目发起数据,taskName,String
 //            项目名称,projectName,String

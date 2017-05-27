@@ -263,14 +263,14 @@ public class DemoArchProgressDemoDataGenerator {
 
             // link startTime to progress
             DayDimensionVO dayDimension = getDayDimension((Date) properties.get("startTime"));
-            relationManager.attachTimeToProgress(ids, progressId, factType, dayDimension,
+            relationManager.attachTimeToProgress(progressId, factType, dayDimension,
                     ProgressConstants
                             .RELATIONTYPE_STARTAT_WITHPREFIX);
 
             // link endTime to progress
             if (properties.get("endTime") != null) {
                 dayDimension = getDayDimension((Date) properties.get("endTime"));
-                relationManager.attachTimeToProgress(ids, progressId, factType, dayDimension,
+                relationManager.attachTimeToProgress(progressId, factType, dayDimension,
                         ProgressConstants.RELATIONTYPE_ENDAT_WITHPREFIX);
             }
 
@@ -341,7 +341,7 @@ public class DemoArchProgressDemoDataGenerator {
             ProgressRelationManager relationManager = new ProgressRelationManager(ids);
             DemoProgressManager demoProgressManager = new DemoProgressManager();
             Fact progressFact = demoProgressManager.getProgressById(ids.getInformationExplorer(),
-                    progressId,progressFactType);
+                    progressId, progressFactType);
             relationManager.attachTaskToProgress(progressFact, taskTact,
                     ProgressConstants.RELATIONTYPE_PROGRESS_HASTASK_WITHPREFIX);
 
@@ -363,13 +363,13 @@ public class DemoArchProgressDemoDataGenerator {
 
             // link startTime to task
             DayDimensionVO dayDimension = getDayDimension((Date) properties.get("startTime"));
-            relationManager.attachTimeToTask(ids, taskTact, dayDimension, ProgressConstants
+            relationManager.attachTimeToTask(taskTact, dayDimension, ProgressConstants
                     .RELATIONTYPE_STARTAT_WITHPREFIX);
 
             // link endTime to task
             if (properties.get("endTime") != null) {
                 dayDimension = getDayDimension((Date) properties.get("endTime"));
-                relationManager.attachTimeToTask(ids, taskTact, dayDimension, ProgressConstants
+                relationManager.attachTimeToTask(taskTact, dayDimension, ProgressConstants
                         .RELATIONTYPE_ENDAT_WITHPREFIX);
             }
 

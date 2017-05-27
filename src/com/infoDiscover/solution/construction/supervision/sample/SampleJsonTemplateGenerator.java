@@ -4,11 +4,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.common.util.JsonUtil;
+import com.infoDiscover.common.util.RandomUtil;
+import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.*;
 
 /**
@@ -276,7 +279,7 @@ public class SampleJsonTemplateGenerator {
     // 1. the second value is propertyName
     // 2. the last one is propertyType
     // Sample: 录入设计单位合同数据,designContract,String
-    // Return: map("propertyType","propertyName","propertyType")
+    // Return: map("propertyType","propertyName","propertyValue")
     public static Map<String, Object> convertLineToMap(String line, boolean
             setFirstValueAsDefaultStringValue, boolean excludeRequiredProperties) {
         Map<String, Object> map = new HashedMap();
@@ -293,10 +296,10 @@ public class SampleJsonTemplateGenerator {
                     propertyValue = values[0];
                 }
             } else {
-                propertyValue = getPropertyValue(propertyType);
+                propertyValue = generatePropertyValue(propertyType);
             }
         } else {
-            propertyValue = (values.length == 4) ? values[3] : getPropertyValue(propertyType);
+            propertyValue = (values.length == 4) ? values[3] : generatePropertyValue(propertyType);
         }
 
 //        logger.debug("propertyType: {}", propertyType);
@@ -326,7 +329,7 @@ public class SampleJsonTemplateGenerator {
         return map;
     }
 
-    public static Object getPropertyValue(String propertyType) {
+    private static Object generatePropertyValue(String propertyType) {
         Object propertyValue = null;
         if (propertyType.equalsIgnoreCase("String")) {
             propertyValue = "";

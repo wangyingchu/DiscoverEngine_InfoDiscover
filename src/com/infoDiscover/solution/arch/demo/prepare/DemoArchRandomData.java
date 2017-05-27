@@ -12,18 +12,24 @@ import java.util.Map;
  */
 public class DemoArchRandomData {
 
-    public static int minValue = 1;
-    public static int maxValue = 20;
-    public static double minDoubleValue = 1000.0d;
-    public static double maxDoubleValue = 100000.0d;
+    public static int randomIntRange[] = {1, 20};
+    public static double randomDoubleRange[] = {1000.0d, 10000.0d};
     public static int randomStringLength = 9;
     public static long longValue = 10000l;
+    public static int randomYearRange[] = {2010, 2010};
 
     public static Map<String, Object> jsonNodeToMapWithRandomValue(JsonNode propertiesJsonNode) {
         return RandomData.propertiesJsonNodeToMapWithRandomValue(propertiesJsonNode, randomStringLength,
-                minValue, maxValue, minDoubleValue, maxDoubleValue, longValue,
-                reservedStringPropertyNames(), reservedDoublePropertyNames(),
-                reservedTimePropertyNames());
+                randomIntRange, randomDoubleRange, longValue, randomYearRange,
+                reservedPropertyNames());
+    }
+
+    public static List<String> reservedPropertyNames() {
+        List<String> list = new ArrayList<>();
+        list.addAll(reservedStringPropertyNames());
+        list.addAll(reservedDoublePropertyNames());
+        list.addAll(reservedTimePropertyNames());
+        return list;
     }
 
     public static List<String> reservedStringPropertyNames() {

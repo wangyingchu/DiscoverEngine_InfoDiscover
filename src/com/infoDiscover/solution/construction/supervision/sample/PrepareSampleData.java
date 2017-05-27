@@ -18,8 +18,7 @@ public class PrepareSampleData {
 
     // ===============参数配置=====================//
     // 生成年份
-    public final static int[] yearsToGenerate = new int[]{2010, 2011, 2012, 2013, 2014,
-            2015, 2016, 2017, 2018};
+    public final static int[] yearsRangeToGenerate = new int[]{2010, 2018};
 
     // 只生成年、月、日的时间维度
     public final static int depth = 3;
@@ -109,10 +108,8 @@ public class PrepareSampleData {
         }
 
         logger.info("Step 3: generate the specified years");
-        TimeDimensionGenerator.generateYears(ids, prefix, yearsToGenerate,
-                depth);
-        logger.info("Step 3: end to generate the specified years: " + "{2010, 2011, 2012, 2013, " +
-                "2014, 2015, 2016, 2017}");
+        TimeDimensionGenerator.generateYears(ids, prefix, yearsRangeToGenerate, depth);
+        logger.info("Step 3: end to generate the specified years: {}", yearsRangeToGenerate);
 
         logger.info("Step 4: initialize the progress fact type");
         SampleFactGenerator factGenerator = new SampleFactGenerator(ids);

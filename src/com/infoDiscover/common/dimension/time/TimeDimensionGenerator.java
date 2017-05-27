@@ -3,6 +3,7 @@ package com.infoDiscover.common.dimension.time;
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.common.dimension.time.dimension.*;
 import com.infoDiscover.common.dimension.time.manager.TimeDimensionManager;
+import com.infoDiscover.common.util.Util;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
@@ -35,18 +36,31 @@ public class TimeDimensionGenerator {
         ids.closeSpace();
     }
 
-    public static void generateYears(InfoDiscoverSpace ids, String dimensionPrefix, int[] years,
-                                     int depth) {
-        for (int year : years) {
+    public static void generateYears(InfoDiscoverSpace ids, String dimensionPrefix, int[]
+            yearsRange, int depth) {
+
+        int minYear = yearsRange[0];
+        int maxYear = yearsRange[0];
+
+        if (yearsRange.length > 1) {
+            minYear = Util.minInt(yearsRange);
+            maxYear = Util.maxInt(yearsRange);
+        }
+
+        for (int i = minYear; i <= maxYear; i++) {
             try {
-                yearGenerator(ids, dimensionPrefix, year, depth);
+                yearGenerator(ids, dimensionPrefix, i, depth);
             } catch (InfoDiscoveryEngineDataMartException e) {
-                logger.error(e.getMessage());
+                logger.error("Failed to generate year: {} with error: {}", yearsRange[0], e
+                        .getMessage());
             } catch (InfoDiscoveryEngineRuntimeException e) {
-                logger.error(e.getMessage());
+                logger.error("Failed to generate year: {} with error: {}", yearsRange[0], e
+                        .getMessage());
             }
         }
+
     }
+
 
     /*
     * depth:

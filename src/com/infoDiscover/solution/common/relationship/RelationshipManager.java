@@ -1,10 +1,12 @@
 package com.infoDiscover.solution.common.relationship;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
+import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -22,6 +24,12 @@ import java.util.List;
 public class RelationshipManager {
     private final static Logger logger = LoggerFactory.getLogger(RelationshipManager.class);
 
+    private InfoDiscoverSpace ids;
+
+    public RelationshipManager(InfoDiscoverSpace ids) {
+        this.ids = ids;
+    }
+
     public boolean checkRelationship(OrientGraph graph, String fromVertexRID, String toVertexRID) {
         List<OrientVertex> list = OrientDBShortestPath.getVerticesFromShortestPath(graph,
                 fromVertexRID,
@@ -29,7 +37,7 @@ public class RelationshipManager {
         return list.size() > 0;
     }
 
-    public Relation attachFactToDimension(InfoDiscoverSpace ids, String factId, ExploreParameters
+    public Relation attachFactToDimension(String factId, ExploreParameters
             dimensionEp, String relationType) throws InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineInfoExploreException {
         Dimension dimension = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(),
@@ -41,9 +49,102 @@ public class RelationshipManager {
         return ids.attachFactToDimension(factId, dimension.getId(), relationType);
     }
 
-    public Relation attachFactToDimension(InfoDiscoverSpace ids, String factId, String key, String
-            value, String dimensionType, String relationType) throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
+    public Relation linkFactToDimension(Fact fromFact,
+                                        Dimension toDimension,
+                                        String relationType) {
+        logger.info("Enter method linkFactToDimensionByRelationType() with fromFactId: {} and " +
+                "toDimensionId: {} and relationType: {}", fromFact.getId(), toDimension
+                .getId(), relationType);
+
+        if (fromFact == null) {
+            logger.error("fromFact should not be null");
+            return null;
+        }
+
+        if (toDimension == null) {
+            logger.error("toDimension should not be null");
+            return null;
+        }
+
+        logger.debug("Exit method linkFactToDimensionByRelationType()...");
+
+        return attachFactToDimension(fromFact.getId(), toDimension.getId(),
+                relationType, true);
+    }
+
+    public Relation linkFactsByRelationType(Fact fromFact, Fact toFact,
+                                            String relationType) {
+        logger.debug("Enter method linkFactsByRelationType() with fromFactId: " + fromFact.getId() +
+                " " + "and " + "toFactId: " + toFact.getId() + " and relationType: " +
+                relationType);
+
+        if (fromFact == null) {
+            logger.error("fromFact should not be null");
+            return null;
+        }
+
+        if (toFact == null) {
+            logger.error("toFact should not be null");
+            return null;
+        }
+
+        try {
+            if (!ids.hasRelationType(relationType)) {
+                ids.addRelationType(relationType);
+            }
+            Relation r = ids.addDirectionalFactRelation(fromFact, toFact, relationType, false);
+            return r;
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            e.printStackTrace();
+        } catch (InfoDiscoveryEngineDataMartException e) {
+            e.printStackTrace();
+        }
+
+        logger.debug("Exit method linkFactsByRelationType()...");
+        return null;
+    }
+
+    public Relation linkDimensionsByRelationType(Dimension fromDimension,
+                                                 Dimension toDimension,
+                                                 String relationType) {
+        logger.debug("Enter method linkDimensionsByRelationType() with fromDimensionId: " +
+                fromDimension.getId() + " and toDimensionId: " + toDimension.getId() + " and " +
+                "relationType: " + relationType);
+
+        if (fromDimension == null) {
+            logger.error("fromDimension should not be null");
+            return null;
+        }
+
+        if (toDimension == null) {
+            logger.error("toDimension should not be null");
+            return null;
+        }
+
+        try {
+
+            if (!ids.hasRelationType(relationType)) {
+                ids.addRelationType(relationType);
+            }
+
+            Relation r = ids.addDirectionalDimensionRelation(fromDimension, toDimension,
+                    relationType, false);
+            return r;
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            e.printStackTrace();
+        } catch (InfoDiscoveryEngineDataMartException e) {
+            e.printStackTrace();
+        }
+
+        logger.debug("Exit method linkDimensionsByRelationType()...");
+        return null;
+    }
+
+    public Relation attachFactToDimension(String factId,
+                                          String dimensionType,
+                                          String key, String value,
+                                          String relationType,
+                                          boolean toCreateRelationTypeIfNotExisted) {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(dimensionType);
         ep.setDefaultFilteringItem(new EqualFilteringItem(key, value));
@@ -54,7 +155,33 @@ public class RelationshipManager {
             return null;
         }
 
-        return ids.attachFactToDimension(factId, dimension.getId(), relationType);
+        return attachFactToDimension(factId, dimension.getId(), relationType,
+                toCreateRelationTypeIfNotExisted);
     }
 
+    public Relation attachFactToDimension(String fromFactId, String toDimensionId,
+                                          String relationType,
+                                          boolean toCreateRelationTypeIfNotExisted) {
+
+        if (!toCreateRelationTypeIfNotExisted && !ids.hasRelationType(relationType)) {
+            return null;
+        }
+
+        try {
+
+            if (toCreateRelationTypeIfNotExisted) {
+                if (!ids.hasRelationType(relationType)) {
+                    ids.addRelationType(relationType);
+                }
+            }
+
+            return ids.attachFactToDimension(fromFactId, toDimensionId, relationType);
+        } catch (InfoDiscoveryEngineDataMartException e) {
+            logger.error("Failed to attachFact: {} to dimension: {}", fromFactId, toDimensionId);
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            logger.error("Failed to attachFact: {} to dimension: {}", fromFactId, toDimensionId);
+        }
+
+        return null;
+    }
 }

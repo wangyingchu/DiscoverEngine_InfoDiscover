@@ -7,6 +7,23 @@ import java.util.Random;
  */
 public class RandomUtil {
 
+    public static int generateRandomInRange(int range[]) {
+        int min = 0;
+        int max = 0;
+
+        if (range.length < 2) {
+            min = range[0];
+            max = range[0];
+        } else {
+            min = Util.minInt(range);
+            max = Util.maxInt(range);
+        }
+
+        return generateRandomInRange(min, max);
+    }
+
+
+
     public static int generateRandomInRange(int min, int max) {
         if(min == max){
             return min;
@@ -26,13 +43,27 @@ public class RandomUtil {
         return val;
     }
 
+    public static double generateRandomDouble(double range[]) {
+        double min = 0d;
+        double max = 0d;
+
+        if (range.length < 2) {
+            min = range[0];
+            max = range[0];
+        } else {
+            min = Util.minDouble(range);
+            max = Util.maxDouble(range);
+        }
+
+        return generateRandomDouble(min, max);
+    }
+
     public static double generateRandomDouble(final double min, final double max) {
         if (min == max) {
             return min;
         }
         return min + ((max - min) * new Random().nextDouble());
     }
-
 
     public static String generateRandomString(int length) {
         String base = "abcdefghijklmnopqrstuvwxyz0123456789";

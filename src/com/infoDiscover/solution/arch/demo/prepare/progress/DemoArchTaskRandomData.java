@@ -4,7 +4,7 @@ import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
-import com.infoDiscover.solution.construction.supervision.util.ProgressJsonParser;
+import com.infoDiscover.solution.construction.supervision.util.ProjectJsonParser;
 import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
 import com.infoDiscover.solution.arch.demo.prepare.DemoArchRandomData;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
@@ -38,7 +38,7 @@ public class DemoArchTaskRandomData {
                 (progressStartTime), firstNumberTasks);
 
         JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
-        JsonNode taskNodes = ProgressJsonParser.getTaskNodes(json.toString());
+        JsonNode taskNodes = ProjectJsonParser.getTaskNodes(json.toString());
 
         // if json is empty
         if (JsonUtil.isEmptyJsonNode(taskNodes)) {

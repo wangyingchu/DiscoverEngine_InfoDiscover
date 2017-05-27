@@ -1,9 +1,12 @@
 package com.infoDiscover.solution.common.dimension;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.executor.QueryExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,5 +53,13 @@ public class DimensionManager {
         return dimension;
     }
 
+    public Dimension getDimension(String dimensionType, String key, String value) {
+
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(dimensionType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(key, value));
+
+        return QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
+    }
 
 }

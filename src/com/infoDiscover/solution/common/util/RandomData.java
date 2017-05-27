@@ -35,17 +35,13 @@ public class RandomData {
     public static Map<String, Object> propertiesJsonNodeToMapWithRandomValue(JsonNode
                                                                                      propertiesJsonNode,
                                                                              int randomStringLength,
-                                                                             int minValue,
-                                                                             int maxValue,
-                                                                             double minDoubleValue,
-                                                                             double maxDoubleValue,
+                                                                             int randomIntRange[],
+                                                                             double
+                                                                                     randomDoubleRange[],
                                                                              long longValue,
+                                                                             int randomYearRange[],
                                                                              List<String>
-                                                                                     reservedStringPropertyNames,
-                                                                             List<String>
-                                                                                     reservedDoublePropertyNames,
-                                                                             List<String>
-                                                                                     reservedTimePropertyNames) {
+                                                                                     reservedPropertyNames) {
         Map<String, Object> properties = new HashMap<String, Object>();
 
         JsonNode propertiesNode = JsonNodeUtil.getPropertiesJsonNode(propertiesJsonNode);
@@ -57,10 +53,9 @@ public class RandomData {
             String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
             Object propertyValue = generateRandomPropertyValue(propertyNode,
                     randomStringLength,
-                    minValue, maxValue,
-                    minDoubleValue, maxDoubleValue,
-                    longValue, reservedStringPropertyNames, reservedDoublePropertyNames,
-                    reservedTimePropertyNames);
+                    randomIntRange,
+                    randomDoubleRange,
+                    longValue, randomYearRange, reservedPropertyNames);
             if (propertyValue != null) {
                 properties.put(propertyName, propertyValue);
             }
@@ -80,15 +75,11 @@ public class RandomData {
      */
     public static Object generateRandomPropertyValue(JsonNode propertyJsonNode,
                                                      int randomStringLength,
-                                                     int minValue,
-                                                     int maxValue,
-                                                     double minDoubleValue,
-                                                     double maxDoubleValue,
+                                                     int randomIntRange[],
+                                                     double randomDoubleRange[],
                                                      long longValue,
-                                                     List<String> reservedStringPropertyNames,
-                                                     List<String>
-                                                             reservedDoublePropertyNames,
-                                                     List<String> reservedTimePropertyNames) {
+                                                     int randomYearRange[],
+                                                     List<String> reservedPropertyNames) {
         Object propertyValue = null;
 
         String propertyType = propertyJsonNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
@@ -97,20 +88,29 @@ public class RandomData {
         JsonNode propertyValueNode = propertyJsonNode.get(JsonConstants.JSON_PROPERTY_VALUE);
 
         if (propertyType.equalsIgnoreCase("String")) {
-            if (reservedStringPropertyNames == null || !reservedStringPropertyNames.contains(propertyName)) {
+            if (reservedPropertyNames == null || !reservedPropertyNames.contains(propertyName)) {
                 propertyValue = getRandomString(propertyValueNode, randomStringLength);
             } else {
                 propertyValue = propertyValueNode.asText();
             }
         } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
                 ("Integer")) {
-            propertyValue = getRandomInt(propertyValueNode, minValue, maxValue);
+            if (reservedPropertyNames == null || !reservedPropertyNames.contains(propertyName)) {
+                propertyValue = getRandomInt(propertyValueNode, randomIntRange);
+            } else {
+                propertyValue = propertyValueNode.asInt();
+            }
         } else if (propertyType.equalsIgnoreCase("Long")) {
-            propertyValue = getRandomLong(propertyValueNode, longValue);
+            if (reservedPropertyNames == null || !reservedPropertyNames.contains(propertyName)) {
+                propertyValue = getRandomLong(propertyValueNode, longValue);
+            } else {
+                propertyValue = propertyValueNode.asLong();
+            }
         } else if (propertyType.equalsIgnoreCase("Float") || propertyType.equalsIgnoreCase
                 ("Double")) {
-            if (reservedDoublePropertyNames == null || !reservedDoublePropertyNames.contains(propertyName)) {
-                propertyValue = getRandomDouble(propertyValueNode, minDoubleValue, maxDoubleValue);
+            if (reservedPropertyNames == null || !reservedPropertyNames.contains
+                    (propertyName)) {
+                propertyValue = getRandomDouble(propertyValueNode, randomDoubleRange);
             } else {
                 propertyValue = propertyValueNode.asDouble();
             }
@@ -120,22 +120,30 @@ public class RandomData {
             propertyValue = getBooleanValue(propertyValueNode);
         } else if (propertyType.equalsIgnoreCase("Date") || propertyType.equalsIgnoreCase
                 ("DateTime")) {
-            if (reservedTimePropertyNames == null) {
-                propertyValue = getDateValue(propertyValueNode);
+            if (reservedPropertyNames == null || !reservedPropertyNames.contains
+                    (propertyName)) {
+                propertyValue = getRandomTime(randomYearRange);
             } else {
-                if (!reservedTimePropertyNames.contains(propertyName)) {
-                    propertyValue = getDateValue(propertyValueNode);
-                }
+                propertyValue = getDateValue(propertyValueNode);
             }
         } else {
-            if (reservedStringPropertyNames == null || !reservedStringPropertyNames.contains(propertyName)) {
+            if (reservedPropertyNames == null || !reservedPropertyNames.contains
+                    (propertyName)) {
                 propertyValue = getRandomString(propertyValueNode, randomStringLength);
             } else {
-               propertyValue = propertyValueNode.asText();
+                propertyValue = propertyValueNode.asText();
             }
         }
 
         return propertyValue;
+    }
+
+    public static long getRandomTime(int yearRange[]) {
+        int minYear = yearRange[0];
+        int maxYear = yearRange[1];
+        int plusDays = yearRange.length == 3 ? yearRange[2] : RandomUtil.generateRandomInRange
+                (1, 365);
+        return getRandomTime(minYear, maxYear, plusDays);
     }
 
     public static long getRandomTime(int minYear, int maxYear, int plusDays) {
@@ -157,8 +165,8 @@ public class RandomData {
                 .asText() + "_" + randomString;
     }
 
-    public static int getRandomInt(JsonNode valueNode, int minValue, int maxValue) {
-        int randomInt = RandomUtil.generateRandomInRange(minValue, maxValue);
+    public static int getRandomInt(JsonNode valueNode, int range[]) {
+        int randomInt = RandomUtil.generateRandomInRange(range);
         return valueNode == null ? randomInt :
                 valueNode.asInt() + randomInt;
     }
@@ -168,10 +176,10 @@ public class RandomData {
         return valueNode == null ? randomLong : valueNode.asLong() + randomLong;
     }
 
-    public static double getRandomDouble(JsonNode valueNode, double min, double max) {
+    public static double getRandomDouble(JsonNode valueNode, double range[]) {
 
         DecimalFormat df = new DecimalFormat("######0.00");
-        double randomDouble = Double.valueOf(df.format(RandomUtil.generateRandomDouble(min, max)));
+        double randomDouble = Double.valueOf(df.format(RandomUtil.generateRandomDouble(range)));
         return valueNode == null ? randomDouble : valueNode
                 .asDouble() + randomDouble;
     }

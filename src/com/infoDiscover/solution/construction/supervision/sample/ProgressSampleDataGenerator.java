@@ -5,7 +5,7 @@ import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
-import com.infoDiscover.solution.construction.supervision.util.ProgressJsonParser;
+import com.infoDiscover.solution.construction.supervision.util.ProjectJsonParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
@@ -18,13 +18,6 @@ import java.util.*;
 public class ProgressSampleDataGenerator {
     private final static Logger logger = LogManager.getLogger(ProgressSampleDataGenerator
             .class);
-
-    public static int minValue = 1;
-    public static int maxValue = 20;
-    public static double minDoubleValue = 1000.0d;
-    public static double maxDoubleValue = 100000.0d;
-    public static int randomStringLength = 9;
-    public static long longValue = 10000l;
 
     public static Map<String, Object> generateProgressRandomData
             (String projectJsonTemplate, String projectType, String projectName, Date startDate,
@@ -47,10 +40,11 @@ public class ProgressSampleDataGenerator {
         }
 
         Map<String, Object> properties = RandomData.propertiesJsonNodeToMapWithRandomValue
-                (progressPropertiesJsonNode, randomStringLength,
-                        minValue, maxValue, minDoubleValue, maxDoubleValue, longValue,
-                        reservedStringPropertyNames(), null,
-                        null);
+                (progressPropertiesJsonNode, SampleDataSet.randomStringLength,
+                        SampleDataSet.randomIntRange, SampleDataSet.randomDoubleRange,
+                        SampleDataSet.longValue,
+                        SampleDataSet.randomYearRange,
+                        reservedStringPropertyNames());
 
         // update required properties
         updateRequiredProperties(properties, projectType, projectName, startDate, sequence);
@@ -99,10 +93,10 @@ public class ProgressSampleDataGenerator {
 
     private static JsonNode getProgressNode(String json) {
         // check if "Progresses" node array
-        JsonNode progressesNode = ProgressJsonParser.getProgressesNode(json);
+        JsonNode progressesNode = ProjectJsonParser.getProgressesNode(json);
         if (progressesNode == null) {
             // check if "Progress" node
-            return ProgressJsonParser.getProgressNode(json);
+            return ProjectJsonParser.getProgressNode(json);
         }
 
         return progressesNode.get(0).get(JsonConstants.JSON_PROJECT);

@@ -10,12 +10,12 @@
                 {
                     "propertyType": "String",
                     "propertyName": "projectName",
-                    "propertyValue": "新建工程"
+                    "propertyValue": "扩建工程"
                 },
                 {
                     "propertyType": "String",
                     "propertyName": "projectType",
-                    "propertyValue": "新建工程"
+                    "propertyValue": "扩建工程"
                 },
                 {
                     "propertyType": "String",

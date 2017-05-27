@@ -17,8 +17,6 @@ import java.util.Map;
 public class JsonNodeUtil {
     private final static Logger logger = LogManager.getLogger(JsonNodeUtil.class);
 
-
-
     public static JsonNode getDataNode(String json) {
         if (json == null) {
             return null;
@@ -42,6 +40,13 @@ public class JsonNodeUtil {
         return dataNode.get(property);
     }
 
+    public static JsonNode getJsonNode(String property, JsonNode dataJsonNode) {
+        if (dataJsonNode == null) {
+            return null;
+        }
+        return dataJsonNode.get(property);
+    }
+
     /*
             {
             "properties": [
@@ -58,10 +63,9 @@ public class JsonNodeUtil {
                         ]
              }
            */
-    public static Map<String, Object> jsonNodeToProperties(JsonNode jsonNode) {
+    public static Map<String, Object> convertToPropertyNameValueMap(JsonNode propertiesNode) {
         Map<String, Object> properties = new HashMap<String, Object>();
 
-        JsonNode propertiesNode = getPropertiesJsonNode(jsonNode);
         if (propertiesNode == null) {
             return null;
         }
@@ -89,30 +93,27 @@ public class JsonNodeUtil {
     public static Object getPropertyValue(String propertyType, JsonNode jsonNode) {
 
         JsonNode value = jsonNode.get(JsonConstants.JSON_PROPERTY_VALUE);
-        if (value == null) {
-            return null;
-        }
 
         Object propertyValue;
         if (propertyType.equalsIgnoreCase("String")) {
-            propertyValue = value.asText();
+            propertyValue = (value == null) ? "" : value.asText();
         } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
                 ("Integer")) {
-            propertyValue = value.asInt();
+            propertyValue = (value == null) ? 0 : value.asInt();
         } else if (propertyType.equalsIgnoreCase("Long")) {
-            propertyValue = value.asLong();
+            propertyValue = (value == null) ? 0 : value.asLong();
         } else if (propertyType.equalsIgnoreCase("Float") || propertyType.equalsIgnoreCase
                 ("Double")) {
-            propertyValue = value.asDouble();
+            propertyValue = (value == null) ? 0 : value.asDouble();
         } else if (propertyType.equalsIgnoreCase("boolean") || propertyType.equalsIgnoreCase
                 ("bool")) {
-            propertyValue = value.asBoolean();
+            propertyValue = (value == null) ? false : value.asBoolean();
         } else if (propertyType.equalsIgnoreCase("Date") || propertyType.equalsIgnoreCase
                 ("DateTime")) {
-            Long dateValueInLong = value.asLong();
+            Long dateValueInLong = (value == null) ? 0 : value.asLong();
             propertyValue = DateUtil.getDateTime(dateValueInLong).toDate();
         } else {
-            propertyValue = value.asText();
+            propertyValue = (value == null) ? "" : value.asText();
         }
 
         return propertyValue;

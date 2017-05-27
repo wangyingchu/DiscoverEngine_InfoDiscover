@@ -1,0 +1,46 @@
+{
+  "data": {
+    "properties": [
+      {
+        "propertyType": "String",
+        "propertyName": "projectId",
+        "propertyValue": "projectId_1"
+      },
+      {
+        "propertyType": "String",
+        "propertyName": "projectName",
+        "propertyValue": "projectName_111"
+      },
+      {
+        "propertyType": "String",
+        "propertyName": "projectType",
+        "propertyValue": "新建工程"
+      },
+      {
+        "propertyType": "String",
+        "propertyName": "starterId",
+        "propertyValue": "starterId1"
+      },
+      {
+        "propertyType": "String",
+        "propertyName": "starter",
+        "propertyValue": "starter1"
+      },
+      {
+        "propertyType": "Date",
+        "propertyName": "startDate",
+        "propertyValue": 1451577600000
+      },
+      {
+        "propertyType": "Date",
+        "propertyName": "endDate",
+        "propertyValue": 1485878400000
+      },
+      {
+        "propertyType": "String",
+        "propertyName": "status",
+        "propertyValue": "On progressing"
+      }
+    ]
+  }
+}

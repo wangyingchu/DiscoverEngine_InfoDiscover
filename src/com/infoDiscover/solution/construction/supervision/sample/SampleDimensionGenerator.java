@@ -366,46 +366,38 @@ public class SampleDimensionGenerator {
     }
 
     private Dimension getProjectAddress(String projectAddress) {
-        return getDimension(DatabaseConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX, Constants
-                        .DIMENSION_NAME,
-                projectAddress);
+        return new DimensionManager(ids).getDimension(
+                DatabaseConstants.DIMENSION_PROJECT_ADDRESS_WITH_PREFIX,
+                Constants.DIMENSION_NAME, projectAddress);
     }
 
     private Dimension getRoad(String roadName) {
-        return getDimension(DatabaseConstants.DIMENSION_ROAD_WITH_PREFIX, Constants.DIMENSION_NAME,
+        return new DimensionManager(ids).getDimension(DatabaseConstants.DIMENSION_ROAD_WITH_PREFIX, Constants.DIMENSION_NAME,
                 roadName);
     }
 
     public Dimension getUser(String userId) {
-        return getDimension(DatabaseConstants.DIMENSION_USER_WITH_PREFIX, "userId",
+        return new DimensionManager(ids).getDimension(DatabaseConstants.DIMENSION_USER_WITH_PREFIX, "userId",
                 userId);
     }
 
     public Dimension getDepartment(String dimensionType, String departmentId) {
-        return getDimension(dimensionType, Constants.DIMENSION_ID, departmentId);
+        return new DimensionManager(ids).getDimension(dimensionType, Constants.DIMENSION_ID, departmentId);
     }
 
     private Dimension getCompanyClassification(String companyClassificationName) {
-        return getDimension(DatabaseConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
+        return new DimensionManager(ids).getDimension(DatabaseConstants.DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX,
                 Constants.DIMENSION_NAME, companyClassificationName);
     }
 
     private Dimension getCompany(String companyName) {
-        return getDimension(DatabaseConstants.DIMENSION_COMPANY_WITH_PREFIX,
+        return new DimensionManager(ids).getDimension(DatabaseConstants.DIMENSION_COMPANY_WITH_PREFIX,
                 "companyName", companyName);
     }
 
     private Dimension getExternalUser(String userName) {
-        return getDimension(DatabaseConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX,
+        return new DimensionManager(ids).getDimension(DatabaseConstants.DIMENSION_EXTERNAL_USER_WITH_PREFIX,
                 "userName", userName);
     }
 
-    public Dimension getDimension(String dimensionType, String key, String value) {
-
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(dimensionType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(key, value));
-
-        return QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
-    }
 }

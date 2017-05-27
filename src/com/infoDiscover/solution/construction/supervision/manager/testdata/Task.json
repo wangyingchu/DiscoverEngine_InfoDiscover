@@ -1,0 +1,106 @@
+{
+  "data": {
+    "properties": [
+      {
+        "propertyName": "projectId",
+        "propertyValue": "project_1",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "taskId",
+        "propertyValue": "taskId1",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "workerId",
+        "propertyValue": "taskWorkerId1",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "worker",
+        "propertyValue": "taskWorker",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "executiveDepartmentId",
+        "propertyValue": "",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "executiveDepartment",
+        "propertyValue": "",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "startDate",
+        "propertyValue": 1000000,
+        "propertyType": "Date"
+      },
+      {
+        "propertyName": "endDate",
+        "propertyValue": 200000,
+        "propertyType": "Date"
+      },
+      {
+        "propertyName": "taskName",
+        "propertyValue": "Start",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "taskDisplayName",
+        "propertyValue": "录入项目发起数据",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "projectName",
+        "propertyValue": "项目名称",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "projectNumber",
+        "propertyValue": "项目编号",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "grossInvestment",
+        "propertyValue": 0,
+        "propertyType": "Double"
+      },
+      {
+        "propertyName": "projectClassification",
+        "propertyValue": "项目专业分类",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "projectConstructionClassification",
+        "propertyValue": "项目建设分类",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "projectAddress",
+        "propertyValue": "项目地址",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "constructionCompany",
+        "propertyValue": "建设单位",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "projectLeader",
+        "propertyValue": "项目负责人",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "longitude",
+        "propertyValue": 0,
+        "propertyType": "Double"
+      },
+      {
+        "propertyName": "latitude",
+        "propertyValue": 0,
+        "propertyType": "Double"
+      }
+    ]
+  }
+}

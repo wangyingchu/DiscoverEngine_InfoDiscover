@@ -4,7 +4,7 @@ import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
-import com.infoDiscover.solution.construction.supervision.util.ProgressJsonParser;
+import com.infoDiscover.solution.construction.supervision.util.ProjectJsonParser;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,14 +44,14 @@ public class SampleAllProperties {
         logger.info("Start to getProjectProperties with template: {}", projectJsonTemplate);
 
         JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
-        JsonNode progressPropertiesJsonNode = ProgressJsonParser.getProgressNode(json.toString());
+        JsonNode progressPropertiesJsonNode = ProjectJsonParser.getProgressNode(json.toString());
 
         JsonNode progressPropertiesNode = JsonNodeUtil.getPropertiesJsonNode
                 (progressPropertiesJsonNode);
 
         setProperties(progressPropertiesNode, allProperties);
 
-        JsonNode taskNodes = ProgressJsonParser.getTaskNodes(json.toString());
+        JsonNode taskNodes = ProjectJsonParser.getTaskNodes(json.toString());
         for (JsonNode taskNode : taskNodes) {
             JsonNode taskPropertiesJsonNode = taskNode.get(JsonConstants.JSON_TASK);
             JsonNode propertiesNode = JsonNodeUtil.getPropertiesJsonNode(taskPropertiesJsonNode);

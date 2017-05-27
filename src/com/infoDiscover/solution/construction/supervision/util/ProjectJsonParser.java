@@ -9,9 +9,9 @@ import org.codehaus.jackson.JsonNode;
 /**
  * Created by sun.
  */
-public class ProgressJsonParser {
+public class ProjectJsonParser {
 
-    private final static Logger logger = LogManager.getLogger(ProgressJsonParser.class);
+    private final static Logger logger = LogManager.getLogger(ProjectJsonParser.class);
 
     // get progresses JsonNode array
     public static JsonNode getProgressesNode(String json) {
@@ -28,4 +28,8 @@ public class ProgressJsonParser {
         return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_TASKS, json);
     }
 
+    // get task JsonNode
+    public static JsonNode getTaskNode(String json) {
+        return JsonNodeUtil.getJsonNodes(JsonConstants.JSON_TASK, json);
+    }
 }
