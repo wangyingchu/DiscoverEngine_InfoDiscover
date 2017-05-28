@@ -2,14 +2,13 @@ package com.infoDiscover.solution.common.fact;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.FactType;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.common.executor.QueryExecutor;
+import com.infoDiscover.solution.builder.SolutionConstants;
 import com.infoDiscover.solution.common.util.PropertyTypeUtil;
+import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,20 +62,43 @@ public class FactManager {
 
         if (!ids.hasFactType(factTypeName)) {
 
-            FactType solutionTemplate = ids.addFactType(factTypeName);
+            FactType factType = ids.addFactType(factTypeName);
 
             if (factTypeProperties != null) {
                 for (String[] property : factTypeProperties) {
                     String propertyName = property[0];
                     String propertyType = property[1];
-                    solutionTemplate.addTypeProperty(
+                    factType.addTypeProperty(
                             propertyName,
                             PropertyTypeUtil.getPropertyType(propertyType));
                 }
             }
 
-            logger.debug("End to create fact type: " + solutionTemplate.getTypeName());
+            logger.debug("End to create fact type: " + factType.getTypeName());
         }
+    }
+
+
+    public void createFactType(String factTypeName, JsonNode propertiesNode) throws
+            InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
+        logger.info("Start to createFactType with factTypeName: {} and propertiesNode: {}",
+                factTypeName, propertiesNode);
+
+        if (!ids.hasFactType(factTypeName)) {
+            FactType factType = ids.addFactType(factTypeName);
+            if (propertiesNode != null) {
+                for (JsonNode property : propertiesNode) {
+                    String propertyName = property.get(SolutionConstants.JSON_PROPERTY_NAME)
+                            .asText();
+                    String propertyType = property.get(SolutionConstants.JSON_PROPERTY_TYPE)
+                            .asText();
+                    factType.addTypeProperty(propertyName, PropertyTypeUtil.getPropertyType
+                            (propertyType));
+                }
+            }
+        }
+
+        logger.info("End to createFactType...");
     }
 
 }

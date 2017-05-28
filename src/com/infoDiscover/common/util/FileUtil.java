@@ -9,9 +9,7 @@ import java.util.List;
  */
 public class FileUtil {
 
-
-
-    public static String getFileContent(String path) {
+    public static String readFileContent(String path) {
 
         try {
             InputStream stream = new FileInputStream(path);

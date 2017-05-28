@@ -1,12 +1,17 @@
 package com.infoDiscover.solution.common.dimension;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
+import com.infoDiscover.infoDiscoverEngine.dataMart.DimensionType;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.builder.SolutionConstants;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
+import com.infoDiscover.solution.common.util.PropertyTypeUtil;
+import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,4 +67,25 @@ public class DimensionManager {
         return QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
     }
 
+    public void createDimensionType(String dimensionTypeName, JsonNode propertiesNode) throws
+            InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
+        logger.info("Start to createDimensionType with dimensionTypeName: {} and propertiesNode: {}",
+                dimensionTypeName, propertiesNode);
+
+        if (!ids.hasDimensionType(dimensionTypeName)) {
+            DimensionType dimensionType = ids.addDimensionType(dimensionTypeName);
+            if (propertiesNode != null) {
+                for (JsonNode property : propertiesNode) {
+                    String propertyName = property.get(SolutionConstants.JSON_PROPERTY_NAME)
+                            .asText();
+                    String propertyType = property.get(SolutionConstants.JSON_PROPERTY_TYPE)
+                            .asText();
+                    dimensionType.addTypeProperty(propertyName, PropertyTypeUtil.getPropertyType
+                            (propertyType));
+                }
+            }
+        }
+
+        logger.info("End to createDimensionType...");
+    }
 }

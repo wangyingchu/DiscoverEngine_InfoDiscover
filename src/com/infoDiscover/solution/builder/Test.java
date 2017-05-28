@@ -31,7 +31,7 @@ public class Test {
         SolutionTemplateInitializer.initializeSolutionTemplate(spaceName, prefix);
 
         // 2. save solution template
-        String templateJson = FileUtil.getFileContent(templateFile);
+        String templateJson = FileUtil.readFileContent(templateFile);
         System.out.println("templateJson: " + templateJson);
 
         InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
@@ -43,7 +43,7 @@ public class Test {
 
 
         // update prefix
-        String templateId = "3e6a3598-c2dd-4ea1-a29b-909ae2f196e4";
+        String templateId = "0b80aec2-572c-4d9f-a3bd-7b1918e7259e";
         builder.updatePrefix(templateId, prefix);
 
         // check prefix is existed
@@ -51,21 +51,26 @@ public class Test {
         System.out.println("prefixExisted: " + prefixExisted);
 
         // update fact definition
-        String factJson = FileUtil.getFileContent(factDefinition);
+        String factJson = FileUtil.readFileContent(factDefinition);
         builder.updateFactDefinition(templateId, factJson);
 
         // update dimension definition
-        String dimensionJson = FileUtil.getFileContent(dimensionDefinition);
+        String dimensionJson = FileUtil.readFileContent(dimensionDefinition);
         builder.updateDimensionDefinition(templateId, dimensionJson);
 
         // update relation definition
-        String relationJson= FileUtil.getFileContent(relationDefinition);
+        String relationJson= FileUtil.readFileContent(relationDefinition);
         builder.updateRelationDefinition(templateId,relationJson);
 
         // delete solution template
-        boolean deleted = builder.deleteSolutionTemplateById(templateId);
-        System.out.println("deleted: " + deleted);
+        //boolean deleted = builder.deleteSolutionTemplateById(templateId);
+        //System.out.println("deleted: " + deleted);
 
+
+
+        //
+        SolutionImporter importer = new SolutionImporter(prefix);
+        importer.generateFromTemplate(ids);
         ids.closeSpace();
     }
 }

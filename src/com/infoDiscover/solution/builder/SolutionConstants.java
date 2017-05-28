@@ -37,10 +37,18 @@ public class SolutionConstants {
 
     // json
     public final static String JSON_PREFIX = "prefix";
-    public final static String JSON_STD_FACTTYPE = "stdFactType";
-    public final static String JSON_FACT = "fact";
-    public final static String JSON_DIMENSION = "dimension";
-    public final static String JSON_RELATION = "relation";
+    public final static String JSON_FACTS = "facts";
+    public final static String JSON_DIMENSIONS = "dimensions";
+    public final static String JSON_RELATIONS = "relations";
+    public final static String JSON_PROPERTIES= "properties";
+    public final static String JSON_PROPERTY_NAME = "propertyName";
+    public final static String JSON_PROPERTY_TYPE = "propertyType";
+    public final static String JSON_TYPE_NAME = "typeName";
+    public final static String JSON_RELATION_TYPE_NAME = "relationTypeName";
+    public final static String JSON_FACT_TYPE = "factType";
+    public final static String JSON_FACT_PROPERTY = "factProperty";
+    public final static String JSON_DIMENSION_TYPE = "dimensionType";
+    public final static String JSON_DIMENSION_PROPERTY = "dimensionProperty";
 
 }
 

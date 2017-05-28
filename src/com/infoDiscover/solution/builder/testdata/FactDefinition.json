@@ -1,14 +1,30 @@
 {
-  "type": "fact",
-  "typeName": "factType_111",
-  "properties": [
+  "facts": [
     {
-      "propertyName": "prefix",
-      "propertyType": "String"
+      "typeName": "factType_111",
+      "properties": [
+        {
+          "propertyName": "prefix",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "content",
+          "propertyType": "String"
+        }
+      ]
     },
     {
-      "propertyName": "content",
-      "propertyType": "String"
+      "typeName": "factType_222",
+      "properties": [
+        {
+          "propertyName": "prefix",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "content",
+          "propertyType": "String"
+        }
+      ]
     }
   ]
 }

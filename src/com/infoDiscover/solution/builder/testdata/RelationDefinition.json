@@ -1,6 +1,5 @@
 {
-  "type": "relation",
-  "properties": [
+  "relations": [
     {
       "relationTypeName": "relationType_111",
       "factType": "factType_111",
@@ -10,7 +9,7 @@
       "propertyType": "String"
     },
     {
-      "relationTypeName": "relationType_111",
+      "relationTypeName": "relationType_222",
       "factType": "factType_222",
       "factProperty": "factPrimaryKey222",
       "dimensionType": "dimensionType_111",

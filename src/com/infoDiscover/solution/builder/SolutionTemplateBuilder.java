@@ -66,40 +66,33 @@ public class SolutionTemplateBuilder {
     private Map<String, Object> getPropertiesMapFromJson(String templateJson) throws Exception {
         JsonNode dataNode = JsonNodeUtil.getDataNode(templateJson);
         JsonNode prefixNode = dataNode.get(SolutionConstants.JSON_PREFIX);
-        JsonNode factTypeNode = dataNode.get(SolutionConstants.JSON_STD_FACTTYPE);
         if (prefixNode == null) {
             String error = "Solution Prefix is empty.";
             logger.error(error);
             throw new Exception(error);
         }
 
-        if (factTypeNode == null) {
-            String error = "Solution fact type is empty.";
-            logger.error(error);
-            throw new Exception(error);
-        }
+        JsonNode factsNode = dataNode.get(SolutionConstants.JSON_FACTS);
+        JsonNode dimensionsNode = dataNode.get(SolutionConstants.JSON_DIMENSIONS);
+        JsonNode relationsNode = dataNode.get(SolutionConstants.JSON_RELATIONS);
 
-        JsonNode factNode = dataNode.get(SolutionConstants.JSON_FACT);
-        JsonNode dimensionNode = dataNode.get(SolutionConstants.JSON_DIMENSION);
-        JsonNode relationNode = dataNode.get(SolutionConstants.JSON_RELATION);
-
-        logger.debug("Fact node: {}", factNode);
-        logger.debug("Dimension node: {}", dimensionNode);
-        logger.debug("Relation node: {}", relationNode);
+        logger.debug("Facts node: {}", factsNode);
+        logger.debug("Dimensions node: {}", dimensionsNode);
+        logger.debug("Relations node: {}", relationsNode);
 
         Map<String, Object> properties = new HashedMap();
-        properties.put(SolutionConstants.PROPERTY_STD_PREFIX, prefixNode.asText());
-        if (factNode != null) {
+        properties.put(SolutionConstants.PROPERTY_STD_PREFIX, prefixNode.asText().toUpperCase());
+        if (factsNode != null) {
             properties.put(SolutionConstants.PROPERTY_STD_FACT_DEFINITION,
-                    factNode.toString());
+                    appendJsonPrefix(SolutionConstants.JSON_FACTS, factsNode));
         }
-        if (dimensionNode != null) {
+        if (dimensionsNode != null) {
             properties.put(SolutionConstants.PROPERTY_STD_DIMENSION_DEFINITION,
-                    dimensionNode.toString());
+                    appendJsonPrefix(SolutionConstants.JSON_DIMENSIONS, dimensionsNode));
         }
-        if (relationNode != null) {
+        if (relationsNode != null) {
             properties.put(SolutionConstants.PROPERTY_STD_RELATION_DEFINITION,
-                    relationNode.toString());
+                    appendJsonPrefix(SolutionConstants.JSON_RELATIONS, relationsNode));
         }
 
         return properties;
@@ -110,7 +103,7 @@ public class SolutionTemplateBuilder {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(this.factName);
         ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_PREFIX,
-                prefix));
+                prefix.toUpperCase()));
 
         return QueryExecutor.executeFactQuery(this.ids.getInformationExplorer(), ep);
     }
@@ -149,7 +142,7 @@ public class SolutionTemplateBuilder {
             throw new Exception(error);
         }
 
-        updateSolutionTemplate(templateFact, SolutionConstants.PROPERTY_STD_PREFIX, prefix);
+        updateSolutionTemplate(templateFact, SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
 
     }
 
@@ -169,11 +162,6 @@ public class SolutionTemplateBuilder {
             throws Exception {
         updateSolutionTemplate(templateId, SolutionConstants.PROPERTY_STD_RELATION_DEFINITION,
                 relationDefinitionJson);
-    }
-
-    // TODO:
-    public void exportSolutionTemplate(String prefix, String targetFile) {
-
     }
 
     public boolean deleteSolutionTemplateById(String templateId) {
@@ -213,4 +201,7 @@ public class SolutionTemplateBuilder {
         factManager.updateFact(templateFact, properties);
     }
 
+    private String appendJsonPrefix(String prefix, JsonNode node) {
+        return "{\"" + prefix + "\": " + node.toString() + "}";
+    }
 }

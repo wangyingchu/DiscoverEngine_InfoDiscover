@@ -316,7 +316,7 @@ public class JsonUtil {
 
         JsonNode jsonNode = null;
 
-        String jsonStr = FileUtil.getFileContent(filePath);
+        String jsonStr = FileUtil.readFileContent(filePath);
 
         try {
             jsonNode = string2JsonNode(jsonStr);

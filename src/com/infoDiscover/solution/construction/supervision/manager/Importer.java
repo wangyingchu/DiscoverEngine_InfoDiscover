@@ -228,7 +228,7 @@ public class Importer {
         // create a project
         String projectFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com" +
                 "/infoDiscover/solution/construction/supervision/manager/testdata/Project.json";
-        String projectJson = FileUtil.getFileContent(projectFile);
+        String projectJson = FileUtil.readFileContent(projectFile);
 
 
         try {
@@ -240,7 +240,7 @@ public class Importer {
         // create a project
         String taskFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com" +
                 "/infoDiscover/solution/construction/supervision/manager/testdata/Task.json";
-        String taskJson = FileUtil.getFileContent(taskFile);
+        String taskJson = FileUtil.readFileContent(taskFile);
 
 
         try {
