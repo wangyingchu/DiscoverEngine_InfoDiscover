@@ -3,6 +3,7 @@ package com.infoDiscover.solution.construction.supervision.sample;
 import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
+import com.infoDiscover.solution.common.util.PropertyTypeUtil;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import com.infoDiscover.solution.construction.supervision.util.ProjectJsonParser;
 import org.codehaus.jackson.JsonNode;
@@ -68,34 +69,14 @@ public class SampleAllProperties {
             String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
             String propertyType = propertyNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
             logger.info("propertyName: {}, propertyType: {}", propertyName, propertyType);
-            PropertyType type = getPropertyType(propertyType);
+            PropertyType type = PropertyTypeUtil.getPropertyType(propertyType);
             if (type != null) {
                 allProperties.put(propertyName, type);
             }
         }
     }
 
-    public static PropertyType getPropertyType(String propertyType) {
-        if (propertyType.equalsIgnoreCase("String")) {
-            return PropertyType.STRING;
-        } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
-                ("Integer")) {
-            return PropertyType.INT;
-        } else if (propertyType.equalsIgnoreCase("Long")) {
-            return PropertyType.LONG;
-        } else if (propertyType.equalsIgnoreCase("Float") || propertyType.equalsIgnoreCase
-                ("Double")) {
-            return PropertyType.DOUBLE;
-        } else if (propertyType.equalsIgnoreCase("boolean") || propertyType.equalsIgnoreCase
-                ("bool")) {
-            return PropertyType.BOOLEAN;
-        } else if (propertyType.equalsIgnoreCase("Date") || propertyType.equalsIgnoreCase
-                ("DateTime")) {
-            return PropertyType.DATE;
-        }
 
-        return null;
-    }
 
 
     public static void main(String[] args) {

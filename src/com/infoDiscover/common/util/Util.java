@@ -1,5 +1,7 @@
 package com.infoDiscover.common.util;
 
+import java.util.UUID;
+
 /**
  * Created by sun.
  */
@@ -23,5 +25,10 @@ public class Util {
 
     public static double maxDouble(double range[]) {
         return range[0] < range[1] ? range[1] : range[0];
+    }
+
+    public static String generateUUID() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
     }
 }

@@ -259,7 +259,7 @@ public class SampleJsonTemplateGenerator {
 
         List<Map<String, Object>> list = new ArrayList<>();
 
-        List<String> linesList = FileUtil.read(file);
+        List<String> linesList = FileUtil.readLinesIntoList(file);
         for (String line : linesList) {
             // remove the commented lines
             if (!line.startsWith("//")) {

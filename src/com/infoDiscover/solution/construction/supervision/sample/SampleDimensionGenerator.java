@@ -194,7 +194,7 @@ public class SampleDimensionGenerator {
         logger.debug("Enter method linkUsersToExecutiveDepartment with roleFile: {}",
                 userDepartmentFile);
 
-        List<String> list = FileUtil.read(userDepartmentFile);
+        List<String> list = FileUtil.readLinesIntoList(userDepartmentFile);
 
         for (String line : list) {
             String[] departments = line.split("-");

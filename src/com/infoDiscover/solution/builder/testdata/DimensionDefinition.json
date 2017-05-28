@@ -1,0 +1,14 @@
+{
+  "type": "dimension",
+  "typeName": "dimensionType_111",
+  "properties": [
+    {
+      "propertyName": "prefix",
+      "propertyType": "String"
+    },
+    {
+      "propertyName": "content",
+      "propertyType": "String"
+    }
+  ]
+}

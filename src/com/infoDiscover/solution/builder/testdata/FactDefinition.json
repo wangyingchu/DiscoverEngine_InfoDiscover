@@ -1,0 +1,14 @@
+{
+  "type": "fact",
+  "typeName": "factType_111",
+  "properties": [
+    {
+      "propertyName": "prefix",
+      "propertyType": "String"
+    },
+    {
+      "propertyName": "content",
+      "propertyType": "String"
+    }
+  ]
+}

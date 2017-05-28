@@ -1,9 +1,15 @@
 package com.infoDiscover.solution.common.fact;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
+import com.infoDiscover.infoDiscoverEngine.dataMart.FactType;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.executor.QueryExecutor;
+import com.infoDiscover.solution.common.util.PropertyTypeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,4 +54,29 @@ public class FactManager {
 
         return fact;
     }
+
+    public void createFactType(String factTypeName, String[][] factTypeProperties)
+            throws InfoDiscoveryEngineDataMartException, InfoDiscoveryEngineRuntimeException {
+
+        logger.info("Start to create fact type: {} with properties: {}",
+                factTypeName, factTypeProperties);
+
+        if (!ids.hasFactType(factTypeName)) {
+
+            FactType solutionTemplate = ids.addFactType(factTypeName);
+
+            if (factTypeProperties != null) {
+                for (String[] property : factTypeProperties) {
+                    String propertyName = property[0];
+                    String propertyType = property[1];
+                    solutionTemplate.addTypeProperty(
+                            propertyName,
+                            PropertyTypeUtil.getPropertyType(propertyType));
+                }
+            }
+
+            logger.debug("End to create fact type: " + solutionTemplate.getTypeName());
+        }
+    }
+
 }

@@ -28,7 +28,7 @@ public class UserRoleDataImporter {
     public static void createUsers(InfoDiscoverSpace ids, String userFile, String dimensionType) {
         logger.debug("Enter method createUsers with userFile: {}", userFile);
 
-        List<String> list = FileUtil.read(userFile);
+        List<String> list = FileUtil.readLinesIntoList(userFile);
 
         for (String line : list) {
             String[] users = line.split(",");
@@ -54,7 +54,7 @@ public class UserRoleDataImporter {
             throws InfoDiscoveryEngineInfoExploreException {
         logger.debug("Enter method createExecutiveDepartments with roleFile: {}", userDepartmentFile);
 
-        List<String> list = FileUtil.read(userDepartmentFile);
+        List<String> list = FileUtil.readLinesIntoList(userDepartmentFile);
 
         for (String line : list) {
             String[] departments = line.split("-");
@@ -94,7 +94,7 @@ public class UserRoleDataImporter {
 
     public static Map<String, String[]> readRoleAndUsers(String userRoleFile) {
         logger.info("Enter method readRoleAndUsers with roleFile: {}", userRoleFile);
-        List<String> list = FileUtil.read(userRoleFile);
+        List<String> list = FileUtil.readLinesIntoList(userRoleFile);
         Map<String, String[]> map = new HashMap<>();
         for (String line : list) {
             String[] roles = line.split("-");
@@ -126,7 +126,7 @@ public class UserRoleDataImporter {
     public static String getUserName(String userFile, String userId) {
         logger.debug("Enter method getUserName with userFile: {} and userId: {}", userFile, userId);
 
-        List<String> list = FileUtil.read(userFile);
+        List<String> list = FileUtil.readLinesIntoList(userFile);
 
         String userName = "";
         for (String line : list) {

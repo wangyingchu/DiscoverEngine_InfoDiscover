@@ -18,7 +18,7 @@ public class PrefixManager {
         this.prefix = prefix;
     }
 
-    public String normalizePrefix(String prefix) {
+    public static String normalizePrefix(String prefix) {
         if(prefix == null || prefix.trim().equals("")) {
             return  prefix;
         }

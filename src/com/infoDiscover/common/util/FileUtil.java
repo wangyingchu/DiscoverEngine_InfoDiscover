@@ -9,30 +9,7 @@ import java.util.List;
  */
 public class FileUtil {
 
-    public static List<String> read(String fileName) {
-        List<String> dataList = new ArrayList<String>();
 
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(new File(fileName)));
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                dataList.add(line);
-            }
-        } catch (Exception e) {
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                    br = null;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return dataList;
-    }
 
     public static String getFileContent(String path) {
 
@@ -81,8 +58,9 @@ public class FileUtil {
 
     public static List<String> readLinesIntoList(String filePath) {
         List<String> list = new ArrayList<String>();
+        BufferedReader in = null;
         try {
-            BufferedReader in = new BufferedReader(new FileReader(filePath));
+            in = new BufferedReader(new FileReader(filePath));
             String str;
             while ((str = in.readLine()) != null) {
                 list.add(str);
@@ -90,6 +68,15 @@ public class FileUtil {
             in.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                    in = null;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return list;
