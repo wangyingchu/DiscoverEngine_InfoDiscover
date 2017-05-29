@@ -51,7 +51,7 @@ public class ImportData {
 
                 // link relations
                 if (fact != null) {
-                    linkRelation(fact);
+                    linkBetweenNodes(fact);
                 }
             }
         }
@@ -110,6 +110,139 @@ public class ImportData {
         return fact;
     }
 
+    public void linkBetweenNodes(Fact fact) throws InfoDiscoveryEngineInfoExploreException,
+            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+        logger.info("Enter linkBetweenNodes with factType: {}", fact.getType());
+
+        String rid = fact.getId();
+        String factType = fact.getType();
+        SolutionTemplateParser parser = new SolutionTemplateParser(ids, prefix);
+
+        // fact to dimension mapping
+        linkFactToDimension(parser,fact);
+
+        // fact to fact mapping
+        linkFactToFact(parser, rid, factType);
+
+        // fact to date dimension
+        linkFactToDateDimension(parser, rid, factType);
+
+        logger.info("Exit addRelation()...");
+    }
+
+    private void linkRelation(Fact fact, RelationMappingVO vo, String mappingType)
+            throws InfoDiscoveryEngineInfoExploreException,
+            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+
+        String fromType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
+        String fromProperty = vo.getFromProperty();
+        String toType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getToType());
+        String toProperty = vo.getToProperty();
+        String relationType = PrefixSetting.getFactTypeWithPrefix(prefix, vo
+                .getRelationTypeName());
+        String propertyType = vo.getPropertyType();
+
+        Property property = fact.getProperty(fromProperty);
+        if (property != null) {
+
+            DimensionManager dimensionManager = new DimensionManager(ids);
+            RelationshipManager relationshipManager = new RelationshipManager(ids);
+
+            Object propertyValue = property.getPropertyValue();
+            
+            if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING)) {
+
+                Dimension dimension = QueryExecutor.executeDimensionQuery(ids
+                        .getInformationExplorer(), constructExploreParameters(toType, toProperty,
+                        propertyValue));
+
+                if (dimension == null) {
+                    Map<String, Object> props = new HashMap<>();
+                    props.put(toProperty, propertyValue);
+                    dimension = dimensionManager.createDimension(toType, props);
+                }
+
+                if (dimension != null) {
+
+                    relationshipManager.linkFactToDimension(fact, dimension, relationType);
+                }
+            } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING)) {
+
+                // check which is the fromFact, which is the toFact
+                ExploreParameters ep = constructExploreParameters(toType,toProperty,propertyValue);
+
+                if (fact.getType().equalsIgnoreCase(toType)) {
+                    // the passing fact is a toFact, to get the fromFact
+                    ep = constructExploreParameters(fromType, fromProperty, propertyValue);
+                }
+
+                Fact targetFact = QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
+
+                if (targetFact != null) {
+                    if (fact.getType().equalsIgnoreCase(toType)) {
+                        relationshipManager.linkFactsByRelationType(targetFact, fact, relationType);
+                    } else {
+                        relationshipManager.linkFactsByRelationType(fact, targetFact, relationType);
+                    }
+                }
+
+            } else if (mappingType.equalsIgnoreCase(SolutionConstants
+                    .JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
+                DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
+                        (prefix, (Date) propertyValue);
+                relationshipManager.linkFactToDateDimension(prefix, fact, dayDimensionVO, relationType);
+            }
+
+        }
+    }
+
+    private ExploreParameters constructExploreParameters(String factType, String key, Object value) {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(factType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(key, value));
+
+        return ep;
+    }
+
+    public Fact getFactWithUniqueKeys(String factType, Map<String, Object> uniqueKeys) {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(factType);
+
+        Set<String> keySet = uniqueKeys.keySet();
+        Iterator<String> it = keySet.iterator();
+        while (it.hasNext()) {
+            String key = it.next();
+            Object value = uniqueKeys.get(key);
+            ep.addFilteringItem(new EqualFilteringItem(key, value), ExploreParameters
+                    .FilteringLogic.AND);
+        }
+
+        return QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
+    }
+
+    public void convertJsonNodeToPropertiesMap(JsonNode propertiesJsonNode, Map<String, Object>
+            properties, Map<String, Object> uniqueKey) {
+        for (JsonNode propertyNode : propertiesJsonNode) {
+            String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
+            String propertyType = propertyNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
+
+            Object propertyValue = JsonNodeUtil.getPropertyValue(propertyType, propertyNode);
+            if (propertyValue != null) {
+                properties.put(propertyName, propertyValue);
+            }
+
+            JsonNode key = propertyNode.get(SolutionConstants.JSON_IS_UNIQUE_KEY);
+            if (key != null) {
+                uniqueKey.put(propertyName, propertyValue);
+            }
+        }
+    }
+
+    private String getTypeName(JsonNode jsonNode) {
+        return PrefixSetting.normalizePrefix(prefix) + jsonNode.get(SolutionConstants
+                .JSON_TYPE_NAME).asText();
+    }
+
     private void linkFactToDimension(SolutionTemplateParser parser, Fact fact) throws
             InfoDiscoveryEngineInfoExploreException, InfoDiscoveryEngineRuntimeException,
             InfoDiscoveryEngineDataMartException {
@@ -166,129 +299,5 @@ public class ImportData {
                 linkRelation(latestFact,vo, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING);
             }
         }
-    }
-
-    public void linkRelation(Fact fact) throws InfoDiscoveryEngineInfoExploreException,
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
-        logger.info("Enter addRelation with factType: {}", fact.getType());
-
-        String rid = fact.getId();
-        String factType = fact.getType();
-        SolutionTemplateParser parser = new SolutionTemplateParser(ids, prefix);
-
-        // fact to dimension mapping
-        linkFactToDimension(parser,fact);
-
-        // fact to fact mapping
-        linkFactToFact(parser, rid, factType);
-
-        // fact to date dimension
-        linkFactToDateDimension(parser, rid, factType);
-
-        logger.info("Exit addRelation()...");
-    }
-
-    private void linkRelation(Fact fact, RelationMappingVO vo, String
-            mappingType) throws InfoDiscoveryEngineInfoExploreException,
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
-
-        String fromType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
-        String fromProperty = vo.getFromProperty();
-        String toType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getToType());
-        String toProperty = vo.getToProperty();
-        String relationType = PrefixSetting.getFactTypeWithPrefix(prefix, vo
-                .getRelationTypeName());
-        String propertyType = vo.getPropertyType();
-
-        Property property = fact.getProperty(fromProperty);
-        if (property != null) {
-            Object propertyValue = property.getPropertyValue();
-
-            ExploreParameters ep = new ExploreParameters();
-            ep.setType(toType);
-            ep.setDefaultFilteringItem(new EqualFilteringItem(toProperty, propertyValue));
-
-            if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING)) {
-
-                Dimension dimension = QueryExecutor.executeDimensionQuery(ids
-                        .getInformationExplorer(), ep);
-
-                if (dimension == null) {
-                    Map<String, Object> props = new HashMap<>();
-                    props.put(toProperty, propertyValue);
-                    dimension = new DimensionManager(ids).createDimension(toType, props);
-                }
-
-                if (dimension != null) {
-                    RelationshipManager manager = new RelationshipManager(ids);
-                    manager.linkFactToDimension(fact, dimension, relationType);
-                }
-            } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING)) {
-                // check which is the fromFact, which is the toFact
-                if (fact.getType().equalsIgnoreCase(toType)) {
-                    // the passing fact is a toFact, to get the fromFact
-                    ep.setType(fromType);
-                    ep.setDefaultFilteringItem(new EqualFilteringItem(fromProperty, propertyValue));
-                }
-
-                Fact targetFact = QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
-
-                if (targetFact != null) {
-                    RelationshipManager manager = new RelationshipManager(ids);
-                    if (fact.getType().equalsIgnoreCase(toType)) {
-                        manager.linkFactsByRelationType(targetFact, fact, relationType);
-                    } else {
-                        manager.linkFactsByRelationType(fact, targetFact, relationType);
-                    }
-                }
-
-            } else if (mappingType.equalsIgnoreCase(SolutionConstants
-                    .JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
-                DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
-                        (prefix, (Date) propertyValue);
-                RelationshipManager manager = new RelationshipManager(ids);
-                manager.linkFactToDateDimension(prefix, fact, dayDimensionVO, relationType);
-            }
-
-        }
-    }
-
-    public Fact getFactWithUniqueKeys(String factType, Map<String, Object> uniqueKeys) {
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(factType);
-
-        Set<String> keySet = uniqueKeys.keySet();
-        Iterator<String> it = keySet.iterator();
-        while (it.hasNext()) {
-            String key = it.next();
-            Object value = uniqueKeys.get(key);
-            ep.addFilteringItem(new EqualFilteringItem(key, value), ExploreParameters
-                    .FilteringLogic.AND);
-        }
-
-        return QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
-    }
-
-    public void convertJsonNodeToPropertiesMap(JsonNode propertiesJsonNode, Map<String, Object>
-            properties, Map<String, Object> uniqueKey) {
-        for (JsonNode propertyNode : propertiesJsonNode) {
-            String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
-            String propertyType = propertyNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
-
-            Object propertyValue = JsonNodeUtil.getPropertyValue(propertyType, propertyNode);
-            if (propertyValue != null) {
-                properties.put(propertyName, propertyValue);
-            }
-
-            JsonNode key = propertyNode.get(SolutionConstants.JSON_IS_UNIQUE_KEY);
-            if (key != null) {
-                uniqueKey.put(propertyName, propertyValue);
-            }
-        }
-    }
-
-    private String getTypeName(JsonNode jsonNode) {
-        return PrefixSetting.normalizePrefix(prefix) + jsonNode.get(SolutionConstants
-                .JSON_TYPE_NAME).asText();
     }
 }
