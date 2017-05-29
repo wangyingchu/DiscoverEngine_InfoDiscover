@@ -110,15 +110,11 @@ public class ImportData {
         return fact;
     }
 
-    public void linkRelation(Fact fact) {
-        logger.info("Enter addRelation with factType: {}", fact.getType());
+    private void linkFactToDimension(SolutionTemplateParser parser, Fact fact, String factType,
+                                     List<Property> propertyList) throws
+            InfoDiscoveryEngineInfoExploreException, InfoDiscoveryEngineRuntimeException,
+            InfoDiscoveryEngineDataMartException {
 
-        String rid = fact.getId();
-        String factType = fact.getType();
-        List<Property> propertyList = fact.getProperties();
-        SolutionTemplateParser parser = new SolutionTemplateParser(ids, prefix);
-
-        // fact to dimension mapping
         Map<String, List<RelationMappingVO>> factToDimensionMap = parser.getFactToDimensionMap();
         List<RelationMappingVO> voList = parser.getRelationMappingVOList(PrefixSetting
                 .removePrefix(prefix, factType), factToDimensionMap);
@@ -126,25 +122,20 @@ public class ImportData {
         if (voList != null) {
             for (RelationMappingVO vo : voList) {
                 for (Property property : propertyList) {
-                    try {
-                        linkRelation(fact, vo, property, SolutionConstants
-                                .JSON_FACT_TO_DIMENSION_MAPPING);
-                    } catch (InfoDiscoveryEngineInfoExploreException e) {
-                        logger.error("Failed to link relation");
-                    } catch (InfoDiscoveryEngineRuntimeException e) {
-                        logger.error("Failed to link relation");
-                    } catch (InfoDiscoveryEngineDataMartException e) {
-                        logger.error("Failed to link relation");
-                    }
+                    linkRelation(fact, vo, property,
+                            SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING);
                 }
             }
         }
+    }
 
-        // fact to fact mapping
+    private void linkFactToFact(SolutionTemplateParser parser, String rid, String factType,
+                                List<Property> propertyList) throws
+            InfoDiscoveryEngineInfoExploreException, InfoDiscoveryEngineRuntimeException,
+            InfoDiscoveryEngineDataMartException {
+
         Map<String, List<RelationMappingVO>> factToFactMap = parser.getFactToFactMap();
-        if (voList != null) {
-            voList.clear();
-        }
+        List<RelationMappingVO> voList = new ArrayList<>();
 
         Set<String> keySet = factToFactMap.keySet();
         Iterator<String> it = keySet.iterator();
@@ -155,52 +146,57 @@ public class ImportData {
         if (voList != null) {
 
             // retrieve fact again as its version is updated
-            fact = new FactManager(ids).getFactByRID(rid, factType);
+            Fact latestFact = new FactManager(ids).getFactByRID(rid, factType);
 
             for (RelationMappingVO vo : voList) {
                 for (Property property : propertyList) {
-                    try {
-                        linkRelation(fact, vo, property, SolutionConstants
-                                .JSON_FACT_TO_FACT_MAPPING);
-                    } catch (InfoDiscoveryEngineInfoExploreException e) {
-                        logger.error("Failed to link relation");
-                    } catch (InfoDiscoveryEngineRuntimeException e) {
-                        logger.error("Failed to link relation");
-                    } catch (InfoDiscoveryEngineDataMartException e) {
-                        logger.error("Failed to link relation");
-                    }
+                    linkRelation(latestFact, vo, property, SolutionConstants
+                            .JSON_FACT_TO_FACT_MAPPING);
                 }
             }
         }
+    }
 
-
-        // fact to date dimension
+    private void linkFactToDateDimension(SolutionTemplateParser parser, String rid, String factType,
+                                         List<Property> propertyList) throws
+            InfoDiscoveryEngineInfoExploreException, InfoDiscoveryEngineRuntimeException,
+            InfoDiscoveryEngineDataMartException {
         Map<String, List<RelationMappingVO>> factToDateDimensionMap = parser
                 .getFactToDateDimension();
-        if (voList != null) {
-            voList.clear();
-        }
-        voList = parser.getRelationMappingVOList(PrefixSetting.removePrefix(prefix, factType),
-                factToDateDimensionMap);
+
+        List<RelationMappingVO> voList = parser.getRelationMappingVOList(
+                PrefixSetting.removePrefix(prefix, factType), factToDateDimensionMap);
+
         if (voList != null) {
             // retrieve fact again as its version is updated
-            fact = new FactManager(ids).getFactByRID(rid, factType);
+            Fact latestFact = new FactManager(ids).getFactByRID(rid, factType);
 
             for (RelationMappingVO vo : voList) {
                 for (Property property : propertyList) {
-                    try {
-                        linkRelation(fact, vo, property, SolutionConstants
-                                .JSON_FACT_TO_DATE_DIMENSION_MAPPING);
-                    } catch (InfoDiscoveryEngineInfoExploreException e) {
-                        logger.error("Failed to link relation");
-                    } catch (InfoDiscoveryEngineRuntimeException e) {
-                        logger.error("Failed to link relation");
-                    } catch (InfoDiscoveryEngineDataMartException e) {
-                        logger.error("Failed to link relation");
-                    }
+                    linkRelation(latestFact, vo, property,
+                            SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING);
                 }
             }
         }
+    }
+
+    public void linkRelation(Fact fact) throws InfoDiscoveryEngineInfoExploreException,
+            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+        logger.info("Enter addRelation with factType: {}", fact.getType());
+
+        String rid = fact.getId();
+        String factType = fact.getType();
+        List<Property> propertyList = fact.getProperties();
+        SolutionTemplateParser parser = new SolutionTemplateParser(ids, prefix);
+
+        // fact to dimension mapping
+        linkFactToDimension(parser, fact, factType, propertyList);
+
+        // fact to fact mapping
+        linkFactToFact(parser, rid, factType, propertyList);
+
+        // fact to date dimension
+        linkFactToDateDimension(parser,rid,factType,propertyList);
 
         logger.info("Exit addRelation()...");
     }
@@ -208,6 +204,7 @@ public class ImportData {
     private void linkRelation(Fact fact, RelationMappingVO vo, Property property, String
             mappingType) throws InfoDiscoveryEngineInfoExploreException,
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+
         String fromType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
         String fromProperty = vo.getFromProperty();
         String toType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getToType());
