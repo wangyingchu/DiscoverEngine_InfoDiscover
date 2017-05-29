@@ -1,0 +1,213 @@
+{
+  "dimensions": [
+    {
+      "typeName": "USER",
+      "properties": [
+        {
+          "propertyName": "userId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "userName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "CONSTRUCTION_TYPE",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "COMPANY_CLASSIFICATION",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "ASSIGN_MODEL",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "EXECUTIVE_DEPARTMENT",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "ISSUE_CLASSIFICATION",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "LAND_PROPERTY",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "ASSERT_FIRST_CLASSIFICATION",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "ASSET_SECOND_CLASSIFICATION",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "PROJECT_CLASSIFICATION",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "PROJECT_SITE_CLASSIFICATION",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "PROJECT_SCOPE",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "PROJECT_CONSTRUCTION_CLASSIFICATION",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "ROAD",
+      "properties": [
+        {
+          "propertyName": "classificationId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "COMPANY",
+      "properties": [
+        {
+          "propertyName": "companyName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "EXTERNAL_USER",
+      "properties": [
+        {
+          "propertyName": "userName",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "PROJECT_ADDRESS",
+      "properties": [
+        {
+          "propertyName": "classificationName",
+          "propertyType": "String"
+        }
+      ]
+    }
+  ]
+}

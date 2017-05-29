@@ -1,9 +1,9 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
 import com.infoDiscover.common.util.DateUtil;
-import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
+import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
@@ -42,11 +42,11 @@ public class TaskSampleDataGenerator {
                 "firstTasks: {}", projectJsonTemplate, projectType, progressId, new Date
                 (progressStartDate), firstTasks);
 
-        JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
+        JsonNode json = JsonNodeUtil.loadJsonFile(projectJsonTemplate);
         JsonNode taskNodes = ProjectJsonParser.getTasksNode(json.toString());
 
         // if json is empty
-        if (JsonUtil.isEmptyJsonNode(taskNodes)) {
+        if (JsonNodeUtil.isEmptyJsonNode(taskNodes)) {
             logger.info("No progress and task data in the json template: {}", projectJsonTemplate);
             return null;
         }
@@ -159,7 +159,8 @@ public class TaskSampleDataGenerator {
                                                                        Map<String, Object>
                                                                                taskProperties) {
 
-        List<String> dimensionList = Arrays.asList(SampleDataSet.dimensionArray);
+        List<String> dimensionList = Arrays.asList(DatabaseConstants
+                .factPropertiesAsDimensionArray);
 
         Set<String> keySet = taskProperties.keySet();
         Iterator<String> it = keySet.iterator();
@@ -1388,38 +1389,40 @@ public class TaskSampleDataGenerator {
 
     private static void updateDimensionPropertyValue(String key, Map<String, Object>
             taskProperties) {
+
         String dimensionTypeName = "";
-        if (key.equalsIgnoreCase("constructionType")) {
+
+        if (key.equalsIgnoreCase(JsonConstants.JSON_CONSTRUCTION_TYPE)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("companyClassification")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_COMPANY_CLASSIFICATION)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("assignModel")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_ASSIGN_MODEL)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_ASSIGN_MODEL_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("issueClassification")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_ISSUE_CLASSIFICATION)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("landProperty")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_LAND_PROPERTY)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_LAND_PROPERTY_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("assetFirstClassification")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_ASSET_FIRST_CLASSIFICATION)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("assetSecondClassification")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_ASSET_SECOND_CLASSIFICATION)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("projectClassification")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_PROJECT_CLASSIFICATION)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("projectSiteClassification")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_PROJECT_SITE_CLASSIFICATION)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("projectScope")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_PROJECT_SCOPE)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_SCOPE_WITH_PREFIX;
-        } else if (key.equalsIgnoreCase("projectConstructionClassification")) {
+        } else if (key.equalsIgnoreCase(JsonConstants.JSON_PROJECT_CONSTRUCTION_CLASSIFICATION)) {
             dimensionTypeName = DatabaseConstants
                     .DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX;
         }

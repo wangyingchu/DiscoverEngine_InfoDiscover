@@ -30,12 +30,12 @@ public class SampleRelationshipGenerator {
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + DatabaseConstants
-                .RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX)) {
-            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
-                    .RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX);
-            logger.debug("Created relationType: " + relationType.getTypeName());
-        }
+//        if (!ids.hasRelationType(prefix + DatabaseConstants
+//                .RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX)) {
+//            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
+//                    .RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX);
+//            logger.debug("Created relationType: " + relationType.getTypeName());
+//        }
 
         if (!ids.hasRelationType(prefix + DatabaseConstants
                 .RELATION_TASK_EXECUTE_BY_USER_WITH_PREFIX)) {
@@ -44,11 +44,11 @@ public class SampleRelationshipGenerator {
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_SUBTASK_WITH_PREFIX)) {
-            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
-                    .RELATION_SUBTASK_WITH_PREFIX);
-            logger.debug("Created relationType: " + relationType.getTypeName());
-        }
+//        if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_SUBTASK_WITH_PREFIX)) {
+//            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
+//                    .RELATION_SUBTASK_WITH_PREFIX);
+//            logger.debug("Created relationType: " + relationType.getTypeName());
+//        }
 
         if (!ids.hasRelationType(prefix + DatabaseConstants
                 .RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX)) {
@@ -57,11 +57,11 @@ public class SampleRelationshipGenerator {
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_TRANSFER_WITH_PREFIX)) {
-            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
-                    .RELATION_TRANSFER_WITH_PREFIX);
-            logger.debug("Created relationType: " + relationType.getTypeName());
-        }
+//        if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_TRANSFER_WITH_PREFIX)) {
+//            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
+//                    .RELATION_TRANSFER_WITH_PREFIX);
+//            logger.debug("Created relationType: " + relationType.getTypeName());
+//        }
 
         if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_STARTAT_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
@@ -137,11 +137,11 @@ public class SampleRelationshipGenerator {
             logger.debug("Created relationType: " + relationType.getTypeName());
         }
 
-        if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_PROVIDER_WITH_PREFIX)) {
-            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
-                    .RELATION_PROVIDER_WITH_PREFIX);
-            logger.debug("Created relationType: " + relationType.getTypeName());
-        }
+//        if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_PROVIDER_WITH_PREFIX)) {
+//            RelationType relationType = ids.addRelationType(prefix + DatabaseConstants
+//                    .RELATION_PROVIDER_WITH_PREFIX);
+//            logger.debug("Created relationType: " + relationType.getTypeName());
+//        }
 
         if (!ids.hasRelationType(prefix + DatabaseConstants.RELATION_TASK_EXECUTE_BY_DEPARTMENT_WITH_PREFIX)) {
             RelationType relationType = ids.addRelationType(prefix + DatabaseConstants

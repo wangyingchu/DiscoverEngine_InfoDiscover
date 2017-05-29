@@ -101,12 +101,12 @@ public class Importer {
     }
 
     private static Map<String, Object> getPropertiesMap(String json) throws Exception {
-        JsonNode propertiesNode = getPropertiesJsnNode(json);
+        JsonNode propertiesNode = getPropertiesJsonnNode(json);
         return JsonNodeUtil.convertToPropertyNameValueMap
                 (propertiesNode);
     }
 
-    private static JsonNode getPropertiesJsnNode(String json) throws Exception {
+    private static JsonNode getPropertiesJsonnNode(String json) throws Exception {
         JsonNode dataNode = JsonNodeUtil.getDataNode(json);
         if (dataNode == null) {
             throw new Exception("Project content is empty or format is invalid, project content " +
@@ -198,21 +198,20 @@ public class Importer {
 
     }
 
-
     private String getProjectFactType(String projectType) throws Exception {
         String projectFactType;
         if (projectType.equals(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            projectFactType = SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT;
+            projectFactType = DatabaseConstants.FACTTYPE_MAINTENANCE_PROJECT;
         } else if (projectType.equals(SampleDataSet.PROJECTTYPE_NEW)) {
-            projectFactType = SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT;
+            projectFactType = DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT;
         } else if (projectType.equals(SampleDataSet.PROJECTTYPE_EXTENSION)) {
-            projectFactType = SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT;
+            projectFactType = DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT;
         } else if (projectType.equals(SampleDataSet.PROJECTTYPE_REBUILD)) {
-            projectFactType = SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT;
+            projectFactType = DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT;
         } else {
             throw new Exception("Project Type must be one of [" +
-                    SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT + ", "
-                    + SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT);
+                    DatabaseConstants.FACTTYPE_MAINTENANCE_PROJECT + ", "
+                    + DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT);
         }
 
         return projectFactType;

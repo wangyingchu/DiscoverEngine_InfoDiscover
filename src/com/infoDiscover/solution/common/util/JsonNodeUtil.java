@@ -1,11 +1,13 @@
 package com.infoDiscover.solution.common.util;
 
 import com.infoDiscover.common.util.DateUtil;
-import com.infoDiscover.common.util.JsonUtil;
+import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonProcessingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class JsonNodeUtil {
         }
 
         try {
-            JsonNode jsonNode = JsonUtil.string2JsonNode(json);
+            JsonNode jsonNode = JsonNodeUtil.string2JsonNode(json);
             return jsonNode.get(JsonConstants.JSON_DATA);
         } catch (IOException e) {
             logger.error(e.getMessage());
@@ -117,5 +119,31 @@ public class JsonNodeUtil {
         }
 
         return propertyValue;
+    }
+
+    public static JsonNode string2JsonNode(String jsonStr)
+            throws JsonProcessingException, IOException {
+        ObjectMapper objMapper = new ObjectMapper();
+        return objMapper.readTree(jsonStr);
+    }
+
+    public static JsonNode loadJsonFile(String filePath) {
+
+        JsonNode jsonNode = null;
+
+        String jsonStr = FileUtil.readFileContent(filePath);
+
+        try {
+            jsonNode = string2JsonNode(jsonStr);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return jsonNode;
+    }
+
+    public static boolean isEmptyJsonNode(JsonNode jsonNode) {
+        return jsonNode == null || jsonNode.size() == 0;
     }
 }

@@ -1,11 +1,14 @@
 package com.infoDiscover.solution.common.dimension;
 
+import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
+import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.DimensionType;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.builder.SolutionConstants;
@@ -87,5 +90,25 @@ public class DimensionManager {
         }
 
         logger.info("End to createDimensionType...");
+    }
+
+    public Dimension getDayDimension(String prefix, DayDimensionVO dayDimension) throws
+            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(dayDimension.getType());
+        ep.setDefaultFilteringItem(new EqualFilteringItem("year", dayDimension.getYear()));
+        ep.addFilteringItem(new EqualFilteringItem("month", dayDimension.getMonth()),
+                ExploreParameters
+                        .FilteringLogic.AND);
+        ep.addFilteringItem(new EqualFilteringItem("day", dayDimension.getDay()), ExploreParameters
+                .FilteringLogic.AND);
+
+        Dimension day = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
+        if (day == null) {
+            TimeDimensionGenerator.generateYears(ids, prefix,
+                    new int[]{dayDimension.getYear()}, 3);
+            day = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
+        }
+        return day;
     }
 }

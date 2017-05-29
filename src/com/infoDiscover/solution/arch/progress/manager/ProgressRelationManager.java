@@ -1,20 +1,18 @@
 package com.infoDiscover.solution.arch.progress.manager;
 
 import com.infoDiscover.common.PrefixConstant;
-import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.solution.common.executor.QueryExecutor;
+import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.relationship.RelationshipManager;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,7 +90,8 @@ public class ProgressRelationManager {
         try {
             Fact progress = demoProgressManager.getProgressById(ie, progressId, progressFactType);
 
-            Dimension day = getDayDimension(ids, dayDimension);
+            Dimension day = new DimensionManager(ids).getDayDimension(DatabaseConstants
+                    .SOLUTION_PREFIX, dayDimension);
 
             if (!ids.hasRelationType(relationType)) {
                 ids.addRelationType(relationType);
@@ -118,7 +117,8 @@ public class ProgressRelationManager {
                 "dayDimension: " + dayDimension.toString());
 
         try {
-            Dimension day = getDayDimension(ids, dayDimension);
+            Dimension day = new DimensionManager(ids).getDayDimension(DatabaseConstants
+                    .SOLUTION_PREFIX, dayDimension);
             if (!ids.hasRelationType(relationType)) {
                 ids.addRelationType(relationType);
             }
@@ -135,29 +135,6 @@ public class ProgressRelationManager {
         logger.debug("Exit method attachTimeToTask()");
         return null;
     }
-
-    // TODO: refine this part
-    private Dimension getDayDimension(InfoDiscoverSpace ids, DayDimensionVO
-            dayDimension) throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException {
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(dayDimension.getType());
-        ep.setDefaultFilteringItem(new EqualFilteringItem("year", dayDimension.getYear()));
-        ep.addFilteringItem(new EqualFilteringItem("month", dayDimension.getMonth()),
-                ExploreParameters
-                        .FilteringLogic.AND);
-        ep.addFilteringItem(new EqualFilteringItem("day", dayDimension.getDay()), ExploreParameters
-                .FilteringLogic.AND);
-
-        Dimension day = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
-        if (day == null) {
-            TimeDimensionGenerator.generateYears(ids, prefix,
-                    new int[]{dayDimension.getYear()}, 3);
-            day = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
-        }
-        return day;
-    }
-
 
     public Relation attachUserToRole(Dimension role, Dimension user, String relationType) {
         return new RelationshipManager(ids).linkDimensionsByRelationType(role, user, relationType);

@@ -2,7 +2,6 @@ package com.infoDiscover.solution.construction.supervision.sample;
 
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.common.util.RandomUtil;
-import com.infoDiscover.solution.construction.supervision.sample.SampleDataSet;
 import org.apache.commons.collections.map.HashedMap;
 
 import java.util.*;
@@ -283,7 +282,7 @@ public class SampleFileUtil {
 
     public static Map<String, String> readMaintenaceProjectTasks(String file) {
         if(file == null) {
-            file = SampleDataSet.FILE_MAINTENACE_PROJECT_TASKS;
+            file = SampleDataSet.FILE_MAINTENANCE_PROJECT_TASKS;
         }
         return readValuesFromFile(file,",");
     }

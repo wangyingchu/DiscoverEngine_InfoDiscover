@@ -1,5 +1,7 @@
 {
   "data": {
+    "type": "Fact",
+    "typeName": "TASK",
     "properties": [
       {
         "propertyName": "projectId",

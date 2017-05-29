@@ -1,8 +1,9 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
 import com.infoDiscover.common.util.DateUtil;
-import com.infoDiscover.common.util.JsonUtil;
+import com.infoDiscover.common.util.JsonObjectUtil;
 import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
+import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import com.infoDiscover.solution.construction.supervision.util.ProjectJsonParser;
@@ -28,13 +29,13 @@ public class ProgressSampleDataGenerator {
                 projectName,
                 sequence);
 
-        JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
+        JsonNode json = JsonNodeUtil.loadJsonFile(projectJsonTemplate);
 
         // get Progress properties node
         JsonNode progressPropertiesJsonNode = getProgressNode(json.toString());
 
         // if json is empty
-        if (JsonUtil.isEmptyJsonNode(progressPropertiesJsonNode)) {
+        if (JsonNodeUtil.isEmptyJsonNode(progressPropertiesJsonNode)) {
             logger.info("No progress and task data in the json");
             return null;
         }

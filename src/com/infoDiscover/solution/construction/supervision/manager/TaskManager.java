@@ -115,8 +115,7 @@ public class TaskManager {
 
             // link startDate to task
             DayDimensionVO dayDimension = DayDimensionManager.getDayDimensionVO(DatabaseConstants
-                    .SOLUTION_PREFIX, (Date)
-                    properties.get(JsonConstants.JSON_START_DATE));
+                    .SOLUTION_PREFIX, (Date) properties.get(JsonConstants.JSON_START_DATE));
             relationManager.attachTimeToTask(taskFact, dayDimension, ProgressConstants
                     .RELATIONTYPE_STARTAT_WITHPREFIX);
 
@@ -390,7 +389,7 @@ public class TaskManager {
     }
 
     public static void appendTaskPropertiesToProject(Map<String, Object> projectProperties,
-                                                      Map<String, Object> taskProperties) {
+                                                     Map<String, Object> taskProperties) {
 
         Set<String> keySet = taskProperties.keySet();
         Iterator<String> it = keySet.iterator();
@@ -464,6 +463,7 @@ public class TaskManager {
         }
 
     }
+
     public static List<String> reservedStringPropertyNames() {
         List<String> list = new ArrayList<>();
         list.add(JsonConstants.JSON_TYPE);

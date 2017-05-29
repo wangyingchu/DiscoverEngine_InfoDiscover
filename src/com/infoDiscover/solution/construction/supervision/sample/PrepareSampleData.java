@@ -7,6 +7,7 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInf
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
+import com.infoDiscover.solution.common.util.PrefixSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ public class PrepareSampleData {
     public final static boolean toGenerateRandomTasksNumber = false;
 
     // solution prefix
-    public final static String prefix = "ZHUHAI_";
+    public final static String prefix = "ZHUHAI2_";
 
     // template root path
     public final static String ROOT_PATH =
@@ -49,6 +50,9 @@ public class PrepareSampleData {
     // ===============参数配置=====================//
 
     public static void main(String[] args) {
+
+        // set prefix
+        new PrefixSetting().setPrefixMap(prefix);
 
         prepareSampleData(DatabaseConstants.DATABASE_SPACE, SampleDataSet.FILE_USER,
                 SampleDataSet.FILE_DEPARTMENT);

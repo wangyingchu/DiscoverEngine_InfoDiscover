@@ -34,21 +34,37 @@ public class SolutionConstants {
             {PROPERTY_STD_MODIFIED_AT, "Date"}
     };
 
+    public final static String FACT_TYPE = "FACT";
+    public final static String DIMENSION_TYPE = "DIMENSION";
+
 
     // json
     public final static String JSON_PREFIX = "prefix";
     public final static String JSON_FACTS = "facts";
     public final static String JSON_DIMENSIONS = "dimensions";
-    public final static String JSON_RELATIONS = "relations";
     public final static String JSON_PROPERTIES= "properties";
     public final static String JSON_PROPERTY_NAME = "propertyName";
+    public final static String JSON_PROPERTY_VALUE = "propertyValue";
     public final static String JSON_PROPERTY_TYPE = "propertyType";
+    public final static String JSON_TYPE = "type";
     public final static String JSON_TYPE_NAME = "typeName";
+
+    // isUniqueKey
+    public final static String JSON_IS_UNIQUE_KEY = "isUniqueKey";
+
+    // relation mapping
+    public final static String JSON_MAPPINGS = "mappings";
+    public final static String JSON_RELATIONS = "relations";
     public final static String JSON_RELATION_TYPE_NAME = "relationTypeName";
-    public final static String JSON_FACT_TYPE = "factType";
-    public final static String JSON_FACT_PROPERTY = "factProperty";
-    public final static String JSON_DIMENSION_TYPE = "dimensionType";
-    public final static String JSON_DIMENSION_PROPERTY = "dimensionProperty";
+    public final static String JSON_FACT_TO_DIMENSION_MAPPING = "factToDimension";
+    public final static String JSON_FACT_TO_FACT_MAPPING = "factToFact";
+    public final static String JSON_DIMENSION_TO_DIMENSION_MAPPING = "dimensionToDimension";
+    public final static String JSON_FACT_TO_DATE_DIMENSION_MAPPING = "factToDateDimension";
+
+    public final static String JSON_FROM_TYPE = "fromType";
+    public final static String JSON_FROM_PROPERTY = "fromProperty";
+    public final static String JSON_TO_TYPE = "toType";
+    public final static String JSON_TO_PROPERTY = "toProperty";
 
 }
 

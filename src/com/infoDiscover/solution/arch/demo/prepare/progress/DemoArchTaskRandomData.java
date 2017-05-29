@@ -1,14 +1,14 @@
 package com.infoDiscover.solution.arch.demo.prepare.progress;
 
 import com.infoDiscover.common.util.DateUtil;
-import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.common.util.RandomUtil;
+import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
+import com.infoDiscover.solution.arch.demo.prepare.DemoArchRandomData;
+import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
+import com.infoDiscover.solution.common.util.JsonNodeUtil;
+import com.infoDiscover.solution.common.util.RandomData;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import com.infoDiscover.solution.construction.supervision.util.ProjectJsonParser;
-import com.infoDiscover.solution.arch.demo.prepare.DemoDataConfig;
-import com.infoDiscover.solution.arch.demo.prepare.DemoArchRandomData;
-import com.infoDiscover.solution.arch.demo.UserRoleDataImporter;
-import com.infoDiscover.solution.common.util.RandomData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
@@ -37,11 +37,11 @@ public class DemoArchTaskRandomData {
                 "firstNumberTasks: {}", projectTemplate, projectType, progressId, new Date
                 (progressStartTime), firstNumberTasks);
 
-        JsonNode json = JsonUtil.loadJsonFile(projectTemplate);
+        JsonNode json = JsonNodeUtil.loadJsonFile(projectTemplate);
         JsonNode taskNodes = ProjectJsonParser.getTasksNode(json.toString());
 
         // if json is empty
-        if (JsonUtil.isEmptyJsonNode(taskNodes)) {
+        if (JsonNodeUtil.isEmptyJsonNode(taskNodes)) {
             logger.info("No progress and task data in the json");
             return null;
         }

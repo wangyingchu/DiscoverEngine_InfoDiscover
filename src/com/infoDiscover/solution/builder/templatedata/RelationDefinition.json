@@ -1,0 +1,301 @@
+{
+  "relations": {
+    "factToDimension": [
+      {
+        "fromType": "MAINTENANCE_PROJECT",
+        "mappings": [
+          {
+            "relationTypeName": "PROJECT_CLASSIFICATION_IS",
+            "fromProperty": "projectClassification",
+            "toType": "PROJECT_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "ASSIGN_MODEL_IS",
+            "fromProperty": "assignModel",
+            "toType": "ASSIGN_MODEL",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "CONSTRUCTION_TYPE_IS",
+            "fromProperty": "constructionType",
+            "toType": "CONSTRUCTION_TYPE",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "ISSUE_CLASSIFICATION_IS",
+            "fromProperty": "issueClassification",
+            "toType": "ISSUE_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "LAND_PROPERTY_IS",
+            "fromProperty": "landProperty",
+            "toType": "LAND_PROPERTY",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_CONSTRUCTION_CLASSIFICATION_IS",
+            "fromProperty": "projectType",
+            "toType": "PROJECT_CONSTRUCTION_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_SCOPE_IS",
+            "fromProperty": "projectScope",
+            "toType": "PROJECT_SCOPE",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_SITE_CLASSIFICATION_IS",
+            "fromProperty": "projectSiteClassification",
+            "toType": "PROJECT_SITE_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "START_BY",
+            "fromProperty": "starterId",
+            "toType": "USER",
+            "toProperty": "userId",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_AT",
+            "fromProperty": "projectAddress",
+            "toType": "DIMENSION_PROJECT_ADDRESS_WITH_PREFIX",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          }
+        ]
+      },
+      {
+        "fromType": "CONSTRUCTION_PROJECT",
+        "mappings": [
+          {
+            "relationTypeName": "PROJECT_CLASSIFICATION_IS",
+            "fromProperty": "projectClassification",
+            "toType": "PROJECT_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "ASSIGN_MODEL_IS",
+            "fromProperty": "assignModel",
+            "toType": "ASSIGN_MODEL",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "CONSTRUCTION_TYPE_IS",
+            "fromProperty": "constructionType",
+            "toType": "CONSTRUCTION_TYPE",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "ISSUE_CLASSIFICATION_IS",
+            "fromProperty": "issueClassification",
+            "toType": "ISSUE_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "LAND_PROPERTY_IS",
+            "fromProperty": "landProperty",
+            "toType": "LAND_PROPERTY",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_CONSTRUCTION_CLASSIFICATION_IS",
+            "fromProperty": "projectType",
+            "toType": "PROJECT_CONSTRUCTION_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_SCOPE_IS",
+            "fromProperty": "projectScope",
+            "toType": "PROJECT_SCOPE",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_SITE_CLASSIFICATION_IS",
+            "fromProperty": "projectSiteClassification",
+            "toType": "PROJECT_SITE_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "START_BY",
+            "fromProperty": "starterId",
+            "toType": "USER",
+            "toProperty": "userId",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "PROJECT_AT",
+            "fromProperty": "projectAddress",
+            "toType": "DIMENSION_PROJECT_ADDRESS_WITH_PREFIX",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          }
+        ]
+      },
+      {
+        "fromType": "TASK",
+        "mappings": [
+          {
+            "relationTypeName": "EXECUTE_BY_DEPARTMENT",
+            "fromProperty": "executiveDepartmentId",
+            "toType": "EXECUTIVE_DEPARTMENT",
+            "toProperty": "classificationId",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "EXECUTE_BY_USER",
+            "fromProperty": "workerId",
+            "toType": "USER",
+            "toProperty": "userId",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "EXECUTE_BY_COMPANY",
+            "fromProperty": "biddingAgency,projectPlanMakingCompany,surveyCompany,designCompany,costConsultationCompany,constructionCompany,supervisionCompany",
+            "toType": "COMPANY",
+            "toProperty": "companyName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "COMPANY_CLASSIFICATION_IS",
+            "fromProperty": "companyClassification",
+            "toType": "COMPANY_CLASSIFICATION",
+            "toProperty": "classificationName",
+            "propertyType": "String"
+          },
+          {
+            "relationTypeName": "IS_IN_CHARGE_OF",
+            "fromProperty": "biddingAgencyLeader,consultationCompanyLeader,surveyCompanyLeader,designCompanyLeader,costConsultationCompanyLeader,constructionCompanyLeader,supervisionCompanyContact",
+            "toType": "EXTERNAL_USER",
+            "toProperty": "userName",
+            "propertyType": "String"
+          }
+        ]
+      }
+    ],
+    "factToFact": [
+      {
+        "fromType": "MAINTENANCE_PROJECT",
+        "mappings": [
+          {
+            "relationTypeName": "HAS_TASK",
+            "fromProperty": "projectId",
+            "toType": "TASK",
+            "toProperty": "projectId",
+            "propertyType": "String"
+          }
+        ]
+      },
+      {
+        "fromType": "CONSTRUCTION_PROJECT",
+        "mappings": [
+          {
+            "relationTypeName": "HAS_TASK",
+            "fromProperty": "projectId",
+            "toType": "TASK",
+            "toProperty": "projectId",
+            "propertyType": "String"
+          }
+        ]
+      }
+    ],
+    "dimensionToDimension": [
+      {
+        "fromType": "EXECUTIVE_DEPARTMENT",
+        "mappings": [
+          {
+            "relationTypeName": "HAS_USER",
+            "fromProperty": "executiveDepartmentId",
+            "toType": "USER",
+            "toProperty": "workerId",
+            "propertyType": "String"
+          }
+        ]
+      },
+      {
+        "fromType": "EXTERNAL_USER",
+        "mappings": [
+          {
+            "relationTypeName": "IS_MEMBER_OF",
+            "fromProperty": "biddingAgencyLeader,consultationCompanyLeader,surveyCompanyLeader,designCompanyLeader,costConsultationCompanyLeader,constructionCompanyLeader,supervisionCompanyContact",
+            "toType": "COMPANY",
+            "toProperty": "biddingAgency,projectPlanMakingCompany,surveyCompany,designCompany,costConsultationCompany,constructionCompany,supervisionCompany",
+            "propertyType": "String"
+          }
+        ]
+      },
+      {
+        "fromType": "COMPANY",
+        "mappings": [
+          {
+            "relationTypeName": "IS_COMPANY_OF",
+            "fromProperty": "biddingAgency,projectPlanMakingCompany,surveyCompany,designCompany,costConsultationCompany,constructionCompany,supervisionCompany",
+            "toType": "COMPANY_CLASSIFICATION",
+            "toProperty": "companyClassification",
+            "propertyType": "String"
+          }
+        ]
+      }
+    ],
+    "factToDateDimension": [
+      {
+        "fromType": "TASK",
+        "mappings": [
+          {
+            "relationTypeName": "START_AT",
+            "fromProperty": "startDate"
+          },
+          {
+            "relationTypeName": "END_AT",
+            "fromProperty": "endDate"
+          }
+        ]
+      },
+      {
+        "fromType": "MAINTENANCE_PROJECT",
+        "mappings": [
+          {
+            "relationTypeName": "START_AT",
+            "fromProperty": "startDate"
+          },
+          {
+            "relationTypeName": "END_AT",
+            "fromProperty": "endDate"
+          }
+        ]
+      },
+      {
+        "fromType": "CONSTRUCTION_PROJECT",
+        "mappings": [
+          {
+            "relationTypeName": "START_AT",
+            "fromProperty": "startDate"
+          },
+          {
+            "relationTypeName": "END_AT",
+            "fromProperty": "endDate"
+          }
+        ]
+      }
+    ]
+  }
+}

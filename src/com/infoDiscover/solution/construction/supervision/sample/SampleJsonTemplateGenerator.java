@@ -3,15 +3,13 @@ package com.infoDiscover.solution.construction.supervision.sample;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.infoDiscover.common.util.FileUtil;
-import com.infoDiscover.common.util.JsonUtil;
-import com.infoDiscover.common.util.RandomUtil;
-import com.infoDiscover.solution.common.util.RandomData;
+import com.infoDiscover.common.util.JsonObjectUtil;
+import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.*;
 
 /**
@@ -157,8 +155,8 @@ public class SampleJsonTemplateGenerator {
         List<String> taskJsonFilesList = FileUtil.getFileList(jsonRootPath, filePrefix, true);
         for (int i = 0; i < taskJsonFilesList.size(); i++) {
             String file = jsonRootPath + "/" + filePrefix + (i + 1) + ".json";
-            String jsonStr = JsonUtil.loadJsonFile(file).toString();
-            JsonObject jsonObject = JsonUtil.string2JsonObject(jsonStr);
+            String jsonStr = JsonNodeUtil.loadJsonFile(file).toString();
+            JsonObject jsonObject = JsonObjectUtil.string2JsonObject(jsonStr);
             tasksJsonArray.add(jsonObject);
         }
 
@@ -166,7 +164,7 @@ public class SampleJsonTemplateGenerator {
 
         String allJsonStr = "{" + removeBracket(progressJsonObject.toString()) + "," + removeBracket
                 (taskJsonObject.toString()) + "}";
-        JsonObject all = JsonUtil.string2JsonObject(allJsonStr);
+        JsonObject all = JsonObjectUtil.string2JsonObject(allJsonStr);
 
         dataJsonObject.add("data", all);
 
@@ -179,8 +177,8 @@ public class SampleJsonTemplateGenerator {
     }
 
     public static JsonObject getProgressJsonObject(String file) {
-        String jsonStr = JsonUtil.loadJsonFile(file).toString();
-        return JsonUtil.string2JsonObject(jsonStr);
+        String jsonStr = JsonNodeUtil.loadJsonFile(file).toString();
+        return JsonObjectUtil.string2JsonObject(jsonStr);
     }
 
 
@@ -226,7 +224,7 @@ public class SampleJsonTemplateGenerator {
             jsonPrefix) {
         JsonArray jsonArray = new JsonArray();
         for (Map<String, Object> map : list) {
-            JsonObject jsonObject = JsonUtil.mapToJsonObject(map);
+            JsonObject jsonObject = JsonObjectUtil.mapToJsonObject(map);
             jsonArray.add(jsonObject);
         }
 

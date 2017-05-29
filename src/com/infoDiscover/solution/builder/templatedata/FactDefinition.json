@@ -1,0 +1,115 @@
+{
+  "facts": [
+    {
+      "typeName": "MAINTENANCE_PROJECT",
+      "properties": [
+        {
+          "propertyName": "projectId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "projectName",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "starterId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "starter",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "startDate",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "endDate",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "status",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "CONSTRUCTION_PROJECT",
+      "properties": [
+        {
+          "propertyName": "projectId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "projectName",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "starterId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "starter",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "startDate",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "endDate",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "status",
+          "propertyType": "String"
+        }
+      ]
+    },
+    {
+      "typeName": "TASK",
+      "properties": [
+        {
+          "propertyName": "projectId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "taskId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "taskName",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "taskDisplayName",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "workerId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "worker",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "executiveDepartmentId",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "executiveDepartment",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "startDate",
+          "propertyType": "Date"
+        },
+        {
+          "propertyName": "endDate",
+          "propertyType": "Date"
+        }
+      ]
+    }
+  ]
+}

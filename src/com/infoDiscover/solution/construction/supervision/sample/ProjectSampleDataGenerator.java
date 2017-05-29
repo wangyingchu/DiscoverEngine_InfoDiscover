@@ -200,9 +200,9 @@ public class ProjectSampleDataGenerator {
 
     public static String getFactType(String projectType) {
         if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            return SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT;
+            return DatabaseConstants.FACTTYPE_MAINTENANCE_PROJECT;
         } else{
-            return SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT;
+            return DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT;
         }
     }
 

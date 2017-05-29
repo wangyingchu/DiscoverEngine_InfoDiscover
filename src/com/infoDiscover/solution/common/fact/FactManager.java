@@ -2,16 +2,21 @@ package com.infoDiscover.solution.common.fact;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.FactType;
+import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.builder.SolutionConstants;
+import com.infoDiscover.solution.common.executor.QueryExecutor;
+import com.infoDiscover.solution.common.util.PrefixSetting;
 import com.infoDiscover.solution.common.util.PropertyTypeUtil;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,4 +106,15 @@ public class FactManager {
         logger.info("End to createFactType...");
     }
 
+    public Fact getFactByRID(String rid, String factType) {
+        String sql = "select from " + PrefixSetting.getFactTypeWithPrefix
+                (InfoDiscoverEngineConstant.CLASSPERFIX_FACT , factType) + " WHERE @rid = " + rid;
+
+        List<Relationable> list = QueryExecutor.executeFactQuery(ids, sql);
+        if (list!= null && list.size() > 0) {
+            return (Fact) list.get(0);
+        }
+
+        return null;
+    }
 }

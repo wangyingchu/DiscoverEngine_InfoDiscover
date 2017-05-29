@@ -4,7 +4,7 @@ import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.common.fact.FactManager;
-import com.infoDiscover.solution.construction.supervision.util.PrefixManager;
+import com.infoDiscover.solution.common.util.PrefixSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +38,7 @@ public class SolutionTemplateInitializer {
         // initialize solution template fact type
         if (ids != null) {
             FactManager factManager = new FactManager(ids);
-            factManager.createFactType(PrefixManager.normalizePrefix(prefix) + SolutionConstants
+            factManager.createFactType(PrefixSetting.normalizePrefix(prefix) + SolutionConstants
                             .FACT_TYPE_SOLUTION_TEMPLATE,
                     SolutionConstants.FACT_TYPE_PROPERTIES);
         }

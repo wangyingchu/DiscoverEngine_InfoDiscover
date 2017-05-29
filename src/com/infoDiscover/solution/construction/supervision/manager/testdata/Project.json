@@ -1,5 +1,7 @@
 {
   "data": {
+    "type": "Fact",
+    "typeName": "NEW_PROJECT",
     "properties": [
       {
         "propertyType": "String",

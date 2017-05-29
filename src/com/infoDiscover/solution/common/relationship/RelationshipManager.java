@@ -1,8 +1,9 @@
 package com.infoDiscover.solution.common.relationship;
 
+import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
+import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
-import com.infoDiscover.infoDiscoverEngine.dataMart.FactType;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
@@ -10,13 +11,11 @@ import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.solution.builder.SolutionConstants;
+import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.path.OrientDBShortestPath;
-import com.infoDiscover.solution.common.util.PropertyTypeUtil;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
-import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -188,5 +187,29 @@ public class RelationshipManager {
 
         return null;
     }
+
+    public Relation linkFactToDateDimension(
+            String prefix,
+            Fact fact,
+            DayDimensionVO dayDimension,
+            String relationType) throws
+            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException,
+            InfoDiscoveryEngineDataMartException {
+
+        logger.debug("Enter method linkFactToDateDimension() with factId: {} ");
+
+        Dimension day = new DimensionManager(ids).getDayDimension(prefix, dayDimension);
+
+        if (!ids.hasRelationType(relationType)) {
+            ids.addRelationType(relationType);
+        }
+
+        linkFactToDimension(fact, day, relationType);
+
+        logger.debug("Exit method attachTimeToProgress()");
+        return null;
+    }
+
+
 
 }

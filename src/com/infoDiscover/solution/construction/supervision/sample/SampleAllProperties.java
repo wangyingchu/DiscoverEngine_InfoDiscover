@@ -1,6 +1,5 @@
 package com.infoDiscover.solution.construction.supervision.sample;
 
-import com.infoDiscover.common.util.JsonUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.PropertyType;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.PropertyTypeUtil;
@@ -44,7 +43,7 @@ public class SampleAllProperties {
 
         logger.info("Start to getProjectProperties with template: {}", projectJsonTemplate);
 
-        JsonNode json = JsonUtil.loadJsonFile(projectJsonTemplate);
+        JsonNode json = JsonNodeUtil.loadJsonFile(projectJsonTemplate);
         JsonNode progressPropertiesJsonNode = ProjectJsonParser.getProjectNode(json.toString());
 
         JsonNode progressPropertiesNode = JsonNodeUtil.getPropertiesJsonNode

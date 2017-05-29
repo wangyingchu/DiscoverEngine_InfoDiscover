@@ -26,12 +26,14 @@ public class SampleFactGenerator {
             InfoDiscoveryEngineRuntimeException {
 
         // maintenance project
-        if (!ids.hasFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT)) {
-            FactType maintenanceProjectFactType = ids.addFactType(SampleDataSet.FACTTYPE_MAINTENANCE_PROJECT);
+        if (!ids.hasFactType(DatabaseConstants.FACTTYPE_MAINTENANCE_PROJECT)) {
+            FactType maintenanceProjectFactType = ids.addFactType(DatabaseConstants.FACTTYPE_MAINTENANCE_PROJECT);
             maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
                     .STRING);
             maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
                     .STRING);
+            maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER_ID,
+                    PropertyType.STRING);
             maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
                     .STRING);
             maintenanceProjectFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
@@ -42,14 +44,16 @@ public class SampleFactGenerator {
         }
 
         // construction project
-        if (!ids.hasFactType(SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT)) {
-            FactType constructionProjectFactType = ids.addFactType(SampleDataSet.FACTTYPE_CONSTRUCTION_PROJECT);
-            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID, PropertyType
-                    .STRING);
-            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME, PropertyType
-                    .STRING);
-            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER, PropertyType
-                    .STRING);
+        if (!ids.hasFactType(DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT)) {
+            FactType constructionProjectFactType = ids.addFactType(DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_ID,
+                    PropertyType.STRING);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_NAME,
+                    PropertyType.STRING);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER_ID,
+                    PropertyType.STRING);
+            constructionProjectFactType.addTypeProperty(JsonConstants.JSON_PROJECT_STARTER,
+                    PropertyType.STRING);
             constructionProjectFactType.addTypeProperty(JsonConstants.JSON_START_DATE, PropertyType.DATE);
             constructionProjectFactType.addTypeProperty(JsonConstants.JSON_END_DATE, PropertyType.DATE);
             constructionProjectFactType.addTypeProperty(JsonConstants.JSON_STATUS, PropertyType.STRING);

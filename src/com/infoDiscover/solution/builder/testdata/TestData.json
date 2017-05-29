@@ -1,0 +1,164 @@
+{
+  "data": [
+    {
+      "type": "Fact",
+      "typeName": "CONSTRUCTION_PROJECT",
+      "properties": [
+        {
+          "propertyType": "String",
+          "propertyName": "projectId",
+          "propertyValue": "projectId_1",
+          "isUniqueKey": true
+        },
+        {
+          "propertyType": "String",
+          "propertyName": "projectName",
+          "propertyValue": "projectName_111"
+        },
+        {
+          "propertyType": "String",
+          "propertyName": "projectType",
+          "propertyValue": "新建工程"
+        },
+        {
+          "propertyType": "String",
+          "propertyName": "starterId",
+          "propertyValue": "starterId1"
+        },
+        {
+          "propertyType": "String",
+          "propertyName": "starter",
+          "propertyValue": "starter1"
+        },
+        {
+          "propertyType": "Date",
+          "propertyName": "startDate",
+          "propertyValue": 1451577600000
+        },
+        {
+          "propertyType": "Date",
+          "propertyName": "endDate",
+          "propertyValue": 1485878400000
+        },
+        {
+          "propertyType": "String",
+          "propertyName": "status",
+          "propertyValue": "进行中"
+        }
+      ]
+    },
+    {
+      "type": "Fact",
+      "typeName": "TASK",
+      "properties": [
+        {
+          "propertyName": "projectId",
+          "propertyValue": "projectId_1",
+          "propertyType": "String",
+          "isUniqueKey": true
+        },
+        {
+          "propertyName": "projectType",
+          "propertyValue": "新建工程",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "taskId",
+          "propertyValue": "taskId1",
+          "propertyType": "String",
+          "isUniqueKey": true
+        },
+        {
+          "propertyName": "workerId",
+          "propertyValue": "taskWorkerId1",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "worker",
+          "propertyValue": "taskWorker",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "executiveDepartmentId",
+          "propertyValue": "Cost_Department",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "executiveDepartment",
+          "propertyValue": "成本部",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "startDate",
+          "propertyValue": 1462550400000,
+          "propertyType": "Date"
+        },
+        {
+          "propertyName": "endDate",
+          "propertyValue": 1467907200000,
+          "propertyType": "Date"
+        },
+        {
+          "propertyName": "taskName",
+          "propertyValue": "Start",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "taskDisplayName",
+          "propertyValue": "录入项目发起数据",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "projectName",
+          "propertyValue": "项目名称aaaa",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "projectNumber",
+          "propertyValue": "项目编号a1111",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "grossInvestment",
+          "propertyValue": 189800,
+          "propertyType": "Double"
+        },
+        {
+          "propertyName": "projectClassification",
+          "propertyValue": "公路工程",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "projectConstructionClassification",
+          "propertyValue": "新建工程",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "projectAddress",
+          "propertyValue": "珠海市中富实业公司－3栋",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "constructionCompany",
+          "propertyValue": "中色十二冶金建设有限公司",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "projectLeader",
+          "propertyValue": "赵育玮",
+          "propertyType": "String"
+        },
+        {
+          "propertyName": "longitude",
+          "propertyValue": 22.177163,
+          "propertyType": "Double"
+        },
+        {
+          "propertyName": "latitude",
+          "propertyValue": 113.491115,
+          "propertyType": "Double"
+        }
+      ]
+    }
+  ]
+}

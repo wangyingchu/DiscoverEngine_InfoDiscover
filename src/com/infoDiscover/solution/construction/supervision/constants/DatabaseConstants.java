@@ -1,19 +1,25 @@
 package com.infoDiscover.solution.construction.supervision.constants;
 
-import com.infoDiscover.solution.construction.supervision.sample.PrepareSampleData;
+import com.infoDiscover.solution.common.util.PrefixSetting;
 
 /**
  * Created by sun.
  */
 public class DatabaseConstants {
     // database space
-    public final static String SOLUTION_PREFIX = PrepareSampleData.prefix;
+    public final static String SOLUTION_PREFIX =
+            PrefixSetting.getPrefixMap().get(PrefixSetting.PREFIX).toString();
+
     public final static String DATABASE_SPACE = SOLUTION_PREFIX +
             "ConstructionEngineeringSupervision";
 
     // Fact type
     //public final static String FACT_PROJECT_WITH_PREFIX = SOLUTION_PREFIX + "PROJECT";
     public final static String FACT_PROJECT_WITH_PREFIX = SOLUTION_PREFIX;
+    public final static String FACTTYPE_MAINTENANCE_PROJECT = FACT_PROJECT_WITH_PREFIX +
+            "MAINTENANCE_PROJECT";
+    public final static String FACTTYPE_CONSTRUCTION_PROJECT = FACT_PROJECT_WITH_PREFIX +
+            "CONSTRUCTION_PROJECT";
     public final static String FACT_TASK_WITH_PREFIX = SOLUTION_PREFIX + "TASK";
 
     // Dimension type
@@ -82,21 +88,21 @@ public class DatabaseConstants {
             "PROJECT_SITE_CLASSIFICATION_IS";
     public final static String RELATION_PROJECT_TYPE_WITH_PREFIX = SOLUTION_PREFIX +
             "PROJECT_TYPE_IS";
-    public final static String RELATION_PROVIDER_WITH_PREFIX = SOLUTION_PREFIX + "PROVIDER_IS";
+//    public final static String RELATION_PROVIDER_WITH_PREFIX = SOLUTION_PREFIX + "PROVIDER_IS";
 
     public final static String RELATION_PROJECT_HASTASK_WITH_PREFIX = SOLUTION_PREFIX +
             "HAS_TASK";
-    public final static String RELATION_SUBTASK_WITH_PREFIX = SOLUTION_PREFIX + "SUBTASK";
-    public final static String RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX = SOLUTION_PREFIX +
-            "EXECUTE_BY_ROLE";
+//    public final static String RELATION_SUBTASK_WITH_PREFIX = SOLUTION_PREFIX + "SUBTASK";
+//    public final static String RELATION_TASK_EXECUTE_BY_ROLE_WITH_PREFIX = SOLUTION_PREFIX +
+//            "EXECUTE_BY_ROLE";
     public final static String RELATION_TASK_EXECUTE_BY_DEPARTMENT_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_DEPARTMENT";
     public final static String RELATION_TASK_EXECUTE_BY_USER_WITH_PREFIX = SOLUTION_PREFIX +
             "EXECUTE_BY_USER";
     public final static String RELATION_EXECUTIVE_DEPARTMENT_HAS_USER_WITH_PREFIX =
             SOLUTION_PREFIX + "HAS_USER";
-    public final static String RELATION_TRANSFER_WITH_PREFIX = SOLUTION_PREFIX +
-            "TRANSFER_TASK";
+//    public final static String RELATION_TRANSFER_WITH_PREFIX = SOLUTION_PREFIX +
+//            "TRANSFER_TASK";
     public final static String RELATION_STARTAT_WITH_PREFIX = SOLUTION_PREFIX + "START_AT";
     public final static String RELATION_ENDAT_WITH_PREFIX = SOLUTION_PREFIX + "END_AT";
 
@@ -121,11 +127,45 @@ public class DatabaseConstants {
             "EXECUTE_BY_COMPANY";
 
 
+    public final static String[] factPropertiesAsDimensionArray = {
+            JsonConstants.JSON_CONSTRUCTION_TYPE,
+            JsonConstants.JSON_COMPANY_CLASSIFICATION,
+            JsonConstants.JSON_ASSIGN_MODEL,
+            JsonConstants.JSON_ISSUE_CLASSIFICATION,
+            JsonConstants.JSON_LAND_PROPERTY,
+            JsonConstants.JSON_ASSET_FIRST_CLASSIFICATION,
+            JsonConstants.JSON_ASSET_SECOND_CLASSIFICATION,
+            JsonConstants.JSON_PROJECT_CLASSIFICATION,
+            JsonConstants.JSON_PROJECT_SITE_CLASSIFICATION,
+            JsonConstants.JSON_PROJECT_SCOPE,
+            JsonConstants.JSON_PROJECT_CONSTRUCTION_CLASSIFICATION};
+
+
+    public final static String[][] factPropertiesToDimensionsMapping = {
+            {JsonConstants.JSON_CONSTRUCTION_TYPE, DIMENSION_CONSTRUCTION_TYPE_WITH_PREFIX},
+            {JsonConstants.JSON_COMPANY_CLASSIFICATION,
+                    DIMENSION_COMPANY_CLASSIFICATION_WITH_PREFIX},
+            {JsonConstants.JSON_ASSIGN_MODEL, DIMENSION_ASSIGN_MODEL_WITH_PREFIX},
+            {JsonConstants.JSON_ISSUE_CLASSIFICATION, DIMENSION_ISSUE_CLASSIFICATION_WITH_PREFIX},
+            {JsonConstants.JSON_LAND_PROPERTY, DIMENSION_LAND_PROPERTY_WITH_PREFIX},
+            {JsonConstants.JSON_ASSET_FIRST_CLASSIFICATION,
+                    DIMENSION_ASSET_FIRST_CLASSIFICATION_WITH_PREFIX},
+            {JsonConstants.JSON_ASSET_SECOND_CLASSIFICATION,
+                    DIMENSION_ASSET_SECOND_CLASSIFICATION_WITH_PREFIX},
+            {JsonConstants.JSON_PROJECT_CLASSIFICATION,
+                    DIMENSION_PROJECT_CLASSIFICATION_WITH_PREFIX},
+            {JsonConstants.JSON_PROJECT_SITE_CLASSIFICATION,
+                    DIMENSION_PROJECT_SITE_CLASSIFICATION_WITH_PREFIX},
+            {JsonConstants.JSON_PROJECT_SCOPE, DIMENSION_PROJECT_SCOPE_WITH_PREFIX},
+            {JsonConstants.JSON_PROJECT_CONSTRUCTION_CLASSIFICATION,
+                    DIMENSION_PROJECT_CONSTRUCTION_CLASSIFICATION_WITH_PREFIX},
+    };
+
     //
     public final static String PROPERTY_USER_ID = "userId";
     public final static String PROPERTY_USER_NAME = "userName";
 
     //
     public final static String PROPERTY_COMPANY_NAME = "companyName";
-    
+
 }
