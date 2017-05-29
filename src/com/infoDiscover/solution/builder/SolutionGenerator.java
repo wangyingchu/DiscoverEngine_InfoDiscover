@@ -47,6 +47,8 @@ public class SolutionGenerator {
 
         // create relation type
         createRelationType(ids, templateFact);
+
+        logger.info("Exit to generateSolutionFromTemplate()...");
     }
 
     private void createFactType(InfoDiscoverSpace ids, Fact templateFact) throws

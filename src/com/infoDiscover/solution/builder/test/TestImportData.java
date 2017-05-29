@@ -1,8 +1,9 @@
-package com.infoDiscover.solution.builder;
+package com.infoDiscover.solution.builder.test;
 
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.builder.DataImporter;
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class TestImportData {
 
         String json = FileUtil.readFileContent(file);
 
-        ImportData importData = new ImportData(ids, prefix);
+        DataImporter importData = new DataImporter(ids, prefix);
         try {
             importData.importData(json, true);
         } catch (Exception e) {

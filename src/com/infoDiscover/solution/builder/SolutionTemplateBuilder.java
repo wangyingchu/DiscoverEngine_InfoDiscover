@@ -33,20 +33,28 @@ public class SolutionTemplateBuilder {
         this.factName = factName;
     }
 
-    public Fact createNewOrUpdateTemplate(String templateJson) throws Exception {
-        logger.info("Start to createNewOrUpdateTemplate with templateJson: {}", templateJson);
-        if (templateJson == null) {
-            String error = "Solution Template  is empty";
+    public Fact createNewOrUpdateTemplate(String prefix, String templateJson) throws Exception {
+        logger.info("Start to createNewOrUpdateTemplate with prefix: {} and templateJson: {}",
+                prefix, templateJson);
+
+        if (prefix == null || prefix.trim().isEmpty()) {
+            String error = "Prefix should not be null or empty";
+            logger.error(error);
+            throw new Exception(error);
+        }
+
+        if (templateJson == null || templateJson.trim().isEmpty()) {
+            String error = "Solution Template is empty";
             logger.error(error);
             throw new Exception(error);
         }
 
         // parse solution template
         Map<String, Object> properties = getPropertiesMapFromJson(templateJson);
-        String prefix = properties.get(SolutionConstants.JSON_PREFIX).toString();
+        properties.put(SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
 
         FactManager factManager = new FactManager(ids);
-        Fact solutionTemplateFact = getSolutionTemplateByPrefix(prefix);
+        Fact solutionTemplateFact = getSolutionTemplateByPrefix(prefix.toUpperCase());
         Date now = new Date();
         if (solutionTemplateFact == null) {
             properties.put(SolutionConstants.PROPERTY_STD_ID, Util.generateUUID());
@@ -65,12 +73,6 @@ public class SolutionTemplateBuilder {
 
     private Map<String, Object> getPropertiesMapFromJson(String templateJson) throws Exception {
         JsonNode dataNode = JsonNodeUtil.getDataNode(templateJson);
-        JsonNode prefixNode = dataNode.get(SolutionConstants.JSON_PREFIX);
-        if (prefixNode == null) {
-            String error = "Solution Prefix is empty.";
-            logger.error(error);
-            throw new Exception(error);
-        }
 
         JsonNode factsNode = dataNode.get(SolutionConstants.JSON_FACTS);
         JsonNode dimensionsNode = dataNode.get(SolutionConstants.JSON_DIMENSIONS);
@@ -81,7 +83,6 @@ public class SolutionTemplateBuilder {
         logger.debug("Relations node: {}", relationsNode);
 
         Map<String, Object> properties = new HashedMap();
-        properties.put(SolutionConstants.PROPERTY_STD_PREFIX, prefixNode.asText().toUpperCase());
         if (factsNode != null) {
             properties.put(SolutionConstants.PROPERTY_STD_FACT_DEFINITION,
                     appendJsonPrefix(SolutionConstants.JSON_FACTS, factsNode));

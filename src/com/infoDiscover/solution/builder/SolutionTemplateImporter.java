@@ -3,7 +3,9 @@ package com.infoDiscover.solution.builder;
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.PrefixSetting;
+import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,7 +39,7 @@ public class SolutionTemplateImporter {
             String factType = PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
                     .FACT_TYPE_SOLUTION_TEMPLATE);
             SolutionTemplateBuilder builder = new SolutionTemplateBuilder(ids, factType);
-            builder.createNewOrUpdateTemplate(templateJson);
+            builder.createNewOrUpdateTemplate(prefix, templateJson);
         }
 
         ids.closeSpace();

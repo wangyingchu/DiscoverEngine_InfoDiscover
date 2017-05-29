@@ -27,13 +27,13 @@ import java.util.*;
 /**
  * Created by sun.
  */
-public class ImportData {
-    private final static Logger logger = LoggerFactory.getLogger(ImportData.class);
+public class DataImporter {
+    private final static Logger logger = LoggerFactory.getLogger(DataImporter.class);
 
     private InfoDiscoverSpace ids;
     private String prefix;
 
-    public ImportData(InfoDiscoverSpace ids, String prefix) {
+    public DataImporter(InfoDiscoverSpace ids, String prefix) {
         this.ids = ids;
         this.prefix = prefix;
     }

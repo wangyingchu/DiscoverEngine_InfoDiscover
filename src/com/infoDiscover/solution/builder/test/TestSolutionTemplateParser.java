@@ -1,7 +1,8 @@
-package com.infoDiscover.solution.builder;
+package com.infoDiscover.solution.builder.test;
 
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.builder.SolutionTemplateParser;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 
 import java.util.List;
