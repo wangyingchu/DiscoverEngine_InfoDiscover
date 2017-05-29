@@ -496,7 +496,49 @@
             },
             {
               "relationTypeName": "EXECUTE_BY_COMPANY",
-              "fromProperty": "biddingAgency,projectPlanMakingCompany,surveyCompany,designCompany,costConsultationCompany,constructionCompany,supervisionCompany",
+              "fromProperty": "biddingAgency",
+              "toType": "COMPANY",
+              "toProperty": "companyName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "EXECUTE_BY_COMPANY",
+              "fromProperty": "projectPlanMakingCompany",
+              "toType": "COMPANY",
+              "toProperty": "companyName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "EXECUTE_BY_COMPANY",
+              "fromProperty": "surveyCompany",
+              "toType": "COMPANY",
+              "toProperty": "companyName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "EXECUTE_BY_COMPANY",
+              "fromProperty": "designCompany",
+              "toType": "COMPANY",
+              "toProperty": "companyName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "EXECUTE_BY_COMPANY",
+              "fromProperty": "costConsultationCompany",
+              "toType": "COMPANY",
+              "toProperty": "companyName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "EXECUTE_BY_COMPANY",
+              "fromProperty": "constructionCompany",
+              "toType": "COMPANY",
+              "toProperty": "companyName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "EXECUTE_BY_COMPANY",
+              "fromProperty": "supervisionCompany",
               "toType": "COMPANY",
               "toProperty": "companyName",
               "propertyType": "String"
@@ -510,7 +552,49 @@
             },
             {
               "relationTypeName": "IS_IN_CHARGE_OF",
-              "fromProperty": "biddingAgencyLeader,consultationCompanyLeader,surveyCompanyLeader,designCompanyLeader,costConsultationCompanyLeader,constructionCompanyLeader,supervisionCompanyContact",
+              "fromProperty": "biddingAgencyLeader",
+              "toType": "EXTERNAL_USER",
+              "toProperty": "userName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_IN_CHARGE_OF",
+              "fromProperty": "consultationCompanyLeader",
+              "toType": "EXTERNAL_USER",
+              "toProperty": "userName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_IN_CHARGE_OF",
+              "fromProperty": "surveyCompanyLeader",
+              "toType": "EXTERNAL_USER",
+              "toProperty": "userName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_IN_CHARGE_OF",
+              "fromProperty": "designCompanyLeader",
+              "toType": "EXTERNAL_USER",
+              "toProperty": "userName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_IN_CHARGE_OF",
+              "fromProperty": "costConsultationCompanyLeader",
+              "toType": "EXTERNAL_USER",
+              "toProperty": "userName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_IN_CHARGE_OF",
+              "fromProperty": "constructionCompanyLeader",
+              "toType": "EXTERNAL_USER",
+              "toProperty": "userName",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_IN_CHARGE_OF",
+              "fromProperty": "supervisionCompanyContact",
               "toType": "EXTERNAL_USER",
               "toProperty": "userName",
               "propertyType": "String"
@@ -574,9 +658,51 @@
           "mappings": [
             {
               "relationTypeName": "IS_MEMBER_OF",
-              "fromProperty": "biddingAgencyLeader,consultationCompanyLeader,surveyCompanyLeader,designCompanyLeader,costConsultationCompanyLeader,constructionCompanyLeader,supervisionCompanyContact",
+              "fromProperty": "biddingAgencyLeader",
               "toType": "COMPANY",
-              "toProperty": "biddingAgency,projectPlanMakingCompany,surveyCompany,designCompany,costConsultationCompany,constructionCompany,supervisionCompany",
+              "toProperty": "biddingAgency",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_MEMBER_OF",
+              "fromProperty": "consultationCompanyLeader",
+              "toType": "COMPANY",
+              "toProperty": "projectPlanMakingCompany",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_MEMBER_OF",
+              "fromProperty": "surveyCompanyLeader",
+              "toType": "COMPANY",
+              "toProperty": "surveyCompany",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_MEMBER_OF",
+              "fromProperty": "designCompanyLeader",
+              "toType": "COMPANY",
+              "toProperty": "designCompany",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_MEMBER_OF",
+              "fromProperty": "costConsultationCompanyLeader",
+              "toType": "COMPANY",
+              "toProperty": "costConsultationCompany",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_MEMBER_OF",
+              "fromProperty": "constructionCompanyLeader",
+              "toType": "COMPANY",
+              "toProperty": "constructionCompany",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_MEMBER_OF",
+              "fromProperty": "supervisionCompanyContact",
+              "toType": "COMPANY",
+              "toProperty": "supervisionCompany",
               "propertyType": "String"
             }
           ]
@@ -586,7 +712,49 @@
           "mappings": [
             {
               "relationTypeName": "IS_COMPANY_OF",
-              "fromProperty": "biddingAgency,projectPlanMakingCompany,surveyCompany,designCompany,costConsultationCompany,constructionCompany,supervisionCompany",
+              "fromProperty": "biddingAgency",
+              "toType": "COMPANY_CLASSIFICATION",
+              "toProperty": "companyClassification",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_COMPANY_OF",
+              "fromProperty": "projectPlanMakingCompany",
+              "toType": "COMPANY_CLASSIFICATION",
+              "toProperty": "companyClassification",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_COMPANY_OF",
+              "fromProperty": "surveyCompany",
+              "toType": "COMPANY_CLASSIFICATION",
+              "toProperty": "companyClassification",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_COMPANY_OF",
+              "fromProperty": "designCompany",
+              "toType": "COMPANY_CLASSIFICATION",
+              "toProperty": "companyClassification",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_COMPANY_OF",
+              "fromProperty": "costConsultationCompany",
+              "toType": "COMPANY_CLASSIFICATION",
+              "toProperty": "companyClassification",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_COMPANY_OF",
+              "fromProperty": "constructionCompany",
+              "toType": "COMPANY_CLASSIFICATION",
+              "toProperty": "companyClassification",
+              "propertyType": "String"
+            },
+            {
+              "relationTypeName": "IS_COMPANY_OF",
+              "fromProperty": "supervisionCompany",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
               "propertyType": "String"
