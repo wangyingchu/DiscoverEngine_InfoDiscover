@@ -1,14 +1,13 @@
 package com.infoDiscover.solution.builder;
 
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
+import com.infoDiscover.common.util.Util;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
-import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
+import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
@@ -110,8 +109,7 @@ public class ImportData {
         return fact;
     }
 
-    public void linkBetweenNodes(Fact fact) throws InfoDiscoveryEngineInfoExploreException,
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+    public void linkBetweenNodes(Fact fact) throws Exception {
         logger.info("Enter linkBetweenNodes with factType: {}", fact.getType());
 
         String rid = fact.getId();
@@ -119,7 +117,7 @@ public class ImportData {
         SolutionTemplateParser parser = new SolutionTemplateParser(ids, prefix);
 
         // fact to dimension mapping
-        linkFactToDimension(parser,fact);
+        linkFactToDimension(parser, fact);
 
         // fact to fact mapping
         linkFactToFact(parser, rid, factType);
@@ -131,8 +129,7 @@ public class ImportData {
     }
 
     private void linkRelation(Fact fact, RelationMappingVO vo, String mappingType)
-            throws InfoDiscoveryEngineInfoExploreException,
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+            throws Exception {
 
         String fromType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
         String fromProperty = vo.getFromProperty();
@@ -149,31 +146,91 @@ public class ImportData {
             RelationshipManager relationshipManager = new RelationshipManager(ids);
 
             Object propertyValue = property.getPropertyValue();
-            
+
             if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING)) {
 
-                Dimension dimension = QueryExecutor.executeDimensionQuery(ids
-                        .getInformationExplorer(), constructExploreParameters(toType, toProperty,
-                        propertyValue));
+                Dimension dimension = null;
+                if (Util.isStringType(propertyType)) {
+                    dimension = QueryExecutor.executeDimensionQuery(
+                            ids.getInformationExplorer(),
+                            constructEqualExploreParameters(toType, toProperty, propertyValue));
+                } else if (Util.isNumbericType(propertyType)) {
+
+                    boolean validValue = validatePropertyType(toProperty);
+                    if (toProperty.split(",").length == 1) {
+                        dimension = QueryExecutor.executeDimensionQuery(ids
+                                        .getInformationExplorer(),
+                                constructEqualExploreParameters(toType, toProperty, propertyValue));
+                    } else {
+                        if (validValue && toProperty.split(",").length == 2) {
+                            String firstOperator = getOperator(toProperty.charAt(0));
+                            String secondOperator = getOperator(toProperty.charAt(toProperty
+                                    .length()
+                                    - 1));
+                            String firstProperty = Util.removeFirstAndLastChar(toProperty)
+                                    .split(",")[0];
+                            String secondProperty = Util.removeFirstAndLastChar(toProperty)
+                                    .split(",")[1];
+
+                            ExploreParameters ep = new ExploreParameters();
+                            ep.setType(toType);
+
+                            if (firstOperator == ">") {
+                                ep.setDefaultFilteringItem(new GreaterThanFilteringItem
+                                        (firstProperty, propertyValue));
+                            } else if (firstOperator == ">=") {
+                                ep.setDefaultFilteringItem(new GreaterThanEqualFilteringItem
+                                        (firstProperty, propertyValue));
+                            }
+
+                            if (secondOperator == "<") {
+                                ep.addFilteringItem(new LessThanFilteringItem
+                                        (secondProperty, propertyValue), ExploreParameters
+                                        .FilteringLogic.AND);
+                            } else if (secondOperator == "<=") {
+                                ep.addFilteringItem(new LessThanEqualFilteringItem
+                                        (secondProperty, propertyValue), ExploreParameters
+                                        .FilteringLogic.AND);
+                            }
+
+                            dimension = QueryExecutor.executeDimensionQuery(ids
+                                    .getInformationExplorer(), ep);
+
+                        }
+                    }
+
+                } else if (Util.isDateType(propertyType)) {
+                    DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
+                            (prefix, (Date) propertyValue);
+                    relationshipManager.linkFactToDateDimension(prefix, fact, dayDimensionVO,
+                            relationType);
+                } else {
+                    String error = "Invalid property type: " + propertyType;
+                    logger.error(error);
+                    throw new Exception(error);
+                }
 
                 if (dimension == null) {
-                    Map<String, Object> props = new HashMap<>();
-                    props.put(toProperty, propertyValue);
-                    dimension = dimensionManager.createDimension(toType, props);
+                    if (Util.isStringType(propertyType)) {
+                        Map<String, Object> props = new HashMap<>();
+                        props.put(toProperty, propertyValue);
+                        dimension = dimensionManager.createDimension(toType, props);
+                    }
                 }
 
                 if (dimension != null) {
-
                     relationshipManager.linkFactToDimension(fact, dimension, relationType);
                 }
+
             } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING)) {
 
                 // check which is the fromFact, which is the toFact
-                ExploreParameters ep = constructExploreParameters(toType,toProperty,propertyValue);
+                ExploreParameters ep = constructEqualExploreParameters(toType, toProperty,
+                        propertyValue);
 
                 if (fact.getType().equalsIgnoreCase(toType)) {
                     // the passing fact is a toFact, to get the fromFact
-                    ep = constructExploreParameters(fromType, fromProperty, propertyValue);
+                    ep = constructEqualExploreParameters(fromType, fromProperty, propertyValue);
                 }
 
                 Fact targetFact = QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
@@ -190,13 +247,62 @@ public class ImportData {
                     .JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
                 DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
                         (prefix, (Date) propertyValue);
-                relationshipManager.linkFactToDateDimension(prefix, fact, dayDimensionVO, relationType);
+                relationshipManager.linkFactToDateDimension(prefix, fact, dayDimensionVO,
+                        relationType);
             }
 
         }
     }
 
-    private ExploreParameters constructExploreParameters(String factType, String key, Object value) {
+    private boolean validatePropertyType(String value) throws Exception {
+        String[] types = value.split(",");
+        if (types.length == 1) {
+            return true;
+        }
+
+        if (types.length > 2 || types.length < 1) {
+            throw new Exception("Defined dimension property types's number should be 2.");
+        }
+
+        char firstChar = value.charAt(0);
+        if (firstChar != '[' && firstChar != '(') {
+            throw new Exception("Defined dimension property type is not correct, should be start " +
+                    "with [ or (");
+        }
+
+        char lastChar = value.charAt(value.length() - 1);
+        if (lastChar != ']' && lastChar != ')') {
+            throw new Exception("Defined dimension property type is not correct, should be end " +
+                    "with ] or )");
+        }
+
+        return true;
+
+    }
+
+    private String getOperator(char ch) {
+        if (ch == '[') {
+            return ">=";
+        }
+
+        if (ch == '(') {
+            return ">";
+        }
+
+        if (ch == ')') {
+            return "<";
+        }
+
+        if (ch == ']') {
+            return ">=";
+        }
+
+        return "=";
+    }
+
+
+    private ExploreParameters constructEqualExploreParameters(String factType, String key, Object
+            value) {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(factType);
         ep.setDefaultFilteringItem(new EqualFilteringItem(key, value));
@@ -244,8 +350,7 @@ public class ImportData {
     }
 
     private void linkFactToDimension(SolutionTemplateParser parser, Fact fact) throws
-            InfoDiscoveryEngineInfoExploreException, InfoDiscoveryEngineRuntimeException,
-            InfoDiscoveryEngineDataMartException {
+            Exception {
 
         Map<String, List<RelationMappingVO>> factToDimensionMap = parser.getFactToDimensionMap();
         List<RelationMappingVO> voList = parser.getRelationMappingVOList(PrefixSetting
@@ -253,14 +358,13 @@ public class ImportData {
 
         if (voList != null) {
             for (RelationMappingVO vo : voList) {
-                linkRelation(fact,vo, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING);
+                linkRelation(fact, vo, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING);
             }
         }
     }
 
-    private void linkFactToFact(SolutionTemplateParser parser, String rid, String factType) throws
-            InfoDiscoveryEngineInfoExploreException, InfoDiscoveryEngineRuntimeException,
-            InfoDiscoveryEngineDataMartException {
+    private void linkFactToFact(SolutionTemplateParser parser, String rid, String factType)
+            throws Exception {
 
         Map<String, List<RelationMappingVO>> factToFactMap = parser.getFactToFactMap();
         List<RelationMappingVO> voList = new ArrayList<>();
@@ -277,14 +381,13 @@ public class ImportData {
             Fact latestFact = new FactManager(ids).getFactByRID(rid, factType);
 
             for (RelationMappingVO vo : voList) {
-                linkRelation(latestFact,vo, SolutionConstants.JSON_FACT_TO_FACT_MAPPING);
+                linkRelation(latestFact, vo, SolutionConstants.JSON_FACT_TO_FACT_MAPPING);
             }
         }
     }
 
-    private void linkFactToDateDimension(SolutionTemplateParser parser, String rid, String factType) throws
-            InfoDiscoveryEngineInfoExploreException, InfoDiscoveryEngineRuntimeException,
-            InfoDiscoveryEngineDataMartException {
+    private void linkFactToDateDimension(SolutionTemplateParser parser, String rid, String
+            factType) throws Exception {
         Map<String, List<RelationMappingVO>> factToDateDimensionMap = parser
                 .getFactToDateDimension();
 
@@ -296,7 +399,7 @@ public class ImportData {
             Fact latestFact = new FactManager(ids).getFactByRID(rid, factType);
 
             for (RelationMappingVO vo : voList) {
-                linkRelation(latestFact,vo, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING);
+                linkRelation(latestFact, vo, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING);
             }
         }
     }

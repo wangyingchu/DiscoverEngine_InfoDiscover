@@ -514,18 +514,6 @@
               "toType": "EXTERNAL_USER",
               "toProperty": "userName",
               "propertyType": "String"
-            },
-            {
-              "relationTypeName": "AREA_IS",
-              "fromProperty": "area",
-              "toType": "areaDimension",
-              "toProperty": "[minValue,maxValue)",
-              "propertyType": "Double"
-            },
-            {
-              "relationTypeName": "create_at_test",
-              "fromProperty": "startDate",
-              "propertyType": "Date"
             }
           ]
         }

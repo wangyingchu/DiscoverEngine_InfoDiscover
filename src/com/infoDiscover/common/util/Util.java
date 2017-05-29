@@ -1,5 +1,7 @@
 package com.infoDiscover.common.util;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -31,4 +33,28 @@ public class Util {
         UUID uuid = UUID.randomUUID();
         return uuid.toString();
     }
+
+    public static boolean isNumbericType(String propertyType) {
+        List<String> list = new ArrayList<>();
+        list.add("INT");
+        list.add("INTEGER");
+        list.add("LONG");
+        list.add("FLOAT");
+        list.add("DOUBLE");
+
+        return list.contains(propertyType.toUpperCase());
+    }
+
+    public static boolean isStringType(String propertyType) {
+        return "String".equalsIgnoreCase(propertyType);
+    }
+
+    public static boolean isDateType(String propertyType) {
+        return "Date".equalsIgnoreCase(propertyType) || "DateTime".equalsIgnoreCase(propertyType);
+    }
+
+    public static String removeFirstAndLastChar(String value) {
+        return value.substring(1, value.length() -1);
+    }
+
 }

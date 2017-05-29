@@ -157,6 +157,11 @@
           "propertyName": "latitude",
           "propertyValue": 113.491115,
           "propertyType": "Double"
+        },
+        {
+          "propertyName": "area",
+          "propertyValue": 1131.491115,
+          "propertyType": "Double"
         }
       ]
     }
