@@ -156,46 +156,58 @@ public class ImportData {
                             constructEqualExploreParameters(toType, toProperty, propertyValue));
                 } else if (Util.isNumbericType(propertyType)) {
 
-                    boolean validValue = validatePropertyType(toProperty);
                     if (toProperty.split(",").length == 1) {
                         dimension = QueryExecutor.executeDimensionQuery(ids
                                         .getInformationExplorer(),
                                 constructEqualExploreParameters(toType, toProperty, propertyValue));
                     } else {
-                        if (validValue && toProperty.split(",").length == 2) {
-                            String firstOperator = getOperator(toProperty.charAt(0));
-                            String secondOperator = getOperator(toProperty.charAt(toProperty
-                                    .length()
-                                    - 1));
-                            String firstProperty = Util.removeFirstAndLastChar(toProperty)
+                        String firstProperty = "";
+                        String secondProperty = "";
+
+                        // if firstProperty == secondProperty, then use "="
+                        if (toProperty.split(",").length == 2) {
+                            firstProperty = Util.removeFirstAndLastChar(toProperty)
                                     .split(",")[0];
-                            String secondProperty = Util.removeFirstAndLastChar(toProperty)
+                            secondProperty = Util.removeFirstAndLastChar(toProperty)
                                     .split(",")[1];
-
-                            ExploreParameters ep = new ExploreParameters();
-                            ep.setType(toType);
-
-                            if (firstOperator == ">") {
-                                ep.setDefaultFilteringItem(new GreaterThanFilteringItem
-                                        (firstProperty, propertyValue));
-                            } else if (firstOperator == ">=") {
-                                ep.setDefaultFilteringItem(new GreaterThanEqualFilteringItem
-                                        (firstProperty, propertyValue));
+                            if (firstProperty.equalsIgnoreCase(secondProperty)) {
+                                dimension = QueryExecutor.executeDimensionQuery(
+                                        ids.getInformationExplorer(),
+                                        constructEqualExploreParameters(toType, firstProperty,
+                                                propertyValue));
                             }
+                        } else {
+                            boolean validValue = validatePropertyType(toProperty);
+                            if (validValue) {
+                                String firstOperator = getOperator(toProperty.charAt(0));
+                                String secondOperator = getOperator(toProperty.charAt(
+                                        toProperty.length() - 1));
 
-                            if (secondOperator == "<") {
-                                ep.addFilteringItem(new LessThanFilteringItem
-                                        (secondProperty, propertyValue), ExploreParameters
-                                        .FilteringLogic.AND);
-                            } else if (secondOperator == "<=") {
-                                ep.addFilteringItem(new LessThanEqualFilteringItem
-                                        (secondProperty, propertyValue), ExploreParameters
-                                        .FilteringLogic.AND);
+                                ExploreParameters ep = new ExploreParameters();
+                                ep.setType(toType);
+
+                                if (firstOperator == ">") {
+                                    ep.setDefaultFilteringItem(new GreaterThanFilteringItem
+                                            (firstProperty, propertyValue));
+                                } else if (firstOperator == ">=") {
+                                    ep.setDefaultFilteringItem(new GreaterThanEqualFilteringItem
+                                            (firstProperty, propertyValue));
+                                }
+
+                                if (secondOperator == "<") {
+                                    ep.addFilteringItem(new LessThanFilteringItem
+                                            (secondProperty, propertyValue), ExploreParameters
+                                            .FilteringLogic.AND);
+                                } else if (secondOperator == "<=") {
+                                    ep.addFilteringItem(new LessThanEqualFilteringItem
+                                            (secondProperty, propertyValue), ExploreParameters
+                                            .FilteringLogic.AND);
+                                }
+
+                                dimension = QueryExecutor.executeDimensionQuery(ids
+                                        .getInformationExplorer(), ep);
+
                             }
-
-                            dimension = QueryExecutor.executeDimensionQuery(ids
-                                    .getInformationExplorer(), ep);
-
                         }
                     }
 
