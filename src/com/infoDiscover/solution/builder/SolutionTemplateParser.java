@@ -1,10 +1,8 @@
 package com.infoDiscover.solution.builder;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
-import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
-import com.infoDiscover.solution.common.util.PrefixSetting;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,8 +60,7 @@ public class SolutionTemplateParser {
     private void parseRelationMapping() {
         logger.info("Enter to getFactToDimensionMapping");
 
-        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName,
-                getSolutionTemplateFactType());
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName,prefix);
 
         Fact templateFact = builder.getSolutionTemplateByPrefix(prefix);
 
@@ -146,11 +143,6 @@ public class SolutionTemplateParser {
         }
 
         return map;
-    }
-
-    public String getSolutionTemplateFactType() {
-        return PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
-                .FACT_TYPE_SOLUTION_TEMPLATE);
     }
 
     public static JsonNode readFactTypeDefinition(Fact templateFact) {

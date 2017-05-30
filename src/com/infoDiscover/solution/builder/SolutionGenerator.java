@@ -29,12 +29,9 @@ public class SolutionGenerator {
     public void generateSolutionFromTemplate() throws Exception {
         logger.info("Enter generateFromTemplate with prefix: {}", prefix);
 
-        String factType = PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
-                .FACT_TYPE_SOLUTION_TEMPLATE);
-
         InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
-        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, factType);
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, prefix);
 
         // get solution template
         Fact templateFact = builder.getSolutionTemplateByPrefix(prefix);

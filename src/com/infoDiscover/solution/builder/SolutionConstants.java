@@ -9,7 +9,7 @@ public class SolutionConstants {
     public final static String SOLUTION_SPACE_NAME = "InfoDiscover_Solution";
 
     // fact type
-    public final static String FACT_TYPE_SOLUTION_TEMPLATE = "SOLUTION_TEMPLATE";
+    public final static String FACT_TYPE_SOLUTION_TEMPLATE = "ID_SOLUTION_TEMPLATE";
 
     // fact properties
     public final static String PROPERTY_STD_ID = "templateId";

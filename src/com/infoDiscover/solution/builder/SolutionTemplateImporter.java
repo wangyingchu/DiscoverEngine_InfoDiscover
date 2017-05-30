@@ -1,7 +1,6 @@
 package com.infoDiscover.solution.builder;
 
 import com.infoDiscover.common.util.FileUtil;
-import com.infoDiscover.solution.common.util.PrefixSetting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +20,12 @@ public class SolutionTemplateImporter {
     }
 
     // TODO:
-    public void exportSolutionTemplate(String prefix, String targetFile) {
+    public void exportSolutionTemplate(String targetFile) {
+        logger.info("Start exportSolutionTemplate with prefix: {} to file: {}", prefix, targetFile);
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, prefix);
 
+
+        logger.info("Exit to exportSolutionTemplate()...");
     }
 
     public void importSolutionTemplate(String templateFile) throws Exception {
@@ -32,10 +35,10 @@ public class SolutionTemplateImporter {
         String templateJson = FileUtil.readFileContent(templateFile);
         logger.debug("templateJson: {}", templateJson);
 
-        String factType = PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
-                .FACT_TYPE_SOLUTION_TEMPLATE);
-        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, factType);
-        builder.createNewOrUpdateTemplate(prefix, templateJson);
+
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, prefix);
+
+        builder.createNewOrUpdateTemplate(templateJson, true);
 
         logger.info("Exit importSolutionTemplate()...");
     }

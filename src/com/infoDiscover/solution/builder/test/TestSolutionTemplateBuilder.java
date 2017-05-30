@@ -1,9 +1,8 @@
 package com.infoDiscover.solution.builder.test;
 
 import com.infoDiscover.common.util.FileUtil;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.builder.SolutionTemplateBuilder;
-import com.infoDiscover.solution.builder.SolutionTemplateInitializer;
-import com.infoDiscover.solution.common.util.PrefixSetting;
 
 /**
  * Created by sun.
@@ -12,18 +11,27 @@ public class TestSolutionTemplateBuilder {
 
     public static void main(String[] args) throws Exception {
 
-        // 1. initialize solution template space and fact type
-        SolutionTemplateInitializer.initializeSolutionTemplate(TestConstants.spaceName,
-                TestConstants.prefix);
+        // create database if not existed
+        createDatabase(TestConstants.spaceName);
 
-        // 2. save solution template
+        // create solution template
         String templateJson = FileUtil.readFileContent(TestConstants.templateFile);
         System.out.println("templateJson: " + templateJson);
 
         SolutionTemplateBuilder builder = new SolutionTemplateBuilder(TestConstants.spaceName,
-                PrefixSetting
-                        .normalizePrefix(TestConstants.prefix) + TestConstants.factType);
-        builder.createNewOrUpdateTemplate(TestConstants.prefix, templateJson);
+                TestConstants.prefix);
+
+
+        builder.createNewOrUpdateTemplate(templateJson, true);
+
+        //update(builder, "2ff18dfd-ad4f-4c87-8fe6-e31026dcd9a4");
+    }
+
+    private static void createDatabase(String spaceName) {
+        if (!DiscoverEngineComponentFactory.checkDiscoverSpaceExistence
+                (spaceName)) {
+            DiscoverEngineComponentFactory.createInfoDiscoverSpace(spaceName);
+        }
     }
 
     private static void update(SolutionTemplateBuilder builder, String templateId) throws

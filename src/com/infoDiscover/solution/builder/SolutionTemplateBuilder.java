@@ -26,14 +26,14 @@ public class SolutionTemplateBuilder {
     private final static Logger logger = LoggerFactory.getLogger(SolutionTemplateBuilder.class);
 
     private String spaceName;
-    private String solutionTemplateFactType;
+    private String prefix;
 
-    public SolutionTemplateBuilder(String spaceName, String solutionTemplateFactType) {
+    public SolutionTemplateBuilder(String spaceName, String prefix) {
         this.spaceName = spaceName;
-        this.solutionTemplateFactType = solutionTemplateFactType;
+        this.prefix = prefix;
     }
 
-    public Fact createNewOrUpdateTemplate(String prefix, String templateJson) throws Exception {
+    public Fact createNewOrUpdateTemplate(String templateJson, boolean overwrite) throws Exception {
         logger.info("Start to createNewOrUpdateTemplate with prefix: {} and templateJson: {}",
                 prefix, templateJson);
 
@@ -54,19 +54,24 @@ public class SolutionTemplateBuilder {
         properties.put(SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
 
         InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
-
         FactManager factManager = new FactManager(ids);
+
+        // initialize solution template fact type
+        initializeSolutionTemplateFactType(factManager);
+
         Fact solutionTemplateFact = getSolutionTemplateByPrefix(prefix.toUpperCase());
         Date now = new Date();
         if (solutionTemplateFact == null) {
             properties.put(SolutionConstants.PROPERTY_STD_ID, Util.generateUUID());
             properties.put(SolutionConstants.PROPERTY_STD_CREATED_AT, now);
             properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
-            solutionTemplateFact = factManager.createFact(this.solutionTemplateFactType,
+            solutionTemplateFact = factManager.createFact(getSolutionTemplateFactType(),
                     properties);
         } else {
-            properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
-            solutionTemplateFact = factManager.updateFact(solutionTemplateFact, properties);
+            if (overwrite) {
+                properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
+                solutionTemplateFact = factManager.updateFact(solutionTemplateFact, properties);
+            }
         }
 
         ids.closeSpace();
@@ -77,7 +82,7 @@ public class SolutionTemplateBuilder {
     public Fact getSolutionTemplateByPrefix(String prefix) {
         logger.info("getSolutionTemplateByPrefix() with prefix: {}", prefix);
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(this.solutionTemplateFactType);
+        ep.setType(getSolutionTemplateFactType());
         ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_PREFIX,
                 prefix.toUpperCase()));
 
@@ -98,7 +103,7 @@ public class SolutionTemplateBuilder {
     public Fact getSolutionTemplateById(String templateId) {
         logger.info("getSolutionTemplateById() with templateId: {}", templateId);
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(this.solutionTemplateFactType);
+        ep.setType(getSolutionTemplateFactType());
         ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_ID,
                 templateId));
 
@@ -234,5 +239,20 @@ public class SolutionTemplateBuilder {
 
     private String appendJsonPrefix(String prefix, JsonNode node) {
         return "{\"" + prefix + "\": " + node.toString() + "}";
+    }
+
+    private String getSolutionTemplateFactType() {
+        return SolutionConstants.FACT_TYPE_SOLUTION_TEMPLATE;
+    }
+
+    private void initializeSolutionTemplateFactType(FactManager factManager) throws Exception {
+        logger.info("Start to initializeSolutionTemplateFactType in space: {} with factType: {}",
+                spaceName, getSolutionTemplateFactType());
+
+        // initialize solution template fact type
+        factManager.createFactType(getSolutionTemplateFactType(),
+                SolutionConstants.FACT_TYPE_PROPERTIES);
+
+        logger.info("Exit to initializeSolutionTemplateFactType()...");
     }
 }

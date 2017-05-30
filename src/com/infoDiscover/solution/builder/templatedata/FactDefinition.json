@@ -21,11 +21,11 @@
         },
         {
           "propertyName": "startDate",
-          "propertyType": "String"
+          "propertyType": "Date"
         },
         {
           "propertyName": "endDate",
-          "propertyType": "String"
+          "propertyType": "Date"
         },
         {
           "propertyName": "status",
@@ -54,11 +54,11 @@
         },
         {
           "propertyName": "startDate",
-          "propertyType": "String"
+          "propertyType": "Date"
         },
         {
           "propertyName": "endDate",
-          "propertyType": "String"
+          "propertyType": "Date"
         },
         {
           "propertyName": "status",
