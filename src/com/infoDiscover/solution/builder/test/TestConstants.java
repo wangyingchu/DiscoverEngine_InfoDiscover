@@ -12,7 +12,7 @@ public class TestConstants {
 
     public final static String testDataRoot =
             "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
-                    "/solution/builder/templatedata";
+                    "/solution/builder/testtemplate";
 
     public final static String templateFile = testDataRoot + "/SolutionTemplateDefinition.json";
     public final static String factDefinition = testDataRoot + "/FactDefinition.json";
