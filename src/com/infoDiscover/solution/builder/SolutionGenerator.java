@@ -4,6 +4,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.PrefixSetting;
@@ -17,11 +18,11 @@ import org.slf4j.LoggerFactory;
 public class SolutionGenerator {
     private final static Logger logger = LoggerFactory.getLogger(SolutionGenerator.class);
 
-    private InfoDiscoverSpace ids;
+    private String spaceName;
     private String prefix;
 
-    public SolutionGenerator(InfoDiscoverSpace ids, String prefix) {
-        this.ids = ids;
+    public SolutionGenerator(String spaceName, String prefix) {
+        this.spaceName = spaceName;
         this.prefix = prefix;
     }
 
@@ -31,7 +32,9 @@ public class SolutionGenerator {
         String factType = PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
                 .FACT_TYPE_SOLUTION_TEMPLATE);
 
-        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(ids, factType);
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, factType);
 
         // get solution template
         Fact templateFact = builder.getSolutionTemplateByPrefix(prefix);
@@ -48,6 +51,7 @@ public class SolutionGenerator {
         // create relation type
         createRelationType(ids, templateFact);
 
+        ids.closeSpace();
         logger.info("Exit to generateSolutionFromTemplate()...");
     }
 

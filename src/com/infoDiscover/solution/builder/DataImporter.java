@@ -9,6 +9,7 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -30,11 +31,11 @@ import java.util.*;
 public class DataImporter {
     private final static Logger logger = LoggerFactory.getLogger(DataImporter.class);
 
-    private InfoDiscoverSpace ids;
+    private String spaceName;
     private String prefix;
 
-    public DataImporter(InfoDiscoverSpace ids, String prefix) {
-        this.ids = ids;
+    public DataImporter(String spaceName, String prefix) {
+        this.spaceName = spaceName;
         this.prefix = prefix;
     }
 
@@ -42,33 +43,42 @@ public class DataImporter {
 
         logger.info("Start to importData with data: {}", dataJson);
 
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+
+        if (ids ==null) {
+            throw new Exception("Could not connect to space: " + spaceName);
+        }
+
         JsonNode dataJsonNode = JsonNodeUtil.getDataNode(dataJson);
         if (dataJson != null) {
             for (JsonNode jsonNode : dataJsonNode) {
                 // create or update fact
-                Fact fact = createMeasurable(jsonNode, overwrite);
+                Fact fact = createMeasurable(ids, jsonNode, overwrite);
 
                 // link relations
                 if (fact != null) {
-                    linkBetweenNodes(fact);
+                    linkBetweenNodes(ids, fact);
                 }
             }
         }
 
+        ids.closeSpace();
         logger.info("Exit to importData()...");
     }
 
-    public Fact createMeasurable(JsonNode jsonNode, boolean override) throws Exception {
+    public Fact createMeasurable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override) throws
+            Exception {
         String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
 
         if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(type)) {
-            return createNewOrUpdateFact(jsonNode, override);
+            return createNewOrUpdateFact(ids, jsonNode, override);
         } else {
             throw new Exception("Wrong type, it should be: " + SolutionConstants.FACT_TYPE);
         }
     }
 
-    private Fact createNewOrUpdateFact(JsonNode jsonNode, boolean overwrite) throws
+    private Fact createNewOrUpdateFact(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite)
+            throws
             InfoDiscoveryEngineRuntimeException {
         logger.info("Start to createNewOrUpdateFact with jsonNode: {} and overwrite is: {}",
                 jsonNode, overwrite);
@@ -96,7 +106,7 @@ public class DataImporter {
         Fact fact;
 
         if (overwrite && uniqueKey.size() > 0) {
-            fact = getFactWithUniqueKeys(typeName, uniqueKey);
+            fact = getFactWithUniqueKeys(ids, typeName, uniqueKey);
             if (fact != null) {
                 return manager.updateFact(fact, properties);
             }
@@ -109,26 +119,27 @@ public class DataImporter {
         return fact;
     }
 
-    public void linkBetweenNodes(Fact fact) throws Exception {
+    private void linkBetweenNodes(InfoDiscoverSpace ids, Fact fact) throws Exception {
         logger.info("Enter linkBetweenNodes with factType: {}", fact.getType());
 
         String rid = fact.getId();
         String factType = fact.getType();
-        SolutionTemplateParser parser = new SolutionTemplateParser(ids, prefix);
+        SolutionTemplateParser parser = new SolutionTemplateParser(spaceName, prefix);
 
         // fact to dimension mapping
-        linkFactToDimension(parser, fact);
+        linkFactToDimension(ids, parser, fact);
 
         // fact to fact mapping
-        linkFactToFact(parser, rid, factType);
+        linkFactToFact(ids, parser, rid, factType);
 
         // fact to date dimension
-        linkFactToDateDimension(parser, rid, factType);
+        linkFactToDateDimension(ids, parser, rid, factType);
 
         logger.info("Exit addRelation()...");
     }
 
-    private void linkRelation(Fact fact, RelationMappingVO vo, String mappingType)
+    private void linkRelation(InfoDiscoverSpace ids, Fact fact, RelationMappingVO vo, String
+            mappingType)
             throws Exception {
 
         String fromType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
@@ -322,7 +333,8 @@ public class DataImporter {
         return ep;
     }
 
-    public Fact getFactWithUniqueKeys(String factType, Map<String, Object> uniqueKeys) {
+    public Fact getFactWithUniqueKeys(InfoDiscoverSpace ids, String factType, Map<String, Object>
+            uniqueKeys) {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(factType);
 
@@ -361,7 +373,8 @@ public class DataImporter {
                 .JSON_TYPE_NAME).asText();
     }
 
-    private void linkFactToDimension(SolutionTemplateParser parser, Fact fact) throws
+    private void linkFactToDimension(InfoDiscoverSpace ids, SolutionTemplateParser parser, Fact
+            fact) throws
             Exception {
 
         Map<String, List<RelationMappingVO>> factToDimensionMap = parser.getFactToDimensionMap();
@@ -370,12 +383,13 @@ public class DataImporter {
 
         if (voList != null) {
             for (RelationMappingVO vo : voList) {
-                linkRelation(fact, vo, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING);
+                linkRelation(ids, fact, vo, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING);
             }
         }
     }
 
-    private void linkFactToFact(SolutionTemplateParser parser, String rid, String factType)
+    private void linkFactToFact(InfoDiscoverSpace ids, SolutionTemplateParser parser, String rid,
+                                String factType)
             throws Exception {
 
         Map<String, List<RelationMappingVO>> factToFactMap = parser.getFactToFactMap();
@@ -393,12 +407,13 @@ public class DataImporter {
             Fact latestFact = new FactManager(ids).getFactByRID(rid, factType);
 
             for (RelationMappingVO vo : voList) {
-                linkRelation(latestFact, vo, SolutionConstants.JSON_FACT_TO_FACT_MAPPING);
+                linkRelation(ids, latestFact, vo, SolutionConstants.JSON_FACT_TO_FACT_MAPPING);
             }
         }
     }
 
-    private void linkFactToDateDimension(SolutionTemplateParser parser, String rid, String
+    private void linkFactToDateDimension(InfoDiscoverSpace ids, SolutionTemplateParser parser,
+                                         String rid, String
             factType) throws Exception {
         Map<String, List<RelationMappingVO>> factToDateDimensionMap = parser
                 .getFactToDateDimension();
@@ -411,7 +426,8 @@ public class DataImporter {
             Fact latestFact = new FactManager(ids).getFactByRID(rid, factType);
 
             for (RelationMappingVO vo : voList) {
-                linkRelation(latestFact, vo, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING);
+                linkRelation(ids, latestFact, vo, SolutionConstants
+                        .JSON_FACT_TO_DATE_DIMENSION_MAPPING);
             }
         }
     }

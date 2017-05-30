@@ -12,14 +12,14 @@ import java.util.Map;
  * Created by sun.
  */
 public class TestSolutionTemplateParser {
-    private final static String spaceName = "TEST_SOLUTION";
-    private final static String prefix = "Test_";
 
     public static void main(String[] args) {
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
+                (TestConstants.spaceName);
 
-        SolutionTemplateParser parser = new SolutionTemplateParser(ids, prefix);
+        SolutionTemplateParser parser = new SolutionTemplateParser(TestConstants.spaceName, TestConstants
+                .prefix);
 
         parser.init();
 

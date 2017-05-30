@@ -6,6 +6,7 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
@@ -25,12 +26,12 @@ public class SolutionTemplateBuilder {
 
     private final static Logger logger = LoggerFactory.getLogger(SolutionTemplateBuilder.class);
 
-    private InfoDiscoverSpace ids;
-    private String factName;
+    private String spaceName;
+    private String solutionTemplateFactType;
 
-    public SolutionTemplateBuilder(InfoDiscoverSpace ids, String factName) {
-        this.ids = ids;
-        this.factName = factName;
+    public SolutionTemplateBuilder(String spaceName, String solutionTemplateFactType) {
+        this.spaceName = spaceName;
+        this.solutionTemplateFactType = solutionTemplateFactType;
     }
 
     public Fact createNewOrUpdateTemplate(String prefix, String templateJson) throws Exception {
@@ -53,6 +54,8 @@ public class SolutionTemplateBuilder {
         Map<String, Object> properties = getPropertiesMapFromJson(templateJson);
         properties.put(SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
 
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+
         FactManager factManager = new FactManager(ids);
         Fact solutionTemplateFact = getSolutionTemplateByPrefix(prefix.toUpperCase());
         Date now = new Date();
@@ -60,16 +63,104 @@ public class SolutionTemplateBuilder {
             properties.put(SolutionConstants.PROPERTY_STD_ID, Util.generateUUID());
             properties.put(SolutionConstants.PROPERTY_STD_CREATED_AT, now);
             properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
-            solutionTemplateFact = factManager.createFact(this.factName, properties);
+            solutionTemplateFact = factManager.createFact(this.solutionTemplateFactType, properties);
         } else {
             properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
             solutionTemplateFact = factManager.updateFact(solutionTemplateFact, properties);
         }
 
+        ids.closeSpace();
         logger.info("End method createNewOrUpdateTemplate()...");
         return solutionTemplateFact;
     }
 
+    public Fact getSolutionTemplateByPrefix(String prefix) {
+        logger.info("getSolutionTemplateByPrefix() with prefix: {}", prefix);
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(this.solutionTemplateFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_PREFIX,
+                prefix.toUpperCase()));
+
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+        Fact fact = QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
+        ids.closeSpace();
+
+        return fact;
+    }
+
+    public Fact getSolutionTemplateById(String templateId) {
+        logger.info("getSolutionTemplateById() with templateId: {}", templateId);
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(this.solutionTemplateFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_ID,
+                templateId));
+
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+        Fact fact =  QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
+        return fact;
+    }
+
+    public boolean checkPrefixIsExisted(String prefix) {
+        Fact fact = getSolutionTemplateByPrefix(prefix);
+        return fact != null;
+    }
+
+    public void updatePrefix(String templateId, String prefix) throws Exception {
+        logger.info("Enter updatePrefix(0 with templateId: {} and new prefix: {}", templateId,
+                prefix);
+
+        Fact templateFact = getSolutionTemplateById(templateId);
+        if (templateFact == null) {
+            String error = "Invalid templateId: " + templateId;
+            logger.error(error);
+            throw new Exception(error);
+        }
+
+        String existingPrefix = templateFact.getProperty(SolutionConstants.PROPERTY_STD_PREFIX)
+                .toString();
+        if (prefix.equalsIgnoreCase(existingPrefix)) {
+            String error = prefix + " is already existed, please choose a new one";
+            logger.error(error);
+            throw new Exception(error);
+        }
+
+        updateSolutionTemplate(templateFact, SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
+    }
+
+    public void updateFactDefinition(String templateId, String factDefinitionJson)
+            throws Exception {
+        updateSolutionTemplate(templateId, SolutionConstants.PROPERTY_STD_FACT_DEFINITION,
+                factDefinitionJson);
+    }
+
+    public void updateDimensionDefinition(String templateId, String dimensionDefinitionJson)
+            throws Exception {
+        updateSolutionTemplate(templateId, SolutionConstants.PROPERTY_STD_DIMENSION_DEFINITION,
+                dimensionDefinitionJson);
+    }
+
+    public void updateRelationDefinition(String templateId, String relationDefinitionJson)
+            throws Exception {
+        updateSolutionTemplate(templateId, SolutionConstants.PROPERTY_STD_RELATION_DEFINITION,
+                relationDefinitionJson);
+    }
+
+    public boolean deleteSolutionTemplateById(String templateId) {
+        logger.info("deleteSolutionTemplateById() with templateId: {}", templateId);
+        Fact templateFact = getSolutionTemplateById(templateId);
+        if(templateFact!= null) {
+            try {
+                InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+                boolean deleted =  ids.removeFact(templateFact.getId());
+                ids.closeSpace();
+                return deleted;
+            } catch (InfoDiscoveryEngineRuntimeException e) {
+                logger.error("Failed to delete solution template");
+            }
+        }
+
+        return false;
+    }
 
     private Map<String, Object> getPropertiesMapFromJson(String templateJson) throws Exception {
         JsonNode dataNode = JsonNodeUtil.getDataNode(templateJson);
@@ -99,86 +190,6 @@ public class SolutionTemplateBuilder {
         return properties;
     }
 
-    public Fact getSolutionTemplateByPrefix(String prefix) {
-        logger.info("getSolutionTemplateByPrefix() with prefix: {}", prefix);
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(this.factName);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_PREFIX,
-                prefix.toUpperCase()));
-
-        return QueryExecutor.executeFactQuery(this.ids.getInformationExplorer(), ep);
-    }
-
-    public Fact getSolutionTemplateById(String templateId) {
-        logger.info("getSolutionTemplateById() with templateId: {}", templateId);
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(this.factName);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_ID,
-                templateId));
-
-        return QueryExecutor.executeFactQuery(this.ids.getInformationExplorer(), ep);
-    }
-
-    public boolean checkPrefixIsExisted(String prefix) {
-        Fact fact = getSolutionTemplateByPrefix(prefix);
-        return fact != null;
-    }
-
-    public void updatePrefix(String templateId, String prefix) throws Exception {
-        logger.info("Enter updatePrefix(0 with templateId: {} and new prefix: {}", templateId,
-                prefix);
-
-        Fact templateFact = getSolutionTemplateById(templateId);
-        if (templateFact == null) {
-            String error = "Invalid templateId: " + templateId;
-            logger.error(error);
-            throw new Exception(error);
-        }
-
-        String existingPrefix = templateFact.getProperty(SolutionConstants.PROPERTY_STD_PREFIX)
-                .toString();
-        if (prefix.equalsIgnoreCase(existingPrefix)) {
-            String error = prefix + " is already existed, please choose a new one";
-            logger.error(error);
-            throw new Exception(error);
-        }
-
-        updateSolutionTemplate(templateFact, SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
-
-    }
-
-    public void updateFactDefinition(String templateId, String factDefinitionJson)
-            throws Exception {
-        updateSolutionTemplate(templateId, SolutionConstants.PROPERTY_STD_FACT_DEFINITION,
-                factDefinitionJson);
-    }
-
-    public void updateDimensionDefinition(String templateId, String dimensionDefinitionJson)
-            throws Exception {
-        updateSolutionTemplate(templateId, SolutionConstants.PROPERTY_STD_DIMENSION_DEFINITION,
-                dimensionDefinitionJson);
-    }
-
-    public void updateRelationDefinition(String templateId, String relationDefinitionJson)
-            throws Exception {
-        updateSolutionTemplate(templateId, SolutionConstants.PROPERTY_STD_RELATION_DEFINITION,
-                relationDefinitionJson);
-    }
-
-    public boolean deleteSolutionTemplateById(String templateId) {
-        logger.info("deleteSolutionTemplateById() with templateId: {}", templateId);
-        Fact templateFact = getSolutionTemplateById(templateId);
-        if(templateFact!= null) {
-            try {
-                return ids.removeFact(templateFact.getId());
-            } catch (InfoDiscoveryEngineRuntimeException e) {
-                logger.error("Failed to delete solution template");
-            }
-        }
-
-        return false;
-    }
-
     private void updateSolutionTemplate(String templateId, String key, String value)
             throws Exception {
 
@@ -198,8 +209,10 @@ public class SolutionTemplateBuilder {
         Map<String, Object> properties = new HashMap<>();
         properties.put(key, value);
 
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
         FactManager factManager = new FactManager(ids);
         factManager.updateFact(templateFact, properties);
+        ids.closeSpace();
     }
 
     private String appendJsonPrefix(String prefix, JsonNode node) {

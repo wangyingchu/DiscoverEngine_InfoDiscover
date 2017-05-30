@@ -22,11 +22,11 @@ public class SolutionTemplateParser {
 
     private final static Logger logger = LoggerFactory.getLogger(SolutionTemplateParser.class);
 
-    private InfoDiscoverSpace ids;
+    private String spaceName;
     private String prefix;
 
-    public SolutionTemplateParser(InfoDiscoverSpace ids, String prefix) {
-        this.ids = ids;
+    public SolutionTemplateParser(String spaceName, String prefix) {
+        this.spaceName = spaceName;
         this.prefix = prefix;
     }
 
@@ -62,7 +62,7 @@ public class SolutionTemplateParser {
     private void parseRelationMapping() {
         logger.info("Enter to getFactToDimensionMapping");
 
-        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(ids,
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName,
                 getSolutionTemplateFactType());
 
         Fact templateFact = builder.getSolutionTemplateByPrefix(prefix);

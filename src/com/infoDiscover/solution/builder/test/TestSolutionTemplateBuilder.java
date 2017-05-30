@@ -1,9 +1,6 @@
 package com.infoDiscover.solution.builder.test;
 
 import com.infoDiscover.common.util.FileUtil;
-import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.builder.SolutionConstants;
 import com.infoDiscover.solution.builder.SolutionTemplateBuilder;
 import com.infoDiscover.solution.builder.SolutionTemplateInitializer;
 import com.infoDiscover.solution.common.util.PrefixSetting;
@@ -16,21 +13,21 @@ public class TestSolutionTemplateBuilder {
     public static void main(String[] args) throws Exception {
 
         // 1. initialize solution template space and fact type
-        SolutionTemplateInitializer.initializeSolutionTemplate(TestConstants.spaceName, TestConstants.prefix);
+        SolutionTemplateInitializer.initializeSolutionTemplate(TestConstants.spaceName,
+                TestConstants.prefix);
 
         // 2. save solution template
         String templateJson = FileUtil.readFileContent(TestConstants.templateFile);
         System.out.println("templateJson: " + templateJson);
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(TestConstants.spaceName);
-        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(ids, PrefixSetting
-                .normalizePrefix(TestConstants.prefix) + TestConstants.factType);
-        if (ids != null) {
-            builder.createNewOrUpdateTemplate(TestConstants.prefix,templateJson);
-        }
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(TestConstants.spaceName,
+                PrefixSetting
+                        .normalizePrefix(TestConstants.prefix) + TestConstants.factType);
+        builder.createNewOrUpdateTemplate(TestConstants.prefix, templateJson);
     }
 
-    private static void update(SolutionTemplateBuilder builder, String templateId) throws Exception {
+    private static void update(SolutionTemplateBuilder builder, String templateId) throws
+            Exception {
         // update prefix
         builder.updatePrefix(templateId, TestConstants.prefix);
 

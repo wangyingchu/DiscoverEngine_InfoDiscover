@@ -1,11 +1,7 @@
 package com.infoDiscover.solution.builder;
 
 import com.infoDiscover.common.util.FileUtil;
-import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.PrefixSetting;
-import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,9 +12,11 @@ public class SolutionTemplateImporter {
 
     private final static Logger logger = LoggerFactory.getLogger(SolutionTemplateImporter.class);
 
+    private String spaceName;
     private String prefix;
 
-    public SolutionTemplateImporter(String prefix) {
+    public SolutionTemplateImporter(String spaceName, String prefix) {
+        this.spaceName = spaceName;
         this.prefix = prefix;
     }
 
@@ -27,22 +25,17 @@ public class SolutionTemplateImporter {
 
     }
 
-    public void importSolutionTemplate(String spaceName, String templateFile) throws Exception {
+    public void importSolutionTemplate(String templateFile) throws Exception {
         logger.info("Start to importSolutionTemplate to space: {} with prefix: {} and " +
                 "templateFile: {}", spaceName, prefix, templateFile);
 
         String templateJson = FileUtil.readFileContent(templateFile);
         logger.debug("templateJson: {}", templateJson);
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
-        if (ids != null) {
-            String factType = PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
-                    .FACT_TYPE_SOLUTION_TEMPLATE);
-            SolutionTemplateBuilder builder = new SolutionTemplateBuilder(ids, factType);
-            builder.createNewOrUpdateTemplate(prefix, templateJson);
-        }
-
-        ids.closeSpace();
+        String factType = PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
+                .FACT_TYPE_SOLUTION_TEMPLATE);
+        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, factType);
+        builder.createNewOrUpdateTemplate(prefix, templateJson);
 
         logger.info("Exit importSolutionTemplate()...");
     }

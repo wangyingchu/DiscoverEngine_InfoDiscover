@@ -42,9 +42,6 @@ public class SolutionTemplateInitializer {
                             .FACT_TYPE_SOLUTION_TEMPLATE,
                     SolutionConstants.FACT_TYPE_PROPERTIES);
         }
-        
-        // initialize time fact type
-        TimeDimensionGenerator.initTimeDimensionType(ids, prefix);
 
         ids.closeSpace();
     }
