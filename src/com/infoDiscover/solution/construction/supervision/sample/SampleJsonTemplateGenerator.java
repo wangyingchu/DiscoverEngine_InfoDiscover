@@ -21,14 +21,14 @@ public class SampleJsonTemplateGenerator {
 
 
     private static String taskRequiredPropertiesFile =
-            "/Users/sun/Desktop/珠海/TaskRequiredProperties" +
+            "/Users/sun/InfoDiscovery/珠海/TaskRequiredProperties" +
                     ".txt";
     private static String userRequiredPropertiesFile =
-            "/Users/sun/Desktop/珠海/userRequiredProperties" +
+            "/Users/sun/InfoDiscovery/珠海/userRequiredProperties" +
                     ".txt";
 
     private static String departmentRequiredPropertiesFile =
-            "/Users/sun/Desktop/珠海/departmentRequiredProperties" +
+            "/Users/sun/InfoDiscovery/珠海/departmentRequiredProperties" +
                     ".txt";
 
     private static String LINE_SPLITTER = ",";
@@ -40,11 +40,11 @@ public class SampleJsonTemplateGenerator {
         generateExtensionProjectJsonTemplate();
         generateRebuildProjectJsonTemplate();
 
-//        generateUserJsonTemplate("/Users/sun/Desktop/珠海/userJsonTemplate.json");
+//        generateUserJsonTemplate("/Users/sun/InfoDiscovery/珠海/userJsonTemplate.json");
     }
 
     public static void generateMaintenanceProjectJsonTemplate() {
-        String rootDir = "/Users/sun/Desktop/珠海";
+        String rootDir = "/Users/sun/InfoDiscovery/珠海";
         String maintenanceProjectRootDir = rootDir + "/maintain_project";
         String maintenanceProjectPropertiesFileDir = maintenanceProjectRootDir + "/source";
         String progressOfMaintenanceProjectTemplateJsonFile = maintenanceProjectRootDir +
@@ -56,7 +56,7 @@ public class SampleJsonTemplateGenerator {
     }
 
     public static void generateNewProjectJsonTemplate() {
-        String rootDir = "/Users/sun/Desktop/珠海";
+        String rootDir = "/Users/sun/InfoDiscovery/珠海";
         String maintenanceProjectRootDir = rootDir + "/new_project";
         String maintenanceProjectPropertiesFileDir = maintenanceProjectRootDir + "/source";
         String progressOfMaintenanceProjectTemplateJsonFile = maintenanceProjectRootDir +
@@ -68,7 +68,7 @@ public class SampleJsonTemplateGenerator {
     }
 
     public static void generateExtensionProjectJsonTemplate() {
-        String rootDir = "/Users/sun/Desktop/珠海";
+        String rootDir = "/Users/sun/InfoDiscovery/珠海";
         String maintenanceProjectRootDir = rootDir + "/new_project";
         String maintenanceProjectPropertiesFileDir = maintenanceProjectRootDir + "/source";
         String progressOfMaintenanceProjectTemplateJsonFile = maintenanceProjectRootDir +
@@ -80,7 +80,7 @@ public class SampleJsonTemplateGenerator {
     }
 
     public static void generateRebuildProjectJsonTemplate() {
-        String rootDir = "/Users/sun/Desktop/珠海";
+        String rootDir = "/Users/sun/InfoDiscovery/珠海";
         String maintenanceProjectRootDir = rootDir + "/new_project";
         String maintenanceProjectPropertiesFileDir = maintenanceProjectRootDir + "/source";
         String progressOfMaintenanceProjectTemplateJsonFile = maintenanceProjectRootDir +

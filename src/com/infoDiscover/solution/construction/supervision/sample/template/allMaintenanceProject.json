@@ -90,12 +90,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "Apply",
+                            "propertyValue": "inputProjectApplyData",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入项目维修申请数据",
+                            "propertyValue": "设定项目基本信息",
                             "propertyType": "String"
                         },
                         {
@@ -211,12 +211,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "Launch",
+                            "propertyValue": "launchAndDispatchProject",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入项目启动及分派数据",
+                            "propertyValue": "启动项目并分派任务",
                             "propertyType": "String"
                         },
                         {
@@ -312,12 +312,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "Survey",
+                            "propertyValue": "projectFieldReconnaissance",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入现场勘察数据",
+                            "propertyValue": "执行项目现场勘查",
                             "propertyType": "String"
                         },
                         {
@@ -408,12 +408,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "Quote",
+                            "propertyValue": "projectCostQuote",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入报价数据",
+                            "propertyValue": "提交项目工程报价",
                             "propertyType": "String"
                         },
                         {
@@ -784,12 +784,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "DesignContract",
+                            "propertyValue": "signDesignContract",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入设计单位合同数据",
+                            "propertyValue": "签订项目设计合同",
                             "propertyType": "String"
                         },
                         {
@@ -875,12 +875,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "Design",
+                            "propertyValue": "receiveDesignResult",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入设计成果数据",
+                            "propertyValue": "接收项目设计成果",
                             "propertyType": "String"
                         },
                         {
@@ -991,12 +991,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "CCContract",
+                            "propertyValue": "signCostConsultingContract",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入造价咨询合同数据",
+                            "propertyValue": "签订造价咨询合同",
                             "propertyType": "String"
                         },
                         {
@@ -1082,12 +1082,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "CostConsultation",
+                            "propertyValue": "receiveCostConsultingResult",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入造价咨询单位成果数据",
+                            "propertyValue": "接收造价咨询成果",
                             "propertyType": "String"
                         },
                         {
@@ -1483,12 +1483,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "BudgetCostApproval",
+                            "propertyValue": "approveEngineeringEstimatedCost",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入工程预算造价审批数据",
+                            "propertyValue": "审批工程预算造价",
                             "propertyType": "String"
                         },
                         {
@@ -1869,12 +1869,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "ConstructionContract",
+                            "propertyValue": "signConstructionContract",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入施工合同数据",
+                            "propertyValue": "签订施工合同",
                             "propertyType": "String"
                         },
                         {
@@ -1960,12 +1960,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "SupervisionContract",
+                            "propertyValue": "signSupervisorContract",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入监理单位合同数据",
+                            "propertyValue": "签订监理合同",
                             "propertyType": "String"
                         },
                         {
@@ -2066,12 +2066,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "ConstructionResult",
+                            "propertyValue": "executeProjectConstruction",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入工程施工数据",
+                            "propertyValue": "执行项目工程施工",
                             "propertyType": "String"
                         },
                         {
@@ -2167,12 +2167,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "FinalAcceptance",
+                            "propertyValue": "executeProjectFinalAcceptance",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入工程竣工验收数据",
+                            "propertyValue": "执行项目工程竣工验收",
                             "propertyType": "String"
                         },
                         {
@@ -2243,12 +2243,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "QA",
+                            "propertyValue": "executeProjectQualityGuarantee",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "录入项目质保数据",
+                            "propertyValue": "执行项目质保",
                             "propertyType": "String"
                         }
                     ]
@@ -2299,12 +2299,12 @@
                         },
                         {
                             "propertyName": "taskName",
-                            "propertyValue": "Close",
+                            "propertyValue": "closeProject",
                             "propertyType": "String"
                         },
                         {
                             "propertyName": "taskDisplayName",
-                            "propertyValue": "项目关闭",
+                            "propertyValue": "关闭项目",
                             "propertyType": "String"
                         },
                         {

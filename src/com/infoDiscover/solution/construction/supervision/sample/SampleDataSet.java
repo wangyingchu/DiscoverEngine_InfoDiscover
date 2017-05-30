@@ -15,22 +15,21 @@ public class SampleDataSet {
     public static final String PROJECTNAME_EXTENSION = "扩建工程";
 
 
-
-    public static final String TASK1_OF_MAINTENANCE_PROJECT = "录入项目维修申请数据";
-    public static final String TASK2_OF_MAINTENANCE_PROJECT = "录入项目启动及分派数据";
-    public static final String TASK3_OF_MAINTENANCE_PROJECT = "录入现场勘察数据";
-    public static final String TASK4_OF_MAINTENANCE_PROJECT = "录入报价数据";
-    public static final String TASK5_OF_MAINTENANCE_PROJECT = "录入设计单位合同数据";
-    public static final String TASK6_OF_MAINTENANCE_PROJECT = "录入设计成果数据";
-    public static final String TASK7_OF_MAINTENANCE_PROJECT = "录入造价咨询合同数据";
-    public static final String TASK8_OF_MAINTENANCE_PROJECT = "录入造价咨询单位成果数据";
-    public static final String TASK9_OF_MAINTENANCE_PROJECT = "录入工程预算造价审批数据";
-    public static final String TASK10_OF_MAINTENANCE_PROJECT = "录入施工合同数据";
-    public static final String TASK11_OF_MAINTENANCE_PROJECT = "录入监理单位合同数据";
-    public static final String TASK12_OF_MAINTENANCE_PROJECT = "录入工程施工数据";
-    public static final String TASK13_OF_MAINTENANCE_PROJECT = "录入工程竣工验收数据";
-    public static final String TASK14_OF_MAINTENANCE_PROJECT = "录入项目质保数据";
-    public static final String TASK15_OF_MAINTENANCE_PROJECT = "项目关闭";
+    public static final String TASK1_OF_MAINTENANCE_PROJECT = "设定项目基本信息";
+    public static final String TASK2_OF_MAINTENANCE_PROJECT = "启动项目并分派任务";
+    public static final String TASK3_OF_MAINTENANCE_PROJECT = "执行项目现场勘查";
+    public static final String TASK4_OF_MAINTENANCE_PROJECT = "提交项目工程报价";
+    public static final String TASK5_OF_MAINTENANCE_PROJECT = "签订项目设计合同";
+    public static final String TASK6_OF_MAINTENANCE_PROJECT = "接收项目设计成果";
+    public static final String TASK7_OF_MAINTENANCE_PROJECT = "签订造价咨询合同";
+    public static final String TASK8_OF_MAINTENANCE_PROJECT = "接收造价咨询成果";
+    public static final String TASK9_OF_MAINTENANCE_PROJECT = "审批工程预算造价";
+    public static final String TASK10_OF_MAINTENANCE_PROJECT = "签订施工合同";
+    public static final String TASK11_OF_MAINTENANCE_PROJECT = "签订监理合同";
+    public static final String TASK12_OF_MAINTENANCE_PROJECT = "执行项目工程施工";
+    public static final String TASK13_OF_MAINTENANCE_PROJECT = "执行项目工程竣工验收";
+    public static final String TASK14_OF_MAINTENANCE_PROJECT = "执行项目质保";
+    public static final String TASK15_OF_MAINTENANCE_PROJECT = "关闭项目";
 
     public static final String[] TASK_DISPLAY_NAMES_OF_MAINTENANCE_PROJECT = {
             TASK1_OF_MAINTENANCE_PROJECT, TASK2_OF_MAINTENANCE_PROJECT,
@@ -43,27 +42,27 @@ public class SampleDataSet {
             TASK15_OF_MAINTENANCE_PROJECT
     };
 
-    public static final String TASK1_OF_NEW_PROJECT = "录入项目发起数据";
-    public static final String TASK2_OF_NEW_PROJECT = "录入项目启动及分派数据";
-    public static final String TASK3_OF_NEW_PROJECT = "录入招标代理单位合同数据";
-    public static final String TASK4_OF_NEW_PROJECT = "录入项目前期咨询单位合同数据";
-    public static final String TASK5_OF_NEW_PROJECT = "录入可研数据";
-    public static final String TASK6_OF_NEW_PROJECT = "录入工程必备资料数据";
-    public static final String TASK7_OF_NEW_PROJECT = "录入勘察单位合同数据";
-    public static final String TASK8_OF_NEW_PROJECT = "录入勘察单位成果数据";
-    public static final String TASK9_OF_NEW_PROJECT = "录入设计单位合同数据";
-    public static final String TASK10_OF_NEW_PROJECT = "录入设计成果数据";
-    public static final String TASK11_OF_NEW_PROJECT = "录入投资概算数据";
-    public static final String TASK12_OF_NEW_PROJECT = "录入造价咨询合同数据";
-    public static final String TASK13_OF_NEW_PROJECT = "录入造价咨询单位成果数据";
-    public static final String TASK14_OF_NEW_PROJECT = "录入工程预算造价审批数据";
-    public static final String TASK15_OF_NEW_PROJECT = "录入施工合同数据";
-    public static final String TASK16_OF_NEW_PROJECT = "录入监理单位合同数据";
-    public static final String TASK17_OF_NEW_PROJECT = "录入工程施工数据";
-    public static final String TASK18_OF_NEW_PROJECT = "录入月进度报告数据";
-    public static final String TASK19_OF_NEW_PROJECT = "录入工程竣工验收数据";
-    public static final String TASK20_OF_NEW_PROJECT = "录入项目质保数据";
-    public static final String TASK21_OF_NEW_PROJECT = "项目关闭";
+    public static final String TASK1_OF_NEW_PROJECT = "设定项目发起信息";
+    public static final String TASK2_OF_NEW_PROJECT = "启动项目并分派任务";
+    public static final String TASK3_OF_NEW_PROJECT = "签订项目招标代理合同";
+    public static final String TASK4_OF_NEW_PROJECT = "签订项目前期咨询合同";
+    public static final String TASK5_OF_NEW_PROJECT = "提交项目可研报告";
+    public static final String TASK6_OF_NEW_PROJECT = "提交工程必备资料信息";
+    public static final String TASK7_OF_NEW_PROJECT = "签订项目勘查合同";
+    public static final String TASK8_OF_NEW_PROJECT = "接收项目勘察成果";
+    public static final String TASK9_OF_NEW_PROJECT = "签订项目设计合同";
+    public static final String TASK10_OF_NEW_PROJECT = "接收项目设计成果";
+    public static final String TASK11_OF_NEW_PROJECT = "提交投资概算";
+    public static final String TASK12_OF_NEW_PROJECT = "签订造价咨询合同";
+    public static final String TASK13_OF_NEW_PROJECT = "接收造价咨询成果";
+    public static final String TASK14_OF_NEW_PROJECT = "审批工程预算造价";
+    public static final String TASK15_OF_NEW_PROJECT = "签订施工合同";
+    public static final String TASK16_OF_NEW_PROJECT = "签订监理合同";
+    public static final String TASK17_OF_NEW_PROJECT = "执行项目工程施工";
+    public static final String TASK18_OF_NEW_PROJECT = "提交项目施工月进度报告";
+    public static final String TASK19_OF_NEW_PROJECT = "执行项目工程竣工验收";
+    public static final String TASK20_OF_NEW_PROJECT = "执行项目质保";
+    public static final String TASK21_OF_NEW_PROJECT = "关闭项目";
 
     public static final String[] TASK_DISPLAY_NAMES_OF_NEW_PROJECT = {
             TASK1_OF_NEW_PROJECT, TASK2_OF_NEW_PROJECT, TASK3_OF_NEW_PROJECT,
