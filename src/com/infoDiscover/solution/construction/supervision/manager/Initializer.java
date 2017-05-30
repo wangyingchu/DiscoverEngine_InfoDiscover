@@ -5,7 +5,7 @@ import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
+import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.construction.supervision.sample.PrepareSampleData;
 import com.infoDiscover.solution.construction.supervision.sample.SampleDimensionGenerator;
 import com.infoDiscover.solution.construction.supervision.sample.SampleFactGenerator;
@@ -22,8 +22,10 @@ public class Initializer {
     // solution prefix
     public final static String prefix = "ZHUHAI_";
 
-    public static void initialize(InfoDiscoverSpace ids) {
-        logger.info("Start to initialize dimensions and relationTypes");
+    public static void initialize(String spaceName) throws Exception {
+        logger.info("Start to initialize dimensions and relationTypes with spaceName: {}", spaceName);
+
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
         logger.info("Step 1: initialize time dimension type");
         try {
@@ -63,6 +65,7 @@ public class Initializer {
             logger.error("Step 4: Failed to create dimensions: {}", e.getMessage());
         }
 
+        ids.closeSpace();
         logger.info("End method initialize()...");
     }
 
@@ -83,17 +86,12 @@ public class Initializer {
             System.exit(0);
         }
 
-        // connect to database
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
-
-        if (ids == null) {
-            logger.error("Failed to connect to database: {} ", spaceName);
-            System.exit(0);
+        // initialize
+        try {
+            initialize(spaceName);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        initialize(ids);
-
-        ids.closeSpace();
 
     }
 }

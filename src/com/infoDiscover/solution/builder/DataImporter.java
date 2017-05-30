@@ -1,5 +1,6 @@
 package com.infoDiscover.solution.builder;
 
+import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.common.util.Util;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
@@ -9,8 +10,8 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
+import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
@@ -18,7 +19,6 @@ import com.infoDiscover.solution.common.relationship.RelationshipManager;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.PrefixSetting;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
-import com.infoDiscover.solution.construction.supervision.manager.DayDimensionManager;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,11 +43,7 @@ public class DataImporter {
 
         logger.info("Start to importData with data: {}", dataJson);
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
-
-        if (ids ==null) {
-            throw new Exception("Could not connect to space: " + spaceName);
-        }
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
         JsonNode dataJsonNode = JsonNodeUtil.getDataNode(dataJson);
         if (dataJson != null) {

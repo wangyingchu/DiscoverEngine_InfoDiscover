@@ -3,7 +3,7 @@ package com.infoDiscover.solution.construction.supervision.manager;
 import com.infoDiscover.common.util.FileUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
@@ -19,11 +19,17 @@ import java.util.Map;
 /**
  * Created by sun.
  */
-public class Importer {
+public class DataImporter {
 
-    private final static Logger logger = LoggerFactory.getLogger(Importer.class);
+    private final static Logger logger = LoggerFactory.getLogger(DataImporter.class);
 
-    public void importProject(InfoDiscoverSpace ids, String projectJson) throws Exception {
+    private String spaceName;
+
+    public DataImporter(String spaceName) {
+        this.spaceName = spaceName;
+    }
+
+    public void importProject(String projectJson) throws Exception {
         logger.info("Enter importProject() with projectJson: {}", projectJson);
 
         Map<String, Object> projectProperties = getPropertiesMap(projectJson);
@@ -34,13 +40,17 @@ public class Importer {
         }
 
         String projectFactType = getProjectFactType(projectType.toString());
+
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
+
         new ProjectManager(ids).createNewOrUpdateProjectInstance(projectFactType,
                 projectProperties);
 
+        ids.closeSpace();
         logger.info("Exit importProject()...");
     }
 
-    public void importTask(InfoDiscoverSpace ids, String taskJson) throws Exception {
+    public void importTask(String taskJson) throws Exception {
         logger.info("Enter importTask() with taskJson: {}", taskJson);
 
         Map<String, Object> taskProperties = getPropertiesMap(taskJson);
@@ -55,6 +65,8 @@ public class Importer {
         if (projectId == null) {
             throw new Exception("No projectId found, it is a required value.");
         }
+
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
         Fact projectFact = new ProjectManager(ids).getProjectId(ids.getInformationExplorer(),
                 projectFactType, null, projectId.toString());
@@ -77,13 +89,17 @@ public class Importer {
         new ProjectManager(ids).createNewOrUpdateProjectInstance(projectFactType,
                 projectProperties);
 
+        ids.closeSpace();
         logger.info("Exit importTask()...");
     }
 
-    public void updateProjectStatus(InfoDiscoverSpace ids, String projectId, String projectType,
-                                    String status) throws  Exception {
+    public void updateProjectStatus(String projectId, String projectType,
+                                    String status) throws Exception {
         logger.info("Enter updateProjectStatus() with projectId: {}, and statud: {}", projectId,
                 status);
+
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
+
         Fact projectFact = new ProjectManager(ids).getProjectId(ids.getInformationExplorer(),
                 getProjectFactType(projectType), null, projectId.toString());
         if (projectFact == null) {
@@ -97,16 +113,17 @@ public class Importer {
 
         new FactManager(ids).updateFact(projectFact, props);
 
+        ids.closeSpace();
         logger.info("Exit updateProjectStatus()...");
     }
 
     private static Map<String, Object> getPropertiesMap(String json) throws Exception {
-        JsonNode propertiesNode = getPropertiesJsonnNode(json);
+        JsonNode propertiesNode = getPropertiesJsonNode(json);
         return JsonNodeUtil.convertToPropertyNameValueMap
                 (propertiesNode);
     }
 
-    private static JsonNode getPropertiesJsonnNode(String json) throws Exception {
+    private static JsonNode getPropertiesJsonNode(String json) throws Exception {
         JsonNode dataNode = JsonNodeUtil.getDataNode(json);
         if (dataNode == null) {
             throw new Exception("Project content is empty or format is invalid, project content " +
@@ -218,20 +235,18 @@ public class Importer {
     }
 
     public static void main(String[] args) {
-        Importer importer = new Importer();
         String spaceName = DatabaseConstants.DATABASE_SPACE;
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                (spaceName);
+        DataImporter importer = new DataImporter(spaceName);
 
         // create a project
         String projectFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com" +
                 "/infoDiscover/solution/construction/supervision/manager/testdata/Project.json";
         String projectJson = FileUtil.readFileContent(projectFile);
 
-
         try {
-            importer.importProject(ids, projectJson);
+
+            importer.importProject(projectJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -241,21 +256,18 @@ public class Importer {
                 "/infoDiscover/solution/construction/supervision/manager/testdata/Task.json";
         String taskJson = FileUtil.readFileContent(taskFile);
 
-
         try {
-            importer.importTask(ids, taskJson);
+            importer.importTask(taskJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // update the status
         try {
-            importer.updateProjectStatus(ids,"projectId_1", "新建工程", "完成");
+            importer.updateProjectStatus("projectId_1", "新建工程", "完成");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        ids.closeSpace();
 
     }
 }

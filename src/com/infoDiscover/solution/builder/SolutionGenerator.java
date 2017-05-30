@@ -4,7 +4,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.PrefixSetting;
@@ -32,7 +32,7 @@ public class SolutionGenerator {
         String factType = PrefixSetting.getFactTypeWithPrefix(prefix, SolutionConstants
                 .FACT_TYPE_SOLUTION_TEMPLATE);
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
         SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, factType);
 

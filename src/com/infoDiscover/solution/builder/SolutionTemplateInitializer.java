@@ -3,6 +3,7 @@ package com.infoDiscover.solution.builder;
 import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.PrefixSetting;
 import org.slf4j.Logger;
@@ -32,8 +33,7 @@ public class SolutionTemplateInitializer {
         }
 
         // connect to database
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                (spaceName);
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
         // initialize solution template fact type
         if (ids != null) {

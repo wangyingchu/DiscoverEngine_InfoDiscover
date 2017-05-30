@@ -5,8 +5,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
+import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
@@ -54,7 +53,7 @@ public class SolutionTemplateBuilder {
         Map<String, Object> properties = getPropertiesMapFromJson(templateJson);
         properties.put(SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
         FactManager factManager = new FactManager(ids);
         Fact solutionTemplateFact = getSolutionTemplateByPrefix(prefix.toUpperCase());
@@ -63,7 +62,8 @@ public class SolutionTemplateBuilder {
             properties.put(SolutionConstants.PROPERTY_STD_ID, Util.generateUUID());
             properties.put(SolutionConstants.PROPERTY_STD_CREATED_AT, now);
             properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
-            solutionTemplateFact = factManager.createFact(this.solutionTemplateFactType, properties);
+            solutionTemplateFact = factManager.createFact(this.solutionTemplateFactType,
+                    properties);
         } else {
             properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
             solutionTemplateFact = factManager.updateFact(solutionTemplateFact, properties);
@@ -81,11 +81,18 @@ public class SolutionTemplateBuilder {
         ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_PREFIX,
                 prefix.toUpperCase()));
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
-        Fact fact = QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
-        ids.closeSpace();
-
-        return fact;
+        InfoDiscoverSpace ids = null;
+        try {
+            ids = DatabaseConnection.connectToSpace(spaceName);
+            return QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
+        } catch (Exception e) {
+            logger.error("Failed to get fact: {}", e.getMessage());
+        } finally {
+            if (ids != null) {
+                ids.closeSpace();
+            }
+        }
+        return null;
     }
 
     public Fact getSolutionTemplateById(String templateId) {
@@ -95,9 +102,18 @@ public class SolutionTemplateBuilder {
         ep.setDefaultFilteringItem(new EqualFilteringItem(SolutionConstants.PROPERTY_STD_ID,
                 templateId));
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
-        Fact fact =  QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
-        return fact;
+        InfoDiscoverSpace ids = null;
+        try {
+            ids = DatabaseConnection.connectToSpace(spaceName);
+            return QueryExecutor.executeFactQuery(ids.getInformationExplorer(), ep);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ids != null) {
+                ids.closeSpace();
+            }
+        }
+        return null;
     }
 
     public boolean checkPrefixIsExisted(String prefix) {
@@ -124,7 +140,8 @@ public class SolutionTemplateBuilder {
             throw new Exception(error);
         }
 
-        updateSolutionTemplate(templateFact, SolutionConstants.PROPERTY_STD_PREFIX, prefix.toUpperCase());
+        updateSolutionTemplate(templateFact, SolutionConstants.PROPERTY_STD_PREFIX, prefix
+                .toUpperCase());
     }
 
     public void updateFactDefinition(String templateId, String factDefinitionJson)
@@ -148,13 +165,13 @@ public class SolutionTemplateBuilder {
     public boolean deleteSolutionTemplateById(String templateId) {
         logger.info("deleteSolutionTemplateById() with templateId: {}", templateId);
         Fact templateFact = getSolutionTemplateById(templateId);
-        if(templateFact!= null) {
+        if (templateFact != null) {
             try {
-                InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
-                boolean deleted =  ids.removeFact(templateFact.getId());
+                InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
+                boolean deleted = ids.removeFact(templateFact.getId());
                 ids.closeSpace();
                 return deleted;
-            } catch (InfoDiscoveryEngineRuntimeException e) {
+            } catch (Exception e) {
                 logger.error("Failed to delete solution template");
             }
         }
@@ -209,7 +226,7 @@ public class SolutionTemplateBuilder {
         Map<String, Object> properties = new HashMap<>();
         properties.put(key, value);
 
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
+        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
         FactManager factManager = new FactManager(ids);
         factManager.updateFact(templateFact, properties);
         ids.closeSpace();

@@ -1,5 +1,6 @@
 package com.infoDiscover.solution.construction.supervision.manager;
 
+import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;

@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.construction.supervision.manager;
+package com.infoDiscover.common.dimension.time;
 
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
