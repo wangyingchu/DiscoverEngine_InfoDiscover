@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    public final static String format1 = "yyyy-MM-dd";
+    public static final String format1 = "yyyy-MM-dd";
 
     public static DateTime getDateTime(long dateMillionSeconds) {
         return new DateTime(dateMillionSeconds);

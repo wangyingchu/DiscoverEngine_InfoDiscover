@@ -27,8 +27,8 @@ public class DemoPropertyMapping {
     private static HashMap<String, Map<String, Object>> propertyRelationshipMappingMap = new
             HashMap<>();
 
-    public final static String KEY_PROPERTY_FACT_MAPPING = "propertyFactMapping";
-    public final static String KEY_PROPERTY_RELATIONSHIP_MAPPING = "propertyRelationshipMapping";
+    public static final String KEY_PROPERTY_FACT_MAPPING = "propertyFactMapping";
+    public static final String KEY_PROPERTY_RELATIONSHIP_MAPPING = "propertyRelationshipMapping";
 
 
     public static HashMap<String, Map<String, String>> loadPropertyFactMapping() {

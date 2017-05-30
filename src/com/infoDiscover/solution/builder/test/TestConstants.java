@@ -6,18 +6,18 @@ import com.infoDiscover.solution.builder.SolutionConstants;
  * Created by sun.
  */
 public class TestConstants {
-    public final static String spaceName = "TEST_SOLUTION";
-    public final static String prefix = "Test2_";
-    public final static String factType = SolutionConstants.FACT_TYPE_SOLUTION_TEMPLATE;
+    public static final String spaceName = "TEST_SOLUTION";
+    public static final String prefix = "Test2_";
+    public static final String factType = SolutionConstants.FACT_TYPE_SOLUTION_TEMPLATE;
 
-    public final static String testDataRoot =
+    public static final String testDataRoot =
             "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover" +
                     "/solution/builder/testtemplate";
 
-    public final static String templateFile = testDataRoot + "/SolutionTemplateDefinition.json";
-    public final static String factDefinition = testDataRoot + "/FactDefinition.json";
-    public final static String dimensionDefinition = testDataRoot + "/DimensionDefinition" +
+    public static final String templateFile = testDataRoot + "/SolutionTemplateDefinition.json";
+    public static final String factDefinition = testDataRoot + "/FactDefinition.json";
+    public static final String dimensionDefinition = testDataRoot + "/DimensionDefinition" +
             ".json";
-    public final static String relationDefinition = testDataRoot + "/RelationDefinition" +
+    public static final String relationDefinition = testDataRoot + "/RelationDefinition" +
             ".json";
 }

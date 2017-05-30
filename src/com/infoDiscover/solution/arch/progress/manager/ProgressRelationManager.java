@@ -30,7 +30,7 @@ public class ProgressRelationManager {
     }
 
     //TODO:
-    public final static String prefix = PrefixConstant.prefix;
+    public static final String prefix = PrefixConstant.prefix;
 
 
     public void batchAttachTasksToProgress(String progressId,

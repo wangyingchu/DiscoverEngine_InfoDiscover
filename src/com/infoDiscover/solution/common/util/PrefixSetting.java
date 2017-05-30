@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class PrefixSetting {
 
-    public final static String PREFIX = "prefix";
+    public static final String PREFIX = "prefix";
 
     private static Map<String, String> prefixMap = new HashMap<>();
 

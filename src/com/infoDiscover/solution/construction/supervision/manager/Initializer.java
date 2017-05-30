@@ -20,7 +20,7 @@ public class Initializer {
     private final static Logger logger = LoggerFactory.getLogger(PrepareSampleData.class);
 
     // solution prefix
-    public final static String prefix = "ZHUHAI_";
+    public static final String prefix = "ZHUHAI_";
 
     public static void initialize(String spaceName) throws Exception {
         logger.info("Start to initialize dimensions and relationTypes with spaceName: {}", spaceName);

@@ -6,8 +6,8 @@ import com.infoDiscover.solution.construction.supervision.constants.DatabaseCons
  * Created by sun.
  */
 public class PrefixConstant {
-    public final static String prefix = DatabaseConstants.SOLUTION_PREFIX;
-//    public final static String prefixWithout = "ZHUHAI3";
+    public static final String prefix = DatabaseConstants.SOLUTION_PREFIX;
+//    public static final String prefixWithout = "ZHUHAI3";
 
-//    public final static String prefix = "ZHUHAI_";
+//    public static final String prefix = "ZHUHAI_";
 }
