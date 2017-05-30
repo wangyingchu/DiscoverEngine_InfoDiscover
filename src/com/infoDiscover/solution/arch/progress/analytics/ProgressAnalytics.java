@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.arch.progress.analytics;
 
-import com.infoDiscover.common.util.Util;
+import com.infoDiscover.common.util.StringUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
@@ -28,7 +28,7 @@ public class ProgressAnalytics {
         String selectProgressSql = ProgressSqlBuilder.buildSelectProgressSQL(progressId);
 
         String sql = "select from (TRAVERSE out() FROM " + selectProgressSql + ") where @class=" +
-                Util.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
+                StringUtil.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
                         ProgressConstants.FACT_TASK_WITHPREFIX);
 
         logger.info("getAllTasksOfProgress sql: {}", sql);
@@ -41,7 +41,7 @@ public class ProgressAnalytics {
         String selectProgressSql = ProgressSqlBuilder.buildSelectTaskByIdSQL(taskId);
 
         String sql = "select from (TRAVERSE out() FROM " + selectProgressSql + ") where @class=" +
-                Util.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
+                StringUtil.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
                         ProgressConstants.DIMENSION_USER_WITHPREFIX);
 
         System.out.println("getAllUsersOfTask sql: " + sql);
@@ -55,7 +55,7 @@ public class ProgressAnalytics {
         String selectProgressSql = ProgressSqlBuilder.buildSelectProgressSQL(progressId);
 
         String sql = "select from (TRAVERSE out() FROM " + selectProgressSql + ") where @class=" +
-                Util.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
+                StringUtil.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
                         ProgressConstants.DIMENSION_USER_WITHPREFIX);
 
         logger.info("getAllUsersOfProgress sql: {}", sql);
@@ -69,7 +69,7 @@ public class ProgressAnalytics {
         String selectProgressSql = ProgressSqlBuilder.buildSelectTaskByUserIdSQL(userId);
 
         String sql = "select from (TRAVERSE in() FROM " + selectProgressSql + ") where @class=" +
-                Util.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
+                StringUtil.addDoubleQuotation(InfoDiscoverEngineConstant.CLASSPERFIX_FACT +
                         ProgressConstants.FACT_TASK_WITHPREFIX);
 
         System.out.println("getAllTasksOfUser sql: " + sql);

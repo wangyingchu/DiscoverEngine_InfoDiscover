@@ -15,8 +15,8 @@ public class RandomUtil {
             min = range[0];
             max = range[0];
         } else {
-            min = Util.minInt(range);
-            max = Util.maxInt(range);
+            min = NumericUtil.minInt(range);
+            max = NumericUtil.maxInt(range);
         }
 
         return generateRandomInRange(min, max);
@@ -49,8 +49,8 @@ public class RandomUtil {
             min = range[0];
             max = range[0];
         } else {
-            min = Util.minDouble(range);
-            max = Util.maxDouble(range);
+            min = NumericUtil.minDouble(range);
+            max = NumericUtil.maxDouble(range);
         }
 
         return generateRandomDouble(min, max);

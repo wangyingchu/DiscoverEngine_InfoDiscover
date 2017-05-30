@@ -11,6 +11,10 @@ public class SolutionConstants {
     // fact type
     public final static String FACT_TYPE_SOLUTION_TEMPLATE = "ID_SOLUTION_TEMPLATE";
 
+    // solution template file name
+    public final static String SOLUTION_TEMPLATE_FILE_NAME = "SolutionTemplateDefinition";
+    public final static String SOLUTION_TEMPLATE_JSON_FILE = SOLUTION_TEMPLATE_FILE_NAME + ".json";
+
     // fact properties
     public final static String PROPERTY_STD_ID = "templateId";
     public final static String PROPERTY_STD_PREFIX = "prefix";

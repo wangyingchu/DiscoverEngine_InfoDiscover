@@ -3,7 +3,7 @@ package com.infoDiscover.common.dimension.time;
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.common.dimension.time.dimension.*;
 import com.infoDiscover.common.dimension.time.manager.TimeDimensionManager;
-import com.infoDiscover.common.util.Util;
+import com.infoDiscover.common.util.NumericUtil;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
@@ -43,8 +43,8 @@ public class TimeDimensionGenerator {
         int maxYear = yearsRange[0];
 
         if (yearsRange.length > 1) {
-            minYear = Util.minInt(yearsRange);
-            maxYear = Util.maxInt(yearsRange);
+            minYear = NumericUtil.minInt(yearsRange);
+            maxYear = NumericUtil.maxInt(yearsRange);
         }
 
         for (int i = minYear; i <= maxYear; i++) {

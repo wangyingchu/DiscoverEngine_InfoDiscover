@@ -1,7 +1,5 @@
 package com.infoDiscover.solution.builder.test;
 
-import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 import com.infoDiscover.solution.builder.SolutionTemplateImporter;
 
 /**
@@ -9,13 +7,14 @@ import com.infoDiscover.solution.builder.SolutionTemplateImporter;
  */
 public class TestSolutionTemplateImporter {
 
-    public static void main(String[] args) {
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                (TestConstants.spaceName);
-
+    public static void main(String[] args) throws Exception {
         SolutionTemplateImporter importer = new SolutionTemplateImporter(TestConstants
                 .spaceName, TestConstants.prefix);
 
-        ids.closeSpace();
+//        importer.importSolutionTemplate(TestConstants.templateFile, true);
+//
+//        importer.exportSolutionTemplate("/Users/sun/Desktop/template");
+        importer.importSolutionTemplateWithZipped
+                ("/Users/sun/Desktop/template/TEST2_SolutionTemplateDefinition.zip", true);
     }
 }

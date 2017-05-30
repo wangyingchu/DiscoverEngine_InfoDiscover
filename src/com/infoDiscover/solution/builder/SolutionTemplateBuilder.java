@@ -1,6 +1,6 @@
 package com.infoDiscover.solution.builder;
 
-import com.infoDiscover.common.util.Util;
+import com.infoDiscover.common.util.StringUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
@@ -62,7 +62,7 @@ public class SolutionTemplateBuilder {
         Fact solutionTemplateFact = getSolutionTemplateByPrefix(prefix.toUpperCase());
         Date now = new Date();
         if (solutionTemplateFact == null) {
-            properties.put(SolutionConstants.PROPERTY_STD_ID, Util.generateUUID());
+            properties.put(SolutionConstants.PROPERTY_STD_ID, StringUtil.generateUUID());
             properties.put(SolutionConstants.PROPERTY_STD_CREATED_AT, now);
             properties.put(SolutionConstants.PROPERTY_STD_MODIFIED_AT, now);
             solutionTemplateFact = factManager.createFact(getSolutionTemplateFactType(),

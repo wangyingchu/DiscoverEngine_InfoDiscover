@@ -115,6 +115,31 @@ public class FileUtil {
         return fileList;
     }
 
+    public static InputStream stringToInputstream(String input, String encoding) throws Exception {
+        ByteArrayInputStream is = new ByteArrayInputStream(input.getBytes(encoding));
+        return is;
+    }
+
+    public static String inputStreamToString(InputStream in, final int bufferSize, String encoding)
+            throws Exception {
+
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+
+        byte[] data = new byte[bufferSize];
+
+        int count;
+
+        while ((count = in.read(data, 0, bufferSize)) != -1){
+            outStream.write(data, 0, count);
+        }
+
+        String value = new String(outStream.toByteArray(), encoding);
+
+        outStream.close();
+
+        return  value;
+    }
+
     public static void main(String[] args) {
 
         String maintainTasks = "/Users/sun/InfoDiscovery/Code/DiscoverEngine_InfoDiscover/src/com" +

@@ -40,7 +40,7 @@ public class PropertiesMap {
 			} else {
 				Object first = list.get(0);
 				if (first instanceof String) {
-					return listToArray(list);
+					return StringUtil.listToArray(list);
 				} else if (first instanceof Number) {
 					return numberArray(list);
 				} else if (first instanceof Boolean) {
@@ -112,10 +112,6 @@ public class PropertiesMap {
 		}
 		System.arraycopy(internal, 0, result, 0, internal.length);
 		return result;
-	}
-
-	private static String[] listToArray(List<String> strings) {
-		return strings.toArray(new String[strings.size()]);
 	}
 
 	private Object toSerializedType(Object value) {

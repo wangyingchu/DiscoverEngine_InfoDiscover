@@ -2,7 +2,8 @@ package com.infoDiscover.solution.builder;
 
 import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
-import com.infoDiscover.common.util.Util;
+import com.infoDiscover.common.util.DataTypeChecker;
+import com.infoDiscover.common.util.StringUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
@@ -157,11 +158,11 @@ public class DataImporter {
             if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING)) {
 
                 Dimension dimension = null;
-                if (Util.isStringType(propertyType)) {
+                if (DataTypeChecker.isStringType(propertyType)) {
                     dimension = QueryExecutor.executeDimensionQuery(
                             ids.getInformationExplorer(),
                             constructEqualExploreParameters(toType, toProperty, propertyValue));
-                } else if (Util.isNumbericType(propertyType)) {
+                } else if (DataTypeChecker.isNumericType(propertyType)) {
 
                     if (toProperty.split(",").length == 1) {
                         dimension = QueryExecutor.executeDimensionQuery(ids
@@ -173,9 +174,9 @@ public class DataImporter {
 
                         // if firstProperty == secondProperty, then use "="
                         if (toProperty.split(",").length == 2) {
-                            firstProperty = Util.removeFirstAndLastChar(toProperty)
+                            firstProperty = StringUtil.removeFirstAndLastChar(toProperty)
                                     .split(",")[0];
-                            secondProperty = Util.removeFirstAndLastChar(toProperty)
+                            secondProperty = StringUtil.removeFirstAndLastChar(toProperty)
                                     .split(",")[1];
                             if (firstProperty.equalsIgnoreCase(secondProperty)) {
                                 dimension = QueryExecutor.executeDimensionQuery(
@@ -218,7 +219,7 @@ public class DataImporter {
                         }
                     }
 
-                } else if (Util.isDateType(propertyType)) {
+                } else if (DataTypeChecker.isDateType(propertyType)) {
                     DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
                             (prefix, (Date) propertyValue);
                     relationshipManager.linkFactToDateDimension(prefix, fact, dayDimensionVO,
@@ -230,7 +231,7 @@ public class DataImporter {
                 }
 
                 if (dimension == null) {
-                    if (Util.isStringType(propertyType)) {
+                    if (DataTypeChecker.isStringType(propertyType)) {
                         Map<String, Object> props = new HashMap<>();
                         props.put(toProperty, propertyValue);
                         dimension = dimensionManager.createDimension(toType, props);
