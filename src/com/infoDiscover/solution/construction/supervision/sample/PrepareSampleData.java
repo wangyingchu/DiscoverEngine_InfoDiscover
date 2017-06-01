@@ -6,8 +6,8 @@ import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDat
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import com.infoDiscover.solution.common.util.PrefixSetting;
+import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,22 +25,23 @@ public class PrepareSampleData {
     public static final int depth = 3;
 
     //生成多少个维修工程
-    public static final int countOfMaintainProgressToGenerate = 1;
+    public static final int[] countOfMaintainProgressToGenerate = {1, 0};
 
     // 生成多少个新建工程
-    public static final int countOfNewProgressToGenerate = 1;
+    public static final int[] countOfNewProgressToGenerate = {1, 0};
 
     // 生成多少个扩建工程
-    public static final int countOfExtensionProgressToGenerate = 1;
+    public static final int[] countOfExtensionProgressToGenerate = {1, 0};
 
     // 生成多少个改建工程
-    public static final int countOfRebuildProgressToGenerate = 1;
+    public static final int[] countOfRebuildProgressToGenerate = {1, 0};
 
     // 随机完成流程中的前几个任务, false表示完成全部任务
-    public static final boolean toGenerateRandomTasksNumber = false;
+//    public static final boolean toGenerateRandomTasksNumber = false;
+
 
     // solution prefix
-    public static final String prefix = "ZHUHAI2_";
+    public static final String prefix = "ZHUHAI4_";
 
     // template root path
     public static final String ROOT_PATH =
@@ -50,6 +51,8 @@ public class PrepareSampleData {
     // ===============参数配置=====================//
 
     public static void main(String[] args) {
+
+        validateInputProjectCount();
 
         // set prefix
         new PrefixSetting().setPrefixMap(prefix);
@@ -61,18 +64,57 @@ public class PrepareSampleData {
                 (DatabaseConstants.DATABASE_SPACE);
 
         ProjectSampleDataGenerator.generateMaintenanceProjectSampleData(ids,
-                countOfMaintainProgressToGenerate, toGenerateRandomTasksNumber);
+                countOfMaintainProgressToGenerate);
 
         ProjectSampleDataGenerator.generateNewProjectSampleData(ids,
-                countOfNewProgressToGenerate, toGenerateRandomTasksNumber);
+                countOfNewProgressToGenerate);
 
         ProjectSampleDataGenerator.generateExtensionProjectSampleData(ids,
-                countOfExtensionProgressToGenerate, toGenerateRandomTasksNumber);
+                countOfExtensionProgressToGenerate);
 
         ProjectSampleDataGenerator.generateRebuildProjectSampleData(ids,
-                countOfRebuildProgressToGenerate, toGenerateRandomTasksNumber);
+                countOfRebuildProgressToGenerate);
 
         ids.closeSpace();
+    }
+
+    private static void validateInputProjectCount() {
+
+        if (countOfMaintainProgressToGenerate == null || countOfMaintainProgressToGenerate
+                .length != 2) {
+            logger.error("You must specify how many completed maintenance projects and how many " +
+                    "uncompleted " +
+                    "projects to generated, the first value of array is complete, the second one " +
+                    "is uncompleted");
+            System.exit(0);
+        }
+
+        if (countOfNewProgressToGenerate == null || countOfNewProgressToGenerate
+                .length != 2) {
+            logger.error("You must specify how many completed new projects and how many " +
+                    "uncompleted " +
+                    "projects to generated, the first value of array is complete, the second one " +
+                    "is uncompleted");
+            System.exit(0);
+        }
+
+        if (countOfExtensionProgressToGenerate == null || countOfExtensionProgressToGenerate
+                .length != 2) {
+            logger.error("You must specify how many completed extension projects and how many " +
+                    "uncompleted " +
+                    "projects to generated, the first value of array is complete, the second one " +
+                    "is uncompleted");
+            System.exit(0);
+        }
+
+        if (countOfRebuildProgressToGenerate == null || countOfRebuildProgressToGenerate
+                .length != 2) {
+            logger.error("You must specify how many completed rebuild projects and how many " +
+                    "uncompleted " +
+                    "projects to generated, the first value of array is complete, the second one " +
+                    "is uncompleted");
+            System.exit(0);
+        }
     }
 
     public static void prepareSampleData(String spaceName, String userFile, String roleFile) {

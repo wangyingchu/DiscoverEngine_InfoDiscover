@@ -15,7 +15,10 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -27,59 +30,51 @@ public class ProjectSampleDataGenerator {
 
     public static void generateMaintenanceProjectSampleData(
             InfoDiscoverSpace ids,
-            int countOfProgressToGenerate,
-            boolean toGenerateRandomTaskNumber) {
+            int[] countOfProgressToGenerate) {
 
         generateProjectSampleData(
                 ids,
                 SampleDataSet.FILE_MAINTENANCE_PROJECT,
                 SampleDataSet.PROJECTTYPE_MAINTENANCE,
                 SampleDataSet.TASK_DISPLAY_NAMES_OF_MAINTENANCE_PROJECT.length,
-                countOfProgressToGenerate,
-                toGenerateRandomTaskNumber);
+                countOfProgressToGenerate);
 
     }
 
     public static void generateNewProjectSampleData(
             InfoDiscoverSpace ids,
-            int countOfProgressToGenerate,
-            boolean toGenerateRandomTaskNumber) {
+            int[] countOfProgressToGenerate) {
 
         generateProjectSampleData(
                 ids,
                 SampleDataSet.FILE_NEW_PROJECT,
                 SampleDataSet.PROJECTTYPE_NEW,
                 SampleDataSet.TASK_DISPLAY_NAMES_OF_NEW_PROJECT.length,
-                countOfProgressToGenerate,
-                toGenerateRandomTaskNumber);
+                countOfProgressToGenerate);
     }
 
     public static void generateExtensionProjectSampleData(
             InfoDiscoverSpace ids,
-            int countOfProgressToGenerate,
-            boolean toGenerateRandomTaskNumber) {
+            int[] countOfProgressToGenerate) {
 
         generateProjectSampleData(
                 ids,
                 SampleDataSet.FILE_EXTENSION_PROJECT,
                 SampleDataSet.PROJECTTYPE_EXTENSION,
                 SampleDataSet.TASK_DISPLAY_NAMES_OF_NEW_PROJECT.length,
-                countOfProgressToGenerate,
-                toGenerateRandomTaskNumber);
+                countOfProgressToGenerate);
     }
 
     public static void generateRebuildProjectSampleData(
             InfoDiscoverSpace ids,
-            int countOfProgressToGenerate,
-            boolean toGenerateRandomTaskNumber) {
+            int[] countOfProgressToGenerate) {
 
         generateProjectSampleData(
                 ids,
                 SampleDataSet.FILE_REBUILD_PROJECT,
                 SampleDataSet.PROJECTTYPE_REBUILD,
                 SampleDataSet.TASK_DISPLAY_NAMES_OF_NEW_PROJECT.length,
-                countOfProgressToGenerate,
-                toGenerateRandomTaskNumber);
+                countOfProgressToGenerate);
     }
 
 
@@ -88,17 +83,102 @@ public class ProjectSampleDataGenerator {
             String projectJsonTemplate,
             String projectType,
             int maxTasksNumber,
-            int countOfProgressToGenerate,
-            boolean toGenerateRandomTaskNumber) {
+            int[] countOfProgressToGenerate) {
         logger.info("Enter method generateProjectSampleData() with projectTemplate: {} and " +
-                        "projectType: {} and countOfProgressToGenerate: {} and " +
-                        "toGenerateRandomTaskNumber: {}", projectJsonTemplate,
-                projectType, countOfProgressToGenerate, toGenerateRandomTaskNumber);
+                        "projectType: {} and countOfProgressToGenerate: {}",
+                projectJsonTemplate,
+                projectType, countOfProgressToGenerate);
 
-        for (int i = 1; i <= countOfProgressToGenerate; i++) {
 
-            int firstNumberOfTasksToGenerate = getFirstNumberOfTasksToGenerate(maxTasksNumber,
-                    toGenerateRandomTaskNumber);
+        int completedProjectCount = countOfProgressToGenerate[0];
+        if (completedProjectCount < 0) {
+            completedProjectCount = 0;
+        }
+        int uncompletedProjectCount = countOfProgressToGenerate[1];
+        if(uncompletedProjectCount < 0) {
+            uncompletedProjectCount = 0;
+        }
+
+        for (int i = 1; i <= completedProjectCount; i++) {
+
+            long startDateLongValue = RandomData.getRandomTime(2010, 2016, 0);
+            Date startDate = DateUtil.getDateTime(startDateLongValue).toDate();
+
+            // generate progress random data
+            Map<String, Object> progressProperties = ProgressSampleDataGenerator
+                    .generateProgressRandomData(projectJsonTemplate, projectType, getProjectName
+                            (projectType), startDate, i);
+            if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
+                        .PROJECTTYPE_MAINTENANCE);
+            } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)) {
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
+                        .PROJECTTYPE_NEW);
+            } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_EXTENSION)) {
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
+                        .PROJECTTYPE_EXTENSION);
+            } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
+                progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
+                        .PROJECTTYPE_REBUILD);
+            }
+
+            String progressId = progressProperties.get(JsonConstants.JSON_PROJECT_ID).toString();
+            String factType = getFactType(projectType);
+
+            ProjectManager progressManager = new ProjectManager(ids);
+
+
+            // get the tasks properties
+            Map<String, Object>[] tasksPropertiesArray = TaskSampleDataGenerator
+                    .generateTasksRandomData(projectJsonTemplate, projectType, progressId,
+                            startDateLongValue, maxTasksNumber);
+
+            // generate progress name
+            Map<String, Object> task1 = tasksPropertiesArray[0];
+            String dateTime = DateUtil.getDateTime(startDateLongValue).toString().substring
+                    (0, 10);
+            String progressName = progressProperties.get(JsonConstants.JSON_PROJECT_TYPE)
+                    .toString();
+            if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
+                String issue = task1.get(JsonConstants.JSON_ISSUE_CLASSIFICATION)
+                        .toString();
+                progressName += "_" + issue + "_" + dateTime;
+            } else {
+                String projectAddress = task1.get("projectAddress").toString();
+                progressName += "_" + projectAddress + "_" + dateTime;
+            }
+            progressProperties.put(JsonConstants.JSON_PROJECT_NAME, progressName);
+
+            // Append task properties to progress
+            progressProperties = new TaskManager(ids).appendTaskPropertiesToProject
+                    (progressProperties,
+                            tasksPropertiesArray);
+
+            // if all tasks are run, so complete the progress
+            progressProperties.put(JsonConstants.JSON_STATUS, "Completed");
+            long taskEndDateLongValue = ((Date)
+                    tasksPropertiesArray[maxTasksNumber - 1]
+                            .get(JsonConstants.JSON_END_DATE)).getTime();
+            long progressEndDateLongValue = DateUtil.getLongDateValue(taskEndDateLongValue,
+                    RandomUtil.generateRandomInRange(1, 5));
+            // set endTime with random (1, 5)
+            progressProperties.put(JsonConstants.JSON_END_DATE, DateUtil.getDateTime
+                    (progressEndDateLongValue).toDate());
+
+
+            // to create or update progress
+            progressManager.createNewOrUpdateProjectInstance(factType,
+                    progressProperties);
+
+            // batch create or update tasks
+            new TaskManager(ids).batchCreateNewOrUpdateTaskInstances(factType,
+                    tasksPropertiesArray);
+        }
+
+        for (int i = 1; i <= uncompletedProjectCount; i++) {
+
+            int firstNumberOfTasksToGenerate = getFirstNumberOfTasksToGenerate(maxTasksNumber - 1,
+                    true);
             long startDateLongValue = RandomData.getRandomTime(2010, 2016, 0);
             Date startDate = DateUtil.getDateTime(startDateLongValue).toDate();
 
@@ -162,7 +242,7 @@ public class ProjectSampleDataGenerator {
                 // Append task properties to progress
                 progressProperties = new TaskManager(ids).appendTaskPropertiesToProject
                         (progressProperties,
-                        tasksPropertiesArray);
+                                tasksPropertiesArray);
 
                 // if all tasks are run, so complete the progress
                 if (firstNumberOfTasksToGenerate == maxTasksNumber) {
@@ -183,7 +263,7 @@ public class ProjectSampleDataGenerator {
                         progressProperties);
 
                 // batch create or update tasks
-                new TaskManager(ids).batchCreateNewOrUpdateTaskInstances( factType,
+                new TaskManager(ids).batchCreateNewOrUpdateTaskInstances(factType,
                         tasksPropertiesArray);
             }
 
@@ -201,7 +281,7 @@ public class ProjectSampleDataGenerator {
     public static String getFactType(String projectType) {
         if (projectType.trim().equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
             return DatabaseConstants.FACTTYPE_MAINTENANCE_PROJECT;
-        } else{
+        } else {
             return DatabaseConstants.FACTTYPE_CONSTRUCTION_PROJECT;
         }
     }
@@ -239,7 +319,6 @@ public class ProjectSampleDataGenerator {
             }
         }
     }
-
 
 
 }
