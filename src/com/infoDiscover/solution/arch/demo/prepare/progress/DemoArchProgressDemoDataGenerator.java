@@ -69,7 +69,8 @@ public class DemoArchProgressDemoDataGenerator {
             long startDate = RandomData.getRandomTime(2010, 2016, 0);
             Map<String, Object> progressProperties = ProgressSampleDataGenerator
                     .generateProgressRandomData(projectTemplate, projectType, getProjectName
-                            (projectType), DateUtil.getDateTime(startDate).toDate(), i);
+                            (projectType), DateUtil.getDateTime(startDate).toDate(), i,
+                            (firstNumberOfTasksToGenerate == maxTasksNumber));
 
             String progressId = progressProperties.get("progressId").toString();
             long startTimeLongValue = ((Date) progressProperties.get("startTime")).getTime();

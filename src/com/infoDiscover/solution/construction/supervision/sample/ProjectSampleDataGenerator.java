@@ -107,7 +107,7 @@ public class ProjectSampleDataGenerator {
             // generate progress random data
             Map<String, Object> progressProperties = ProgressSampleDataGenerator
                     .generateProgressRandomData(projectJsonTemplate, projectType, getProjectName
-                            (projectType), startDate, i);
+                            (projectType), startDate, i, true);
             if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
                 progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
                         .PROJECTTYPE_MAINTENANCE);
@@ -185,7 +185,7 @@ public class ProjectSampleDataGenerator {
             // generate progress random data
             Map<String, Object> progressProperties = ProgressSampleDataGenerator
                     .generateProgressRandomData(projectJsonTemplate, projectType, getProjectName
-                            (projectType), startDate, i);
+                            (projectType), startDate, i, false);
             if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
                 progressProperties.put(JsonConstants.JSON_PROJECT_TYPE, SampleDataSet
                         .PROJECTTYPE_MAINTENANCE);

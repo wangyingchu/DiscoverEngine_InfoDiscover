@@ -25,23 +25,23 @@ public class PrepareSampleData {
     public static final int depth = 3;
 
     //生成多少个维修工程
-    public static final int[] countOfMaintainProgressToGenerate = {1, 0};
+    public static final int[] countOfMaintainProgressToGenerate = {2, 1};
 
     // 生成多少个新建工程
-    public static final int[] countOfNewProgressToGenerate = {1, 0};
+    public static final int[] countOfNewProgressToGenerate = {2, 1};
 
     // 生成多少个扩建工程
-    public static final int[] countOfExtensionProgressToGenerate = {1, 0};
+    public static final int[] countOfExtensionProgressToGenerate = {2, 1};
 
     // 生成多少个改建工程
-    public static final int[] countOfRebuildProgressToGenerate = {1, 0};
+    public static final int[] countOfRebuildProgressToGenerate = {2, 1};
 
     // 随机完成流程中的前几个任务, false表示完成全部任务
 //    public static final boolean toGenerateRandomTasksNumber = false;
 
 
     // solution prefix
-    public static final String prefix = "ZHUHAI4_";
+    public static final String prefix = "ZHUHAI88_";
 
     // template root path
     public static final String ROOT_PATH =

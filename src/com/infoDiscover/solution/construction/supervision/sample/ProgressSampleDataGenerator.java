@@ -22,7 +22,7 @@ public class ProgressSampleDataGenerator {
 
     public static Map<String, Object> generateProgressRandomData
             (String projectJsonTemplate, String projectType, String projectName, Date startDate,
-             int sequence) {
+             int sequence, boolean completed) {
         logger.info("Enter method generateProgressRandomData() with projectJsonTemplate: {} and " +
                         "projectType: {} and " +
                         "projectName: {} and sequence: {}", projectJsonTemplate, projectType,
@@ -48,7 +48,7 @@ public class ProgressSampleDataGenerator {
                         reservedStringPropertyNames());
 
         // update required properties
-        updateRequiredProperties(properties, projectType, projectName, startDate, sequence);
+        updateRequiredProperties(properties, projectType, projectName, startDate, sequence, completed);
         logger.info("properties: {}", properties);
 
         logger.info("Exit method generateProgressRandomData()...");
@@ -58,7 +58,7 @@ public class ProgressSampleDataGenerator {
     private static void updateRequiredProperties(Map<String, Object> properties, String projectType,
                                                  String projectName,
                                                  Date startDate,
-                                                 int sequence) {
+                                                 int sequence, boolean completed) {
         String progressType = "Progress";
         String progressId;
 
@@ -68,14 +68,16 @@ public class ProgressSampleDataGenerator {
         String starter = UserRoleDataImporter.getUserName(SampleDataSet
                 .FILE_USER, starterId);
 
+        String completedValue = completed ? "c": "uc";
+
         if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_MAINTENANCE)) {
-            progressId = SampleDataSet.PROJECTNAME_MAINTANENCE + "_" + sequence;
+            progressId = SampleDataSet.PROJECTNAME_MAINTANENCE + completedValue + "_" + sequence;
         } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_NEW)) {
-            progressId = SampleDataSet.PROJECTNAME_NEW + "_" + sequence;
+            progressId = SampleDataSet.PROJECTNAME_NEW + completedValue + "_" + sequence;
         } else if (projectType.equalsIgnoreCase(SampleDataSet.PROJECTTYPE_REBUILD)) {
-            progressId = SampleDataSet.PROJECTNAME_REBUILD + "_" + sequence;
+            progressId = SampleDataSet.PROJECTNAME_REBUILD + completedValue + "_" + sequence;
         } else {
-            progressId = SampleDataSet.PROJECTNAME_EXTENSION + "_" + sequence;
+            progressId = SampleDataSet.PROJECTNAME_EXTENSION + completedValue + "_" + sequence;
         }
 
         String progressName = projectName;
@@ -114,7 +116,7 @@ public class ProgressSampleDataGenerator {
         Map<String, Object> properties = generateProgressRandomData(SampleDataSet
                 .FILE_MAINTENANCE_PROJECT, SampleDataSet
                 .PROJECTTYPE_MAINTENANCE, SampleDataSet.PROJECTNAME_MAINTANENCE, DateUtil
-                .getDateTime(startDate).toDate(), 1);
+                .getDateTime(startDate).toDate(), 1, true);
         logger.info("result: {}", properties);
     }
 }
