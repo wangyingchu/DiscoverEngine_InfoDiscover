@@ -123,17 +123,35 @@ public class SolutionTemplateParser {
                     fromProperty = fromPropertyNode.asText();
                 }
 
+                JsonNode fromPrimaryKeyNode = mapping.get(SolutionConstants.JSON_FROM_PRIMARY_KEY);
+                String fromPrimaryKey = "";
+                if (fromPrimaryKeyNode != null) {
+                    fromPrimaryKey = fromPrimaryKeyNode.asText();
+                } else {
+                    fromPrimaryKey = fromProperty;
+                }
+
                 JsonNode toTypeNode = mapping.get(SolutionConstants.JSON_TO_TYPE);
                 String toType = "";
                 if (toTypeNode != null) {
                     toType = toTypeNode.asText();
                 }
+
                 JsonNode toPropertyNode = mapping.get(SolutionConstants
                         .JSON_TO_PROPERTY);
                 String toProperty = "";
                 if (toPropertyNode != null) {
                     toProperty = toPropertyNode.asText();
                 }
+
+                JsonNode toPrimaryKeyNode = mapping.get(SolutionConstants.JSON_TO_PRIMARY_KEY);
+                String toPrimaryKey = "";
+                if (toPrimaryKeyNode != null) {
+                    toPrimaryKey = toPrimaryKeyNode.asText();
+                } else {
+                    toPrimaryKey = toProperty;
+                }
+
                 String relationTypeName = mapping.get(SolutionConstants
                         .JSON_RELATION_TYPE_NAME).asText();
 
@@ -142,8 +160,10 @@ public class SolutionTemplateParser {
                 if (propertyTypeNode != null) {
                     propertyType = propertyTypeNode.asText();
                 }
-                RelationMappingVO vo = new RelationMappingVO(fromType, fromProperty,
-                        toType, toProperty, relationTypeName, propertyType);
+
+                RelationMappingVO vo = new RelationMappingVO(fromType,fromProperty,
+                        fromPrimaryKey,toType,toProperty,toPrimaryKey,relationTypeName,
+                        propertyType);
 
                 list.add(vo);
             }

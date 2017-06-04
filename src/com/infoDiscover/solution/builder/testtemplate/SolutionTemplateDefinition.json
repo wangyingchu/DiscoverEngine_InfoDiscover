@@ -646,8 +646,10 @@
             {
               "relationTypeName": "HAS_USER",
               "fromProperty": "executiveDepartmentId",
+              "fromPrimaryKey":"classificationId",
               "toType": "USER",
               "toProperty": "workerId",
+              "toPrimaryKey": "userId",
               "propertyType": "String"
             }
           ]
@@ -658,50 +660,64 @@
             {
               "relationTypeName": "IS_MEMBER_OF",
               "fromProperty": "biddingAgencyLeader",
+              "fromPrimaryKey": "userName",
               "toType": "COMPANY",
               "toProperty": "biddingAgency",
+              "toPrimaryKey": "companyName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_MEMBER_OF",
               "fromProperty": "consultationCompanyLeader",
+              "fromPrimaryKey": "userName",
               "toType": "COMPANY",
               "toProperty": "projectPlanMakingCompany",
+              "toPrimaryKey": "companyName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_MEMBER_OF",
               "fromProperty": "surveyCompanyLeader",
+              "fromPrimaryKey": "userName",
               "toType": "COMPANY",
               "toProperty": "surveyCompany",
+              "toPrimaryKey": "companyName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_MEMBER_OF",
               "fromProperty": "designCompanyLeader",
+              "fromPrimaryKey": "userName",
               "toType": "COMPANY",
               "toProperty": "designCompany",
+              "toPrimaryKey": "companyName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_MEMBER_OF",
               "fromProperty": "costConsultationCompanyLeader",
+              "fromPrimaryKey": "userName",
               "toType": "COMPANY",
               "toProperty": "costConsultationCompany",
+              "toPrimaryKey": "companyName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_MEMBER_OF",
               "fromProperty": "constructionCompanyLeader",
+              "fromPrimaryKey": "userName",
               "toType": "COMPANY",
               "toProperty": "constructionCompany",
+              "toPrimaryKey": "companyName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_MEMBER_OF",
               "fromProperty": "supervisionCompanyContact",
+              "fromPrimaryKey": "userName",
               "toType": "COMPANY",
               "toProperty": "supervisionCompany",
+              "toPrimaryKey": "companyName",
               "propertyType": "String"
             }
           ]
@@ -712,50 +728,64 @@
             {
               "relationTypeName": "IS_COMPANY_OF",
               "fromProperty": "biddingAgency",
+              "fromPrimaryKey": "companyName",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
+              "toPrimaryKey":"classificationName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_COMPANY_OF",
               "fromProperty": "projectPlanMakingCompany",
+              "fromPrimaryKey": "companyName",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
+              "toPrimaryKey":"classificationName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_COMPANY_OF",
               "fromProperty": "surveyCompany",
+              "fromPrimaryKey": "companyName",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
+              "toPrimaryKey":"classificationName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_COMPANY_OF",
               "fromProperty": "designCompany",
+              "fromPrimaryKey": "companyName",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
+              "toPrimaryKey":"classificationName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_COMPANY_OF",
               "fromProperty": "costConsultationCompany",
+              "fromPrimaryKey": "companyName",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
+              "toPrimaryKey":"classificationName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_COMPANY_OF",
               "fromProperty": "constructionCompany",
+              "fromPrimaryKey": "companyName",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
+              "toPrimaryKey":"classificationName",
               "propertyType": "String"
             },
             {
               "relationTypeName": "IS_COMPANY_OF",
               "fromProperty": "supervisionCompany",
+              "fromPrimaryKey": "companyName",
               "toType": "COMPANY_CLASSIFICATION",
               "toProperty": "companyClassification",
+              "toPrimaryKey":"classificationName",
               "propertyType": "String"
             }
           ]

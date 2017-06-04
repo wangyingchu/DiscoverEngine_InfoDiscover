@@ -67,8 +67,10 @@ public class SolutionConstants {
 
     public static final String JSON_FROM_TYPE = "fromType";
     public static final String JSON_FROM_PROPERTY = "fromProperty";
+    public static final String JSON_FROM_PRIMARY_KEY = "fromPrimaryKey";
     public static final String JSON_TO_TYPE = "toType";
     public static final String JSON_TO_PROPERTY = "toProperty";
+    public static final String JSON_TO_PRIMARY_KEY = "toPrimaryKey";
 
 }
 

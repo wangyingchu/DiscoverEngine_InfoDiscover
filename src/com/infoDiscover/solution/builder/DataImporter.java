@@ -10,6 +10,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 import com.infoDiscover.solution.common.database.DatabaseConnection;
@@ -50,7 +51,7 @@ public class DataImporter {
         if (dataJson != null) {
             for (JsonNode jsonNode : dataJsonNode) {
                 // create or update fact
-                Fact fact = createMeasurable(ids, jsonNode, overwrite);
+                Fact fact = createRelationable(ids, jsonNode, overwrite);
 
                 // link relations
                 if (fact != null) {
@@ -63,7 +64,8 @@ public class DataImporter {
         logger.info("Exit to importData()...");
     }
 
-    public Fact createMeasurable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override) throws
+    public Fact createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override)
+            throws
             Exception {
         String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
 
@@ -131,6 +133,9 @@ public class DataImporter {
 
         // fact to date dimension
         linkFactToDateDimension(ids, parser, rid, factType);
+
+        // link dimensions
+        linkDimensions(ids, parser, fact);
 
         logger.info("Exit addRelation()...");
     }
@@ -411,7 +416,7 @@ public class DataImporter {
 
     private void linkFactToDateDimension(InfoDiscoverSpace ids, SolutionTemplateParser parser,
                                          String rid, String
-            factType) throws Exception {
+                                                 factType) throws Exception {
         Map<String, List<RelationMappingVO>> factToDateDimensionMap = parser
                 .getFactToDateDimension();
 
@@ -426,6 +431,85 @@ public class DataImporter {
                 linkRelation(ids, latestFact, vo, SolutionConstants
                         .JSON_FACT_TO_DATE_DIMENSION_MAPPING);
             }
+        }
+    }
+
+    private void linkDimensions(InfoDiscoverSpace ids, SolutionTemplateParser parser, Fact fact) {
+        Map<String, List<RelationMappingVO>> dimensionToDimensionMap = parser
+                .getDimensionToDimensionMap();
+
+        List<String> propertyNamesList = fact.getPropertyNames();
+
+        Set<String> keySet = dimensionToDimensionMap.keySet();
+        Iterator<String> it = keySet.iterator();
+        while (it.hasNext()) {
+            String fromDimensionType = it.next();
+            List<RelationMappingVO> list = dimensionToDimensionMap.get(fromDimensionType);
+            for (RelationMappingVO vo : list) {
+                String fromProperty = vo.getFromProperty();
+                String toProperty = vo.getToProperty();
+
+                if (propertyNamesList.contains(fromProperty) && propertyNamesList.contains
+                        (toProperty)) {
+                    Object fromPropertyValue = fact.getProperty(fromProperty).getPropertyValue();
+                    Object toPropertyValue = fact.getProperty(toProperty).getPropertyValue();
+
+                    linkDimensions(ids, vo, fromPropertyValue, toPropertyValue);
+                }
+            }
+        }
+
+
+    }
+
+    private void linkDimensions(InfoDiscoverSpace ids, RelationMappingVO vo,
+                                Object fromPropertyValue, Object toPropertyValue) {
+
+        String fromDimensionType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
+        String toDimensionType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getToType());
+        String relationType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getRelationTypeName());
+
+        // check if the dimension type is existed
+        try {
+            if (!ids.hasDimensionType(fromDimensionType)) {
+                ids.addDimensionType(fromDimensionType);
+            }
+
+            if (!ids.hasDimensionType(toDimensionType)) {
+                ids.addDimensionType(toDimensionType);
+            }
+
+        } catch (InfoDiscoveryEngineDataMartException e) {
+            logger.error("Failed to create dimension/relation type: {}", e.getMessage());
+        }
+
+        ExploreParameters fromEp = constructEqualExploreParameters(fromDimensionType, vo
+                .getFromPrimaryKey(), fromPropertyValue);
+        Dimension fromDimension = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer
+                (), fromEp);
+
+        DimensionManager manager = new DimensionManager(ids);
+        if (fromDimension == null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put(vo.getFromPrimaryKey(), fromPropertyValue);
+            fromDimension = manager.createDimension(fromDimensionType, map);
+        }
+
+        ExploreParameters toEp = constructEqualExploreParameters(toDimensionType, vo
+                .getToPrimaryKey(), toPropertyValue);
+        Dimension toDimension = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(),
+                toEp);
+        if (toDimension == null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put(vo.getToPrimaryKey(), toPropertyValue);
+            toDimension = manager.createDimension(toDimensionType, map);
+        }
+
+        //
+        RelationshipManager relationshipManager = new RelationshipManager(ids);
+        if (!relationshipManager.isDirectlyLinked(fromDimension, toDimension, relationType)) {
+            relationshipManager.linkDimensionsByRelationType(fromDimension, toDimension,
+                    relationType);
         }
     }
 }

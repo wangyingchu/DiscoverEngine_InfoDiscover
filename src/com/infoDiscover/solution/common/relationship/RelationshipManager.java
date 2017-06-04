@@ -5,15 +5,20 @@ import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
+import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBDimensionImpl;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.path.OrientDBShortestPath;
+import com.tinkerpop.blueprints.Direction;
+import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
 import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 import org.slf4j.Logger;
@@ -50,6 +55,20 @@ public class RelationshipManager {
         }
 
         return ids.attachFactToDimension(factId, dimension.getId(), relationType);
+    }
+
+    public boolean isDirectlyLinked(Dimension fromDimension, Dimension
+            toDimension, String relationType) {
+
+        String relationTypeClassName = InfoDiscoverEngineConstant.CLASSPERFIX_RELATION +
+                relationType;
+
+        OrientVertex fromVertex = ((OrientDBDimensionImpl) fromDimension).getDimensionVertex();
+        OrientVertex toVertex = ((OrientDBDimensionImpl) toDimension).getDimensionVertex();
+
+        Iterable<Edge> edgeIterator = fromVertex.getEdges(toVertex, Direction.OUT,
+                relationTypeClassName);
+        return edgeIterator.iterator().hasNext();
     }
 
     public Relation linkFactToDimension(Fact fromFact,
