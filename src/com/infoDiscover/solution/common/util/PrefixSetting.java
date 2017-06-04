@@ -23,6 +23,12 @@ public class PrefixSetting {
         return prefixMap;
     }
 
+    public static String prefix;
+
+    static {
+        prefix = getPrefixMap().get(PREFIX).toString();
+    }
+
     public void setPrefixMap(String prefix) {
         prefixMap.put(PREFIX, normalizePrefix(prefix));
     }

@@ -7,7 +7,7 @@ import com.infoDiscover.solution.builder.SolutionConstants;
  */
 public class TestConstants {
     public static final String spaceName = "TEST_SOLUTION";
-    public static final String prefix = "Test2_";
+    public static final String prefix = "ZHUHAI_";
     public static final String factType = SolutionConstants.FACT_TYPE_SOLUTION_TEMPLATE;
 
     public static final String testDataRoot =

@@ -28,11 +28,12 @@ public class SolutionTemplateParser {
         this.prefix = prefix;
     }
 
+    private static Map<String, Fact> templateFactMap = new HashMap<>();
+
     private Map<String, List<RelationMappingVO>> factToDimensionMap = new HashMap<>();
     private Map<String, List<RelationMappingVO>> factToFactMap = new HashMap<>();
     private Map<String, List<RelationMappingVO>> dimensionToDimensionMap = new HashMap<>();
     private Map<String, List<RelationMappingVO>> factToDateDimension = new HashMap<>();
-
 
     public Map<String, List<RelationMappingVO>> getFactToDimensionMap() {
         init();
@@ -53,16 +54,24 @@ public class SolutionTemplateParser {
         return factToDateDimension;
     }
 
+    public Map<String, Fact> getTemplateFactMap() {
+        if(templateFactMap == null || templateFactMap.isEmpty()) {
+            SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName,prefix);
+            Fact templateFact = builder.getSolutionTemplateByPrefix(prefix);
+            templateFactMap.put(prefix, templateFact);
+        }
+
+        return templateFactMap;
+    }
+
     public void init() {
         parseRelationMapping();
     }
 
     private void parseRelationMapping() {
-        logger.info("Enter to getFactToDimensionMapping");
+        logger.info("Enter to parseRelationMapping");
 
-        SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName,prefix);
-
-        Fact templateFact = builder.getSolutionTemplateByPrefix(prefix);
+        Fact templateFact = getTemplateFactMap().get(prefix);
 
         if (templateFact == null) {
             return;
@@ -92,7 +101,7 @@ public class SolutionTemplateParser {
         this.dimensionToDimensionMap = getRelationMappingList(dimensionToDimensionNode);
         this.factToDateDimension = getRelationMappingList(factToDateDimensionNode);
 
-        logger.info("Exit getFactToDimensionMapping()...");
+        logger.info("Exit parseRelationMapping()...");
     }
 
     public Map<String, List<RelationMappingVO>> getRelationMappingList(

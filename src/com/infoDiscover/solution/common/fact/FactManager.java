@@ -41,7 +41,7 @@ public class FactManager {
             fact.addProperties(properties);
             return fact;
         } catch (InfoDiscoveryEngineRuntimeException e) {
-            e.printStackTrace();
+            logger.error("Failed to create fact: {}", e.getMessage());
         }
 
         logger.debug("Exit createFact()...");

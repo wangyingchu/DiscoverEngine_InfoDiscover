@@ -5,7 +5,7 @@ import com.infoDiscover.solution.builder.SolutionGenerator;
 /**
  * Created by sun.
  */
-public class TestSolutionTemplateGenerator {
+public class TestSolutionGenerator {
 
     public static void main(String[] args) throws Exception {
 
