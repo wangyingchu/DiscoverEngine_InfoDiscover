@@ -1121,317 +1121,317 @@
                             "propertyType": "String"
                         },
                         {
-                            "propertyName": "M_quote_BlackMetal",
+                            "propertyName": "M_cc_BlackMetal",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_NonferrousMetals",
+                            "propertyName": "M_cc_NonferrousMetals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConstructionMaterials",
+                            "propertyName": "M_cc_ConstructionMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_ConcreteAndAdmixture",
+                            "propertyName": "M_cc_ConcreteAndAdmixture",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DoorsAndWindows",
+                            "propertyName": "M_cc_DoorsAndWindows",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingHardware",
+                            "propertyName": "M_cc_BuildingHardware",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingGlass",
+                            "propertyName": "M_cc_BuildingGlass",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_BuildingStructures",
+                            "propertyName": "M_cc_BuildingStructures",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Paint",
+                            "propertyName": "M_cc_Paint",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_TIMaterials",
+                            "propertyName": "M_cc_TIMaterials",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_WPMaterial",
+                            "propertyName": "M_cc_WPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FPMaterial",
+                            "propertyName": "M_cc_FPMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_VAndAC",
+                            "propertyName": "M_cc_VAndAC",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_KWD",
+                            "propertyName": "M_cc_KWD",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Pipiline",
+                            "propertyName": "M_cc_Pipiline",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Electric",
+                            "propertyName": "M_cc_Electric",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_OilsAndChemicals",
+                            "propertyName": "M_cc_OilsAndChemicals",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_DecorativeMaterial",
+                            "propertyName": "M_cc_DecorativeMaterial",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_GeneralEquipment",
+                            "propertyName": "M_cc_GeneralEquipment",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_FireControl",
+                            "propertyName": "M_cc_FireControl",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_IntelligentBuilding",
+                            "propertyName": "M_cc_IntelligentBuilding",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "M_quote_Landscape",
+                            "propertyName": "M_cc_Landscape",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_Earthwork",
+                            "propertyName": "BE_cc_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FTAndSSE",
+                            "propertyName": "BE_cc_FTAndSSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PFE",
+                            "propertyName": "BE_cc_PFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ME",
+                            "propertyName": "BE_cc_ME",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CRCE",
+                            "propertyName": "BE_cc_CRCE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_MSE",
+                            "propertyName": "BE_cc_MSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WSE",
+                            "propertyName": "BE_cc_WSE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DoorE",
+                            "propertyName": "BE_cc_DoorE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_RWFE",
+                            "propertyName": "BE_cc_RWFE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_ITIAE",
+                            "propertyName": "BE_cc_ITIAE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_FDE",
+                            "propertyName": "BE_cc_FDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_WCDPCWE",
+                            "propertyName": "BE_cc_WCDPCWE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_CeilingWorks",
+                            "propertyName": "BE_cc_CeilingWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_PaintE",
+                            "propertyName": "BE_cc_PaintE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_OtherDecorationWorks",
+                            "propertyName": "BE_cc_OtherDecorationWorks",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "BE_quote_DemolitionProject",
+                            "propertyName": "BE_cc_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_Earthwork",
+                            "propertyName": "ME_cc_Earthwork",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_RoadE",
+                            "propertyName": "ME_cc_RoadE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_BridgeE",
+                            "propertyName": "ME_cc_BridgeE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_TunnelE",
+                            "propertyName": "ME_cc_TunnelE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_PipelineE",
+                            "propertyName": "ME_cc_PipelineE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_WTE",
+                            "propertyName": "ME_cc_WTE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_GDE",
+                            "propertyName": "ME_cc_GDE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_SLE",
+                            "propertyName": "ME_cc_SLE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_ReinforcementE",
+                            "propertyName": "ME_cc_ReinforcementE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "ME_quote_DemolitionProject",
+                            "propertyName": "ME_cc_DemolitionProject",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MEIE",
+                            "propertyName": "GIE_cc_MEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_TEIE",
+                            "propertyName": "GIE_cc_TEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_MSAEIE",
+                            "propertyName": "GIE_cc_MSAEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_EEIE",
+                            "propertyName": "GIE_cc_EEIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IBE",
+                            "propertyName": "GIE_cc_IBE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_ACIIE",
+                            "propertyName": "GIE_cc_ACIIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_VAndACE",
+                            "propertyName": "GIE_cc_VAndACE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_IPE",
+                            "propertyName": "GIE_cc_IPE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_FireE",
+                            "propertyName": "GIE_cc_FireE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_WSDGE",
+                            "propertyName": "GIE_cc_WSDGE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_CELE",
+                            "propertyName": "GIE_cc_CELE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "GIE_quote_BACIE",
+                            "propertyName": "GIE_cc_BACIE",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_LP",
+                            "propertyName": "LP_cc_LP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_GRAndBP",
+                            "propertyName": "LP_cc_GRAndBP",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         },
                         {
-                            "propertyName": "LP_quote_Garden",
+                            "propertyName": "LP_cc_Garden",
                             "propertyValue": 0,
                             "propertyType": "Double"
                         }
