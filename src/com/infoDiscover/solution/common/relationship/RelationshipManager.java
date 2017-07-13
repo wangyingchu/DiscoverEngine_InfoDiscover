@@ -5,7 +5,10 @@ import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
+import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBDimensionImpl;
+import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBFactImpl;
+import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBRelationableImpl;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
@@ -68,6 +71,19 @@ public class RelationshipManager {
 
         Iterable<Edge> edgeIterator = fromVertex.getEdges(toVertex, Direction.OUT,
                 relationTypeClassName);
+        return edgeIterator.iterator().hasNext();
+    }
+
+    public Iterable<Edge> getRelationByType(Dimension dimension, Direction direction,String relationType) {
+        OrientVertex fromVertex = ((OrientDBDimensionImpl) dimension).getDimensionVertex();
+        Iterable<Edge> edgeIterable = fromVertex.getEdges(direction, relationType);
+        return edgeIterable;
+    }
+
+    public boolean isDimenstionLinkedToFact(Dimension fromDimension, Fact toFact, Direction direction, String relationType) {
+        OrientVertex fromVertex = ((OrientDBDimensionImpl) fromDimension).getDimensionVertex();
+        OrientVertex toVertex = ((OrientDBFactImpl) toFact).getFactVertex();
+        Iterable<Edge> edgeIterator = fromVertex.getEdges(toVertex, Direction.IN, relationType);
         return edgeIterator.iterator().hasNext();
     }
 

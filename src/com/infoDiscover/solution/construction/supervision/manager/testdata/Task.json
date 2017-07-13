@@ -107,6 +107,26 @@
         "propertyName": "latitude",
         "propertyValue": 113.491115,
         "propertyType": "Double"
+      },
+      {
+        "propertyName": "data1",
+        "propertyValue": "data1",
+        "propertyType": "String"
+      },
+      {
+        "propertyName": "data2",
+        "propertyValue": 113.491115,
+        "propertyType": "Double"
+      },
+      {
+        "propertyName": "data3",
+        "propertyValue": 1100,
+        "propertyType": "Int"
+      },
+      {
+        "propertyName": "data4",
+        "propertyValue": 11000000,
+        "propertyType": "Int"
       }
     ]
   }

@@ -245,13 +245,12 @@ public class DataImporter {
         String projectJson = FileUtil.readFileContent(projectFile);
 
         try {
-
             importer.importProject(projectJson);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // create a project
+        // create a task
         String taskFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com" +
                 "/infoDiscover/solution/construction/supervision/manager/testdata/Task.json";
         String taskJson = FileUtil.readFileContent(taskFile);
