@@ -3,6 +3,7 @@ package com.infoDiscover.common.dimension.time;
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.common.util.DateUtil;
+import com.infoDiscover.solution.common.util.PrefixSetting;
 import org.joda.time.DateTime;
 
 import java.util.Date;
@@ -18,8 +19,10 @@ public class DayDimensionManager {
         int year = dateTime.getYear();
         int month = dateTime.getMonthOfYear();
         int day = dateTime.getDayOfMonth();
-        DayDimensionVO dayDimension = new DayDimensionVO(factTypePrefix +
-                TimeDimensionConstants.DAY, year, month, day);
+        DayDimensionVO dayDimension = new DayDimensionVO(
+                PrefixSetting.getFactTypeWithPrefix(factTypePrefix, TimeDimensionConstants.DAY),
+                year, month, day);
+
         return dayDimension;
     }
 

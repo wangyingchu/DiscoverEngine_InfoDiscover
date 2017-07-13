@@ -30,7 +30,7 @@ public class Initializer {
         logger.info("Step 1: initialize time dimension type");
         try {
             TimeDimensionGenerator.initTimeDimensionType(ids, prefix);
-            logger.info("Step 2: end to initialize time dimension type with prefix: {}",
+            logger.info("Step 1: end to initialize time dimension type with prefix: {}",
                     prefix);
         } catch (InfoDiscoveryEngineDataMartException e) {
             logger.error("Failed to initialize time dimension type");
