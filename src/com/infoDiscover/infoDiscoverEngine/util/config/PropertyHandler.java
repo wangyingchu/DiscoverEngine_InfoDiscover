@@ -19,6 +19,7 @@ public class PropertyHandler {
     public static String DISCOVER_SPACE_DATABASE_TYPE = "DISCOVER_SPACE_DATABASE_TYPE";
     public static String DISCOVER_SPACE_STORAGE_MODE = "DISCOVER_SPACE_STORAGE_MODE";
     public static String DISCOVER_DEFAULT_PREFIX = "DEFAULT_PREFIX";
+    public static String META_CONFIG_DISCOVERSPACE = "META_CONFIG_DISCOVERSPACE";
 
     public static String getPropertyValue(String propertyName) {
         String InfoDiscoverEngine_Home = System.getenv("INFODISCOVER_HOME");

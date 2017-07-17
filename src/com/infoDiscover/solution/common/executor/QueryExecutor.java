@@ -22,17 +22,24 @@ public class QueryExecutor {
         return result;
     }
 
-    public static Fact executeFactQuery(InformationExplorer ie, ExploreParameters ep) {
+    public static List<Fact> executeFactsQuery(InformationExplorer ie, ExploreParameters ep) {
         try {
             List<Fact> facts = ie.discoverFacts(ep);
-            if (facts != null && facts.size() > 0) {
-                return facts.get(0);
-            }
-            return null;
+            return  facts;
         } catch (InfoDiscoveryEngineRuntimeException e) {
             e.printStackTrace();
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Fact executeFactQuery(InformationExplorer ie, ExploreParameters ep) {
+
+        List<Fact> facts = executeFactsQuery(ie, ep);
+        if (facts != null && facts.size() > 0) {
+            return facts.get(0);
         }
 
         return null;

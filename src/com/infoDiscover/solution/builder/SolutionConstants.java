@@ -13,6 +13,14 @@ public class SolutionConstants {
 
     // solution template file name
     public static final String SOLUTION_TEMPLATE_FILE_NAME = "SolutionTemplateDefinition";
+    public static final String SOLUTION_TEMPLATE_FACT_TYPE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TYPES" + ".json";
+    public static final String SOLUTION_TEMPLATE_DIMENSION_TYPE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_DIMENSION_TYPES" + ".json";
+    public static final String SOLUTION_TEMPLATE_RELATION_TYPE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_RELATION_TYPES" + ".json";
+    public static final String SOLUTION_TEMPLATE_FACT_TO_FACT_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TO_FACT_MAPPINGS" + ".json";
+    public static final String SOLUTION_TEMPLATE_FACT_TO_DIMENSION_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TO_DIMENSION_MAPPINGS" + ".json";
+    public static final String SOLUTION_TEMPLATE_DIMENSION_TO_DIMENSION_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_DIMENSION_TO_DIMENSION_MAPPINGS" + ".json";
+    public static final String SOLUTION_TEMPLATE_FACT_TO_DATE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TO_DATE_MAPPINGS" + ".json";
+
     public static final String SOLUTION_TEMPLATE_JSON_FILE = SOLUTION_TEMPLATE_FILE_NAME + ".json";
 
     // fact properties
@@ -46,7 +54,7 @@ public class SolutionConstants {
     public static final String JSON_PREFIX = "prefix";
     public static final String JSON_FACTS = "facts";
     public static final String JSON_DIMENSIONS = "dimensions";
-    public static final String JSON_PROPERTIES= "properties";
+    public static final String JSON_PROPERTIES = "properties";
     public static final String JSON_PROPERTY_NAME = "propertyName";
     public static final String JSON_PROPERTY_VALUE = "propertyValue";
     public static final String JSON_PROPERTY_TYPE = "propertyType";

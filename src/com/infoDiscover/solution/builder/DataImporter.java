@@ -144,10 +144,10 @@ public class DataImporter {
             mappingType)
             throws Exception {
 
-        String fromType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
-        String fromProperty = vo.getFromProperty();
-        String toType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getToType());
-        String toProperty = vo.getToProperty();
+        String fromType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getSourceDataTypeName());
+        String fromProperty = vo.getSourceDataPropertyName();
+        String toType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getTargetDataPropertyType());
+        String toProperty = vo.getTargetDataPropertyName();
         String relationType = PrefixSetting.getFactTypeWithPrefix(prefix, vo
                 .getRelationTypeName());
         String propertyType = vo.getPropertyType();
@@ -446,8 +446,8 @@ public class DataImporter {
             String fromDimensionType = it.next();
             List<RelationMappingVO> list = dimensionToDimensionMap.get(fromDimensionType);
             for (RelationMappingVO vo : list) {
-                String fromProperty = vo.getFromProperty();
-                String toProperty = vo.getToProperty();
+                String fromProperty = vo.getSourceDataPropertyName();
+                String toProperty = vo.getTargetDataPropertyName();
 
                 if (propertyNamesList.contains(fromProperty) && propertyNamesList.contains
                         (toProperty)) {
@@ -465,8 +465,8 @@ public class DataImporter {
     private void linkDimensions(InfoDiscoverSpace ids, RelationMappingVO vo,
                                 Object fromPropertyValue, Object toPropertyValue) {
 
-        String fromDimensionType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getFromType());
-        String toDimensionType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getToType());
+        String fromDimensionType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getSourceDataTypeName());
+        String toDimensionType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getTargetDataPropertyType());
         String relationType = PrefixSetting.getFactTypeWithPrefix(prefix, vo.getRelationTypeName());
 
         // check if the dimension type is existed
@@ -484,24 +484,24 @@ public class DataImporter {
         }
 
         ExploreParameters fromEp = constructEqualExploreParameters(fromDimensionType, vo
-                .getFromPrimaryKey(), fromPropertyValue);
+                .getSourcePrimaryKey(), fromPropertyValue);
         Dimension fromDimension = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer
                 (), fromEp);
 
         DimensionManager manager = new DimensionManager(ids);
         if (fromDimension == null) {
             Map<String, Object> map = new HashMap<>();
-            map.put(vo.getFromPrimaryKey(), fromPropertyValue);
+            map.put(vo.getSourcePrimaryKey(), fromPropertyValue);
             fromDimension = manager.createDimension(fromDimensionType, map);
         }
 
         ExploreParameters toEp = constructEqualExploreParameters(toDimensionType, vo
-                .getToPrimaryKey(), toPropertyValue);
+                .getTargetPrimaryKey(), toPropertyValue);
         Dimension toDimension = QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(),
                 toEp);
         if (toDimension == null) {
             Map<String, Object> map = new HashMap<>();
-            map.put(vo.getToPrimaryKey(), toPropertyValue);
+            map.put(vo.getTargetPrimaryKey(), toPropertyValue);
             toDimension = manager.createDimension(toDimensionType, map);
         }
 

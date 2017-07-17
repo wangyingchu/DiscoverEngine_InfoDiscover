@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -31,7 +32,28 @@ public class CompressionUtil {
         out.close();
     }
 
-    public static String unzip(String filePath) throws Exception {
+    public static void zip(String zipFileName, Map<String, String> files)
+            throws Exception {
+        logger.info("Start to zip with files: {} to zipFileName: {}", files, zipFileName);
+
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(
+                zipFileName));
+        Set<String> keys = files.keySet();
+        Iterator<String> it = keys.iterator();
+
+        while (it.hasNext()) {
+            String file = it.next();
+            String input = files.get(file);
+            out.putNextEntry(new ZipEntry(file));
+            out.write(input.getBytes());
+        }
+
+        logger.info("zip completed.");
+
+        out.close();
+    }
+
+    public static String unzip(String filePath, String fileName) throws Exception {
         logger.info("Start to unzip file: {}", filePath);
 
         String content = "";
@@ -46,10 +68,10 @@ public class CompressionUtil {
             } else {
                 String name = zipEntry.getName();
                 logger.info("file in zipped file: {}", name);
-                if (SolutionConstants.SOLUTION_TEMPLATE_JSON_FILE.equalsIgnoreCase(name)) {
+                if (fileName.equalsIgnoreCase(name)) {
                     content = FileUtil.inputStreamToString(zipInputStream, 4096, "UTF-8");
                 } else {
-                    throw new IOException("This is not a solution template file: " + name);
+                    return null;
                 }
 
             }
@@ -58,4 +80,27 @@ public class CompressionUtil {
         return content;
     }
 
+    public static Map<String, String> unzip(String filePath) throws Exception {
+        logger.info("Start to unzip file: {}", filePath);
+
+        Map<String, String> filesMap = new HashMap<>();
+
+        InputStream inputStream = new FileInputStream(new File(filePath));
+        ZipInputStream zipInputStream = new ZipInputStream(inputStream);
+
+        ZipEntry zipEntry;
+        while ((zipEntry = zipInputStream.getNextEntry()) != null) {
+            if (zipEntry.isDirectory()) {
+                // TODO: to implement
+                return filesMap;
+            } else {
+                String name = zipEntry.getName();
+                logger.info("file in zipped file: {}", name);
+                String content = FileUtil.inputStreamToString(zipInputStream, 4096, "UTF-8");
+                filesMap.put(name, content);
+            }
+        }
+
+        return filesMap;
+    }
 }

@@ -122,7 +122,7 @@ public class JsonNodeUtil {
     }
 
     public static JsonNode string2JsonNode(String jsonStr)
-            throws JsonProcessingException, IOException {
+            throws IOException {
         ObjectMapper objMapper = new ObjectMapper();
         return objMapper.readTree(jsonStr);
     }

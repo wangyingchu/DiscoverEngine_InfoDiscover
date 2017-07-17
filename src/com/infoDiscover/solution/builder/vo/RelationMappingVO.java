@@ -4,42 +4,56 @@ package com.infoDiscover.solution.builder.vo;
  * Created by sun.
  */
 public class RelationMappingVO {
-    private String fromType;
-    private String fromProperty;
-    private String fromPrimaryKey;
-    private String toType;
-    private String toProperty;
-    private String toPrimaryKey;
+
+    private String sourceDataTypeKind;
+    private String sourceDataTypeName;
+    private String sourceDataPropertyName;
+    private String sourceDataPropertyType;
+    private String sourcePrimaryKey;
+
+    private String targetDataTypeKind;
+    private String targetDataTypeName;
+    private String targetDataPropertyName;
+    private String targetDataPropertyType;
+    private String targetPrimaryKey;
+
     private String relationTypeName;
+    private String relationDirection;
+
+    private String minValue;
+    private String maxValue;
+
+    private String mappingNotExistHandleMethod;
+
     private String propertyType;
 
-    public RelationMappingVO(String fromType, String fromProperty, String fromPrimaryKey, String
-            toType, String toProperty, String toPrimaryKey, String relationTypeName, String
+    public RelationMappingVO(String sourceDataTypeName, String sourceDataPropertyName, String sourcePrimaryKey, String
+            targetDataPropertyType, String targetDataPropertyName, String targetPrimaryKey, String relationTypeName, String
             propertyType) {
-        this.fromType = fromType;
-        this.fromProperty = fromProperty;
-        this.fromPrimaryKey = fromPrimaryKey;
-        this.toType = toType;
-        this.toProperty = toProperty;
-        this.toPrimaryKey = toPrimaryKey;
+        this.sourceDataTypeName = sourceDataTypeName;
+        this.sourceDataPropertyName = sourceDataPropertyName;
+        this.sourcePrimaryKey = sourcePrimaryKey;
+        this.targetDataPropertyType = targetDataPropertyType;
+        this.targetDataPropertyName = targetDataPropertyName;
+        this.targetPrimaryKey = targetPrimaryKey;
         this.relationTypeName = relationTypeName;
         this.propertyType = propertyType;
     }
 
-    public String getFromType() {
-        return fromType;
+    public String getSourceDataTypeName() {
+        return sourceDataTypeName;
     }
 
-    public String getFromProperty() {
-        return fromProperty;
+    public String getSourceDataPropertyName() {
+        return sourceDataPropertyName;
     }
 
-    public String getToType() {
-        return toType;
+    public String getTargetDataPropertyType() {
+        return targetDataPropertyType;
     }
 
-    public String getToProperty() {
-        return toProperty;
+    public String getTargetDataPropertyName() {
+        return targetDataPropertyName;
     }
 
     public String getRelationTypeName() {
@@ -50,11 +64,11 @@ public class RelationMappingVO {
         return propertyType;
     }
 
-    public String getFromPrimaryKey() {
-        return fromPrimaryKey;
+    public String getSourcePrimaryKey() {
+        return sourcePrimaryKey;
     }
 
-    public String getToPrimaryKey() {
-        return toPrimaryKey;
+    public String getTargetPrimaryKey() {
+        return targetPrimaryKey;
     }
 }

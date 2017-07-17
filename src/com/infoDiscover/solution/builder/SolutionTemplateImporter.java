@@ -51,7 +51,7 @@ public class SolutionTemplateImporter {
         logger.info("Start to importSolutionTemplateWithZipped to space: {} with prefix: {} and " +
                 "zippedFile: {} and overwrite is: {}", spaceName, prefix, zippedFile, overwrite);
 
-        String templateJson = CompressionUtil.unzip(zippedFile);
+        String templateJson = CompressionUtil.unzip(zippedFile,SolutionConstants.SOLUTION_TEMPLATE_JSON_FILE);
         logger.debug("templateJson: {}", templateJson);
 
         SolutionTemplateBuilder builder = new SolutionTemplateBuilder(spaceName, prefix);
