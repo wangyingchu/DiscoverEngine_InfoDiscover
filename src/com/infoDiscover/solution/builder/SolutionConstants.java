@@ -13,13 +13,15 @@ public class SolutionConstants {
 
     // solution template file name
     public static final String SOLUTION_TEMPLATE_FILE_NAME = "SolutionTemplateDefinition";
+    public static final String SOLUTION_TEMPLATE_SOLUTION_DEFINITION = SOLUTION_TEMPLATE_FILE_NAME + "_SOLUTION_DEFINITION" + ".json";
     public static final String SOLUTION_TEMPLATE_FACT_TYPE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TYPES" + ".json";
     public static final String SOLUTION_TEMPLATE_DIMENSION_TYPE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_DIMENSION_TYPES" + ".json";
     public static final String SOLUTION_TEMPLATE_RELATION_TYPE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_RELATION_TYPES" + ".json";
     public static final String SOLUTION_TEMPLATE_FACT_TO_FACT_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TO_FACT_MAPPINGS" + ".json";
     public static final String SOLUTION_TEMPLATE_FACT_TO_DIMENSION_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TO_DIMENSION_MAPPINGS" + ".json";
     public static final String SOLUTION_TEMPLATE_DIMENSION_TO_DIMENSION_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_DIMENSION_TO_DIMENSION_MAPPINGS" + ".json";
-    public static final String SOLUTION_TEMPLATE_FACT_TO_DATE_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_FACT_TO_DATE_MAPPINGS" + ".json";
+    public static final String SOLUTION_TEMPLATE_DIMENSION_TO_FACT_FILE_NAME = SOLUTION_TEMPLATE_FILE_NAME + "_DIMENSION_TO_FACT_MAPPINGS" + ".json";
+    public static final String SOLUTION_TEMPLATE_SOLUTION_TYPE_PROPERTY_TYPE = SOLUTION_TEMPLATE_FILE_NAME + "_SOLUTION_TYPE_PROPERTY_TYPE" + ".json";
 
     public static final String SOLUTION_TEMPLATE_JSON_FILE = SOLUTION_TEMPLATE_FILE_NAME + ".json";
 
@@ -69,9 +71,11 @@ public class SolutionConstants {
     public static final String JSON_RELATIONS = "relations";
     public static final String JSON_RELATION_TYPE_NAME = "relationTypeName";
     public static final String JSON_FACT_TO_DIMENSION_MAPPING = "factToDimension";
+    public static final String JSON_DIMENSION_TO_FACT_MAPPING = "dimensionToFact";
     public static final String JSON_FACT_TO_FACT_MAPPING = "factToFact";
     public static final String JSON_DIMENSION_TO_DIMENSION_MAPPING = "dimensionToDimension";
     public static final String JSON_FACT_TO_DATE_DIMENSION_MAPPING = "factToDateDimension";
+    public static final String JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING = "dimensionToDateDimension";
 
     public static final String JSON_FROM_TYPE = "fromType";
     public static final String JSON_FROM_PROPERTY = "fromProperty";

@@ -74,16 +74,11 @@ public class RelationshipManager {
         return edgeIterator.iterator().hasNext();
     }
 
-    public Iterable<Edge> getRelationByType(Dimension dimension, Direction direction,String relationType) {
-        OrientVertex fromVertex = ((OrientDBDimensionImpl) dimension).getDimensionVertex();
-        Iterable<Edge> edgeIterable = fromVertex.getEdges(direction, relationType);
-        return edgeIterable;
-    }
 
-    public boolean isDimenstionLinkedToFact(Dimension fromDimension, Fact toFact, Direction direction, String relationType) {
-        OrientVertex fromVertex = ((OrientDBDimensionImpl) fromDimension).getDimensionVertex();
-        OrientVertex toVertex = ((OrientDBFactImpl) toFact).getFactVertex();
-        Iterable<Edge> edgeIterator = fromVertex.getEdges(toVertex, Direction.IN, relationType);
+    public boolean isTwoRelationablesLinked(Relationable fromRelationable, Relationable toRelationable, Direction direction, String relationType) {
+        OrientVertex fromVertex = ((OrientDBRelationableImpl) fromRelationable).getRelationVertex();
+        OrientVertex toVertex = ((OrientDBRelationableImpl) toRelationable).getRelationVertex();
+        Iterable<Edge> edgeIterator = fromVertex.getEdges(toVertex, direction, relationType);
         return edgeIterator.iterator().hasNext();
     }
 

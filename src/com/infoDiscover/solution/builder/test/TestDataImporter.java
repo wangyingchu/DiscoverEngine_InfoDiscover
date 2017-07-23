@@ -1,7 +1,7 @@
 package com.infoDiscover.solution.builder.test;
 
 import com.infoDiscover.common.util.FileUtil;
-import com.infoDiscover.solution.builder.DataImporter;
+import com.infoDiscover.solution.builder.DataImporter_2;
 import com.infoDiscover.solution.common.util.PrefixSetting;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class TestDataImporter {
         String json = FileUtil.readFileContent(testDataFile);
 
         String prefix = PrefixSetting.prefix;
-        DataImporter importData = new DataImporter(TestConstants.spaceName, prefix);
+        DataImporter_2 importData = new DataImporter_2(TestConstants.spaceName, prefix);
         try {
             importData.importData(json, true);
         } catch (Exception e) {

@@ -30,13 +30,13 @@ import java.util.*;
 /**
  * Created by sun.
  */
-public class DataImporter {
-    private final static Logger logger = LoggerFactory.getLogger(DataImporter.class);
+public class DataImporter_2 {
+    private final static Logger logger = LoggerFactory.getLogger(DataImporter_2.class);
 
     private String spaceName;
     private String prefix;
 
-    public DataImporter(String spaceName, String prefix) {
+    public DataImporter_2(String spaceName, String prefix) {
         this.spaceName = spaceName;
         this.prefix = prefix;
     }
@@ -225,7 +225,7 @@ public class DataImporter {
                     }
 
                 } else if (DataTypeChecker.isDateType(propertyType)) {
-                    DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
+                    DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVOWithPrefix
                             (prefix, (Date) propertyValue);
                     relationshipManager.linkFactToDateDimension(prefix, fact, dayDimensionVO,
                             relationType);
@@ -270,7 +270,7 @@ public class DataImporter {
 
             } else if (mappingType.equalsIgnoreCase(SolutionConstants
                     .JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
-                DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
+                DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVOWithPrefix
                         (prefix, (Date) propertyValue);
                 relationshipManager.linkFactToDateDimension(prefix, fact, dayDimensionVO,
                         relationType);

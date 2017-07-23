@@ -115,14 +115,14 @@ public class TaskManager {
                     relationshipManager);
 
             // link startDate to task
-            DayDimensionVO dayDimension = DayDimensionManager.getDayDimensionVO(DatabaseConstants
+            DayDimensionVO dayDimension = DayDimensionManager.getDayDimensionVOWithPrefix(DatabaseConstants
                     .SOLUTION_PREFIX, (Date) properties.get(JsonConstants.JSON_START_DATE));
             relationManager.attachTimeToTask(taskFact, dayDimension, ProgressConstants
                     .RELATIONTYPE_STARTAT_WITHPREFIX);
 
             // link endDate to task
             if (properties.get(JsonConstants.JSON_END_DATE) != null) {
-                dayDimension = DayDimensionManager.getDayDimensionVO(DatabaseConstants
+                dayDimension = DayDimensionManager.getDayDimensionVOWithPrefix(DatabaseConstants
                                 .SOLUTION_PREFIX,
                         (Date) properties.get(JsonConstants.JSON_END_DATE));
                 relationManager.attachTimeToTask(taskFact, dayDimension, ProgressConstants

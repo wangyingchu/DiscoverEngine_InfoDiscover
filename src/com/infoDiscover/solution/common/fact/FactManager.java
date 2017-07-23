@@ -117,4 +117,17 @@ public class FactManager {
 
         return null;
     }
+
+    public Relationable getRelationableByRID(String rid, String factType) {
+        String sql = "select from " + PrefixSetting.getFactTypeWithPrefix
+                (InfoDiscoverEngineConstant.CLASSPERFIX_FACT , factType) + " WHERE @rid = " + rid;
+
+        List<Relationable> list = QueryExecutor.executeFactQuery(ids, sql);
+        if (list!= null && list.size() > 0) {
+            return list.get(0);
+        }
+
+        return null;
+    }
+
 }

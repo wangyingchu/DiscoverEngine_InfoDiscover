@@ -14,7 +14,7 @@ public class TemplateImporterTest {
         TemplateImporter importer=new TemplateImporter(metaSpace,solutionName);
 
         try {
-            importer.importSolutionTemplateWithZipped("/Users/sun/Desktop/template/test_SolutionTemplateDefinition.zip", true);
+            importer.importSolution("/Users/sun/Desktop/template/test_SolutionTemplateDefinition.zip", true);
         } catch (Exception e) {
             e.printStackTrace();
         }

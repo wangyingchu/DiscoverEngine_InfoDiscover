@@ -31,7 +31,5 @@ public class DDLExporterTest {
         String dimensionToDimensionMapping = export.generateDimensionToDimensionDefinitionDDL();
         System.out.println("dimensionToDimensionMapping: " + dimensionToDimensionMapping);
 
-        String factToDateMapping = export.generateFactToDateDefinitionDDL();
-        System.out.println("factToDateMapping: " + factToDateMapping);
     }
 }

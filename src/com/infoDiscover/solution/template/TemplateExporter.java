@@ -12,9 +12,9 @@ import java.util.Map;
  * Created by sun on 7/17/17.
  */
 public class TemplateExporter {
-    
+
     public static final Logger logger = LoggerFactory.getLogger(TemplateExporter.class);
-    
+
     private String spaceName;
     private String solutionName;
 
@@ -26,30 +26,40 @@ public class TemplateExporter {
     public void exportSolutionTemplate(String targetFileDirectory) throws Exception {
         logger.info("Start exportSolutionTemplate of name: {} to file directory: {}", solutionName,
                 targetFileDirectory);
-        
+
         DDLExporter ddlExporter = new DDLExporter(spaceName, solutionName);
+        String solutionDefinition = ddlExporter.generateSolutionDefinitionDDL();
+        logger.debug("Solution definitions is: {}", solutionDefinition);
+
         String factTypeDefinitions = ddlExporter.generateFactTypeDefinitionDDL();
         logger.debug("Fact type definitions is: {}", factTypeDefinitions);
 
         String dimensionTypeDefinitions = ddlExporter.generateDimensionTypeDefinitionDDL();
-        logger.debug("dimensionTypeDefinitions: " + dimensionTypeDefinitions);
+        logger.debug("dimensionTypeDefinitions: {}", dimensionTypeDefinitions);
 
         String relationTypeDefinitions = ddlExporter.generateRelationTypeDefinitionDDL();
-        logger.debug("relationTypeDefinitions: " + relationTypeDefinitions);
+        logger.debug("relationTypeDefinitions: {}", relationTypeDefinitions);
 
         String factToFactMapping = ddlExporter.generateFactToFactDefinitionDDL();
-        logger.debug("factToFactMapping: " + factToFactMapping);
+        logger.debug("factToFactMapping: {}", factToFactMapping);
 
         String factToDimensionMapping = ddlExporter.generateFactToDimensionDefinitionDDL();
-        logger.debug("factToDimensionMapping: " + factToDimensionMapping);
+        logger.debug("factToDimensionMapping: {}", factToDimensionMapping);
+
+        String dimensionToFactMapping = ddlExporter.generateDimensionToFactDefinitionDDL();
+        logger.debug("dimensionToFactMapping: {}", dimensionToFactMapping);
 
         String dimensionToDimensionMapping = ddlExporter.generateDimensionToDimensionDefinitionDDL();
-        logger.debug("dimensionToDimensionMapping: " + dimensionToDimensionMapping);
+        logger.debug("dimensionToDimensionMapping: {}", dimensionToDimensionMapping);
 
-        String factToDateMapping = ddlExporter.generateFactToDateDefinitionDDL();
-        logger.debug("factToDateMapping: " + factToDateMapping);
+        String solutionTypePropertyTypes = ddlExporter.generateSolutionTypePropertyTypeDDL();
+        logger.debug("solutionTypePropertyTypes: {}", solutionTypePropertyTypes);
 
         Map<String, String> files = new HashMap<>();
+
+        if (solutionDefinition != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_SOLUTION_DEFINITION, solutionDefinition);
+        }
 
         if (factTypeDefinitions != null) {
             files.put(SolutionConstants.SOLUTION_TEMPLATE_FACT_TYPE_FILE_NAME, factTypeDefinitions);
@@ -67,11 +77,14 @@ public class TemplateExporter {
         if (factToDimensionMapping != null) {
             files.put(SolutionConstants.SOLUTION_TEMPLATE_FACT_TO_DIMENSION_FILE_NAME, factToDimensionMapping);
         }
+        if (dimensionToFactMapping != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_TO_FACT_FILE_NAME, dimensionToDimensionMapping);
+        }
         if (dimensionToDimensionMapping != null) {
             files.put(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_TO_DIMENSION_FILE_NAME, dimensionToDimensionMapping);
         }
-        if (factToDateMapping != null) {
-            files.put(SolutionConstants.SOLUTION_TEMPLATE_FACT_TO_DATE_FILE_NAME, factToDateMapping);
+        if (solutionTypePropertyTypes != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_SOLUTION_TYPE_PROPERTY_TYPE, solutionTypePropertyTypes);
         }
 
         String zipFile = targetFileDirectory + "/" + solutionName + "_" +

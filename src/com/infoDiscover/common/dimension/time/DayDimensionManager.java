@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class DayDimensionManager {
 
-    public static DayDimensionVO getDayDimensionVO(String factTypePrefix, Date date) {
+    public static DayDimensionVO getDayDimensionVOWithPrefix(String factTypePrefix, Date date) {
         DateTime dateTime = DateUtil.getDateTime(date.getTime());
 
         int year = dateTime.getYear();
@@ -26,4 +26,15 @@ public class DayDimensionManager {
         return dayDimension;
     }
 
+    public static DayDimensionVO getDayDimensionVO(String dateDimensionType, Date date) {
+        DateTime dateTime = DateUtil.getDateTime(date.getTime());
+
+        int year = dateTime.getYear();
+        int month = dateTime.getMonthOfYear();
+        int day = dateTime.getDayOfMonth();
+        DayDimensionVO dayDimension = new DayDimensionVO(dateDimensionType,
+                year, month, day);
+
+        return dayDimension;
+    }
 }

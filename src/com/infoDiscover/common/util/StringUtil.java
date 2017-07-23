@@ -24,4 +24,5 @@ public class StringUtil {
     public static String[] listToArray(List<String> strings) {
         return strings.toArray(new String[strings.size()]);
     }
+
 }

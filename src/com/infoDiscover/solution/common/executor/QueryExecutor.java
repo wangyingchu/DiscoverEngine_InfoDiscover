@@ -8,6 +8,7 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import org.apache.commons.collections.CollectionUtils;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class QueryExecutor {
     public static List<Fact> executeFactsQuery(InformationExplorer ie, ExploreParameters ep) {
         try {
             List<Fact> facts = ie.discoverFacts(ep);
-            return  facts;
+            return facts;
         } catch (InfoDiscoveryEngineRuntimeException e) {
             e.printStackTrace();
         } catch (InfoDiscoveryEngineInfoExploreException e) {
@@ -57,6 +58,19 @@ public class QueryExecutor {
         } catch (InfoDiscoveryEngineInfoExploreException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public static List<Relationable> getManyRelationables(InformationExplorer ie, String sql) {
+        return ie.discoverRelationables(sql);
+    }
+
+    public static Relationable getOneRelationable(InformationExplorer ie, String sql) {
+        List<Relationable> list = ie.discoverRelationables(sql);
+        if (CollectionUtils.isNotEmpty(list)) {
+            return list.get(0);
+        }
+
         return null;
     }
 

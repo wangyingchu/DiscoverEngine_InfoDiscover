@@ -38,6 +38,14 @@ public class DDLExporter {
         this.solutionName = solutionName;
     }
 
+    public String generateSolutionDefinitionDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+
+        return generateDDL(spaceName, ep);
+    }
+
     public String generateFactTypeDefinitionDDL() {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionFactTypeFactType);
@@ -72,12 +80,31 @@ public class DDLExporter {
         return generateDDL(spaceName, ep);
     }
 
+
+    public String generateSolutionTypePropertyTypeDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionTypePropertyFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+
+        return generateDDL(spaceName, ep);
+    }
+
     public String generateFactToDimensionDefinitionDDL() {
         ExploreParameters ep = new ExploreParameters();
         ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataRelationMappingDefinitionFactType);
         ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("targetDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
+
+        return generateDDL(spaceName, ep);
+    }
+
+    public String generateDimensionToFactDefinitionDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataRelationMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
+        ep.addFilteringItem(new EqualFilteringItem("targetDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
 
         return generateDDL(spaceName, ep);
     }
@@ -92,15 +119,6 @@ public class DDLExporter {
         return generateDDL(spaceName, ep);
     }
 
-    public String generateFactToDateDefinitionDDL() {
-        ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataDateDimensionMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
-        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
-
-        return generateDDL(spaceName, ep);
-    }
-
     public String generateDDL(String spaceName, ExploreParameters ep) {
         logger.info("Enter generateDDL() with spaceName: {} and exploreParameters: {}", spaceName, ep);
         InfoDiscoverSpace ids = null;
@@ -111,21 +129,8 @@ public class DDLExporter {
             }
 
             List<Fact> factTypesList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
-            if (CollectionUtils.isEmpty(factTypesList)) {
-                return null;
-            }
 
-            JsonArray jsonArray = new JsonArray();
-            for (Fact fact : factTypesList) {
-                Map<String, Object> map = FactUtil.getPropertiesFromFact(fact);
-                JsonObject jsonObject = JsonObjectUtil.mapToJsonObject(map);
-                jsonArray.add(jsonObject);
-            }
-
-            JsonObject factTypesJson = new JsonObject();
-            factTypesJson.add(JsonConstants.JSON_DATA, jsonArray);
-
-            return factTypesJson.toString();
+            return factListsToJson(factTypesList);
         } catch (Exception e) {
             logger.error("Failed to generateDDL: {}", e.getMessage());
         } finally {
@@ -136,9 +141,25 @@ public class DDLExporter {
 
         logger.info("Exit method generateDDL()...");
         return null;
-
     }
 
+    public String factListsToJson(List<Fact> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+
+        JsonArray jsonArray = new JsonArray();
+        for (Fact fact : list) {
+            Map<String, Object> map = FactUtil.getPropertiesFromFact(fact);
+            JsonObject jsonObject = JsonObjectUtil.mapToJsonObject(map);
+            jsonArray.add(jsonObject);
+        }
+
+        JsonObject factTypesJson = new JsonObject();
+        factTypesJson.add(JsonConstants.JSON_DATA, jsonArray);
+
+        return factTypesJson.toString();
+    }
 
 //
 //    public List<FactTypeDefinitionPOJO> getFactTypeDefinitionPOJOs(InfoDiscoverSpace ids, String factType) {

@@ -146,7 +146,7 @@ public class ProjectManager {
         ProgressRelationManager relationManager = new ProgressRelationManager(ids);
 
         if (properties.get(JsonConstants.JSON_START_DATE) != null) {
-            DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO
+            DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVOWithPrefix
                     (DatabaseConstants
                             .SOLUTION_PREFIX, (Date) properties.get(JsonConstants.JSON_START_DATE));
             relationManager.attachTimeToProgress(progressId, factType, dayDimensionVO,
@@ -155,7 +155,7 @@ public class ProjectManager {
 
         // link endDate to progress
         if (properties.get(JsonConstants.JSON_END_DATE) != null) {
-            DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO(
+            DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVOWithPrefix(
                     DatabaseConstants.SOLUTION_PREFIX,
                     (Date) properties.get(JsonConstants.JSON_END_DATE));
             relationManager.attachTimeToProgress(progressId, factType,
