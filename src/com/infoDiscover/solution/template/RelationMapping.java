@@ -6,6 +6,8 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.Eq
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.config.PropertyHandler;
 import com.infoDiscover.solution.builder.SolutionConstants;
+import com.infoDiscover.solution.builder.vo.DataDateMappingVO;
+import com.infoDiscover.solution.builder.vo.DataDuplicateCopyMappingVO;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -35,6 +37,10 @@ public class RelationMapping {
     public static Map<String, List<RelationMappingVO>> dimensionToFactMap = new HashMap<>();
     public static Map<String, List<RelationMappingVO>> factToFactMap = new HashMap<>();
     public static Map<String, List<RelationMappingVO>> dimensionToDimensionMap = new HashMap<>();
+    public static Map<String, List<DataDateMappingVO>> factToDateMap = new HashMap<>();
+    public static Map<String, List<DataDateMappingVO>> dimensionToDateMap = new HashMap<>();
+    public static Map<String, List<DataDuplicateCopyMappingVO>> factDuplicatedCopyMap = new HashMap<>();
+    public static Map<String, List<DataDuplicateCopyMappingVO>> dimensionDuplicatedCopyMap = new HashMap<>();
 
     public void getRelationMappings() {
         logger.info("Enter getRelationMappings()");
@@ -47,6 +53,11 @@ public class RelationMapping {
             setDimensionToFactMappings(ids);
             setDimensionToDimensionMappings(ids);
 
+            setFactToDateMappings(ids);
+            setDimensionToDateMappings(ids);
+
+            setFactDuplicateCopyMappings(ids);
+            setDimensiontDuplicateCopyMappings(ids);
 
         } catch (Exception e) {
             logger.error("Failed to connect to {}", spaceName);
@@ -133,6 +144,74 @@ public class RelationMapping {
         this.setDimensionToFactMap(map);
     }
 
+    private void setFactToDateMappings(InfoDiscoverSpace ids) {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataDateDimensionMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
+
+        List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
+        if (CollectionUtils.isEmpty(factToDimensionMappingList)) {
+            this.setFactToDateMap(null);
+        }
+
+        List<DataDateMappingVO> list = convertToDataDateMappingPOJO(factToDimensionMappingList, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING);
+        Map<String, List<DataDateMappingVO>> map = new HashMap<>();
+        map.put(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING, list);
+        this.setFactToDateMap(map);
+    }
+
+    private void setDimensionToDateMappings(InfoDiscoverSpace ids) {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataDateDimensionMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
+
+        List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
+        if (CollectionUtils.isEmpty(factToDimensionMappingList)) {
+            this.setDimensionToDateMap(null);
+        }
+
+        List<DataDateMappingVO> list = convertToDataDateMappingPOJO(factToDimensionMappingList, SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING);
+        Map<String, List<DataDateMappingVO>> map = new HashMap<>();
+        map.put(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING, list);
+        this.setDimensionToDateMap(map);
+    }
+
+    private void setFactDuplicateCopyMappings(InfoDiscoverSpace ids) {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataPropertiesDuplicateMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
+
+        List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
+        if (CollectionUtils.isEmpty(factToDimensionMappingList)) {
+            this.setFactDuplicatedCopyMap(null);
+        }
+
+        List<DataDuplicateCopyMappingVO> list = convertToDataDuplicateCopyMappingPOJO(factToDimensionMappingList, SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING);
+        Map<String, List<DataDuplicateCopyMappingVO>> map = new HashMap<>();
+        map.put(SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING, list);
+        this.setFactDuplicatedCopyMap(map);
+    }
+
+    private void setDimensiontDuplicateCopyMappings(InfoDiscoverSpace ids) {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataPropertiesDuplicateMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
+
+        List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
+        if (CollectionUtils.isEmpty(factToDimensionMappingList)) {
+            this.setDimensionDuplicatedCopyMap(null);
+        }
+
+        List<DataDuplicateCopyMappingVO> list = convertToDataDuplicateCopyMappingPOJO(factToDimensionMappingList, SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING);
+        Map<String, List<DataDuplicateCopyMappingVO>> map = new HashMap<>();
+        map.put(SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING, list);
+        this.setDimensionDuplicatedCopyMap(map);
+    }
+
     private List<RelationMappingVO> convertFactToRelationMappingPOJO(List<Fact> facts, String relationMappingType) {
         List<RelationMappingVO> list = new ArrayList<>();
         for (Fact fact : facts) {
@@ -171,6 +250,62 @@ public class RelationMapping {
         return list;
     }
 
+    private List<DataDateMappingVO> convertToDataDateMappingPOJO(List<Fact> facts, String relationMappingType) {
+        List<DataDateMappingVO> list = new ArrayList<>();
+        for (Fact fact : facts) {
+
+            Object sourceDataTypeKind = fact.getProperty("sourceDataTypeKind").getPropertyValue();
+            Object sourceDataTypeName = fact.getProperty("sourceDataTypeName").getPropertyValue();
+            Object sourceDataPropertyName = fact.getProperty("sourceDataPropertyName").getPropertyValue();
+            Object relationTypeName = fact.getProperty("relationTypeName").getPropertyValue();
+            Object relationDirection = fact.getProperty("relationDirection").getPropertyValue();
+            Object dateDimensionTypePrefix = fact.getProperty("dateDimensionTypePrefix").getPropertyValue();
+
+            DataDateMappingVO pojo = new DataDateMappingVO();
+            pojo.setRelationMappingType(relationMappingType);
+            pojo.setSourceDataTypeKind(sourceDataTypeKind == null ? null : sourceDataTypeKind.toString());
+            pojo.setSourceDataTypeName(sourceDataTypeName == null ? null : sourceDataTypeName.toString());
+            pojo.setSourceDataPropertyName(sourceDataPropertyName == null ? null : sourceDataPropertyName.toString());
+            pojo.setRelationTypeName(relationTypeName == null ? null : relationTypeName.toString());
+            pojo.setRelationDirection(relationDirection.toString());
+            pojo.setDateDimensionTypePrefix(dateDimensionTypePrefix == null ? null : dateDimensionTypePrefix.toString());
+
+            list.add(pojo);
+        }
+        return list;
+    }
+
+    private List<DataDuplicateCopyMappingVO> convertToDataDuplicateCopyMappingPOJO(List<Fact> facts, String relationMappingType) {
+        List<DataDuplicateCopyMappingVO> list = new ArrayList<>();
+        for (Fact fact : facts) {
+
+            Object sourceDataTypeKind = fact.getProperty("sourceDataTypeKind").getPropertyValue();
+            Object sourceDataTypeName = fact.getProperty("sourceDataTypeName").getPropertyValue();
+            Object sourceDataPropertyName = fact.getProperty("sourceDataPropertyName").getPropertyValue();
+            Object sourceDataPropertyType = fact.getProperty("sourceDataPropertyType").getPropertyValue();
+
+            Object targetDataTypeName = fact.getProperty("targetDataTypeName").getPropertyValue();
+            Object targetDataPropertyName = fact.getProperty("targetDataPropertyName").getPropertyValue();
+            Object targetDataPropertyType = fact.getProperty("targetDataPropertyType").getPropertyValue();
+            Object existingPropertyHandleMethod = fact.getProperty("existingPropertyHandleMethod").getPropertyValue();
+
+
+            DataDuplicateCopyMappingVO pojo = new DataDuplicateCopyMappingVO();
+            pojo.setRelationMappingType(relationMappingType);
+            pojo.setSourceDataTypeKind(sourceDataTypeKind == null ? null : sourceDataTypeKind.toString());
+            pojo.setSourceDataTypeName(sourceDataTypeName == null ? null : sourceDataTypeName.toString());
+            pojo.setSourceDataPropertyName(sourceDataPropertyName == null ? null : sourceDataPropertyName.toString());
+            pojo.setSourceDataPropertyType(sourceDataPropertyType == null ? null : sourceDataPropertyType.toString());
+            pojo.setTargetDataTypeName(targetDataTypeName == null ? null : targetDataTypeName.toString());
+            pojo.setTargetDataPropertyName(targetDataPropertyName == null ? null : targetDataPropertyName.toString());
+            pojo.setTargetDataPropertyType(targetDataPropertyType == null ? null : targetDataPropertyType.toString());
+            pojo.setExistingPropertyHandleMethod(existingPropertyHandleMethod == null ? null : existingPropertyHandleMethod.toString());
+
+            list.add(pojo);
+        }
+        return list;
+    }
+
     public Map<String, List<RelationMappingVO>> getFactToDimensionMap() {
         return factToDimensionMap;
     }
@@ -203,4 +338,35 @@ public class RelationMapping {
         this.dimensionToDimensionMap = dimensionToDimensionMap;
     }
 
+    public Map<String, List<DataDateMappingVO>> getFactToDataMap() {
+        return factToDateMap;
+    }
+
+    public void setFactToDateMap(Map<String, List<DataDateMappingVO>> factToDataMap) {
+        RelationMapping.factToDateMap = factToDataMap;
+    }
+
+    public Map<String, List<DataDateMappingVO>> getDimensionToDateMap() {
+        return dimensionToDateMap;
+    }
+
+    public void setDimensionToDateMap(Map<String, List<DataDateMappingVO>> dimensionToDateMap) {
+        RelationMapping.dimensionToDateMap = dimensionToDateMap;
+    }
+
+    public Map<String, List<DataDuplicateCopyMappingVO>> getFactDuplicatedCopyMap() {
+        return factDuplicatedCopyMap;
+    }
+
+    public void setFactDuplicatedCopyMap(Map<String, List<DataDuplicateCopyMappingVO>> factDuplicatedCopyMap) {
+        RelationMapping.factDuplicatedCopyMap = factDuplicatedCopyMap;
+    }
+
+    public Map<String, List<DataDuplicateCopyMappingVO>> getDimensionDuplicatedCopyMap() {
+        return dimensionDuplicatedCopyMap;
+    }
+
+    public void setDimensionDuplicatedCopyMap(Map<String, List<DataDuplicateCopyMappingVO>> dimensionDuplicatedCopyMap) {
+        RelationMapping.dimensionDuplicatedCopyMap = dimensionDuplicatedCopyMap;
+    }
 }

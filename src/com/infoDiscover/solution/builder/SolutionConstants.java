@@ -80,6 +80,8 @@ public class SolutionConstants {
     public static final String JSON_DIMENSION_TO_DIMENSION_MAPPING = "dimensionToDimension";
     public static final String JSON_FACT_TO_DATE_DIMENSION_MAPPING = "factToDateDimension";
     public static final String JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING = "dimensionToDateDimension";
+    public static final String JSON_FACT_DUPLICATE_COPY_MAPPING = "factDuplicateCopy";
+    public static final String JSON_DIMENSION_DUPLICATE_COPY_MAPPING = "dimensionDuplicateCopy";
 
     public static final String JSON_FROM_TYPE = "fromType";
     public static final String JSON_FROM_PROPERTY = "fromProperty";
