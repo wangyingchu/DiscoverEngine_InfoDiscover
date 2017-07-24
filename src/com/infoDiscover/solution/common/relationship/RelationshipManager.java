@@ -1,25 +1,23 @@
 package com.infoDiscover.solution.common.relationship;
 
-import com.infoDiscover.common.dimension.time.TimeDimensionGenerator;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relation;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBDimensionImpl;
-import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBFactImpl;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBRelationableImpl;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.path.OrientDBShortestPath;
+import com.infoDiscover.solution.template.RelationDirection;
 import com.tinkerpop.blueprints.Direction;
 import com.tinkerpop.blueprints.Edge;
 import com.tinkerpop.blueprints.impls.orient.OrientGraph;
@@ -240,6 +238,31 @@ public class RelationshipManager {
         return null;
     }
 
+    public Relation linkFactToDateDimension(
+            String prefix,
+            Fact fact,
+            DayDimensionVO dayDimension,
+            String relationType,
+            String relationDirection) throws
+            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineInfoExploreException,
+            InfoDiscoveryEngineDataMartException {
 
+        logger.debug("Enter method linkFactToDateDimension() with prefix: {} ", prefix);
+
+        Dimension day = new DimensionManager(ids).getDayDimension(prefix, dayDimension);
+
+        if (!ids.hasRelationType(relationType)) {
+            ids.addRelationType(relationType);
+        }
+
+        if(relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
+            linkFactToDimension(fact, day, relationType);
+        } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
+            ids.connectDimensionWithFact(day.getId(),fact.getId(),relationType);
+        }
+
+        logger.debug("Exit method attachTimeToProgress()");
+        return null;
+    }
 
 }

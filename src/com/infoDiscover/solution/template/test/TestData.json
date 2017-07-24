@@ -7,17 +7,17 @@
         {
           "propertyType": "String",
           "propertyName": "testFactStrProperty1",
-          "propertyValue": "projectId_1",
+          "propertyValue": "projectId_2",
           "isUniqueKey": true
         },
         {
           "propertyType": "Int",
           "propertyName": "testFactIntProperty1",
-          "propertyValue": 100
+          "propertyValue": 55555577
         },
         {
           "propertyType": "Date",
-          "propertyName": "createdAt",
+          "propertyName": "modifiedAt",
           "propertyValue": 1485878400000
         }
       ]

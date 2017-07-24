@@ -2,7 +2,6 @@ package com.infoDiscover.solution.template;
 
 import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
-import com.infoDiscover.common.dimension.time.manager.TimeDimensionManager;
 import com.infoDiscover.common.util.DataTypeChecker;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
@@ -11,6 +10,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.solution.builder.SolutionConstants;
+import com.infoDiscover.solution.builder.vo.DataDateMappingVO;
 import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -40,6 +40,8 @@ public class RelationMappingOperator {
         link(ids, rid, SolutionConstants.JSON_FACT_TO_FACT_MAPPING, factType);
         link(ids, rid, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING, factType);
 
+        // link to DATE dimension
+        linkToDateDimension(ids,rid, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING, factType);
 
         // TODO:
 //        linkDimensionToDimension(ids,rid, factType);
@@ -57,6 +59,8 @@ public class RelationMappingOperator {
         link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING, dimensionType);
         link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING, dimensionType);
 
+        // link to DATE dimension
+        linkToDateDimension(ids,rid, SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING, dimensionType);
         logger.info("Exit linkBetweenNodesFromDimension()...");
     }
 
@@ -80,13 +84,14 @@ public class RelationMappingOperator {
             return;
         }
 
-        List<RelationMappingVO> factToFactList = mappings.get(mappingType);
-        if (CollectionUtils.isEmpty(factToFactList)) {
+        List<RelationMappingVO> dataToDataMappingList = mappings.get(mappingType);
+        if (CollectionUtils.isEmpty(dataToDataMappingList)) {
             return;
         }
 
+        // link fact/dimension
         List<RelationMappingVO> voList = new ArrayList<>();
-        for (RelationMappingVO vo : factToFactList) {
+        for (RelationMappingVO vo : dataToDataMappingList) {
             if (vo.getSourceDataTypeName().equalsIgnoreCase(factType)) {
                 voList.add(vo);
             }
@@ -100,6 +105,79 @@ public class RelationMappingOperator {
                 linkRelation(ids, latestFact, vo);
             }
         }
+
+    }
+
+    private void linkToDateDimension(InfoDiscoverSpace ids, String rid,
+                      String mappingType, String factType)
+            throws Exception {
+
+        Map<String, List<DataDateMappingVO>> dateMappings = null;
+
+        if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
+            dateMappings = RelationMapping.factToDateMap;
+        } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING)) {
+            dateMappings = RelationMapping.dimensionToDateMap;
+        }
+
+        if (MapUtils.isEmpty(dateMappings)) {
+            return;
+        }
+
+        List<DataDateMappingVO> dataToDateMappingList = dateMappings.get(mappingType);
+        if (CollectionUtils.isEmpty(dataToDateMappingList)) {
+            return;
+        }
+
+        // link fact/dimension to DATE dimension
+        List<DataDateMappingVO> dateMappingList = new ArrayList<>();
+        for (DataDateMappingVO vo : dataToDateMappingList) {
+            if (vo.getSourceDataTypeName().equalsIgnoreCase(factType)) {
+                dateMappingList.add(vo);
+            }
+        }
+
+        if (CollectionUtils.isNotEmpty(dateMappingList)) {
+            // retrieve fact again as its version is updated
+            Relationable latestFact = new FactManager(ids).getRelationableByRID(rid, factType);
+            for (DataDateMappingVO vo : dateMappingList) {
+                linkToDateRelation(ids, latestFact, vo);
+            }
+        }
+    }
+
+    private void linkToDateRelation(InfoDiscoverSpace ids, Relationable fact, DataDateMappingVO vo) throws Exception {
+
+        String sourceDataTypeKind = vo.getSourceDataTypeKind();
+        String sourcePropertyName = vo.getSourceDataPropertyName();
+        String prefix = vo.getDateDimensionTypePrefix();
+        String relationType = vo.getRelationTypeName();
+        String relationDirection = vo.getRelationDirection();
+
+        Property sourceDataProperty = fact.getProperty(sourcePropertyName);
+        if (sourceDataProperty == null) {
+            logger.info("property of sourceDataPropertyName {} is null", sourcePropertyName);
+            return;
+        }
+
+        Date sourceDataPropertyValue = (Date) sourceDataProperty.getPropertyValue();
+
+        RelationshipManager relationshipManager = new RelationshipManager(ids);
+
+        DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVOWithPrefix
+                (prefix, sourceDataPropertyValue);
+        Dimension day = new DimensionManager(ids).getDayDimension(prefix, dayDimensionVO);
+
+        if (sourceDataTypeKind.equalsIgnoreCase("FACT")) {
+            relationshipManager.linkFactToDateDimension(prefix, (Fact) fact, dayDimensionVO, relationType, relationDirection);
+        } else if (sourceDataTypeKind.equalsIgnoreCase("DIMENSION")) {
+            if (relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
+                relationshipManager.linkDimensionsByRelationType((Dimension) fact, day, relationType);
+            } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
+                relationshipManager.linkDimensionsByRelationType(day, (Dimension) fact, relationType);
+            }
+        }
+
     }
 
     private void linkRelation(InfoDiscoverSpace ids, Relationable fact, RelationMappingVO vo) throws Exception {
@@ -170,13 +248,14 @@ public class RelationMappingOperator {
 
                 if (targetDataTypeKind.equalsIgnoreCase("FACT")) {
                     targetRelationable = factManager.createFact(targetDataTypeName, props);
-                } else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION") && !DataTypeChecker.isDateType(targetDataPropertyType)) {
+                } else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION")) {
                     targetRelationable = dimensionManager.createDimension(targetDataTypeName, props);
-                } else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION") && DataTypeChecker.isDateType(targetDataPropertyType)) {
-
-                    DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO(targetDataTypeName, (Date)sourceDataPropertyValue);
-                    targetRelationable =  new TimeDimensionManager(ids).createDayDimension(dayDimensionVO);
                 }
+//                else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION") && DataTypeChecker.isDateType(targetDataPropertyType)) {
+//
+//                    DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO(targetDataTypeName, (Date)sourceDataPropertyValue);
+//                    targetRelationable =  new TimeDimensionManager(ids).createDayDimension(dayDimensionVO);
+//                }
             } catch (Exception e) {
                 logger.error("targetDataPropertyValue {} is not a numeric", vo.getTargetDataPropertyValue());
             }
@@ -230,6 +309,7 @@ public class RelationMappingOperator {
         }
 
     }
+
 
     private String constructSql(Relationable fact, RelationMappingVO vo) {
         String sourceDataPropertyName = vo.getSourceDataPropertyName();
@@ -303,10 +383,7 @@ public class RelationMappingOperator {
                 return null;
             }
 
-        } else if (DataTypeChecker.isDateType(sourceDataPropertyType)) {
-            sql = constructEqualSql(vo, sourceDataPropertyValue);
         }
-
         return sql;
     }
 
