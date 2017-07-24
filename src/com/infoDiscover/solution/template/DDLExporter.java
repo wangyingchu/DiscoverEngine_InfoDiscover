@@ -119,6 +119,42 @@ public class DDLExporter {
         return generateDDL(spaceName, ep);
     }
 
+    public String generateFactToDateDefinitionDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataDateDimensionMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
+
+        return generateDDL(spaceName, ep);
+    }
+
+    public String generateDimensionToDateDefinitionDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataDateDimensionMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
+
+        return generateDDL(spaceName, ep);
+    }
+
+    public String generateCopyFactDuplicatePropertiesDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataPropertiesDuplicateMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
+
+        return generateDDL(spaceName, ep);
+    }
+
+    public String generateCopyDimensionDuplicatePropertiesDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataPropertiesDuplicateMappingDefinitionFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
+
+        return generateDDL(spaceName, ep);
+    }
+
     public String generateDDL(String spaceName, ExploreParameters ep) {
         logger.info("Enter generateDDL() with spaceName: {} and exploreParameters: {}", spaceName, ep);
         InfoDiscoverSpace ids = null;

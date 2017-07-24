@@ -55,6 +55,18 @@ public class TemplateExporter {
         String solutionTypePropertyTypes = ddlExporter.generateSolutionTypePropertyTypeDDL();
         logger.debug("solutionTypePropertyTypes: {}", solutionTypePropertyTypes);
 
+        String factToDateMapping = ddlExporter.generateFactToDateDefinitionDDL();
+        logger.debug("factToDateMapping: {}", factToDateMapping);
+
+        String dimensionToDateMapping = ddlExporter.generateDimensionToDateDefinitionDDL();
+        logger.debug("dimensionToDateMapping: {}", dimensionToDateMapping);
+
+        String factDuplicatedCopyMapping = ddlExporter.generateCopyFactDuplicatePropertiesDDL();
+        logger.debug("factDuplicatedCopyMapping: {}", factDuplicatedCopyMapping);
+
+        String dimensionDuplicatedCopyMapping = ddlExporter.generateCopyDimensionDuplicatePropertiesDDL();
+        logger.debug("dimensionDuplicatedCopyMapping: {}", dimensionDuplicatedCopyMapping);
+
         Map<String, String> files = new HashMap<>();
 
         if (solutionDefinition != null) {
@@ -84,7 +96,23 @@ public class TemplateExporter {
             files.put(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_TO_DIMENSION_FILE_NAME, dimensionToDimensionMapping);
         }
         if (solutionTypePropertyTypes != null) {
-            files.put(SolutionConstants.SOLUTION_TEMPLATE_SOLUTION_TYPE_PROPERTY_TYPE, solutionTypePropertyTypes);
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_SOLUTION_TYPE_PROPERTY_TYPE_FILE_NAME, solutionTypePropertyTypes);
+        }
+
+        if (factToDateMapping != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_FACT_TO_DATE_FILE_NAME, factToDateMapping);
+        }
+
+        if (dimensionToDateMapping != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_TO_DATE_FILE_NAME, dimensionToDateMapping);
+        }
+
+        if (factDuplicatedCopyMapping != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_FACT_DUPLICATE_COPY_FILE_NAME, factDuplicatedCopyMapping);
+        }
+
+        if (dimensionDuplicatedCopyMapping != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_DUPLICATE_COPY_FILE_NAME, dimensionDuplicatedCopyMapping);
         }
 
         String zipFile = targetFileDirectory + "/" + solutionName + "_" +

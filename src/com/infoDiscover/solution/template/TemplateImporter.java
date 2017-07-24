@@ -31,7 +31,7 @@ public class TemplateImporter {
         String solutionDefinitions = files.get(SolutionConstants.SOLUTION_TEMPLATE_SOLUTION_DEFINITION);
         logger.debug("solutionDefinitions: {}", solutionDefinitions);
 
-        String solutionTypePropertyTypeDefinitions = files.get(SolutionConstants.SOLUTION_TEMPLATE_SOLUTION_TYPE_PROPERTY_TYPE);
+        String solutionTypePropertyTypeDefinitions = files.get(SolutionConstants.SOLUTION_TEMPLATE_SOLUTION_TYPE_PROPERTY_TYPE_FILE_NAME);
         logger.debug("solutionTypePropertyTypeDefinitions: {}", solutionTypePropertyTypeDefinitions);
 
         String factTypeDefinitions = files.get(SolutionConstants.SOLUTION_TEMPLATE_FACT_TYPE_FILE_NAME);
@@ -52,6 +52,11 @@ public class TemplateImporter {
         String dimensionToDimensionMappings = files.get(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_TO_DIMENSION_FILE_NAME);
         logger.debug("dimensionToDimensionMappings: {}", dimensionToDimensionMappings);
 
+        String factToDateMappings = files.get(SolutionConstants.SOLUTION_TEMPLATE_FACT_TO_DATE_FILE_NAME);
+        logger.debug("factToDateMappings: {}", factToDateMappings);
+
+        String dimensionToDateMappings = files.get(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_TO_DATE_FILE_NAME);
+        logger.debug("dimensionToDateMappings: {}", dimensionToDateMappings);
 
         logger.info("Exit importSolutionTemplate()...");
     }

@@ -31,5 +31,22 @@ public class DDLExporterTest {
         String dimensionToDimensionMapping = export.generateDimensionToDimensionDefinitionDDL();
         System.out.println("dimensionToDimensionMapping: " + dimensionToDimensionMapping);
 
+        String factToDateMapping = export.generateFactToDateDefinitionDDL();
+        System.out.println("factToDateMapping: " + factToDateMapping);
+
+        String dimensionToDateMapping = export.generateDimensionToDateDefinitionDDL();
+        System.out.println("dimensionToDateMapping: " + dimensionToDateMapping);
+
+        String factDuplicatedCopyMapping = export.generateCopyFactDuplicatePropertiesDDL();
+        System.out.println("factDuplicatedCopyMapping: " + factDuplicatedCopyMapping);
+
+        String dimensionDuplicatedCopyMapping = export.generateCopyDimensionDuplicatePropertiesDDL();
+        System.out.println("dimensionDuplicatedCopyMapping: " + dimensionDuplicatedCopyMapping);
+
+        String solutionDefinition = export.generateSolutionDefinitionDDL();
+        System.out.println("solutionDefinition: " + solutionDefinition);
+
+        String solutionPropertyType = export.generateSolutionTypePropertyTypeDDL();
+        System.out.println("solutionPropertyType: " + solutionPropertyType);
     }
 }
