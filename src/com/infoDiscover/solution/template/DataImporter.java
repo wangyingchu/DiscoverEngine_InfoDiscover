@@ -2,6 +2,7 @@ package com.infoDiscover.solution.template;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
+import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
@@ -9,20 +10,20 @@ import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.builder.SolutionConstants;
+import com.infoDiscover.solution.builder.vo.DataDuplicateCopyMappingVO;
 import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by sun on 7/23/17.
@@ -87,7 +88,7 @@ public class DataImporter {
         if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(type)) {
             return createNewOrUpdateFact(ids, jsonNode, override);
         } else if (SolutionConstants.DIMENSION_TYPE.equalsIgnoreCase(type)) {
-            return createNewOrUpdateDimension(ids,jsonNode,override);
+            return createNewOrUpdateDimension(ids, jsonNode, override);
         } else {
             throw new Exception("Wrong type, it should be: " + SolutionConstants.FACT_TYPE);
         }
@@ -116,23 +117,71 @@ public class DataImporter {
         // convert jsonNode to properties map
         convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey);
 
-        // create or update fact
         String typeName = getTypeName(jsonNode);
         FactManager manager = new FactManager(ids);
+
+        // create or update fact
         Fact fact;
 
-        if(!ids.hasFactType(typeName)) {
+        if (!ids.hasFactType(typeName)) {
             ids.addFactType(typeName);
         }
 
         if (overwrite && uniqueKey.size() > 0) {
             fact = getFactWithUniqueKeys(ids, typeName, uniqueKey);
             if (fact != null) {
-                return manager.updateFact(fact, properties);
+                fact = manager.updateFact(fact, properties);
+            } else {
+                fact = manager.createFact(typeName, properties);
+            }
+        } else {
+            fact = manager.createFact(typeName, properties);
+        }
+
+        // copy duplicate properties
+        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
+        List<DataDuplicateCopyMappingVO> factDuplicateCopyList = null;
+
+        // if no duplicate copy mapping
+        if (MapUtils.isEmpty(map)) {
+            return fact;
+        }
+
+        // if has duplicate copy mapping
+        factDuplicateCopyList = map.get(SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING);
+
+        // if fact duplicate copy mapping is empty
+        if (CollectionUtils.isEmpty(factDuplicateCopyList)) {
+            return fact;
+        }
+
+        List<DataDuplicateCopyMappingVO> sourceToTargetList = new ArrayList<>();
+        for (DataDuplicateCopyMappingVO vo : factDuplicateCopyList) {
+            if (vo.getSourceDataTypeName().equalsIgnoreCase(typeName)) {
+                sourceToTargetList.add(vo);
             }
         }
 
-        fact = manager.createFact(typeName, properties);
+        List<DataDuplicateCopyMappingVO> targetToSourceList = new ArrayList<>();
+        for (DataDuplicateCopyMappingVO vo : factDuplicateCopyList) {
+            if (vo.getTargetDataTypeName().equalsIgnoreCase(typeName)) {
+                targetToSourceList.add(vo);
+            }
+        }
+
+        if (CollectionUtils.isEmpty(sourceToTargetList) && CollectionUtils.isEmpty(targetToSourceList)) {
+            return fact;
+        }
+
+        // copy properties from source to target
+        if (CollectionUtils.isNotEmpty(sourceToTargetList)) {
+            copyPropertiesFromInputToTargetFact(ids, properties, sourceToTargetList, jsonNode);
+        }
+
+        // copy properties from target to source
+        if (CollectionUtils.isNotEmpty(targetToSourceList)) {
+            copyPropertiesFromSourceFactToInput(ids,fact,targetToSourceList);
+        }
 
         logger.info("Exit createNewOrUpdateFact()...");
 
@@ -162,27 +211,201 @@ public class DataImporter {
         // convert jsonNode to properties map
         convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey);
 
-        // create or update fact
+        // create or update dimension
         String typeName = getTypeName(jsonNode);
         DimensionManager manager = new DimensionManager(ids);
         Dimension dimension;
 
-        if(!ids.hasDimensionType(typeName)) {
+        if (!ids.hasDimensionType(typeName)) {
             ids.addDimensionType(typeName);
         }
 
         if (overwrite && uniqueKey.size() > 0) {
             dimension = getDimensionWithUniqueKeys(ids, typeName, uniqueKey);
             if (dimension != null) {
-                return manager.updateDimension(dimension, properties);
+                dimension = manager.updateDimension(dimension, properties);
+            } else {
+                dimension = manager.createDimension(typeName, properties);
+            }
+        } else {
+            dimension = manager.createDimension(typeName, properties);
+        }
+
+        // copy duplicate properties
+        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
+        List<DataDuplicateCopyMappingVO> dimensionDuplicateCopyList = null;
+
+        // if no duplicate copy mapping
+        if (MapUtils.isEmpty(map)) {
+            return dimension;
+        }
+
+        // if has duplicate copy mapping
+        dimensionDuplicateCopyList = map.get(SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING);
+
+        // if dimension duplicate copy mapping is empty
+        if (CollectionUtils.isEmpty(dimensionDuplicateCopyList)) {
+            return dimension;
+        }
+
+        List<DataDuplicateCopyMappingVO> sourceToTargetList = new ArrayList<>();
+        for (DataDuplicateCopyMappingVO vo : dimensionDuplicateCopyList) {
+            if (vo.getSourceDataTypeName().equalsIgnoreCase(typeName)) {
+                sourceToTargetList.add(vo);
             }
         }
 
-        dimension = manager.createDimension(typeName, properties);
+        if (CollectionUtils.isEmpty(sourceToTargetList)) {
+            return dimension;
+        }
+
+        // copy properties to target fact
+        copyPropertiesFromInputToTargetFact(ids, properties, sourceToTargetList, jsonNode);
 
         logger.info("Exit createNewOrUpdateDimension()...");
 
         return dimension;
+    }
+
+    public void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> properties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
+                                                    JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
+
+        Set<String> keySet = properties.keySet();
+        Iterator<String> it = keySet.iterator();
+
+        // copy properties from source to target fact
+        for (DataDuplicateCopyMappingVO vo : sourceToTargetList) {
+            String targetDataTypeName = vo.getTargetDataTypeName();
+            String targetDataPropertyName = vo.getTargetDataPropertyName();
+            String targetDataPropertyType = vo.getTargetDataPropertyType();
+
+            JsonNode propertiesJsonNode = JsonNodeUtil.getPropertiesJsonNode(jsonNode);
+            JsonNode sourceDataPropertyValueJsonNode = null;
+            boolean found = false;
+            for (JsonNode pJsonNode : propertiesJsonNode) {
+                if (!found && pJsonNode.get("propertyName").asText().equalsIgnoreCase(vo.getSourceDataPropertyName())) {
+                    found = true;
+                    sourceDataPropertyValueJsonNode = getPropertyValue(pJsonNode, "propertyValue");
+                }
+            }
+
+            Object sourceDataPropertyValue = null;
+            if (targetDataPropertyType.equalsIgnoreCase("String")) {
+                sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asText();
+            } else if (targetDataPropertyType.equalsIgnoreCase("Int")) {
+                sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asInt();
+            } else if (targetDataPropertyType.equalsIgnoreCase("float")) {
+                sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asDouble();
+            } else if (targetDataPropertyType.equalsIgnoreCase("Double")) {
+                sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asDouble();
+            } else if (targetDataPropertyType.equalsIgnoreCase("Long")) {
+                sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asLong();
+            } else if (targetDataPropertyType.equalsIgnoreCase("Boolean")
+                    || targetDataPropertyType.equalsIgnoreCase("Bool")) {
+                sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asBoolean();
+            } else if (targetDataPropertyType.equalsIgnoreCase("Date")
+                    || targetDataPropertyType.equalsIgnoreCase("DateTime")) {
+                sourceDataPropertyValue = new Date(sourceDataPropertyValueJsonNode.asLong());
+            }
+
+            // if target is not existed, does to create target and copy properties
+            if (!ids.hasFactType(targetDataTypeName)) {
+                logger.debug("target type {} is not existed", targetDataTypeName);
+                continue;
+            }
+
+            String fullTargetTypeName = "ID_FACT_" + targetDataTypeName;
+
+            String sql = "select * from " + fullTargetTypeName + " where " + targetDataPropertyName + " = ";
+            if (targetDataPropertyType.equalsIgnoreCase("String")) {
+                sql += "'" + sourceDataPropertyValue + "'";
+            } else {
+                sql += sourceDataPropertyValue;
+            }
+
+            List<Relationable> targetList = QueryExecutor.getManyRelationables(ids.getInformationExplorer(), sql);
+            if (CollectionUtils.isNotEmpty(targetList)) {
+                for (Relationable targetFact : targetList) {
+                    if (vo.getExistingPropertyHandleMethod().equalsIgnoreCase("Replace")) {
+                        List<Property> propertyList = targetFact.getProperties();
+                        Map<String, Object> targetPropertiesMap = new HashMap<>();
+                        for (Property property : propertyList) {
+                            targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
+                        }
+
+                        while (it.hasNext()) {
+                            String key = it.next();
+                            Object value = properties.get(key);
+                            targetPropertiesMap.put(key, value);
+                        }
+
+                        // remove the source primary key
+                        targetPropertiesMap.remove(vo.getSourceDataPropertyName());
+
+                        // update target fact
+                        new FactManager(ids).updateFact((Fact) targetFact, targetPropertiesMap);
+                    }
+                }
+            }
+        }
+
+    }
+
+
+    public void copyPropertiesFromSourceFactToInput(InfoDiscoverSpace ids, Fact targetFact,
+                                                    List<DataDuplicateCopyMappingVO> targetToSourceList
+    ) throws InfoDiscoveryEngineRuntimeException {
+
+        // copy properties from source fact to input fact
+        for (DataDuplicateCopyMappingVO vo : targetToSourceList) {
+            String sourceDataTypeName = vo.getSourceDataTypeName();
+            String sourceDataPropertyName = vo.getSourceDataPropertyName();
+            String sourceDataPropertyType = vo.getSourceDataPropertyType();
+
+            String targetDataPropertyName = vo.getTargetDataPropertyName();
+
+            Object targetDataPropertyValue = targetFact.getProperty(targetDataPropertyName).getPropertyValue();
+
+            // if source is not existed, does to create source and copy properties
+            if (!ids.hasFactType(sourceDataTypeName)) {
+                logger.debug("target type {} is not existed", sourceDataTypeName);
+                continue;
+            }
+
+            String fullSourceTypeName = "ID_FACT_" + sourceDataTypeName;
+
+            String sql = "select * from " + fullSourceTypeName + " where " + sourceDataPropertyName + " = ";
+            if (sourceDataPropertyType.equalsIgnoreCase("String")) {
+                sql += "'" + targetDataPropertyValue.toString() + "'";
+            } else {
+                sql += targetDataPropertyValue;
+            }
+
+            List<Relationable> sourceFactList = QueryExecutor.getManyRelationables(ids.getInformationExplorer(), sql);
+            if (CollectionUtils.isNotEmpty(sourceFactList)) {
+                List<Property> targetPropertiesList = targetFact.getProperties();
+                Map<String, Object> targetPropertiesMap = new HashMap<>();
+                for (Property property : targetPropertiesList) {
+                    targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
+                }
+
+                for (Relationable sourceFact : sourceFactList) {
+                    if (vo.getExistingPropertyHandleMethod().equalsIgnoreCase("Replace")) {
+                        List<Property> sourceFactProperties = sourceFact.getProperties();
+                        for(Property property: sourceFactProperties) {
+                            targetPropertiesMap.put(property.getPropertyName(),property.getPropertyValue());
+                        }
+
+                        // remove the source primary key
+                        targetPropertiesMap.remove(vo.getSourceDataPropertyName());
+
+                        // update target fact
+                        new FactManager(ids).updateFact(targetFact, targetPropertiesMap);
+                    }
+                }
+            }
+        }
+
     }
 
     public void convertJsonNodeToPropertiesMap(JsonNode propertiesJsonNode, Map<String, Object>
@@ -205,6 +428,10 @@ public class DataImporter {
 
     private String getTypeName(JsonNode jsonNode) {
         return jsonNode.get(SolutionConstants.JSON_TYPE_NAME).asText();
+    }
+
+    private JsonNode getPropertyValue(JsonNode jsonNode, String propertyName) {
+        return jsonNode.get(propertyName);
     }
 
     public Fact getFactWithUniqueKeys(InfoDiscoverSpace ids, String factType, Map<String, Object>

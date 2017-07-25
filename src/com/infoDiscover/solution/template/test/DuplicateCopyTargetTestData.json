@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "type": "Fact",
+      "typeName": "toTargetFact",
+      "properties": [
+        {
+          "propertyType": "String",
+          "propertyName": "fkey",
+          "propertyValue": "pk_1",
+          "isUniqueKey": true
+        },
+        {
+          "propertyType": "String",
+          "propertyName": "pwd",
+          "propertyValue": "pwd_a"
+        }
+      ]
+    }
+  ]
+}

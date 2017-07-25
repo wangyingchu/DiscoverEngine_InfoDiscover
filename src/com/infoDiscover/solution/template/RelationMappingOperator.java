@@ -131,7 +131,7 @@ public class RelationMappingOperator {
 
         // link fact/dimension to DATE dimension
         List<DataDateMappingVO> dateMappingList = new ArrayList<>();
-        for (DataDateMappingVO vo : dataToDateMappingList) {
+        for (DataDateMappingVO vo : dateMappingList) {
             if (vo.getSourceDataTypeName().equalsIgnoreCase(factType)) {
                 dateMappingList.add(vo);
             }

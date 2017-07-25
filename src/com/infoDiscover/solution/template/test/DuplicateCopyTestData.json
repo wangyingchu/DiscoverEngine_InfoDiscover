@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "type": "Fact",
+      "typeName": "fromSourceFact",
+      "properties": [
+        {
+          "propertyType": "String",
+          "propertyName": "key",
+          "propertyValue": "pk_1",
+          "isUniqueKey": true
+        },
+        {
+          "propertyType": "String",
+          "propertyName": "name",
+          "propertyValue": "name_a"
+        }
+      ]
+    }
+  ]
+}
