@@ -80,7 +80,7 @@ public class DataImporter {
         logger.info("Exit to importData()...");
     }
 
-    public Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override)
+    private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override)
             throws
             Exception {
         String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
@@ -267,7 +267,7 @@ public class DataImporter {
         return dimension;
     }
 
-    public void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> properties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
+    private void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> properties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
                                                     JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
 
         Set<String> keySet = properties.keySet();
