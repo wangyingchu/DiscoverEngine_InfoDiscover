@@ -67,6 +67,9 @@ public class TemplateExporter {
         String dimensionDuplicatedCopyMapping = ddlExporter.generateCopyDimensionDuplicatePropertiesDDL();
         logger.debug("dimensionDuplicatedCopyMapping: {}", dimensionDuplicatedCopyMapping);
 
+        String customPropertyAliasType = ddlExporter.generateCustomPropertyAliasTypeDDL();
+        logger.debug("customPropertyAliasType: {}", customPropertyAliasType);
+
         Map<String, String> files = new HashMap<>();
 
         if (solutionDefinition != null) {
@@ -113,6 +116,10 @@ public class TemplateExporter {
 
         if (dimensionDuplicatedCopyMapping != null) {
             files.put(SolutionConstants.SOLUTION_TEMPLATE_DIMENSION_DUPLICATE_COPY_FILE_NAME, dimensionDuplicatedCopyMapping);
+        }
+
+        if (customPropertyAliasType != null) {
+            files.put(SolutionConstants.SOLUTION_TEMPLATE_CUSTOM_PROPERTY_ALIAS_TYPE_FILE_NAME, customPropertyAliasType);
         }
 
         String zipFile = targetFileDirectory + "/" + solutionName + "_" +

@@ -155,6 +155,14 @@ public class DDLExporter {
         return generateDDL(spaceName, ep);
     }
 
+    public String generateCustomPropertyAliasTypeDDL() {
+        ExploreParameters ep = new ExploreParameters();
+        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionCustomPropertyAliasFactType);
+        ep.setDefaultFilteringItem(new EqualFilteringItem(this.SOLUTION_NAME, solutionName));
+
+        return generateDDL(spaceName, ep);
+    }
+
     public String generateDDL(String spaceName, ExploreParameters ep) {
         logger.info("Enter generateDDL() with spaceName: {} and exploreParameters: {}", spaceName, ep);
         InfoDiscoverSpace ids = null;
