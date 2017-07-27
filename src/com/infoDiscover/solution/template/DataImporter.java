@@ -32,11 +32,9 @@ public class DataImporter {
     private final static Logger logger = LoggerFactory.getLogger(DataImporter.class);
 
     private String spaceName;
-    private String solutionName;
 
-    public DataImporter(String spaceName, String solutionName) {
+    public DataImporter(String spaceName) {
         this.spaceName = spaceName;
-        this.solutionName = solutionName;
     }
 
     public void importData(String dataJson, boolean overwrite) throws Exception {
@@ -44,7 +42,7 @@ public class DataImporter {
         logger.info("Start to importData with data: {}", dataJson);
 
         // get relation mappings
-        new RelationMapping(solutionName).getRelationMappings();
+        new RelationMapping().getRelationMappings();
 
         InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 

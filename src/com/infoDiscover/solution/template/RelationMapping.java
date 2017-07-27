@@ -26,12 +26,7 @@ import java.util.Map;
 public class RelationMapping {
     public static final Logger logger = LoggerFactory.getLogger(RelationMapping.class);
 
-    private String solutionName;
     private String spaceName = PropertyHandler.getPropertyValue(PropertyHandler.META_CONFIG_DISCOVERSPACE);
-
-    public RelationMapping(String solutionName) {
-        this.solutionName = solutionName;
-    }
 
     public static Map<String, List<RelationMappingVO>> factToDimensionMap = new HashMap<>();
     public static Map<String, List<RelationMappingVO>> dimensionToFactMap = new HashMap<>();
@@ -70,8 +65,8 @@ public class RelationMapping {
 
     private void setFactToFactMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataRelationMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataRelationMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("targetDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
 //        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeName", factType), ExploreParameters.FilteringLogic.AND);
@@ -89,8 +84,8 @@ public class RelationMapping {
 
     private void setFactToDimensionMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataRelationMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataRelationMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("targetDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
 //        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeName", factType), ExploreParameters.FilteringLogic.AND);
@@ -108,8 +103,8 @@ public class RelationMapping {
 
     private void setDimensionToDimensionMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataRelationMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataRelationMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("targetDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
 //        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeName", dimensionType), ExploreParameters.FilteringLogic.AND);
@@ -127,8 +122,8 @@ public class RelationMapping {
 
     private void setDimensionToFactMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataRelationMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataRelationMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
         ep.addFilteringItem(new EqualFilteringItem("targetDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
 //        ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeName", dimensionType), ExploreParameters.FilteringLogic.AND);
@@ -146,8 +141,8 @@ public class RelationMapping {
 
     private void setFactToDateMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataDateDimensionMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataDateDimensionMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
 
         List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
@@ -163,8 +158,8 @@ public class RelationMapping {
 
     private void setDimensionToDateMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataDateDimensionMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataDateDimensionMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
 
         List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
@@ -180,8 +175,8 @@ public class RelationMapping {
 
     private void setFactDuplicateCopyMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataPropertiesDuplicateMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataPropertiesDuplicateMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "FACT"), ExploreParameters.FilteringLogic.AND);
 
         List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
@@ -197,8 +192,8 @@ public class RelationMapping {
 
     private void setDimensiontDuplicateCopyMappings(InfoDiscoverSpace ids) {
         ExploreParameters ep = new ExploreParameters();
-        ep.setType(SolutionTemplateConstants.BUSINESSSOLUTION_SolutionDataPropertiesDuplicateMappingDefinitionFactType);
-        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
+        ep.setType(SolutionTemplateConstants.DataMapping_SpaceDataPropertiesDuplicateMappingDefinition);
+//        ep.setDefaultFilteringItem(new EqualFilteringItem(DDLExporter.SOLUTION_NAME, solutionName));
         ep.addFilteringItem(new EqualFilteringItem("sourceDataTypeKind", "DIMENSION"), ExploreParameters.FilteringLogic.AND);
 
         List<Fact> factToDimensionMappingList = QueryExecutor.executeFactsQuery(ids.getInformationExplorer(), ep);
