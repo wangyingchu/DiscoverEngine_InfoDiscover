@@ -23,7 +23,7 @@ public class TemplateExporter {
         this.solutionName = solutionName;
     }
 
-    public void exportSolutionTemplate(String targetFileDirectory) throws Exception {
+    public String exportSolutionTemplate(String targetFileDirectory) throws Exception {
         logger.info("Start exportSolutionTemplate of name: {} to file directory: {}", solutionName,
                 targetFileDirectory);
 
@@ -128,5 +128,7 @@ public class TemplateExporter {
         CompressionUtil.zip(zipFile, files);
 
         logger.info("Exit to exportSolutionTemplate()...");
+
+        return zipFile;
     }
 }

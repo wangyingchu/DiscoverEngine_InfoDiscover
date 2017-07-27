@@ -219,7 +219,7 @@ public class DiscoverEngineComponentFactory {
         try {
             OServerAdmin serverAdmin = new OServerAdmin(serviceLocation + spaceName).connect
                     (userAccount, userPWD);
-            deleteInfoDiscoverSpace(serverAdmin, spaceName);
+            deleteActionResult=deleteInfoDiscoverSpace(serverAdmin, spaceName);
             serverAdmin.close();
         } catch (IOException e) {
             e.printStackTrace();
