@@ -1,5 +1,8 @@
 package com.infoDiscover.solution.template;
 
+import com.info.discover.ruleengine.solution.SolutionRelationMapping;
+import com.info.discover.ruleengine.solution.pojo.DataDateMappingVO;
+import com.info.discover.ruleengine.solution.pojo.RelationMappingVO;
 import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.common.util.DataTypeChecker;
@@ -10,8 +13,6 @@ import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.solution.builder.SolutionConstants;
-import com.infoDiscover.solution.builder.vo.DataDateMappingVO;
-import com.infoDiscover.solution.builder.vo.RelationMappingVO;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
@@ -71,13 +72,17 @@ public class RelationMappingOperator {
         Map<String, List<RelationMappingVO>> mappings = null;
 
         if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING)) {
-            mappings = RelationMapping.factToFactMap;
+            mappings = new SolutionRelationMapping().getFactToFactMap();
+//            mappings = RelationMapping.factToFactMap;
         } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING)) {
-            mappings = RelationMapping.factToDimensionMap;
+            mappings = new SolutionRelationMapping().getFactToDimensionMap();
+//            mappings = RelationMapping.factToDimensionMap;
         } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING)) {
-            mappings = RelationMapping.dimensionToFactMap;
+            mappings = new SolutionRelationMapping().getDimensionToFactMap();
+//            mappings = RelationMapping.dimensionToFactMap;
         } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING)) {
-            mappings = RelationMapping.dimensionToDimensionMap;
+            mappings = new SolutionRelationMapping().getDimensionToDimensionMap();
+//            mappings = RelationMapping.dimensionToDimensionMap;
         }
 
         if (MapUtils.isEmpty(mappings)) {
@@ -115,9 +120,11 @@ public class RelationMappingOperator {
         Map<String, List<DataDateMappingVO>> dateMappings = null;
 
         if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
-            dateMappings = RelationMapping.factToDateMap;
+            dateMappings = new SolutionRelationMapping().getFactToDataMap();
+//            dateMappings = RelationMapping.factToDateMap;
         } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING)) {
-            dateMappings = RelationMapping.dimensionToDateMap;
+            dateMappings = new SolutionRelationMapping().getDimensionToDateMap();
+//            dateMappings = RelationMapping.dimensionToDateMap;
         }
 
         if (MapUtils.isEmpty(dateMappings)) {

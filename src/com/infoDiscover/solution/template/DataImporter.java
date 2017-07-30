@@ -1,5 +1,7 @@
 package com.infoDiscover.solution.template;
 
+import com.info.discover.ruleengine.solution.SolutionRelationMapping;
+import com.info.discover.ruleengine.solution.pojo.DataDuplicateCopyMappingVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
@@ -10,7 +12,6 @@ import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.builder.SolutionConstants;
-import com.infoDiscover.solution.builder.vo.DataDuplicateCopyMappingVO;
 import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -42,7 +43,8 @@ public class DataImporter {
         logger.info("Start to importData with data: {}", dataJson);
 
         // get relation mappings
-        new RelationMapping().getRelationMappings();
+        new SolutionRelationMapping().getSolutionRelationMappings();
+//        new RelationMapping().getRelationMappings();
 
         InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
 
@@ -137,7 +139,8 @@ public class DataImporter {
         }
 
         // copy duplicate properties
-        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
+//        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
+        Map<String, List<DataDuplicateCopyMappingVO>> map = new SolutionRelationMapping().getFactDuplicatedCopyMap();
         List<DataDuplicateCopyMappingVO> factDuplicateCopyList = null;
 
         // if no duplicate copy mapping
@@ -230,7 +233,8 @@ public class DataImporter {
         }
 
         // copy duplicate properties
-        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
+//        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
+        Map<String, List<DataDuplicateCopyMappingVO>> map = new SolutionRelationMapping().getDimensionDuplicatedCopyMap();
         List<DataDuplicateCopyMappingVO> dimensionDuplicateCopyList = null;
 
         // if no duplicate copy mapping
