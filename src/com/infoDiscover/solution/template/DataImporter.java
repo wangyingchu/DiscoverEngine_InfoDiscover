@@ -294,11 +294,11 @@ public class DataImporter {
         return dimension;
     }
 
-    private void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> properties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
+    private void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> inputProperties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
                                                      JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
 
-        Set<String> keySet = properties.keySet();
-        Iterator<String> it = keySet.iterator();
+        Set<String> keySet = inputProperties.keySet();
+        Iterator<String> inputIteratorKeys = keySet.iterator();
 
         // copy properties from source to target fact
         for (DataDuplicateCopyMappingVO vo : sourceToTargetList) {
@@ -353,25 +353,34 @@ public class DataImporter {
             List<Relationable> targetList = QueryExecutor.getManyRelationables(ids.getInformationExplorer(), sql);
             if (CollectionUtils.isNotEmpty(targetList)) {
                 for (Relationable targetFact : targetList) {
-                    if (vo.getExistingPropertyHandleMethod().equalsIgnoreCase("Replace")) {
-                        List<Property> propertyList = targetFact.getProperties();
-                        Map<String, Object> targetPropertiesMap = new HashMap<>();
-                        for (Property property : propertyList) {
-                            targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
-                        }
+                    List<Property> propertyList = targetFact.getProperties();
+                    Map<String, Object> targetPropertiesMap = new HashMap<>();
+                    for (Property property : propertyList) {
+                        targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
+                    }
 
-                        while (it.hasNext()) {
-                            String key = it.next();
-                            Object value = properties.get(key);
+                    if (vo.getExistingPropertyHandleMethod().equalsIgnoreCase("Replace")) {
+                        while (inputIteratorKeys.hasNext()) {
+                            String key = inputIteratorKeys.next();
+                            Object value = inputProperties.get(key);
                             targetPropertiesMap.put(key, value);
                         }
 
                         // remove the source primary key
                         targetPropertiesMap.remove(vo.getSourceDataPropertyName());
 
-                        // update target fact
-                        new FactManager(ids).updateFact((Fact) targetFact, targetPropertiesMap);
+                    } else {
+                        while (inputIteratorKeys.hasNext()) {
+                            String key = inputIteratorKeys.next();
+                            Object value = inputProperties.get(key);
+                            if (!targetPropertiesMap.containsKey(key)) {
+                                targetPropertiesMap.put(key, value);
+                            }
+                        }
                     }
+
+                    // update target fact
+                    new FactManager(ids).updateFact((Fact) targetFact, targetPropertiesMap);
                 }
             }
         }
@@ -417,8 +426,10 @@ public class DataImporter {
                 }
 
                 for (Relationable sourceFact : sourceFactList) {
+
+                    List<Property> sourceFactProperties = sourceFact.getProperties();
+
                     if (vo.getExistingPropertyHandleMethod().equalsIgnoreCase("Replace")) {
-                        List<Property> sourceFactProperties = sourceFact.getProperties();
                         for (Property property : sourceFactProperties) {
                             targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
                         }
@@ -426,9 +437,16 @@ public class DataImporter {
                         // remove the source primary key
                         targetPropertiesMap.remove(vo.getSourceDataPropertyName());
 
-                        // update target fact
-                        new FactManager(ids).updateFact(targetFact, targetPropertiesMap);
+                    } else {
+                        for (Property property: sourceFactProperties) {
+                            if (!targetPropertiesMap.containsKey(property.getPropertyName())) {
+                                targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
+                            }
+                        }
                     }
+
+                    // update target fact
+                    new FactManager(ids).updateFact(targetFact, targetPropertiesMap);
                 }
             }
         }
