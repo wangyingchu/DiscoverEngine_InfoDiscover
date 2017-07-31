@@ -105,6 +105,13 @@ public class DataImporter {
             return null;
         }
 
+        String typeName = getTypeName(jsonNode);
+        if (!ids.hasFactType(typeName)) {
+//            ids.addFactType(typeName);
+            logger.info("Fact type: {} is not existed and does not create it.", typeName);
+            return  null;
+        }
+
         Map<String, Object> uniqueKey = new HashMap<>();
         Map<String, Object> properties = new HashMap<>();
 
@@ -117,15 +124,11 @@ public class DataImporter {
         // convert jsonNode to properties map
         convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey);
 
-        String typeName = getTypeName(jsonNode);
+
         FactManager manager = new FactManager(ids);
 
         // create or update fact
         Fact fact;
-
-        if (!ids.hasFactType(typeName)) {
-            ids.addFactType(typeName);
-        }
 
         if (overwrite && uniqueKey.size() > 0) {
             fact = getFactWithUniqueKeys(ids, typeName, uniqueKey);
@@ -200,6 +203,14 @@ public class DataImporter {
             return null;
         }
 
+        // create or update dimension
+        String typeName = getTypeName(jsonNode);
+        if (!ids.hasDimensionType(typeName)) {
+//            ids.addDimensionType(typeName);
+            logger.info("Dimension type: {} is not existed and does not create it.", typeName);
+            return null;
+        }
+
         Map<String, Object> uniqueKey = new HashMap<>();
         Map<String, Object> properties = new HashMap<>();
 
@@ -212,14 +223,8 @@ public class DataImporter {
         // convert jsonNode to properties map
         convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey);
 
-        // create or update dimension
-        String typeName = getTypeName(jsonNode);
         DimensionManager manager = new DimensionManager(ids);
         Dimension dimension;
-
-        if (!ids.hasDimensionType(typeName)) {
-            ids.addDimensionType(typeName);
-        }
 
         if (overwrite && uniqueKey.size() > 0) {
             dimension = getDimensionWithUniqueKeys(ids, typeName, uniqueKey);
