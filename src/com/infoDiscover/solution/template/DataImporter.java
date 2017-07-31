@@ -2,10 +2,7 @@ package com.infoDiscover.solution.template;
 
 import com.info.discover.ruleengine.solution.SolutionRelationMapping;
 import com.info.discover.ruleengine.solution.pojo.DataDuplicateCopyMappingVO;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
+import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
@@ -81,20 +78,27 @@ public class DataImporter {
     }
 
     private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override)
+            throws Exception {
+        String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
+
+        return createRelationable(ids, jsonNode, override, true);
+    }
+
+    private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override, boolean ignoreNotMappingProperties)
             throws
             Exception {
         String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
 
         if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(type)) {
-            return createNewOrUpdateFact(ids, jsonNode, override);
+            return createNewOrUpdateFact(ids, jsonNode, override, ignoreNotMappingProperties);
         } else if (SolutionConstants.DIMENSION_TYPE.equalsIgnoreCase(type)) {
-            return createNewOrUpdateDimension(ids, jsonNode, override);
+            return createNewOrUpdateDimension(ids, jsonNode, override, ignoreNotMappingProperties);
         } else {
             throw new Exception("Wrong type, it should be: " + SolutionConstants.FACT_TYPE);
         }
     }
 
-    private Fact createNewOrUpdateFact(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite)
+    private Fact createNewOrUpdateFact(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite, boolean ignoreNotMappingProperties)
             throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
         logger.info("Start to createNewOrUpdateFact with jsonNode: {} and overwrite is: {}",
@@ -109,7 +113,7 @@ public class DataImporter {
         if (!ids.hasFactType(typeName)) {
 //            ids.addFactType(typeName);
             logger.info("Fact type: {} is not existed and does not create it.", typeName);
-            return  null;
+            return null;
         }
 
         Map<String, Object> uniqueKey = new HashMap<>();
@@ -122,8 +126,16 @@ public class DataImporter {
         }
 
         // convert jsonNode to properties map
-        convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey);
 
+        if (!ignoreNotMappingProperties) {
+            logger.info("All the properties type should map to the defined properties of the fact: {}", typeName);
+            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey,null, false);
+        } else {
+            logger.info("Ignore the properties that property type is not mapping to the defined properties of the fact: {}", typeName);
+            FactType factType = ids.getFactType(typeName);
+            List<TypeProperty> typeProperties = factType.getTypeProperties();
+            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
+        }
 
         FactManager manager = new FactManager(ids);
 
@@ -184,7 +196,7 @@ public class DataImporter {
 
         // copy properties from target to source
         if (CollectionUtils.isNotEmpty(targetToSourceList)) {
-            copyPropertiesFromSourceFactToInput(ids,fact,targetToSourceList);
+            copyPropertiesFromSourceFactToInput(ids, fact, targetToSourceList);
         }
 
         logger.info("Exit createNewOrUpdateFact()...");
@@ -192,7 +204,7 @@ public class DataImporter {
         return fact;
     }
 
-    private Dimension createNewOrUpdateDimension(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite)
+    private Dimension createNewOrUpdateDimension(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite, boolean ignoreNotMappingProperties)
             throws
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
         logger.info("Start to createNewOrUpdateDimension with jsonNode: {} and overwrite is: {}",
@@ -221,7 +233,15 @@ public class DataImporter {
         }
 
         // convert jsonNode to properties map
-        convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey);
+        if (!ignoreNotMappingProperties) {
+            logger.info("All the properties type should map to the defined properties of the fact: {}", typeName);
+            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey,null, false);
+        } else {
+            logger.info("Ignore the properties that property type is not mapping to the defined properties of the fact: {}", typeName);
+            FactType factType = ids.getFactType(typeName);
+            List<TypeProperty> typeProperties = factType.getTypeProperties();
+            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
+        }
 
         DimensionManager manager = new DimensionManager(ids);
         Dimension dimension;
@@ -275,7 +295,7 @@ public class DataImporter {
     }
 
     private void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> properties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
-                                                    JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
+                                                     JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
 
         Set<String> keySet = properties.keySet();
         Iterator<String> it = keySet.iterator();
@@ -399,8 +419,8 @@ public class DataImporter {
                 for (Relationable sourceFact : sourceFactList) {
                     if (vo.getExistingPropertyHandleMethod().equalsIgnoreCase("Replace")) {
                         List<Property> sourceFactProperties = sourceFact.getProperties();
-                        for(Property property: sourceFactProperties) {
-                            targetPropertiesMap.put(property.getPropertyName(),property.getPropertyValue());
+                        for (Property property : sourceFactProperties) {
+                            targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
                         }
 
                         // remove the source primary key
@@ -416,19 +436,59 @@ public class DataImporter {
     }
 
     public void convertJsonNodeToPropertiesMap(JsonNode propertiesJsonNode, Map<String, Object>
-            properties, Map<String, Object> uniqueKey) {
-        for (JsonNode propertyNode : propertiesJsonNode) {
-            String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
-            String propertyType = propertyNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
+            properties, Map<String, Object> uniqueKey, List<TypeProperty> typeProperties, boolean ignoreNotMappingProperties) {
 
-            Object propertyValue = JsonNodeUtil.getPropertyValue(propertyType, propertyNode);
-            if (propertyValue != null) {
-                properties.put(propertyName, propertyValue);
+        if (ignoreNotMappingProperties) {
+            if (CollectionUtils.isEmpty(typeProperties)) {
+                return;
             }
 
-            JsonNode key = propertyNode.get(SolutionConstants.JSON_IS_UNIQUE_KEY);
-            if (key != null) {
-                uniqueKey.put(propertyName, propertyValue);
+            Iterator<TypeProperty> it = typeProperties.iterator();
+            Map<String, String> definedTypeProperties = new HashMap<>();
+            while (it.hasNext()) {
+                TypeProperty typeProperty = it.next();
+                String propertyName = typeProperty.getPropertyName();
+                String propertyType = typeProperty.getPropertyType().toString();
+                definedTypeProperties.put(propertyName, propertyType);
+            }
+
+            for (JsonNode propertyNode: propertiesJsonNode) {
+                String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
+                String propertyType = propertyNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
+                Object propertyValue = JsonNodeUtil.getPropertyValue(propertyType, propertyNode);
+
+                if(definedTypeProperties.containsKey(propertyName)) {
+                    if(propertyType.equalsIgnoreCase(definedTypeProperties.get(propertyName))) {
+                        if (propertyValue != null) {
+                            properties.put(propertyName, propertyValue);
+                        }
+                    }
+                } else {
+                    if (propertyValue != null) {
+                        properties.put(propertyName, propertyValue);
+                    }
+                }
+
+                JsonNode key = propertyNode.get(SolutionConstants.JSON_IS_UNIQUE_KEY);
+                if (key != null) {
+                    uniqueKey.put(propertyName, propertyValue);
+                }
+            }
+
+        } else {
+            for (JsonNode propertyNode : propertiesJsonNode) {
+                String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
+                String propertyType = propertyNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
+
+                Object propertyValue = JsonNodeUtil.getPropertyValue(propertyType, propertyNode);
+                if (propertyValue != null) {
+                    properties.put(propertyName, propertyValue);
+                }
+
+                JsonNode key = propertyNode.get(SolutionConstants.JSON_IS_UNIQUE_KEY);
+                if (key != null) {
+                    uniqueKey.put(propertyName, propertyValue);
+                }
             }
         }
     }
