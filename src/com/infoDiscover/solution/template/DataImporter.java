@@ -295,6 +295,8 @@ public class DataImporter {
     private void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> inputProperties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
                                                      JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
 
+        FactManager factManager = new FactManager(ids);
+
         // copy properties from source to target fact
         for (DataDuplicateCopyMappingVO vo : sourceToTargetList) {
             String targetDataTypeName = vo.getTargetDataTypeName();
@@ -377,6 +379,8 @@ public class DataImporter {
                         }
                     }
 
+                    // get the latest target fact as it maybe update in the previous actions
+                    targetFact = factManager.getFactByRID(targetFact.getId(), ((Fact)targetFact).getType());
                     // update target fact
                     new FactManager(ids).updateFact((Fact) targetFact, targetPropertiesMap);
                 }
@@ -389,6 +393,8 @@ public class DataImporter {
     public void copyPropertiesFromSourceFactToInput(InfoDiscoverSpace ids, Fact targetFact,
                                                     List<DataDuplicateCopyMappingVO> targetToSourceList
     ) throws InfoDiscoveryEngineRuntimeException {
+
+        FactManager factManager = new FactManager(ids);
 
         // copy properties from source fact to input fact
         for (DataDuplicateCopyMappingVO vo : targetToSourceList) {
@@ -443,8 +449,10 @@ public class DataImporter {
                         }
                     }
 
+                    // get the latest version of the targetFact as it maybe update in the previous update
+                    targetFact = factManager.getFactByRID(targetFact.getId(), targetFact.getType());
                     // update target fact
-                    new FactManager(ids).updateFact(targetFact, targetPropertiesMap);
+                    factManager.updateFact(targetFact, targetPropertiesMap);
                 }
             }
         }
