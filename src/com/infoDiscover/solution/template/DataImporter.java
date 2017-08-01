@@ -234,12 +234,12 @@ public class DataImporter {
 
         // convert jsonNode to properties map
         if (!ignoreNotMappingProperties) {
-            logger.info("All the properties type should map to the defined properties of the fact: {}", typeName);
+            logger.info("All the properties type should map to the defined properties of the dimension: {}", typeName);
             convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey,null, false);
         } else {
-            logger.info("Ignore the properties that property type is not mapping to the defined properties of the fact: {}", typeName);
-            FactType factType = ids.getFactType(typeName);
-            List<TypeProperty> typeProperties = factType.getTypeProperties();
+            logger.info("Ignore the properties that property type is not mapping to the defined properties of the dimension: {}", typeName);
+            DimensionType dimensionType = ids.getDimensionType(typeName);
+            List<TypeProperty> typeProperties = dimensionType.getTypeProperties();
             convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
         }
 

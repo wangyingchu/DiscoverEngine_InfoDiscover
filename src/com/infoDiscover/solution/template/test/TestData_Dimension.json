@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "type": "Fact",
+      "typeName": "testFact1",
+      "properties": [
+        {
+          "propertyType": "String",
+          "propertyName": "testFactStrProperty1",
+          "propertyValue": "projectId_222",
+          "isUniqueKey": true
+        },
+        {
+          "propertyType": "Int",
+          "propertyName": "testFactIntProperty1",
+          "propertyValue": 88888
+        },
+        {
+          "propertyType": "Date",
+          "propertyName": "createdAt",
+          "propertyValue": 1485878400000
+        }
+      ]
+    }
+  ]
+}
