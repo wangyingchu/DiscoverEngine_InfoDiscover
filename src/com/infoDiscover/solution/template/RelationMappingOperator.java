@@ -38,11 +38,11 @@ public class RelationMappingOperator {
         String rid = fact.getId();
         String factType = fact.getType();
 
-        link(ids, rid, SolutionConstants.JSON_FACT_TO_FACT_MAPPING, factType);
-        link(ids, rid, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING, factType);
+        link(ids, rid, SolutionConstants.JSON_FACT_TO_FACT_MAPPING, factType, "FACT");
+        link(ids, rid, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING, factType, "FACT");
 
         // link to DATE dimension
-        linkToDateDimension(ids,rid, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING, factType);
+        linkToDateDimension(ids,rid, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING, factType, "FACT");
 
         // TODO:
 //        linkDimensionToDimension(ids,rid, factType);
@@ -57,16 +57,16 @@ public class RelationMappingOperator {
         String rid = dimension.getId();
         String dimensionType = dimension.getType();
 
-        link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING, dimensionType);
-        link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING, dimensionType);
+        link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING, dimensionType, "DIMENSION");
+        link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING, dimensionType, "DIMENSION");
 
         // link to DATE dimension
-        linkToDateDimension(ids,rid, SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING, dimensionType);
+        linkToDateDimension(ids,rid, SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING, dimensionType, "DIMENSION");
         logger.info("Exit linkBetweenNodesFromDimension()...");
     }
 
     private void link(InfoDiscoverSpace ids, String rid,
-                      String mappingType, String factType)
+                      String mappingType, String factType, String relationableType)
             throws Exception {
 
         Map<String, List<RelationMappingVO>> mappings = null;
@@ -104,7 +104,7 @@ public class RelationMappingOperator {
 
         if (CollectionUtils.isNotEmpty(voList)) {
             // retrieve fact again as its version is updated
-            Relationable latestFact = new FactManager(ids).getRelationableByRID(rid, factType);
+            Relationable latestFact = new FactManager(ids).getRelationableByRID(rid, factType, relationableType);
 
             for (RelationMappingVO vo : voList) {
                 linkRelation(ids, latestFact, vo);
@@ -114,7 +114,7 @@ public class RelationMappingOperator {
     }
 
     private void linkToDateDimension(InfoDiscoverSpace ids, String rid,
-                      String mappingType, String factType)
+                      String mappingType, String factType, String relationableType)
             throws Exception {
 
         Map<String, List<DataDateMappingVO>> dateMappings = null;
@@ -146,7 +146,7 @@ public class RelationMappingOperator {
 
         if (CollectionUtils.isNotEmpty(dateMappingList)) {
             // retrieve fact again as its version is updated
-            Relationable latestFact = new FactManager(ids).getRelationableByRID(rid, factType);
+            Relationable latestFact = new FactManager(ids).getRelationableByRID(rid, factType, relationableType);
             for (DataDateMappingVO vo : dateMappingList) {
                 linkToDateRelation(ids, latestFact, vo);
             }

@@ -118,9 +118,12 @@ public class FactManager {
         return null;
     }
 
-    public Relationable getRelationableByRID(String rid, String factType) {
+    public Relationable getRelationableByRID(String rid, String factType, String relationableType) {
+
+        String type = relationableType.equalsIgnoreCase("FACT") ? InfoDiscoverEngineConstant.CLASSPERFIX_FACT: InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION;
+
         String sql = "select from " + PrefixSetting.getFactTypeWithPrefix
-                (InfoDiscoverEngineConstant.CLASSPERFIX_FACT , factType) + " WHERE @rid = " + rid;
+                (type , factType) + " WHERE @rid = " + rid;
 
         List<Relationable> list = QueryExecutor.executeFactQuery(ids, sql);
         if (list!= null && list.size() > 0) {
