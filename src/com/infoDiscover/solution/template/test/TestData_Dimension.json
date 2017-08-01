@@ -1,23 +1,23 @@
 {
   "data": [
     {
-      "type": "Fact",
-      "typeName": "testFact1",
+      "type": "Dimension",
+      "typeName": "testDimension1",
       "properties": [
         {
           "propertyType": "String",
-          "propertyName": "testFactStrProperty1",
-          "propertyValue": "projectId_222",
+          "propertyName": "dimStrProperty",
+          "propertyValue": "dimStrProperty",
           "isUniqueKey": true
         },
         {
           "propertyType": "Int",
-          "propertyName": "testFactIntProperty1",
+          "propertyName": "testDimIntProperty",
           "propertyValue": 88888
         },
         {
           "propertyType": "Date",
-          "propertyName": "createdAt",
+          "propertyName": "dim_updateDate",
           "propertyValue": 1485878400000
         }
       ]

@@ -79,8 +79,6 @@ public class DataImporter {
 
     private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override)
             throws Exception {
-        String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
-
         return createRelationable(ids, jsonNode, override, true);
     }
 
@@ -297,9 +295,6 @@ public class DataImporter {
     private void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> inputProperties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
                                                      JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
 
-        Set<String> keySet = inputProperties.keySet();
-        Iterator<String> inputIteratorKeys = keySet.iterator();
-
         // copy properties from source to target fact
         for (DataDuplicateCopyMappingVO vo : sourceToTargetList) {
             String targetDataTypeName = vo.getTargetDataTypeName();
@@ -359,6 +354,9 @@ public class DataImporter {
                         targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
                     }
 
+                    Set<String> keySet = inputProperties.keySet();
+                    Iterator<String> inputIteratorKeys = keySet.iterator();
+
                     if (vo.getExistingPropertyHandleMethod().equalsIgnoreCase("Replace")) {
                         while (inputIteratorKeys.hasNext()) {
                             String key = inputIteratorKeys.next();
@@ -367,7 +365,7 @@ public class DataImporter {
                         }
 
                         // remove the source primary key
-                        targetPropertiesMap.remove(vo.getSourceDataPropertyName());
+//                        targetPropertiesMap.remove(vo.getSourceDataPropertyName());
 
                     } else {
                         while (inputIteratorKeys.hasNext()) {
@@ -435,7 +433,7 @@ public class DataImporter {
                         }
 
                         // remove the source primary key
-                        targetPropertiesMap.remove(vo.getSourceDataPropertyName());
+//                        targetPropertiesMap.remove(vo.getSourceDataPropertyName());
 
                     } else {
                         for (Property property: sourceFactProperties) {

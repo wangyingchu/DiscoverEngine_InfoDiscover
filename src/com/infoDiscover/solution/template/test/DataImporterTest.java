@@ -8,19 +8,24 @@ import com.infoDiscover.solution.template.DataImporter;
  */
 public class DataImporterTest {
     static String testDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestData.json";
+    static String testDimensionDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestData_Dimension.json";
     static String duplicatedCopyTestDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/DuplicateCopyTestData.json";
     static String duplicatedCopyTargetTestDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/DuplicateCopyTargetTestData.json";
-    static String spaceName = "solution_test_2";
+    static String spaceName = "test_1";
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
         DataImporter importer = new DataImporter(spaceName);
 
 
-        String json = FileUtil.readFileContent(duplicatedCopyTargetTestDataFile);
-        try {
-            importer.importData(json,true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // dimension to date mapping
+//        String testDimensionDataFileJson = FileUtil.readFileContent(testDimensionDataFile);
+//        importer.importData(testDimensionDataFileJson, true);
+
+        // duplicatedCopyTestDataFileJson
+        String duplicatedCopyTestDataFileJson = FileUtil.readFileContent(duplicatedCopyTestDataFile);
+        importer.importData(duplicatedCopyTestDataFileJson, true);
+
+
     }
 }

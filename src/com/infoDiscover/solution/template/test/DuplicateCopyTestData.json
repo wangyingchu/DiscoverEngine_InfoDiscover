@@ -7,7 +7,7 @@
         {
           "propertyType": "String",
           "propertyName": "key",
-          "propertyValue": "pk_1",
+          "propertyValue": "key1",
           "isUniqueKey": true
         },
         {
