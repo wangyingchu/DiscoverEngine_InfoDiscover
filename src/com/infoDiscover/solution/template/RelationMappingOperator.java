@@ -210,8 +210,6 @@ public class RelationMappingOperator {
         DimensionManager dimensionManager = new DimensionManager(ids);
         RelationshipManager relationshipManager = new RelationshipManager(ids);
 
-        Object sourceDataPropertyValue = sourceDataProperty.getPropertyValue();
-
         // construct target sql to query
         String sql = constructSql(fact, vo);
 
@@ -244,25 +242,22 @@ public class RelationMappingOperator {
         if (targetRelationable == null && mappingNotExistHandleMethod.equalsIgnoreCase(MappingNotExistHandleMethod.CREATE)) {
             try {
                 Map<String, Object> props = new HashMap<>();
-                if (DataTypeChecker.isNumericType(targetDataPropertyType)) {
-                    double targetDataPropertyValue = Double.parseDouble(vo.getTargetDataPropertyValue());
-                    props.put(targetDataPropertyName, targetDataPropertyValue);
-                } else if (DataTypeChecker.isStringType(targetDataPropertyType)) {
-                    props.put(targetDataPropertyName, sourceDataPropertyValue);
-                } else if (DataTypeChecker.isDateType(targetDataPropertyType)) {
-                    props.put(targetDataPropertyName, sourceDataPropertyValue);
-                }
+
+                Object targetDataPropertyValue = getNumericTargetPropertyValue(fact, vo);
+                props.put(targetDataPropertyName, targetDataPropertyValue);
+//                if (DataTypeChecker.isNumericType(targetDataPropertyType)) {
+//                    props.put(targetDataPropertyName, targetDataPropertyValue);
+//                } else if (DataTypeChecker.isStringType(targetDataPropertyType)) {
+//                    props.put(targetDataPropertyName, sourceDataPropertyValue);
+//                } else if (DataTypeChecker.isDateType(targetDataPropertyType)) {
+//                    props.put(targetDataPropertyName, sourceDataPropertyValue);
+//                }
 
                 if (targetDataTypeKind.equalsIgnoreCase("FACT")) {
                     targetRelationable = factManager.createFact(targetDataTypeName, props);
                 } else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION")) {
                     targetRelationable = dimensionManager.createDimension(targetDataTypeName, props);
                 }
-//                else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION") && DataTypeChecker.isDateType(targetDataPropertyType)) {
-//
-//                    DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVO(targetDataTypeName, (Date)sourceDataPropertyValue);
-//                    targetRelationable =  new TimeDimensionManager(ids).createDayDimension(dayDimensionVO);
-//                }
             } catch (Exception e) {
                 logger.error("targetDataPropertyValue {} is not a numeric", vo.getTargetDataPropertyValue());
             }
@@ -317,6 +312,18 @@ public class RelationMappingOperator {
 
     }
 
+    private Object getNumericTargetPropertyValue(Relationable fact, RelationMappingVO vo) {
+        String minValue = vo.getMinValue();
+        String maxValue = vo.getMaxValue();
+
+        // if minValue and maxValue is not set, use sourcePropertyValue as targetPropertyValue
+        if (StringUtils.isEmpty(minValue) && StringUtils.isEmpty(maxValue)) {
+            return fact.getProperty(vo.getSourceDataPropertyName()).getPropertyValue();
+        }
+
+        // if minValue and maxValue is set,
+        return vo.getTargetDataPropertyValue();
+    }
 
     private String constructSql(Relationable fact, RelationMappingVO vo) {
         String sourceDataPropertyName = vo.getSourceDataPropertyName();
@@ -326,8 +333,16 @@ public class RelationMappingOperator {
 
         Object sourceDataPropertyValue = fact.getProperty(sourceDataPropertyName).getPropertyValue();
         if (DataTypeChecker.isStringType(sourceDataPropertyType)) {
-            sql = constructEqualSql(vo, sourceDataPropertyValue);
+            sql = constructStringEqualSql(vo, sourceDataPropertyValue);
         } else if (DataTypeChecker.isNumericType(sourceDataPropertyType)) {
+
+            String minValue = vo.getMinValue();
+            String maxValue = vo.getMaxValue();
+
+            // if minValue == null, maxValue == null, construct equal sql
+            if (StringUtils.isEmpty(minValue) && StringUtils.isEmpty(maxValue)) {
+                return constructNumericEqualSql(vo, sourceDataPropertyValue);
+            }
 
             String targetDataPropertyValue = vo.getTargetDataPropertyValue();
             if (StringUtils.isEmpty(targetDataPropertyValue)) {
@@ -336,19 +351,13 @@ public class RelationMappingOperator {
 
             try {
                 // check the sourceDataPropertyValue in with minValue and maxValue range
-                double sourceDataPropertyDoubleValue = (double) sourceDataPropertyValue;
 
-                String minValue = vo.getMinValue();
-                String maxValue = vo.getMaxValue();
+
+                double sourceDataPropertyDoubleValue = Double.valueOf(sourceDataPropertyValue.toString());
 
                 // 1. >= minValue, maxValue == null
                 // 2. <= maxValue, minValue == null
                 // 3. minValue <= sourceDataPropertyValue <= maxValue
-                // 4. minValue == null, maxValue == null
-
-                if (StringUtils.isEmpty(minValue) && StringUtils.isEmpty(maxValue)) {
-                    return null;
-                }
 
                 if (StringUtils.isNotEmpty(minValue)) {
                     logger.info("minValue: {} is not null", minValue);
@@ -390,13 +399,25 @@ public class RelationMappingOperator {
                 return null;
             }
 
+        } else if (DataTypeChecker.isBooleanType(sourceDataPropertyType)) {
+            sql = constructBooleanEqualSql(vo,sourceDataPropertyValue);
         }
         return sql;
     }
 
-    private String constructEqualSql(RelationMappingVO vo, Object propertyValue) {
+    private String constructBooleanEqualSql(RelationMappingVO vo, Object propertyValue) {
+        String targetTypeName = getTargetTypeName(vo);
+        return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = " + propertyValue;
+    }
+
+    private String constructStringEqualSql(RelationMappingVO vo, Object propertyValue) {
         String targetTypeName = getTargetTypeName(vo);
         return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = '" + propertyValue + "'";
+    }
+
+    private String constructNumericEqualSql(RelationMappingVO vo, Object propertyValue) {
+        String targetTypeName = getTargetTypeName(vo);
+        return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = " + propertyValue;
     }
 
     private String constructEqualSqlOfNumericProperty(RelationMappingVO vo) {
@@ -409,9 +430,9 @@ public class RelationMappingOperator {
         try {
             if (DataTypeChecker.isNumericType(vo.getTargetDataPropertyType())) {
                 double targetDataPropertyValueInDouble = Double.parseDouble(targetDataPropertyValue);
-                return constructEqualSql(vo, targetDataPropertyValueInDouble);
+                return constructStringEqualSql(vo, targetDataPropertyValueInDouble);
             } else {
-                return constructEqualSql(vo, targetDataPropertyValue);
+                return constructStringEqualSql(vo, targetDataPropertyValue);
             }
         } catch (Exception e) {
             logger.error("targetDataPropertyValue {} is not a numeric.", targetDataPropertyValue);

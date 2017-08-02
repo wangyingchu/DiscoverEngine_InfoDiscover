@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "type": "Fact",
+      "typeName": "intFact",
+      "properties": [
+        {
+          "propertyType": "Int",
+          "propertyName": "intProp",
+          "propertyValue": 1,
+          "isUniqueKey": true
+        },
+        {
+          "propertyType": "Long",
+          "propertyName": "longProp",
+          "propertyValue": 88888
+        },
+        {
+          "propertyType": "Double",
+          "propertyName": "doubleProp",
+          "propertyValue": 99.00
+        },
+        {
+          "propertyType": "Float",
+          "propertyName": "floatProp",
+          "propertyValue": 148587
+        },
+        {
+          "propertyType": "Short",
+          "propertyName": "shortProp",
+          "propertyValue": 148
+        }
+      ]
+    }
+  ]
+}

@@ -15,12 +15,17 @@ public class DataTypeChecker {
         list.add("LONG");
         list.add("FLOAT");
         list.add("DOUBLE");
+        list.add("SHORT");
 
         return list.contains(propertyType.toUpperCase());
     }
 
     public static boolean isStringType(String propertyType) {
         return "String".equalsIgnoreCase(propertyType);
+    }
+
+    public static boolean isBooleanType(String propertyType) {
+        return "Boolean".equalsIgnoreCase(propertyType) || "Bool".equalsIgnoreCase(propertyType);
     }
 
     public static boolean isDateType(String propertyType) {

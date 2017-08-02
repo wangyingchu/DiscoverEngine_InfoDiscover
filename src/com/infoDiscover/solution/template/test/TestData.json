@@ -16,6 +16,11 @@
           "propertyValue": 88888
         },
         {
+          "propertyType": "Short",
+          "propertyName": "testFactShortProperty1",
+          "propertyValue": 99
+        },
+        {
           "propertyType": "Date",
           "propertyName": "createdAt",
           "propertyValue": 1485878400000
