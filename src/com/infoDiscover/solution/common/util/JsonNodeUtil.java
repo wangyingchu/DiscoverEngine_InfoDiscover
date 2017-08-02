@@ -100,7 +100,7 @@ public class JsonNodeUtil {
         if (propertyType.equalsIgnoreCase("String")) {
             propertyValue = (value == null) ? "" : value.asText();
         } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
-                ("Integer")) {
+                ("Integer") || propertyType.equalsIgnoreCase("Short")) {
             propertyValue = (value == null) ? 0 : value.asInt();
         } else if (propertyType.equalsIgnoreCase("Long")) {
             propertyValue = (value == null) ? 0 : value.asLong();
