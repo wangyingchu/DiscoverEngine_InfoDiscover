@@ -35,7 +35,7 @@ public class DataImporter {
         this.spaceName = spaceName;
     }
 
-    public void importData(String dataJson, boolean overwrite) throws Exception {
+    public void importData(String dataJson, boolean overwrite) {
 
         logger.info("Start to importData with data: {}", dataJson);
 
@@ -43,37 +43,43 @@ public class DataImporter {
         new SolutionRelationMapping().getSolutionRelationMappings();
 //        new RelationMapping().getRelationMappings();
 
-        InfoDiscoverSpace ids = DatabaseConnection.connectToSpace(spaceName);
+        InfoDiscoverSpace ids = null;
+        try {
+            ids = DatabaseConnection.connectToSpace(spaceName);
 
-        JsonNode dataJsonNode = JsonNodeUtil.getDataNode(dataJson);
-        if (dataJson != null) {
+            JsonNode dataJsonNode = JsonNodeUtil.getDataNode(dataJson);
+            if (dataJson != null) {
 
-            RelationMappingOperator operator = new RelationMappingOperator();
+                RelationMappingOperator operator = new RelationMappingOperator();
 
-            for (JsonNode jsonNode : dataJsonNode) {
+                for (JsonNode jsonNode : dataJsonNode) {
 
-                String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
-                // create or update fact
-                if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(type)) {
-                    Fact fact = (Fact) createRelationable(ids, jsonNode, overwrite);
+                    String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
+                    // create or update fact
+                    if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(type)) {
+                        Fact fact = (Fact) createRelationable(ids, jsonNode, overwrite);
 
-                    // link relations
-                    if (fact != null) {
-                        operator.linkBetweenNodesFromFact(ids, fact);
+                        // link relations
+                        if (fact != null) {
+                            operator.linkBetweenNodesFromFact(ids, fact);
+                        }
+                    } else if (SolutionConstants.DIMENSION_TYPE.equalsIgnoreCase(type)) {
+                        Dimension dimension = (Dimension) createRelationable(ids, jsonNode, overwrite);
+
+                        // link relations
+                        if (dimension != null) {
+                            operator.linkBetweenNodesFromDimension(ids, dimension);
+                        }
                     }
-                } else if (SolutionConstants.DIMENSION_TYPE.equalsIgnoreCase(type)) {
-                    Dimension dimension = (Dimension) createRelationable(ids, jsonNode, overwrite);
 
-                    // link relations
-                    if (dimension != null) {
-                        operator.linkBetweenNodesFromDimension(ids, dimension);
-                    }
                 }
-
             }
+        } catch (Exception e) {
+            logger.error("Failed to import data with error: {}", e.getMessage());
+        } finally {
+            ids.closeSpace();
         }
 
-        ids.closeSpace();
         logger.info("Exit to importData()...");
     }
 
@@ -127,7 +133,7 @@ public class DataImporter {
 
         if (!ignoreNotMappingProperties) {
             logger.info("All the properties type should map to the defined properties of the fact: {}", typeName);
-            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey,null, false);
+            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, null, false);
         } else {
             logger.info("Ignore the properties that property type is not mapping to the defined properties of the fact: {}", typeName);
             FactType factType = ids.getFactType(typeName);
@@ -233,7 +239,7 @@ public class DataImporter {
         // convert jsonNode to properties map
         if (!ignoreNotMappingProperties) {
             logger.info("All the properties type should map to the defined properties of the dimension: {}", typeName);
-            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey,null, false);
+            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, null, false);
         } else {
             logger.info("Ignore the properties that property type is not mapping to the defined properties of the dimension: {}", typeName);
             DimensionType dimensionType = ids.getDimensionType(typeName);
@@ -316,7 +322,8 @@ public class DataImporter {
             Object sourceDataPropertyValue = null;
             if (targetDataPropertyType.equalsIgnoreCase("String")) {
                 sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asText();
-            } else if (targetDataPropertyType.equalsIgnoreCase("Int")) {
+            } else if (targetDataPropertyType.equalsIgnoreCase("Int")
+                    || targetDataPropertyType.equalsIgnoreCase("Short")) {
                 sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asInt();
             } else if (targetDataPropertyType.equalsIgnoreCase("float")) {
                 sourceDataPropertyValue = sourceDataPropertyValueJsonNode.asDouble();
@@ -380,7 +387,7 @@ public class DataImporter {
                     }
 
                     // get the latest target fact as it maybe update in the previous actions
-                    targetFact = factManager.getFactByRID(targetFact.getId(), ((Fact)targetFact).getType());
+                    targetFact = factManager.getFactByRID(targetFact.getId(), ((Fact) targetFact).getType());
                     // update target fact
                     new FactManager(ids).updateFact((Fact) targetFact, targetPropertiesMap);
                 }
@@ -442,7 +449,7 @@ public class DataImporter {
 //                        targetPropertiesMap.remove(vo.getSourceDataPropertyName());
 
                     } else {
-                        for (Property property: sourceFactProperties) {
+                        for (Property property : sourceFactProperties) {
                             if (!targetPropertiesMap.containsKey(property.getPropertyName())) {
                                 targetPropertiesMap.put(property.getPropertyName(), property.getPropertyValue());
                             }
@@ -476,13 +483,13 @@ public class DataImporter {
                 definedTypeProperties.put(propertyName, propertyType);
             }
 
-            for (JsonNode propertyNode: propertiesJsonNode) {
+            for (JsonNode propertyNode : propertiesJsonNode) {
                 String propertyName = propertyNode.get(JsonConstants.JSON_PROPERTY_NAME).asText();
                 String propertyType = propertyNode.get(JsonConstants.JSON_PROPERTY_TYPE).asText();
                 Object propertyValue = JsonNodeUtil.getPropertyValue(propertyType, propertyNode);
 
-                if(definedTypeProperties.containsKey(propertyName)) {
-                    if(propertyType.equalsIgnoreCase(definedTypeProperties.get(propertyName))) {
+                if (definedTypeProperties.containsKey(propertyName)) {
+                    if (propertyType.equalsIgnoreCase(definedTypeProperties.get(propertyName))) {
                         if (propertyValue != null) {
                             properties.put(propertyName, propertyValue);
                         }

@@ -245,13 +245,6 @@ public class RelationMappingOperator {
 
                 Object targetDataPropertyValue = getNumericTargetPropertyValue(fact, vo);
                 props.put(targetDataPropertyName, targetDataPropertyValue);
-//                if (DataTypeChecker.isNumericType(targetDataPropertyType)) {
-//                    props.put(targetDataPropertyName, targetDataPropertyValue);
-//                } else if (DataTypeChecker.isStringType(targetDataPropertyType)) {
-//                    props.put(targetDataPropertyName, sourceDataPropertyValue);
-//                } else if (DataTypeChecker.isDateType(targetDataPropertyType)) {
-//                    props.put(targetDataPropertyName, sourceDataPropertyValue);
-//                }
 
                 if (targetDataTypeKind.equalsIgnoreCase("FACT")) {
                     targetRelationable = factManager.createFact(targetDataTypeName, props);
@@ -341,7 +334,7 @@ public class RelationMappingOperator {
 
             // if minValue == null, maxValue == null, construct equal sql
             if (StringUtils.isEmpty(minValue) && StringUtils.isEmpty(maxValue)) {
-                return constructNumericEqualSql(vo, sourceDataPropertyValue);
+                return constructEqualSql(vo, sourceDataPropertyValue);
             }
 
             String targetDataPropertyValue = vo.getTargetDataPropertyValue();
@@ -400,12 +393,14 @@ public class RelationMappingOperator {
             }
 
         } else if (DataTypeChecker.isBooleanType(sourceDataPropertyType)) {
-            sql = constructBooleanEqualSql(vo,sourceDataPropertyValue);
+            sql = constructEqualSql(vo,sourceDataPropertyValue);
+        } else if (DataTypeChecker.isDateType(sourceDataPropertyType)) {
+            sql = constructStringEqualSql(vo,sourceDataPropertyValue);
         }
         return sql;
     }
 
-    private String constructBooleanEqualSql(RelationMappingVO vo, Object propertyValue) {
+    private String constructEqualSql(RelationMappingVO vo, Object propertyValue) {
         String targetTypeName = getTargetTypeName(vo);
         return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = " + propertyValue;
     }
@@ -413,11 +408,6 @@ public class RelationMappingOperator {
     private String constructStringEqualSql(RelationMappingVO vo, Object propertyValue) {
         String targetTypeName = getTargetTypeName(vo);
         return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = '" + propertyValue + "'";
-    }
-
-    private String constructNumericEqualSql(RelationMappingVO vo, Object propertyValue) {
-        String targetTypeName = getTargetTypeName(vo);
-        return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = " + propertyValue;
     }
 
     private String constructEqualSqlOfNumericProperty(RelationMappingVO vo) {
