@@ -679,4 +679,9 @@ public class OrientDBInformationExplorerImpl implements InformationExplorer {
 
 
     }
+
+    @Override
+    public void update(String sql) {
+        graph.command(new OCommandSQL(sql)).execute();
+    }
 }

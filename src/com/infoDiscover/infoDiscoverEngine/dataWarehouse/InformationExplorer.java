@@ -35,4 +35,5 @@ public interface InformationExplorer {
     public List<Stack<Relation>> discoverPathsConnectedWithSpecifiedRelationables(String startRelationableId,String endRelationableId,List<String> passedRelationablesId) throws InfoDiscoveryEngineRuntimeException;
     public List<Relationable> discoverSimilarRelationablesRelatedToSameDimensions(String sourceRelationableId,List<String> dimensionIds,FilteringPattern filteringPattern) throws InfoDiscoveryEngineRuntimeException;
     public List<OrientVertex> discoverOrientVertexList(String sql);
+    public void update(String sql);
 }
