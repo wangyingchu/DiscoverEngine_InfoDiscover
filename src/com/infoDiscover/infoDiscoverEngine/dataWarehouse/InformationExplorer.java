@@ -2,8 +2,9 @@ package com.infoDiscover.infoDiscoverEngine.dataWarehouse;
 
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.tinkerpop.blueprints.impls.orient.OrientVertex;
 
 import java.util.List;
 import java.util.Stack;
@@ -33,4 +34,6 @@ public interface InformationExplorer {
     public List<Stack<Relation>> discoverRelationablesAllPaths(String firstRelationableId,String secondRelationableId) throws InfoDiscoveryEngineRuntimeException;
     public List<Stack<Relation>> discoverPathsConnectedWithSpecifiedRelationables(String startRelationableId,String endRelationableId,List<String> passedRelationablesId) throws InfoDiscoveryEngineRuntimeException;
     public List<Relationable> discoverSimilarRelationablesRelatedToSameDimensions(String sourceRelationableId,List<String> dimensionIds,FilteringPattern filteringPattern) throws InfoDiscoveryEngineRuntimeException;
+    public List<OrientVertex> discoverOrientVertexList(String sql);
+    public void update(String sql);
 }

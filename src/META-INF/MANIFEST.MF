@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Class-Path: gson-2.2.4.jar guava-21.0.jar pipes-2.6.0.jar groovy-1.8.9
+ .jar joda-time-2.9.7.jar log4j-api-2.8.1.jar log4j-jcl-2.8.1.jar jack
+ son-xc-1.9.2.jar log4j-core-2.8.1.jar slf4j-api-1.7.25.jar gremlin-ja
+ va-2.6.0.jar jackson-jaxrs-1.9.2.jar gremlin-groovy-2.6.0.jar jackson
+ -core-asl-1.9.2.jar log4j-slf4j-impl-2.8.1.jar jackson-mapper-asl-1.9
+ .2.jar orientdb-jdbc-2.2.13-all.jar RuleEngine_InfoDiscover-1.0.0.jar
+  bsh-2.0b4.jar guice-2.0.jar testng-6.8.21.jar aopalliance-1.0.jar jc
+ ommander-1.27.jar
+Main-Class: 
+

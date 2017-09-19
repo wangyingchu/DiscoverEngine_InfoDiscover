@@ -319,7 +319,7 @@ public class DataImporter_2 {
         }
 
         if (ch == ']') {
-            return ">=";
+            return "<=";
         }
 
         return "=";
