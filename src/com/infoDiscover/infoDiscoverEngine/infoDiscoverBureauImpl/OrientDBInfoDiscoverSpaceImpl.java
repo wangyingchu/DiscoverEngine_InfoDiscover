@@ -2,19 +2,19 @@ package com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.*;
-import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineDataOperationUtil;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
-import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.orientechnologies.orient.core.metadata.schema.OClass;
-import com.orientechnologies.orient.core.exception.OValidationException;
-import com.tinkerpop.blueprints.Direction;
-import com.tinkerpop.blueprints.Edge;
-import com.tinkerpop.blueprints.impls.orient.*;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationExplorer;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouseImpl.OrientDBInformationExplorerImpl;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineDataOperationUtil;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.orientechnologies.orient.core.exception.OValidationException;
+import com.orientechnologies.orient.core.metadata.schema.OClass;
+import com.tinkerpop.blueprints.Direction;
+import com.tinkerpop.blueprints.Edge;
+import com.tinkerpop.blueprints.impls.orient.*;
 
 import java.util.*;
 
@@ -22,10 +22,12 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
 
     private OrientGraph graph;
     private String spaceName;
+    private OrientGraphFactory factory;
 
-    public OrientDBInfoDiscoverSpaceImpl(String spaceName, OrientGraph graph) {
+    public OrientDBInfoDiscoverSpaceImpl(String spaceName, OrientGraph graph,OrientGraphFactory factory) {
         this.spaceName = spaceName;
         this.graph = graph;
+        this.factory = factory;
     }
 
     @Override
@@ -471,7 +473,7 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
     @Override
     public Relation addDirectionalFactRelation(Fact fromFact, Fact toFact, String relationType,
                                                boolean repeatable, Map<String, Object>
-                                                           initRelationProperties) throws
+                                                       initRelationProperties) throws
             InfoDiscoveryEngineRuntimeException {
         if (!hasRelationType(relationType)) {
             String exceptionMessage = "Relation Type " + relationType + " not exist";
@@ -865,6 +867,7 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
     @Override
     public void closeSpace() {
         this.graph.shutdown();
+        this.factory.close();
     }
 
     @Override

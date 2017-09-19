@@ -6,8 +6,7 @@ import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBDimensionImpl;
 import com.infoDiscover.infoDiscoverEngine.dataMartImpl.OrientDBFactImpl;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverAdminSpace;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
-import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl
-        .OrientDBInfoDiscoverAdminSpaceImpl;
+import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl.OrientDBInfoDiscoverAdminSpaceImpl;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl.OrientDBInfoDiscoverSpaceImpl;
 import com.infoDiscover.infoDiscoverEngine.util.config.PropertyHandler;
 import com.infoDiscover.infoDiscoverEngine.util.helper.DiscoverSpaceStatisticHelper;
@@ -43,9 +42,9 @@ public class DiscoverEngineComponentFactory {
     public static InfoDiscoverSpace connectInfoDiscoverSpace(String spaceName) {
         try {
             OrientGraphFactory factory = new OrientGraphFactory(serviceLocation + spaceName,
-                    userAccount, userPWD).setupPool(1, 10);
+                    userAccount, userPWD);
             OrientGraph graph = factory.getTx();
-            return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph);
+            return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph,factory);
         } catch (OConfigurationException e) {
             return null;
         }
@@ -54,12 +53,12 @@ public class DiscoverEngineComponentFactory {
     public static InfoDiscoverSpace connectNoTransactionInfoDiscoverSpace(String spaceName) {
         try {
             OrientGraphFactory factory = new OrientGraphFactory(serviceLocation + spaceName,
-                    userAccount, userPWD).setupPool(1, 10);
+                    userAccount, userPWD);
             OrientGraph graph = factory.getTx();
             graph.setRequireTransaction(false);
             graph.setAutoStartTx(false);
             graph.stopTransaction(TransactionalGraph.Conclusion.SUCCESS);
-            return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph);
+            return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph,factory);
         } catch (OConfigurationException e) {
             return null;
         }
@@ -71,9 +70,9 @@ public class DiscoverEngineComponentFactory {
                                                              String password) {
         try {
             OrientGraphFactory factory = new OrientGraphFactory(getConnectionUrl(location, spaceName),
-                    userName, password).setupPool(1, 10);
+                    userName, password);
             OrientGraph graph = factory.getTx();
-            return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph);
+            return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph,factory);
         } catch (OConfigurationException e) {
             return null;
         }
@@ -82,9 +81,9 @@ public class DiscoverEngineComponentFactory {
     public static InfoDiscoverAdminSpace connectInfoDiscoverAdminSpace(String spaceName) {
         try {
             OrientGraphFactory factory = new OrientGraphFactory(serviceLocation + spaceName,
-                    userAccount, userPWD).setupPool(1, 10);
+                    userAccount, userPWD);
             OrientGraphNoTx graph = factory.getNoTx();
-            return new OrientDBInfoDiscoverAdminSpaceImpl(spaceName, graph);
+            return new OrientDBInfoDiscoverAdminSpaceImpl(spaceName, graph,factory);
         } catch (OConfigurationException e) {
             return null;
         }

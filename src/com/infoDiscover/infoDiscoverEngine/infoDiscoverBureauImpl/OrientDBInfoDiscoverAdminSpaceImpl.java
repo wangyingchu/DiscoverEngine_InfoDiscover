@@ -1,22 +1,25 @@
 package com.infoDiscover.infoDiscoverEngine.infoDiscoverBureauImpl;
 
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverAdminSpace;
+import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.orientechnologies.orient.core.metadata.schema.OProperty;
 import com.tinkerpop.blueprints.impls.orient.OrientEdgeType;
+import com.tinkerpop.blueprints.impls.orient.OrientGraphFactory;
 import com.tinkerpop.blueprints.impls.orient.OrientGraphNoTx;
 import com.tinkerpop.blueprints.impls.orient.OrientVertexType;
-import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 
 public class OrientDBInfoDiscoverAdminSpaceImpl implements InfoDiscoverAdminSpace {
 
     private OrientGraphNoTx graph;
     private String spaceName;
+    private OrientGraphFactory factory;
 
-    public OrientDBInfoDiscoverAdminSpaceImpl(String spaceName,OrientGraphNoTx graph){
+    public OrientDBInfoDiscoverAdminSpaceImpl(String spaceName, OrientGraphNoTx graph,OrientGraphFactory factory){
         this.spaceName=spaceName;
         this.graph=graph;
+        this.factory = factory;
     }
 
     @Override
@@ -27,6 +30,7 @@ public class OrientDBInfoDiscoverAdminSpaceImpl implements InfoDiscoverAdminSpac
     @Override
     public void closeSpace() {
         this.graph.shutdown();
+        this.factory.close();
     }
 
     @Override
