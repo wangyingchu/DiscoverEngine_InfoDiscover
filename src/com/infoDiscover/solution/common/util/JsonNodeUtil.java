@@ -2,11 +2,9 @@ package com.infoDiscover.solution.common.util;
 
 import com.infoDiscover.common.util.DateUtil;
 import com.infoDiscover.common.util.FileUtil;
-import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;

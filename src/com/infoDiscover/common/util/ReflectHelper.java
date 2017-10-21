@@ -1,12 +1,7 @@
 package com.infoDiscover.common.util;
 
-import com.infoDiscover.solution.arch.demo.template.maintainProject.task.*;
-import com.infoDiscover.solution.arch.demo.template.maintainProject.task.Task2ProjectStart;
-import com.infoDiscover.solution.arch.demo.template.newProject.task.*;
-import com.sun.org.apache.regexp.internal.RE;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.rmi.runtime.Log;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

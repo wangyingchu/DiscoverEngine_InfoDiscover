@@ -14,7 +14,7 @@ import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
-import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
+import com.infoDiscover.solution.common.util.JsonConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.codehaus.jackson.JsonNode;

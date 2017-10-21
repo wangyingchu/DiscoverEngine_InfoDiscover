@@ -9,7 +9,7 @@ import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.Eq
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
-import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
+import com.infoDiscover.solution.common.util.JsonConstants;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

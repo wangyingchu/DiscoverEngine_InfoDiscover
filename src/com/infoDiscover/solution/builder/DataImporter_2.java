@@ -20,7 +20,7 @@ import com.infoDiscover.solution.common.fact.FactManager;
 import com.infoDiscover.solution.common.relationship.RelationshipManager;
 import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.PrefixSetting;
-import com.infoDiscover.solution.construction.supervision.constants.JsonConstants;
+import com.infoDiscover.solution.common.util.JsonConstants;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

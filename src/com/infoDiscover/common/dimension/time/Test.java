@@ -1,8 +1,6 @@
 package com.infoDiscover.common.dimension.time;
 
 import com.infoDiscover.common.dimension.time.constants.TimeDimensionConstants;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.arch.database.DatabaseManager;
 import com.infoDiscover.common.dimension.time.dimension.YearDimensionVO;
 import com.infoDiscover.common.dimension.time.manager.TimeDimensionManager;
 import com.infoDiscover.common.dimension.time.analytics.TimeAnalytics;
@@ -15,6 +13,7 @@ import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
+import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +24,8 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) throws InfoDiscoveryEngineInfoExploreException,
             InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
-
-        InfoDiscoverSpace ids = DatabaseManager.getInfoDiscoverSpace();
+        String spaceName="DemoArch2";
+        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace(spaceName);
         // get fact 2018-2-1
         TimeDimensionManager manager = new TimeDimensionManager(ids);
 

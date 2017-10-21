@@ -7,8 +7,7 @@ import com.infoDiscover.common.util.NumericUtil;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
 import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
-import com.infoDiscover.infoDiscoverEngine.util.factory.DiscoverEngineComponentFactory;
-import com.infoDiscover.solution.construction.supervision.constants.DatabaseConstants;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,18 +22,6 @@ import java.util.Set;
 public class TimeDimensionGenerator {
 
     private final static Logger logger = LogManager.getLogger(TimeDimensionVO.class);
-
-    public static void main(String[] args) throws InfoDiscoveryEngineRuntimeException,
-            InfoDiscoveryEngineDataMartException {
-        String dimensionPrefix = "DEMO2";
-        int[] years = {2016};
-        int depth = 3;
-
-        InfoDiscoverSpace ids = DiscoverEngineComponentFactory.connectInfoDiscoverSpace
-                (DatabaseConstants.DATABASE_SPACE);
-        generateYears(ids, dimensionPrefix, years, depth);
-        ids.closeSpace();
-    }
 
     public static void generateYears(InfoDiscoverSpace ids, String dimensionPrefix, int[]
             yearsRange, int depth) {
@@ -184,12 +171,10 @@ public class TimeDimensionGenerator {
         daysOfMonthMap.put(8, 31);
         daysOfMonthMap.put(10, 31);
         daysOfMonthMap.put(12, 31);
-
         daysOfMonthMap.put(4, 30);
         daysOfMonthMap.put(6, 30);
         daysOfMonthMap.put(9, 30);
         daysOfMonthMap.put(11, 30);
-
         daysOfMonthMap.put(2, getDaysOfFeb(year));
 
         return daysOfMonthMap;
