@@ -29,6 +29,8 @@ import java.util.*;
 public class DataImporter {
     private final static Logger logger = LoggerFactory.getLogger(DataImporter.class);
 
+    private boolean ignoreNotMappingProperties = true;
+
     private String spaceName;
 
     public DataImporter(String spaceName) {
@@ -85,7 +87,7 @@ public class DataImporter {
 
     private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override)
             throws Exception {
-        return createRelationable(ids, jsonNode, override, true);
+        return createRelationable(ids, jsonNode, override, ignoreNotMappingProperties);
     }
 
     private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override, boolean ignoreNotMappingProperties)
@@ -138,7 +140,11 @@ public class DataImporter {
             logger.info("Ignore the properties that property type is not mapping to the defined properties of the fact: {}", typeName);
             FactType factType = ids.getFactType(typeName);
             List<TypeProperty> typeProperties = factType.getTypeProperties();
-            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
+            if (CollectionUtils.isEmpty(typeProperties)) {
+                convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, false);
+            } else {
+                convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
+            }
         }
 
         FactManager manager = new FactManager(ids);
@@ -244,7 +250,11 @@ public class DataImporter {
             logger.info("Ignore the properties that property type is not mapping to the defined properties of the dimension: {}", typeName);
             DimensionType dimensionType = ids.getDimensionType(typeName);
             List<TypeProperty> typeProperties = dimensionType.getTypeProperties();
-            convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
+            if (CollectionUtils.isEmpty(typeProperties)) {
+                convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, false);
+            } else {
+                convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
+            }
         }
 
         DimensionManager manager = new DimensionManager(ids);
