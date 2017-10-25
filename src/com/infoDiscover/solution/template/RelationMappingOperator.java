@@ -6,6 +6,7 @@ import com.info.discover.ruleengine.solution.pojo.RelationMappingVO;
 import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.common.util.DataTypeChecker;
+import com.infoDiscover.common.util.StringUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
@@ -42,7 +43,7 @@ public class RelationMappingOperator {
         link(ids, rid, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING, factType, "FACT");
 
         // link to DATE dimension
-        linkToDateDimension(ids,rid, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING, factType, "FACT");
+        linkToDateDimension(ids, rid, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING, factType, "FACT");
 
         // TODO:
 //        linkDimensionToDimension(ids,rid, factType);
@@ -61,7 +62,7 @@ public class RelationMappingOperator {
         link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING, dimensionType, "DIMENSION");
 
         // link to DATE dimension
-        linkToDateDimension(ids,rid, SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING, dimensionType, "DIMENSION");
+        linkToDateDimension(ids, rid, SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING, dimensionType, "DIMENSION");
         logger.info("Exit linkBetweenNodesFromDimension()...");
     }
 
@@ -114,7 +115,7 @@ public class RelationMappingOperator {
     }
 
     private void linkToDateDimension(InfoDiscoverSpace ids, String rid,
-                      String mappingType, String factType, String relationableType)
+                                     String mappingType, String factType, String relationableType)
             throws Exception {
 
         Map<String, List<DataDateMappingVO>> dateMappings = null;
@@ -236,10 +237,10 @@ public class RelationMappingOperator {
             }
         }
 
-        Relationable targetRelationable = QueryExecutor.getOneRelationable(ids.getInformationExplorer(), sql);
+        List<Relationable> targetRelationablesList = QueryExecutor.getManyRelationables(ids.getInformationExplorer(), sql);
 
         // if targetRelationable is not existed, check if to create a new one or not
-        if (targetRelationable == null && mappingNotExistHandleMethod.equalsIgnoreCase(MappingNotExistHandleMethod.CREATE)) {
+        if (targetRelationablesList.isEmpty() && mappingNotExistHandleMethod.equalsIgnoreCase(MappingNotExistHandleMethod.CREATE)) {
             try {
                 Map<String, Object> props = new HashMap<>();
 
@@ -247,9 +248,9 @@ public class RelationMappingOperator {
                 props.put(targetDataPropertyName, targetDataPropertyValue);
 
                 if (targetDataTypeKind.equalsIgnoreCase("FACT")) {
-                    targetRelationable = factManager.createFact(targetDataTypeName, props);
+                    targetRelationablesList.add(factManager.createFact(targetDataTypeName, props));
                 } else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION")) {
-                    targetRelationable = dimensionManager.createDimension(targetDataTypeName, props);
+                    targetRelationablesList.add(dimensionManager.createDimension(targetDataTypeName, props));
                 }
             } catch (Exception e) {
                 logger.error("targetDataPropertyValue {} is not a numeric", vo.getTargetDataPropertyValue());
@@ -259,46 +260,48 @@ public class RelationMappingOperator {
         //TODO: to copy properties from target to source
 
         logger.info("start to link the source and target");
-        if (targetRelationable != null && !sourceDataTypeName.equalsIgnoreCase(targetDataTypeName)) {
-            // if relationType is not exist, create it
-            if (!ids.hasRelationType(relationTypeName)) {
-                ids.addRelationType(relationTypeName);
-            }
-
-            if (relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
-                // check if the relation is already existed between two nodes
-                if (!relationshipManager.isTwoRelationablesLinked(
-                        fact,
-                        targetRelationable,
-                        Direction.OUT,
-                        InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
-                    fact.addToRelation(targetRelationable, relationTypeName);
-                }
-            } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
-                if (!relationshipManager.isTwoRelationablesLinked(
-                        fact,
-                        targetRelationable,
-                        Direction.IN,
-                        InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
-                    fact.addFromRelation(targetRelationable, relationTypeName);
+        if (!targetRelationablesList.isEmpty() && !sourceDataTypeName.equalsIgnoreCase(targetDataTypeName)) {
+            for (Relationable targetRelationable : targetRelationablesList) {
+                // if relationType is not exist, create it
+                if (!ids.hasRelationType(relationTypeName)) {
+                    ids.addRelationType(relationTypeName);
                 }
 
-            } else {
-                if (!relationshipManager.isTwoRelationablesLinked(
-                        fact,
-                        targetRelationable,
-                        Direction.IN,
-                        InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
+                if (relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
+                    // check if the relation is already existed between two nodes
+                    if (!relationshipManager.isTwoRelationablesLinked(
+                            fact,
+                            targetRelationable,
+                            Direction.OUT,
+                            InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
+                        fact.addToRelation(targetRelationable, relationTypeName);
+                    }
+                } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
+                    if (!relationshipManager.isTwoRelationablesLinked(
+                            fact,
+                            targetRelationable,
+                            Direction.IN,
+                            InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
+                        fact.addFromRelation(targetRelationable, relationTypeName);
+                    }
 
-                    fact.addFromRelation(targetRelationable, relationTypeName);
-                }
+                } else {
+                    if (!relationshipManager.isTwoRelationablesLinked(
+                            fact,
+                            targetRelationable,
+                            Direction.IN,
+                            InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
 
-                if (!relationshipManager.isTwoRelationablesLinked(
-                        fact,
-                        targetRelationable,
-                        Direction.OUT,
-                        InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
-                    fact.addToRelation(targetRelationable, relationTypeName);
+                        fact.addFromRelation(targetRelationable, relationTypeName);
+                    }
+
+                    if (!relationshipManager.isTwoRelationablesLinked(
+                            fact,
+                            targetRelationable,
+                            Direction.OUT,
+                            InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
+                        fact.addToRelation(targetRelationable, relationTypeName);
+                    }
                 }
             }
         }
@@ -326,7 +329,9 @@ public class RelationMappingOperator {
 
         Object sourceDataPropertyValue = fact.getProperty(sourceDataPropertyName).getPropertyValue();
         if (DataTypeChecker.isStringType(sourceDataPropertyType)) {
-            sql = constructStringEqualSql(vo, sourceDataPropertyValue);
+            String targetTypeName = getTargetTypeName(vo);
+            String targetDataPropertyName = vo.getTargetDataPropertyName();
+            sql = constructStringEqualSql(targetTypeName, targetDataPropertyName, sourceDataPropertyValue.toString());
         } else if (DataTypeChecker.isNumericType(sourceDataPropertyType)) {
 
             String minValue = vo.getMinValue();
@@ -393,9 +398,9 @@ public class RelationMappingOperator {
             }
 
         } else if (DataTypeChecker.isBooleanType(sourceDataPropertyType)) {
-            sql = constructEqualSql(vo,sourceDataPropertyValue);
+            sql = constructEqualSql(vo, sourceDataPropertyValue);
         } else if (DataTypeChecker.isDateType(sourceDataPropertyType)) {
-            sql = constructStringEqualSql(vo,sourceDataPropertyValue);
+            sql = constructDateEqualSql(vo, sourceDataPropertyValue);
         }
         return sql;
     }
@@ -405,13 +410,46 @@ public class RelationMappingOperator {
         return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = " + propertyValue;
     }
 
-    private String constructStringEqualSql(RelationMappingVO vo, Object propertyValue) {
+    String constructStringEqualSql(String targetTypeName, String targetDataPropertyName, String propertyValue) {
+
+        String[] values = propertyValue.split(",");
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from " + targetTypeName);
+
+        StringBuilder where = new StringBuilder();
+        int i = 0;
+        for (String value : values) {
+            if (StringUtils.isNotBlank(value)) {
+                where.append(targetDataPropertyName + " = '" + value.trim() + "'");
+            }
+
+            if (i < values.length - 1) {
+                where.append(" OR ");
+            }
+
+            ++i;
+        }
+
+        String whereAfterStrip = StringUtils.stripEnd(where.toString(), "OR ");
+        if (StringUtils.isNotBlank(whereAfterStrip)) {
+            sb.append(" where (");
+            sb.append(whereAfterStrip);
+            sb.append(")");
+        }
+
+        return sb.toString();
+    }
+
+    private String constructDateEqualSql(RelationMappingVO vo, Object propertyValue) {
         String targetTypeName = getTargetTypeName(vo);
         return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = '" + propertyValue + "'";
     }
 
     private String constructEqualSqlOfNumericProperty(RelationMappingVO vo) {
         String targetDataPropertyValue = vo.getTargetDataPropertyValue();
+
+        String targetTypeName = getTargetTypeName(vo);
+        String targetDataPropertyName = vo.getTargetDataPropertyName();
 
         if (StringUtils.isEmpty(targetDataPropertyValue)) {
             return null;
@@ -420,9 +458,9 @@ public class RelationMappingOperator {
         try {
             if (DataTypeChecker.isNumericType(vo.getTargetDataPropertyType())) {
                 double targetDataPropertyValueInDouble = Double.parseDouble(targetDataPropertyValue);
-                return constructStringEqualSql(vo, targetDataPropertyValueInDouble);
+                return constructEqualSql(vo, targetDataPropertyValueInDouble);
             } else {
-                return constructStringEqualSql(vo, targetDataPropertyValue);
+                return constructStringEqualSql(targetTypeName, targetDataPropertyName, targetDataPropertyValue);
             }
         } catch (Exception e) {
             logger.error("targetDataPropertyValue {} is not a numeric.", targetDataPropertyValue);
@@ -435,5 +473,4 @@ public class RelationMappingOperator {
                 ? InfoDiscoverEngineConstant.CLASSPERFIX_FACT + vo.getTargetDataTypeName()
                 : InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION + vo.getTargetDataTypeName();
     }
-
 }
