@@ -248,9 +248,15 @@ public class RelationMappingOperator {
                 props.put(targetDataPropertyName, targetDataPropertyValue);
 
                 if (targetDataTypeKind.equalsIgnoreCase("FACT")) {
-                    targetRelationablesList.add(factManager.createFact(targetDataTypeName, props));
+                    Fact r = factManager.createFact(targetDataTypeName, props);
+                    if (r != null) {
+                        targetRelationablesList.add(r);
+                    }
                 } else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION")) {
-                    targetRelationablesList.add(dimensionManager.createDimension(targetDataTypeName, props));
+                    Dimension d = dimensionManager.createDimension(targetDataTypeName, props);
+                    if (d != null) {
+                        targetRelationablesList.add(d);
+                    }
                 }
             } catch (Exception e) {
                 logger.error("targetDataPropertyValue {} is not a numeric", vo.getTargetDataPropertyValue());
