@@ -74,5 +74,22 @@ public class DateUtil {
 
         dateConverter();
         System.out.println(getLongDateValue(2016, 6, 30, 1));
+
+        String dateString = "2014-08-20 10:30:08";
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date2 = sdf.parse(dateString);
+            System.out.println("date: " + date2);
+
+            long dateLongValue = date2.getTime();
+            System.out.println("dateLong: " + dateLongValue);
+
+            date2 = new Date(1451577600000L);
+            System.out.println("dateFromLong: " + date2);
+
+
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -16,7 +16,7 @@ public class DataImporterTest {
     static String testDimensionDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestData_Dimension.json";
     static String duplicatedCopyTestDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/DuplicateCopyTestData.json";
     static String duplicatedCopyTargetTestDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/DuplicateCopyTargetTestData.json";
-    static String spaceName = "test_3";
+    static String spaceName = "test_1";
 
 
     public static void main(String[] args) throws Exception {
@@ -32,8 +32,10 @@ public class DataImporterTest {
 //        importer.importData(duplicatedCopyTestDataFileJson, true);
 
         // test data
-//        String testDataJson = FileUtil.readFileContent(testDataFile);
-//        importer.importData(testDataJson, true);
+        String testDataJson = FileUtil.readFileContent(testDataFile);
+        for (int i = 0; i < 100; i++) {
+            importer.importData(testDataJson, true);
+        }
 
 
         // int test data
@@ -41,7 +43,7 @@ public class DataImporterTest {
 //        importer.importData(intTestDataJson, true);
 
         // boolean test data
-        String booleanTestDataJson = FileUtil.readFileContent(booleanTestDataFile);
-        importer.importData(booleanTestDataJson, true);
+//        String booleanTestDataJson = FileUtil.readFileContent(booleanTestDataFile);
+//        importer.importData(booleanTestDataJson, true);
     }
 }
