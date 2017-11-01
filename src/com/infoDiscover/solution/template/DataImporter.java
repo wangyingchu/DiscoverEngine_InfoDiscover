@@ -1,7 +1,9 @@
 package com.infoDiscover.solution.template;
 
 import com.info.discover.ruleengine.solution.SolutionRelationMapping;
+import com.info.discover.ruleengine.solution.pojo.DataDateMappingVO;
 import com.info.discover.ruleengine.solution.pojo.DataDuplicateCopyMappingVO;
+import com.info.discover.ruleengine.solution.pojo.RelationMappingVO;
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.ExploreParameters;
 import com.infoDiscover.infoDiscoverEngine.dataWarehouse.InformationFiltering.EqualFilteringItem;
@@ -38,11 +40,48 @@ public class DataImporter {
     }
 
     public void importData(String dataJson, boolean overwrite) {
+        importData(dataJson, null, overwrite);
+    }
 
-        logger.info("Start to importData with data: {}", dataJson);
+    public void importData(String dataJson, String rule, boolean overwrite) {
 
-        // get relation mappings
-        new SolutionRelationMapping().getSolutionRelationMappings();
+        logger.info("Start to importData with data: {} and rule: {}", dataJson, rule);
+        Map<String, List<RelationMappingVO>> relationMappingsMap = new HashMap<>();
+        Map<String, List<DataDateMappingVO>> dateMappingsMap = new HashMap<>();
+        List<DataDuplicateCopyMappingVO> factDuplicateCopyList = null;
+        List<DataDuplicateCopyMappingVO> dimensionDuplicateCopyList = null;
+
+        // get relation mappings from rule
+        if (rule == null) {
+            new SolutionRelationMapping().getSolutionRelationMappings();
+            Map<String, List<RelationMappingVO>> factToFactMap = new SolutionRelationMapping().getFactToFactMap();
+            Map<String, List<RelationMappingVO>> factToDimensionMap = new SolutionRelationMapping().getFactToDimensionMap();
+            Map<String, List<RelationMappingVO>> dimensionToFactMap = new SolutionRelationMapping().getDimensionToFactMap();
+            Map<String, List<RelationMappingVO>> dimensionToDimensionMap = new SolutionRelationMapping().getDimensionToDimensionMap();
+
+            relationMappingsMap.putAll(factToFactMap);
+            relationMappingsMap.putAll(factToDimensionMap);
+            relationMappingsMap.putAll(dimensionToFactMap);
+            relationMappingsMap.putAll(dimensionToDimensionMap);
+
+            Map<String, List<DataDateMappingVO>> factToDateMap = new SolutionRelationMapping().getFactToDataMap();
+            Map<String, List<DataDateMappingVO>> dimensionToDateMap = new SolutionRelationMapping().getDimensionToDateMap();
+
+            dateMappingsMap.putAll(factToDateMap);
+            dateMappingsMap.putAll(dimensionToDateMap);
+
+            Map<String, List<DataDuplicateCopyMappingVO>> factDuplicatedCopyMap = new SolutionRelationMapping().getFactDuplicatedCopyMap();
+            Map<String, List<DataDuplicateCopyMappingVO>> dimensionDuplicatedCopyMap = new SolutionRelationMapping().getDimensionDuplicatedCopyMap();
+            if (MapUtils.isNotEmpty(factDuplicatedCopyMap)) {
+                factDuplicateCopyList = factDuplicatedCopyMap.get(SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING);
+            }
+            if (MapUtils.isNotEmpty(dimensionDuplicatedCopyMap)) {
+                dimensionDuplicateCopyList = factDuplicatedCopyMap.get(SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING);
+            }
+        } else {
+            //TODO: convert rule to mappings
+            // need to update the convert in RuleEngine code
+        }
 //        new RelationMapping().getRelationMappings();
 
         InfoDiscoverSpace ids = null;
@@ -59,18 +98,18 @@ public class DataImporter {
                     String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
                     // create or update fact
                     if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(type)) {
-                        Fact fact = (Fact) createRelationable(ids, jsonNode, overwrite);
+                        Fact fact = (Fact) createRelationable(ids, jsonNode, overwrite, factDuplicateCopyList);
 
                         // link relations
                         if (fact != null) {
-                            operator.linkBetweenNodesFromFact(ids, fact);
+                            operator.linkBetweenNodesFromFact(ids, fact, relationMappingsMap, dateMappingsMap);
                         }
                     } else if (SolutionConstants.DIMENSION_TYPE.equalsIgnoreCase(type)) {
-                        Dimension dimension = (Dimension) createRelationable(ids, jsonNode, overwrite);
+                        Dimension dimension = (Dimension) createRelationable(ids, jsonNode, overwrite, dimensionDuplicateCopyList);
 
                         // link relations
                         if (dimension != null) {
-                            operator.linkBetweenNodesFromDimension(ids, dimension);
+                            operator.linkBetweenNodesFromDimension(ids, dimension, relationMappingsMap, dateMappingsMap);
                         }
                     }
 
@@ -85,28 +124,30 @@ public class DataImporter {
         logger.info("Exit to importData()...");
     }
 
-    private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override)
+
+    private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override, List<DataDuplicateCopyMappingVO> duplicateCopyList)
             throws Exception {
-        return createRelationable(ids, jsonNode, override, ignoreNotMappingProperties);
+        return createRelationable(ids, jsonNode, override, duplicateCopyList, ignoreNotMappingProperties);
     }
 
-    private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override, boolean ignoreNotMappingProperties)
-            throws
-            Exception {
+    private Relationable createRelationable(InfoDiscoverSpace ids, JsonNode jsonNode, boolean override, List<DataDuplicateCopyMappingVO> duplicateCopyList,
+                                            boolean ignoreNotMappingProperties)
+            throws Exception {
         String type = jsonNode.get(SolutionConstants.JSON_TYPE).asText();
 
         if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(type)) {
-            return createNewOrUpdateFact(ids, jsonNode, override, ignoreNotMappingProperties);
+            return createNewOrUpdateFact(ids, jsonNode, override, duplicateCopyList, ignoreNotMappingProperties);
         } else if (SolutionConstants.DIMENSION_TYPE.equalsIgnoreCase(type)) {
-            return createNewOrUpdateDimension(ids, jsonNode, override, ignoreNotMappingProperties);
+            return createNewOrUpdateDimension(ids, jsonNode, override, duplicateCopyList, ignoreNotMappingProperties);
         } else {
             throw new Exception("Wrong type, it should be: " + SolutionConstants.FACT_TYPE);
         }
     }
 
-    private Fact createNewOrUpdateFact(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite, boolean ignoreNotMappingProperties)
-            throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+    private Fact createNewOrUpdateFact(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite,
+                                       List<DataDuplicateCopyMappingVO> factDuplicateCopyList,
+                                       boolean ignoreNotMappingProperties)
+            throws InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
         logger.info("Start to createNewOrUpdateFact with jsonNode: {} and overwrite is: {}",
                 jsonNode, overwrite);
 
@@ -165,16 +206,16 @@ public class DataImporter {
 
         // copy duplicate properties
 //        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
-        Map<String, List<DataDuplicateCopyMappingVO>> map = new SolutionRelationMapping().getFactDuplicatedCopyMap();
-        List<DataDuplicateCopyMappingVO> factDuplicateCopyList = null;
+//        Map<String, List<DataDuplicateCopyMappingVO>> map = new SolutionRelationMapping().getFactDuplicatedCopyMap();
+//        List<DataDuplicateCopyMappingVO> factDuplicateCopyList = null;
 
         // if no duplicate copy mapping
-        if (MapUtils.isEmpty(map)) {
-            return fact;
-        }
+//        if (MapUtils.isEmpty(map)) {
+//            return fact;
+//        }
 
         // if has duplicate copy mapping
-        factDuplicateCopyList = map.get(SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING);
+//        factDuplicateCopyList = map.get(SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING);
 
         // if fact duplicate copy mapping is empty
         if (CollectionUtils.isEmpty(factDuplicateCopyList)) {
@@ -214,9 +255,10 @@ public class DataImporter {
         return fact;
     }
 
-    private Dimension createNewOrUpdateDimension(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite, boolean ignoreNotMappingProperties)
-            throws
-            InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
+    private Dimension createNewOrUpdateDimension(InfoDiscoverSpace ids, JsonNode jsonNode, boolean overwrite,
+                                                 List<DataDuplicateCopyMappingVO> dimensionDuplicateCopyList,
+                                                 boolean ignoreNotMappingProperties)
+            throws InfoDiscoveryEngineRuntimeException, InfoDiscoveryEngineDataMartException {
         logger.info("Start to createNewOrUpdateDimension with jsonNode: {} and overwrite is: {}",
                 jsonNode, overwrite);
 
@@ -273,16 +315,16 @@ public class DataImporter {
 
         // copy duplicate properties
 //        Map<String, List<DataDuplicateCopyMappingVO>> map = RelationMapping.factDuplicatedCopyMap;
-        Map<String, List<DataDuplicateCopyMappingVO>> map = new SolutionRelationMapping().getDimensionDuplicatedCopyMap();
-        List<DataDuplicateCopyMappingVO> dimensionDuplicateCopyList = null;
-
-        // if no duplicate copy mapping
-        if (MapUtils.isEmpty(map)) {
-            return dimension;
-        }
+//        Map<String, List<DataDuplicateCopyMappingVO>> map = new SolutionRelationMapping().getDimensionDuplicatedCopyMap();
+//        List<DataDuplicateCopyMappingVO> dimensionDuplicateCopyList = null;
+//
+//        // if no duplicate copy mapping
+//        if (MapUtils.isEmpty(map)) {
+//            return dimension;
+//        }
 
         // if has duplicate copy mapping
-        dimensionDuplicateCopyList = map.get(SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING);
+//        dimensionDuplicateCopyList = map.get(SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING);
 
         // if dimension duplicate copy mapping is empty
         if (CollectionUtils.isEmpty(dimensionDuplicateCopyList)) {

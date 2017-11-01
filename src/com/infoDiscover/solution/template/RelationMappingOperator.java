@@ -33,43 +33,56 @@ import java.util.*;
 public class RelationMappingOperator {
     public static final Logger logger = LoggerFactory.getLogger(RelationMappingOperator.class);
 
-    public void linkBetweenNodesFromFact(InfoDiscoverSpace ids, Fact fact) throws Exception {
+    public void linkBetweenNodesFromFact(InfoDiscoverSpace ids, Fact fact,
+                                         Map<String, List<RelationMappingVO>> relationMappingsMap,
+                                         Map<String, List<DataDateMappingVO>> dateMappingsMap) throws Exception {
+
         logger.info("Enter linkBetweenNodesFromFact with factRid: {}", fact.getId());
 
         String rid = fact.getId();
         String factType = fact.getType();
 
-        link(ids, rid, SolutionConstants.JSON_FACT_TO_FACT_MAPPING, factType, "FACT");
-        link(ids, rid, SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING, factType, "FACT");
+        if (MapUtils.isNotEmpty(relationMappingsMap)) {
+            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_FACT_TO_FACT_MAPPING),
+                    factType, "FACT");
+            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING),
+                    factType, "FACT");
+        }
 
         // link to DATE dimension
-        linkToDateDimension(ids, rid, SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING, factType, "FACT");
-
-        // TODO:
-//        linkDimensionToDimension(ids,rid, factType);
-
+        if (MapUtils.isNotEmpty(dateMappingsMap)) {
+            linkToDateDimension(ids, rid, dateMappingsMap.get(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING),
+                    factType, "FACT");
+        }
 
         logger.info("Exit linkBetweenNodesFromFact()...");
     }
 
-    public void linkBetweenNodesFromDimension(InfoDiscoverSpace ids, Dimension dimension) throws Exception {
+    public void linkBetweenNodesFromDimension(InfoDiscoverSpace ids, Dimension dimension,
+                                              Map<String, List<RelationMappingVO>> relationMappingsMap,
+                                              Map<String, List<DataDateMappingVO>> dateMappingsMap) throws Exception {
+
         logger.info("Enter linkBetweenNodesFromDimension with dimensionRid: {}", dimension.getId());
 
         String rid = dimension.getId();
         String dimensionType = dimension.getType();
 
-        link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING, dimensionType, "DIMENSION");
-        link(ids, rid, SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING, dimensionType, "DIMENSION");
+        if (MapUtils.isNotEmpty(relationMappingsMap)) {
+            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING),
+                    dimensionType, "DIMENSION");
+            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING),
+                    dimensionType, "DIMENSION");
+        }
 
         // link to DATE dimension
-        linkToDateDimension(ids, rid, SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING, dimensionType, "DIMENSION");
+        if (MapUtils.isNotEmpty(dateMappingsMap)) {
+            linkToDateDimension(ids, rid, dateMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING),
+                    dimensionType, "DIMENSION");
+        }
         logger.info("Exit linkBetweenNodesFromDimension()...");
     }
 
-    private void link(InfoDiscoverSpace ids, String rid,
-                      String mappingType, String factType, String relationableType)
-            throws Exception {
-
+    private Map<String, List<RelationMappingVO>> getRelationMappings(String mappingType) {
         Map<String, List<RelationMappingVO>> mappings = null;
 
         if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING)) {
@@ -86,11 +99,31 @@ public class RelationMappingOperator {
 //            mappings = RelationMapping.dimensionToDimensionMap;
         }
 
-        if (MapUtils.isEmpty(mappings)) {
-            return;
+        return mappings;
+    }
+
+    private Map<String, List<DataDateMappingVO>> getDataToDateMappings(String mappingType) {
+
+        Map<String, List<DataDateMappingVO>> dateMappings = null;
+
+        if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
+            dateMappings = new SolutionRelationMapping().getFactToDataMap();
+//            dateMappings = RelationMapping.factToDateMap;
+        } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING)) {
+            dateMappings = new SolutionRelationMapping().getDimensionToDateMap();
+//            dateMappings = RelationMapping.dimensionToDateMap;
         }
 
-        List<RelationMappingVO> dataToDataMappingList = mappings.get(mappingType);
+        return dateMappings;
+    }
+
+    private void link(InfoDiscoverSpace ids,
+                      String rid,
+                      List<RelationMappingVO> dataToDataMappingList,
+                      String factType,
+                      String relationableType)
+            throws Exception {
+
         if (CollectionUtils.isEmpty(dataToDataMappingList)) {
             return;
         }
@@ -114,25 +147,13 @@ public class RelationMappingOperator {
 
     }
 
-    private void linkToDateDimension(InfoDiscoverSpace ids, String rid,
-                                     String mappingType, String factType, String relationableType)
+    private void linkToDateDimension(InfoDiscoverSpace ids,
+                                     String rid,
+                                     List<DataDateMappingVO> dataToDateMappingList,
+                                     String factType,
+                                     String relationableType)
             throws Exception {
 
-        Map<String, List<DataDateMappingVO>> dateMappings = null;
-
-        if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
-            dateMappings = new SolutionRelationMapping().getFactToDataMap();
-//            dateMappings = RelationMapping.factToDateMap;
-        } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING)) {
-            dateMappings = new SolutionRelationMapping().getDimensionToDateMap();
-//            dateMappings = RelationMapping.dimensionToDateMap;
-        }
-
-        if (MapUtils.isEmpty(dateMappings)) {
-            return;
-        }
-
-        List<DataDateMappingVO> dataToDateMappingList = dateMappings.get(mappingType);
         if (CollectionUtils.isEmpty(dataToDateMappingList)) {
             return;
         }
