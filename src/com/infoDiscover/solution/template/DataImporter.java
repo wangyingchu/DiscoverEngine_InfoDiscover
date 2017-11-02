@@ -15,14 +15,15 @@ import com.infoDiscover.solution.common.database.DatabaseConnection;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
 import com.infoDiscover.solution.common.fact.FactManager;
-import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import com.infoDiscover.solution.common.util.JsonConstants;
+import com.infoDiscover.solution.common.util.JsonNodeUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -39,11 +40,11 @@ public class DataImporter {
         this.spaceName = spaceName;
     }
 
-    public void importData(String dataJson, boolean overwrite) {
+    public void importData(String dataJson, boolean overwrite) throws IOException {
         importData(dataJson, null, overwrite);
     }
 
-    public void importData(String dataJson, String rule, boolean overwrite) {
+    public void importData(String dataJson, String rule, boolean overwrite) throws IOException {
 
         logger.info("Start to importData with data: {} and rule: {}", dataJson, rule);
         Map<String, List<RelationMappingVO>> relationMappingsMap = new HashMap<>();
@@ -79,10 +80,28 @@ public class DataImporter {
                 dimensionDuplicateCopyList = factDuplicatedCopyMap.get(SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING);
             }
         } else {
-            //TODO: convert rule to mappings
-            // need to update the convert in RuleEngine code
+            JsonNode rulesJsonNode = JsonNodeUtil.string2JsonNode(rule).get("rules");
+            for (JsonNode ruleNode : rulesJsonNode) {
+                String mappingType = ruleNode.get("mappingType").asText();
+                JsonNode mappingsJsonNode = ruleNode.get("mappings");
+
+                if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING) ||
+                        mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING) ||
+                        mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING) ||
+                        mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING)) {
+
+                    relationMappingsMap.put(mappingType, convertFactToRelationMappingPOJO(mappingsJsonNode, mappingType));
+
+                } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING) ||
+                        mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING)) {
+                    dateMappingsMap.put(mappingType, convertToDataDateMappingPOJO(mappingsJsonNode, mappingType));
+                } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING)) {
+                    factDuplicateCopyList = convertToDataDuplicateCopyMappingPOJO(mappingsJsonNode, mappingType);
+                } else {
+                    dimensionDuplicateCopyList = convertToDataDuplicateCopyMappingPOJO(mappingsJsonNode, mappingType);
+                }
+            }
         }
-//        new RelationMapping().getRelationMappings();
 
         InfoDiscoverSpace ids = null;
         try {
@@ -448,7 +467,6 @@ public class DataImporter {
 
     }
 
-
     public void copyPropertiesFromSourceFactToInput(InfoDiscoverSpace ids, Fact targetFact,
                                                     List<DataDuplicateCopyMappingVO> targetToSourceList
     ) throws InfoDiscoveryEngineRuntimeException {
@@ -618,4 +636,107 @@ public class DataImporter {
         return QueryExecutor.executeDimensionQuery(ids.getInformationExplorer(), ep);
     }
 
+    private List<RelationMappingVO> convertFactToRelationMappingPOJO(JsonNode mappingsJsonNode, String relationMappingType) {
+        List<RelationMappingVO> list = new ArrayList<>();
+
+        for (JsonNode mapping : mappingsJsonNode) {
+            JsonNode sourceDataTypeKind = mapping.get("sourceDataTypeKind");
+            JsonNode sourceDataTypeName = mapping.get("sourceDataTypeName");
+            JsonNode sourceDataPropertyName = mapping.get("sourceDataPropertyName");
+            JsonNode sourceDataPropertyType = mapping.get("sourceDataPropertyType");
+            JsonNode targetDataTypeKind = mapping.get("targetDataTypeKind");
+            JsonNode targetDataTypeName = mapping.get("targetDataTypeName");
+            JsonNode targetDataPropertyName = mapping.get("targetDataPropertyName");
+            JsonNode targetDataPropertyType = mapping.get("targetDataPropertyType");
+            JsonNode targetDataPropertyValue = mapping.get("targetDataPropertyValue") == null ? null :
+                    mapping.get("targetDataPropertyValue");
+            JsonNode relationTypeName = mapping.get("relationTypeName");
+            JsonNode relationDirection = mapping.get("relationDirection");
+            JsonNode minValue = mapping.get("minValue") == null ? null : mapping.get("minValue");
+            JsonNode maxValue = mapping.get("maxValue") == null ? null : mapping.get("maxValue");
+            JsonNode mappingNotExistHandleMethod = mapping.get("mappingNotExistHandleMethod");
+
+            RelationMappingVO pojo = new RelationMappingVO();
+            pojo.setRelationMappingType(relationMappingType);
+            pojo.setSourceDataTypeKind(sourceDataTypeKind == null ? null : sourceDataTypeKind.asText());
+            pojo.setSourceDataTypeName(sourceDataTypeName == null ? null : sourceDataTypeName.asText());
+            pojo.setSourceDataPropertyName(sourceDataPropertyName == null ? null : sourceDataPropertyName.asText());
+            pojo.setSourceDataPropertyType(sourceDataPropertyType == null ? null : sourceDataPropertyType.asText());
+            pojo.setTargetDataTypeKind(targetDataTypeKind == null ? null : targetDataTypeKind.asText());
+            pojo.setTargetDataTypeName(targetDataTypeName == null ? null : targetDataTypeName.asText());
+            pojo.setTargetDataPropertyName(targetDataPropertyName == null ? null : targetDataPropertyName.asText());
+            pojo.setTargetDataPropertyType(targetDataPropertyType == null ? null : targetDataPropertyType.asText());
+            pojo.setTargetDataPropertyValue(targetDataPropertyValue == null ? null : targetDataPropertyValue.asText());
+            pojo.setRelationTypeName(relationTypeName == null ? null : relationTypeName.asText());
+            pojo.setRelationDirection(relationDirection.asText());
+            pojo.setMinValue(minValue == null ? null : minValue.asText());
+            pojo.setMaxValue(maxValue == null ? null : maxValue.asText());
+            pojo.setMappingNotExistHandleMethod(
+                    mappingNotExistHandleMethod == null ? null : mappingNotExistHandleMethod.asText());
+
+            list.add(pojo);
+        }
+
+        return list;
+    }
+
+    private List<DataDateMappingVO> convertToDataDateMappingPOJO(JsonNode mappingsJsonNode, String relationMappingType) {
+        List<DataDateMappingVO> list = new ArrayList<>();
+
+        for (JsonNode mapping : mappingsJsonNode) {
+            JsonNode sourceDataTypeKind = mapping.get("sourceDataTypeKind");
+            JsonNode sourceDataTypeName = mapping.get("sourceDataTypeName");
+            JsonNode sourceDataPropertyName = mapping.get("sourceDataPropertyName");
+            JsonNode relationTypeName = mapping.get("relationTypeName");
+            JsonNode relationDirection = mapping.get("relationDirection");
+            JsonNode dateDimensionTypePrefix = mapping.get("dateDimensionTypePrefix");
+
+            DataDateMappingVO pojo = new DataDateMappingVO();
+            pojo.setRelationMappingType(relationMappingType);
+            pojo.setSourceDataTypeKind(sourceDataTypeKind == null ? null : sourceDataTypeKind.asText());
+            pojo.setSourceDataTypeName(sourceDataTypeName == null ? null : sourceDataTypeName.asText());
+            pojo.setSourceDataPropertyName(sourceDataPropertyName == null ? null : sourceDataPropertyName.asText());
+            pojo.setRelationTypeName(relationTypeName == null ? null : relationTypeName.asText());
+            pojo.setRelationDirection(relationDirection.asText());
+            pojo.setDateDimensionTypePrefix(
+                    dateDimensionTypePrefix == null ? null : dateDimensionTypePrefix.asText());
+
+            list.add(pojo);
+        }
+
+        return list;
+    }
+
+    private List<DataDuplicateCopyMappingVO> convertToDataDuplicateCopyMappingPOJO(JsonNode mappingsJsonNode,
+                                                                                   String relationMappingType) {
+        List<DataDuplicateCopyMappingVO> list = new ArrayList<>();
+
+        for (JsonNode mapping : mappingsJsonNode) {
+            JsonNode sourceDataTypeKind = mapping.get("sourceDataTypeKind");
+            JsonNode sourceDataTypeName = mapping.get("sourceDataTypeName");
+            JsonNode sourceDataPropertyName = mapping.get("sourceDataPropertyName");
+            JsonNode sourceDataPropertyType = mapping.get("sourceDataPropertyType");
+
+            JsonNode targetDataTypeName = mapping.get("targetDataTypeName");
+            JsonNode targetDataPropertyName = mapping.get("targetDataPropertyName");
+            JsonNode targetDataPropertyType = mapping.get("targetDataPropertyType");
+            JsonNode existingPropertyHandleMethod = mapping.get("existingPropertyHandleMethod");
+
+            DataDuplicateCopyMappingVO pojo = new DataDuplicateCopyMappingVO();
+            pojo.setRelationMappingType(relationMappingType);
+            pojo.setSourceDataTypeKind(sourceDataTypeKind == null ? null : sourceDataTypeKind.asText());
+            pojo.setSourceDataTypeName(sourceDataTypeName == null ? null : sourceDataTypeName.asText());
+            pojo.setSourceDataPropertyName(sourceDataPropertyName == null ? null : sourceDataPropertyName.asText());
+            pojo.setSourceDataPropertyType(sourceDataPropertyType == null ? null : sourceDataPropertyType.asText());
+            pojo.setTargetDataTypeName(targetDataTypeName == null ? null : targetDataTypeName.asText());
+            pojo.setTargetDataPropertyName(targetDataPropertyName == null ? null : targetDataPropertyName.asText());
+            pojo.setTargetDataPropertyType(targetDataPropertyType == null ? null : targetDataPropertyType.asText());
+            pojo.setExistingPropertyHandleMethod(
+                    existingPropertyHandleMethod == null ? null : existingPropertyHandleMethod.asText());
+
+            list.add(pojo);
+        }
+
+        return list;
+    }
 }
