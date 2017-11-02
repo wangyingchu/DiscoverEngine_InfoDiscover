@@ -1,8 +1,8 @@
 {
-  "rules": [
+  "data": [
     {
       "mappingType": "factToFact",
-      "mappings": [
+      "rules": [
         {
           "sourceDataTypeName": "boolFact",
           "targetDataPropertyName": "boolProp2",
@@ -21,7 +21,7 @@
     },
     {
       "mappingType": "factToDate",
-      "mappings": [
+      "rules": [
         {
           "sourceDataTypeName": "testDimension1",
           "relationDirection": "ToTarget",

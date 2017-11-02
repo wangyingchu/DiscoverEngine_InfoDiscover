@@ -80,10 +80,10 @@ public class DataImporter {
                 dimensionDuplicateCopyList = factDuplicatedCopyMap.get(SolutionConstants.JSON_DIMENSION_DUPLICATE_COPY_MAPPING);
             }
         } else {
-            JsonNode rulesJsonNode = JsonNodeUtil.string2JsonNode(rule).get("rules");
+            JsonNode rulesJsonNode = JsonNodeUtil.string2JsonNode(rule).get("data");
             for (JsonNode ruleNode : rulesJsonNode) {
                 String mappingType = ruleNode.get("mappingType").asText();
-                JsonNode mappingsJsonNode = ruleNode.get("mappings");
+                JsonNode mappingsJsonNode = ruleNode.get("rules");
 
                 if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING) ||
                         mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING) ||
