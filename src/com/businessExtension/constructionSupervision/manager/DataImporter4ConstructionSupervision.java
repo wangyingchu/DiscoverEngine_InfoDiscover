@@ -19,13 +19,13 @@ import java.util.Map;
 /**
  * Created by sun.
  */
-public class DataImporter {
+public class DataImporter4ConstructionSupervision {
 
-    private final static Logger logger = LoggerFactory.getLogger(DataImporter.class);
+    private final static Logger logger = LoggerFactory.getLogger(DataImporter4ConstructionSupervision.class);
 
     private String spaceName;
 
-    public DataImporter(String spaceName) {
+    public DataImporter4ConstructionSupervision(String spaceName) {
         this.spaceName = spaceName;
     }
 
@@ -237,7 +237,7 @@ public class DataImporter {
     public static void main(String[] args) {
         String spaceName = DatabaseConstants.DATABASE_SPACE;
 
-        DataImporter importer = new DataImporter(spaceName);
+        DataImporter4ConstructionSupervision importer = new DataImporter4ConstructionSupervision(spaceName);
 
         // create a project
         String projectFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com" +
