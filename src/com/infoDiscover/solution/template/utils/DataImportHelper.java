@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.template;
+package com.infoDiscover.solution.template.utils;
 
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;

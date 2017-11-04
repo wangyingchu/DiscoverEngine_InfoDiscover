@@ -1,4 +1,4 @@
-package com.infoDiscover.solution.template.rule;
+package com.infoDiscover.solution.template.utils;
 
 import com.info.discover.ruleengine.solution.pojo.DataDateMappingVO;
 import com.info.discover.ruleengine.solution.pojo.DataDuplicateCopyMappingVO;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by sun on 11/4/17.
  */
-public class Converter {
+public class RuleToPOJOConverter {
 
     public static RelationMappingVO toRelationMappingPOJO(JsonNode mappingRule, String relationMappingType) {
 

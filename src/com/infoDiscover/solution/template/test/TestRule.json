@@ -1,37 +1,15 @@
 {
-  "data": [
-    {
-      "mappingType": "factToFact",
-      "rules": [
-        {
-          "sourceDataTypeName": "boolFact",
-          "targetDataPropertyName": "boolProp2",
-          "sourceDataPropertyType": "BOOLEAN",
-          "relationDirection": "ToBoth",
-          "mappingNotExistHandleMethod": "Create",
-          "targetDataPropertyType": "BOOLEAN",
-          "sourceDataPropertyName": "bool1",
-          "solutionName": "test",
-          "targetDataTypeName": "boolFact2",
-          "sourceDataTypeKind": "FACT",
-          "relationTypeName": "createdAtTime",
-          "targetDataTypeKind": "FACT"
-        }
-      ]
-    },
-    {
-      "mappingType": "factToDate",
-      "rules": [
-        {
-          "sourceDataTypeName": "testDimension1",
-          "relationDirection": "ToTarget",
-          "sourceDataPropertyName": "dim_updateDate",
-          "dateDimensionTypePrefix": "dimUpdateDate",
-          "solutionName": "test",
-          "sourceDataTypeKind": "DIMENSION",
-          "relationTypeName": "createdAtTime"
-        }
-      ]
-    }
-  ]
+  "mappingType": "factToFact",
+  "sourceDataTypeName": "boolFact",
+  "targetDataPropertyName": "boolProp2",
+  "sourceDataPropertyType": "BOOLEAN",
+  "relationDirection": "ToBoth",
+  "mappingNotExistHandleMethod": "Create",
+  "targetDataPropertyType": "BOOLEAN",
+  "sourceDataPropertyName": "bool1",
+  "solutionName": "test",
+  "targetDataTypeName": "boolFact2",
+  "sourceDataTypeKind": "FACT",
+  "relationTypeName": "createdAtTime",
+  "targetDataTypeKind": "FACT"
 }
