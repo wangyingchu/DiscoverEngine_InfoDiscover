@@ -13,12 +13,15 @@ public class PropertyTypeUtil {
         } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
                 ("Integer")) {
             return PropertyType.INT;
+        } else if (propertyType.equalsIgnoreCase("Short")) {
+            return PropertyType.SHORT;
         } else if (propertyType.equalsIgnoreCase("Long")) {
             return PropertyType.LONG;
-        } else if (propertyType.equalsIgnoreCase("Float") || propertyType.equalsIgnoreCase
-                ("Double")) {
+        } else if (propertyType.equalsIgnoreCase("Float")) {
+            return PropertyType.FLOAT;
+        } else if (propertyType.equalsIgnoreCase("Double")) {
             return PropertyType.DOUBLE;
-        } else if (propertyType.equalsIgnoreCase("boolean") || propertyType.equalsIgnoreCase
+        } else if (propertyType.equalsIgnoreCase("Boolean") || propertyType.equalsIgnoreCase
                 ("bool")) {
             return PropertyType.BOOLEAN;
         } else if (propertyType.equalsIgnoreCase("Date") || propertyType.equalsIgnoreCase
