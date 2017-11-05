@@ -147,7 +147,7 @@ public class RelationMappingOperator {
 
     }
 
-    private void linkToDateDimension(InfoDiscoverSpace ids,
+    public void linkToDateDimension(InfoDiscoverSpace ids,
                                      String rid,
                                      List<DataDateMappingVO> dataToDateMappingList,
                                      String factType,

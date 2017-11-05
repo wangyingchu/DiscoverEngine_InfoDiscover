@@ -46,30 +46,15 @@ public class RuleMappingFactManager {
             return null;
         }
 
-        Map<String, Object> uniqueKey = new HashMap<>();
-        Map<String, Object> properties = new HashMap<>();
-
         JsonNode propertiesJsonNode = JsonNodeUtil.getPropertiesJsonNode(jsonNode);
         if (propertiesJsonNode == null) {
             logger.warn("Exit createNewOrUpdateFact() that propertiesJsonNode is null");
             return null;
         }
 
-        // convert jsonNode to properties map
-
-        if (!ignoreNotMappingProperties) {
-            logger.info("All the properties type should map to the defined properties of the fact: {}", typeName);
-            JsonNodeToPropertiesMapConverter.convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, null, false);
-        } else {
-            logger.info("Ignore the properties that property type is not mapping to the defined properties of the fact: {}", typeName);
-            FactType factType = ids.getFactType(typeName);
-            List<TypeProperty> typeProperties = factType.getTypeProperties();
-            if (CollectionUtils.isEmpty(typeProperties)) {
-                JsonNodeToPropertiesMapConverter.convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, false);
-            } else {
-                JsonNodeToPropertiesMapConverter.convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
-            }
-        }
+        Map<String, Object> uniqueKey = new HashMap<>();
+        Map<String, Object> properties = new HashMap<>();
+        getProperties(ids, jsonNode, properties, uniqueKey, typeName, ignoreNotMappingProperties);
 
         FactManager manager = new FactManager(ids);
 
@@ -105,6 +90,21 @@ public class RuleMappingFactManager {
             return fact;
         }
 
+        // update fact with rule
+        updateFactWithRule(ids, fact, typeName, jsonNode, properties, factDuplicateCopyList);
+
+        logger.info("Exit createNewOrUpdateFact()...");
+
+        return fact;
+    }
+
+    public long updateFactWithRule(InfoDiscoverSpace ids,
+                                   Fact fact, String typeName,
+                                   JsonNode jsonNode,
+                                   Map<String, Object> properties,
+                                   List<DataDuplicateCopyMappingVO> factDuplicateCopyList)
+            throws InfoDiscoveryEngineRuntimeException {
+
         List<DataDuplicateCopyMappingVO> sourceToTargetList = new ArrayList<>();
         for (DataDuplicateCopyMappingVO vo : factDuplicateCopyList) {
             if (vo.getSourceDataTypeName().equalsIgnoreCase(typeName)) {
@@ -120,22 +120,44 @@ public class RuleMappingFactManager {
         }
 
         if (CollectionUtils.isEmpty(sourceToTargetList) && CollectionUtils.isEmpty(targetToSourceList)) {
-            return fact;
+            return 0;
         }
 
         // copy properties from source to target
+        long fromSourceToTargetRecords = 0;
         if (CollectionUtils.isNotEmpty(sourceToTargetList)) {
-            new PropertyCopyUtil().copyPropertiesFromInputToTargetFact(ids, properties, sourceToTargetList, jsonNode);
+            fromSourceToTargetRecords = new PropertyCopyUtil().copyPropertiesFromInputToTargetFact(ids, properties, sourceToTargetList, jsonNode);
         }
 
         // copy properties from target to source
+        long fromTargetToSource = 0;
         if (CollectionUtils.isNotEmpty(targetToSourceList)) {
-            new PropertyCopyUtil().copyPropertiesFromSourceFactToInput(ids, fact, targetToSourceList);
+            fromTargetToSource = new PropertyCopyUtil().copyPropertiesFromSourceFactToInput(ids, fact, targetToSourceList);
         }
 
-        logger.info("Exit createNewOrUpdateFact()...");
+        return fromSourceToTargetRecords + fromTargetToSource;
+    }
 
-        return fact;
+    public void getProperties(InfoDiscoverSpace ids,
+                              JsonNode propertiesJsonNode,
+                              Map<String, Object> properties,
+                              Map<String, Object> uniqueKey,
+                              String typeName,
+                              boolean ignoreNotMappingProperties) {
+
+        if (!ignoreNotMappingProperties) {
+            logger.info("All the properties type should map to the defined properties of the fact: {}", typeName);
+            JsonNodeToPropertiesMapConverter.convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, null, false);
+        } else {
+            logger.info("Ignore the properties that property type is not mapping to the defined properties of the fact: {}", typeName);
+            FactType factType = ids.getFactType(typeName);
+            List<TypeProperty> typeProperties = factType.getTypeProperties();
+            if (CollectionUtils.isEmpty(typeProperties)) {
+                JsonNodeToPropertiesMapConverter.convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, false);
+            } else {
+                JsonNodeToPropertiesMapConverter.convertJsonNodeToPropertiesMap(propertiesJsonNode, properties, uniqueKey, typeProperties, true);
+            }
+        }
     }
 
     private String getTypeName(JsonNode jsonNode) {

@@ -17,8 +17,11 @@ import java.util.Map;
  */
 public class JsonNodeToPropertiesMapConverter {
 
-    public static void convertJsonNodeToPropertiesMap(JsonNode propertiesJsonNode, Map<String, Object>
-            properties, Map<String, Object> uniqueKey, List<TypeProperty> typeProperties, boolean ignoreNotMappingProperties) {
+    public static void convertJsonNodeToPropertiesMap(JsonNode propertiesJsonNode,
+                                                      Map<String, Object> properties,
+                                                      Map<String, Object> uniqueKey,
+                                                      List<TypeProperty> typeProperties,
+                                                      boolean ignoreNotMappingProperties) {
 
         if (ignoreNotMappingProperties) {
             if (CollectionUtils.isEmpty(typeProperties)) {

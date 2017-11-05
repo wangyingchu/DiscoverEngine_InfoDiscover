@@ -31,4 +31,25 @@ public class DataTypeChecker {
     public static boolean isDateType(String propertyType) {
         return "Date".equalsIgnoreCase(propertyType) || "DateTime".equalsIgnoreCase(propertyType);
     }
+
+    public static boolean isIntType(String propertyType) {
+        return "Int".equalsIgnoreCase(propertyType) || "Integer".equalsIgnoreCase(propertyType);
+    }
+
+    public static boolean isLongType(String propertyType) {
+        return "Long".equalsIgnoreCase(propertyType);
+    }
+
+    public static boolean isShortType(String propertyType) {
+        return "Short".equalsIgnoreCase(propertyType);
+    }
+
+    public static boolean isFloatType(String propertyType) {
+        return "Float".equalsIgnoreCase(propertyType);
+    }
+
+    public static boolean isDoubleType(String propertyType) {
+        return "Double".equalsIgnoreCase(propertyType);
+    }
+
 }

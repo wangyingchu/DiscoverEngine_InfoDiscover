@@ -23,10 +23,15 @@ public class PropertyCopyUtil {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public void copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids, Map<String, Object> inputProperties, List<DataDuplicateCopyMappingVO> sourceToTargetList,
-                                                     JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
+    public long copyPropertiesFromInputToTargetFact(InfoDiscoverSpace ids,
+                                                    Map<String, Object> inputProperties,
+                                                    List<DataDuplicateCopyMappingVO> sourceToTargetList,
+                                                    JsonNode jsonNode) throws InfoDiscoveryEngineRuntimeException {
 
         FactManager factManager = new FactManager(ids);
+
+        // records how many records are executed by the rule
+        long changedRecords = 0;
 
         // copy properties from source to target fact
         for (DataDuplicateCopyMappingVO vo : sourceToTargetList) {
@@ -116,16 +121,23 @@ public class PropertyCopyUtil {
                     // update target fact
                     new FactManager(ids).updateFact((Fact) targetFact, targetPropertiesMap);
                 }
+
+                // if targetList is not empty, add changeRecords + 1
+                changedRecords++;
             }
         }
 
+        return changedRecords;
     }
 
-    public void copyPropertiesFromSourceFactToInput(InfoDiscoverSpace ids, Fact targetFact,
+    public long copyPropertiesFromSourceFactToInput(InfoDiscoverSpace ids, Fact targetFact,
                                                     List<DataDuplicateCopyMappingVO> targetToSourceList
     ) throws InfoDiscoveryEngineRuntimeException {
 
         FactManager factManager = new FactManager(ids);
+
+        // records how many records are changed with the rule
+        long changedRecords = 0;
 
         // copy properties from source fact to input fact
         for (DataDuplicateCopyMappingVO vo : targetToSourceList) {
@@ -186,8 +198,12 @@ public class PropertyCopyUtil {
                     factManager.updateFact(targetFact, targetPropertiesMap);
                 }
             }
+
+            // if sourceFactList is not empty, add +1 to the changedRecords
+            changedRecords ++;
         }
 
+        return changedRecords;
     }
 
     private JsonNode getPropertyValue(JsonNode jsonNode, String propertyName) {
