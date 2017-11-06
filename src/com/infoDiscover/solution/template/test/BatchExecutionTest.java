@@ -1,19 +1,19 @@
 package com.infoDiscover.solution.template.test;
 
 import com.infoDiscover.common.util.FileUtil;
-import com.infoDiscover.solution.template.BatchUpdateData;
+import com.infoDiscover.solution.template.BatchExecution;
 
 /**
  * Created by sun on 7/23/17.
  */
-public class BatchUpdateDataTest {
+public class BatchExecutionTest {
 
     static String spaceName = "test_1";
 
     static String ruleFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestRule.json";
 
     public static void main(String[] args) throws Exception {
-        BatchUpdateData importer = new BatchUpdateData(spaceName);
+        BatchExecution importer = new BatchExecution(spaceName);
 
         // test data
         String rulesDataJson = FileUtil.readFileContent(ruleFile);

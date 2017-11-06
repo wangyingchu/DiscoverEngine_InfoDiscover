@@ -32,12 +32,12 @@ import java.util.*;
 /**
  * Created by sun on 11/4/17.
  */
-public class BatchUpdateData {
+public class BatchExecution {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private String spaceName;
 
-    public BatchUpdateData(String spaceName) {
+    public BatchExecution(String spaceName) {
         this.spaceName = spaceName;
     }
 
