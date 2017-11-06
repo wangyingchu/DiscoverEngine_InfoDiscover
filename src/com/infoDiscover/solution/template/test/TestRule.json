@@ -1,15 +1,18 @@
 {
   "mappingType": "factToFact",
-  "sourceDataTypeName": "boolFact",
-  "targetDataPropertyName": "boolProp2",
-  "sourceDataPropertyType": "BOOLEAN",
-  "relationDirection": "ToBoth",
+  "targetDataPropertyName": "strProp",
+  "targetDataPropertyValue": "minHouse",
+  "sourceDataPropertyType": "INT",
   "mappingNotExistHandleMethod": "Create",
-  "targetDataPropertyType": "BOOLEAN",
-  "sourceDataPropertyName": "bool1",
+  "maxValue": "100000",
   "solutionName": "test",
-  "targetDataTypeName": "boolFact2",
+  "targetDataTypeName": "intFact2",
   "sourceDataTypeKind": "FACT",
-  "relationTypeName": "createdAtTime",
-  "targetDataTypeKind": "FACT"
+  "relationTypeName": "is_dim2",
+  "targetDataTypeKind": "FACT",
+  "sourceDataTypeName": "intFact",
+  "relationDirection": "ToTarget",
+  "minValue": "1",
+  "targetDataPropertyType": "STRING",
+  "sourceDataPropertyName": "intProp"
 }
