@@ -44,6 +44,8 @@ public class DiscoverEngineComponentFactory {
             OrientGraphFactory factory = new OrientGraphFactory(serviceLocation + spaceName,
                     userAccount, userPWD);
             OrientGraph graph = factory.getTx();
+            //invoke makeActive to make concurrent connection active to get latest meta info
+            graph.makeActive();
             return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph,factory);
         } catch (OConfigurationException e) {
             return null;
@@ -55,6 +57,8 @@ public class DiscoverEngineComponentFactory {
             OrientGraphFactory factory = new OrientGraphFactory(serviceLocation + spaceName,
                     userAccount, userPWD);
             OrientGraph graph = factory.getTx();
+            //invoke makeActive to make concurrent connection active to get latest meta info
+            graph.makeActive();
             graph.setRequireTransaction(false);
             graph.setAutoStartTx(false);
             graph.stopTransaction(TransactionalGraph.Conclusion.SUCCESS);
@@ -72,6 +76,8 @@ public class DiscoverEngineComponentFactory {
             OrientGraphFactory factory = new OrientGraphFactory(getConnectionUrl(location, spaceName),
                     userName, password);
             OrientGraph graph = factory.getTx();
+            //invoke makeActive to make concurrent connection active to get latest meta info
+            graph.makeActive();
             return new OrientDBInfoDiscoverSpaceImpl(spaceName, graph,factory);
         } catch (OConfigurationException e) {
             return null;
@@ -83,6 +89,8 @@ public class DiscoverEngineComponentFactory {
             OrientGraphFactory factory = new OrientGraphFactory(serviceLocation + spaceName,
                     userAccount, userPWD);
             OrientGraphNoTx graph = factory.getNoTx();
+            //invoke makeActive to make concurrent connection active to get latest meta info
+            graph.makeActive();
             return new OrientDBInfoDiscoverAdminSpaceImpl(spaceName, graph,factory);
         } catch (OConfigurationException e) {
             return null;
