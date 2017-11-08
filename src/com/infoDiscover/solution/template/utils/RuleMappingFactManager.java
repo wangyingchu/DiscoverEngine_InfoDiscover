@@ -54,7 +54,7 @@ public class RuleMappingFactManager {
 
         Map<String, Object> uniqueKey = new HashMap<>();
         Map<String, Object> properties = new HashMap<>();
-        getProperties(ids, jsonNode, properties, uniqueKey, typeName, ignoreNotMappingProperties);
+        getProperties(ids, propertiesJsonNode, properties, uniqueKey, typeName, ignoreNotMappingProperties);
 
         FactManager manager = new FactManager(ids);
 
