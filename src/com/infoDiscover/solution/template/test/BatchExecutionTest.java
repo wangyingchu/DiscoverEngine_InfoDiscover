@@ -8,7 +8,7 @@ import com.infoDiscover.solution.template.BatchExecution;
  */
 public class BatchExecutionTest {
 
-    static String spaceName = "test_1";
+    static String spaceName = "test-fact-to-dim";
 
     static String ruleFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestRule.json";
 

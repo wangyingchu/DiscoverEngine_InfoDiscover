@@ -5,10 +5,7 @@ import com.info.discover.ruleengine.solution.pojo.RelationMappingVO;
 import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.common.util.DataTypeChecker;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
-import com.infoDiscover.infoDiscoverEngine.dataMart.Relationable;
+import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
 import com.infoDiscover.solution.builder.SolutionConstants;
@@ -31,64 +28,74 @@ import java.util.*;
 public class RelationMappingOperator {
     public static final Logger logger = LoggerFactory.getLogger(RelationMappingOperator.class);
 
-    public void linkBetweenNodesFromFact(InfoDiscoverSpace ids, Fact fact,
+    public long linkBetweenNodesFromFact(InfoDiscoverSpace ids, Fact fact,
                                          Map<String, List<RelationMappingVO>> relationMappingsMap,
                                          Map<String, List<DataDateMappingVO>> dateMappingsMap) throws Exception {
 
         logger.info("Enter linkBetweenNodesFromFact with factRid: {}", fact.getId());
 
+        long changed = 0l;
+
         String rid = fact.getId();
         String factType = fact.getType();
 
         if (MapUtils.isNotEmpty(relationMappingsMap)) {
-            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_FACT_TO_FACT_MAPPING),
+            changed += link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_FACT_TO_FACT_MAPPING),
                     factType, "FACT");
-            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING),
+            changed += link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING),
                     factType, "FACT");
         }
 
         // link to DATE dimension
         if (MapUtils.isNotEmpty(dateMappingsMap)) {
-            linkToDateDimension(ids, rid, dateMappingsMap.get(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING),
+            changed += linkToDateDimension(ids, rid, dateMappingsMap.get(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING),
                     factType, "FACT");
         }
 
         logger.info("Exit linkBetweenNodesFromFact()...");
+
+        return changed;
     }
 
-    public void linkBetweenNodesFromDimension(InfoDiscoverSpace ids, Dimension dimension,
+    public long linkBetweenNodesFromDimension(InfoDiscoverSpace ids, Dimension dimension,
                                               Map<String, List<RelationMappingVO>> relationMappingsMap,
                                               Map<String, List<DataDateMappingVO>> dateMappingsMap) throws Exception {
 
         logger.info("Enter linkBetweenNodesFromDimension with dimensionRid: {}", dimension.getId());
 
+        long changed = 0l;
+
         String rid = dimension.getId();
         String dimensionType = dimension.getType();
 
         if (MapUtils.isNotEmpty(relationMappingsMap)) {
-            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING),
+            changed += link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING),
                     dimensionType, "DIMENSION");
-            link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING),
+            changed += link(ids, rid, relationMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING),
                     dimensionType, "DIMENSION");
         }
 
         // link to DATE dimension
         if (MapUtils.isNotEmpty(dateMappingsMap)) {
-            linkToDateDimension(ids, rid, dateMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING),
+            changed += linkToDateDimension(ids, rid, dateMappingsMap.get(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING),
                     dimensionType, "DIMENSION");
         }
         logger.info("Exit linkBetweenNodesFromDimension()...");
+
+        return changed;
     }
 
-    private void link(InfoDiscoverSpace ids,
+    private long link(InfoDiscoverSpace ids,
                       String rid,
                       List<RelationMappingVO> dataToDataMappingList,
                       String factType,
                       String relationableType)
             throws Exception {
 
+        long changed = 0l;
+
         if (CollectionUtils.isEmpty(dataToDataMappingList)) {
-            return;
+            return changed;
         }
 
         // link fact/dimension
@@ -104,21 +111,24 @@ public class RelationMappingOperator {
             Relationable latestFact = new FactManager(ids).getRelationableByRID(rid, factType, relationableType);
 
             for (RelationMappingVO vo : voList) {
-                linkRelation(ids, latestFact, vo);
+                changed += linkRelation(ids, latestFact, vo);
             }
         }
 
+        return changed;
     }
 
-    public void linkToDateDimension(InfoDiscoverSpace ids,
-                                     String rid,
-                                     List<DataDateMappingVO> dataToDateMappingList,
-                                     String factType,
-                                     String relationableType)
+    public long linkToDateDimension(InfoDiscoverSpace ids,
+                                    String rid,
+                                    List<DataDateMappingVO> dataToDateMappingList,
+                                    String factType,
+                                    String relationableType)
             throws Exception {
 
+        long changed = 0l;
+
         if (CollectionUtils.isEmpty(dataToDateMappingList)) {
-            return;
+            return changed;
         }
 
         // link fact/dimension to DATE dimension
@@ -133,12 +143,16 @@ public class RelationMappingOperator {
             // retrieve fact again as its version is updated
             Relationable latestFact = new FactManager(ids).getRelationableByRID(rid, factType, relationableType);
             for (DataDateMappingVO vo : dateMappingList) {
-                linkToDateRelation(ids, latestFact, vo);
+                changed += linkToDateRelation(ids, latestFact, vo);
             }
         }
+
+        return changed;
     }
 
-    private void linkToDateRelation(InfoDiscoverSpace ids, Relationable fact, DataDateMappingVO vo) throws Exception {
+    private long linkToDateRelation(InfoDiscoverSpace ids, Relationable fact, DataDateMappingVO vo) throws Exception {
+
+        long changed = 0l;
 
         String sourceDataTypeKind = vo.getSourceDataTypeKind();
         String sourcePropertyName = vo.getSourceDataPropertyName();
@@ -149,7 +163,7 @@ public class RelationMappingOperator {
         Property sourceDataProperty = fact.getProperty(sourcePropertyName);
         if (sourceDataProperty == null) {
             logger.info("property of sourceDataPropertyName {} is null", sourcePropertyName);
-            return;
+            return changed;
         }
 
         Date sourceDataPropertyValue = (Date) sourceDataProperty.getPropertyValue();
@@ -161,18 +175,30 @@ public class RelationMappingOperator {
         Dimension day = new DimensionManager(ids).getDayDimension(prefix, dayDimensionVO);
 
         if (sourceDataTypeKind.equalsIgnoreCase("FACT")) {
-            relationshipManager.linkFactToDateDimension(prefix, (Fact) fact, dayDimensionVO, relationType, relationDirection);
+            Relation relation = relationshipManager.linkFactToDateDimension(prefix, (Fact) fact, dayDimensionVO, relationType, relationDirection);
+            if (relation != null) {
+                changed += 1;
+            }
         } else if (sourceDataTypeKind.equalsIgnoreCase("DIMENSION")) {
             if (relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
-                relationshipManager.linkDimensionsByRelationType((Dimension) fact, day, relationType);
+                Relation relation = relationshipManager.linkDimensionsByRelationType((Dimension) fact, day, relationType);
+                if (relation != null) {
+                    changed += 1;
+                }
             } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
-                relationshipManager.linkDimensionsByRelationType(day, (Dimension) fact, relationType);
+                Relation relation = relationshipManager.linkDimensionsByRelationType(day, (Dimension) fact, relationType);
+                if (relation != null) {
+                    changed += 1;
+                }
             }
         }
 
+        return changed;
     }
 
-    private void linkRelation(InfoDiscoverSpace ids, Relationable fact, RelationMappingVO vo) throws Exception {
+    private long linkRelation(InfoDiscoverSpace ids, Relationable fact, RelationMappingVO vo) throws Exception {
+
+        long changed = 0l;
 
         String sourceDataTypeName = vo.getSourceDataTypeName();
         String sourceDataPropertyName = vo.getSourceDataPropertyName();
@@ -188,7 +214,7 @@ public class RelationMappingOperator {
         Property sourceDataProperty = fact.getProperty(sourceDataPropertyName);
         if (sourceDataProperty == null) {
             logger.info("property of sourceDataPropertyName {} is null", sourceDataPropertyName);
-            return;
+            return changed;
         }
 
         FactManager factManager = new FactManager(ids);
@@ -199,7 +225,7 @@ public class RelationMappingOperator {
         String sql = constructSql(fact, vo);
 
         if (sql == null) {
-            return;
+            return changed;
         }
 
         // create the targetRelationable
@@ -208,7 +234,7 @@ public class RelationMappingOperator {
                 if (mappingNotExistHandleMethod.equalsIgnoreCase(MappingNotExistHandleMethod.CREATE)) {
                     ids.addFactType(targetDataTypeName);
                 } else {
-                    return;
+                    return changed;
                 }
             }
         } else if (targetDataTypeKind.equalsIgnoreCase("DIMENSION")) {
@@ -216,7 +242,7 @@ public class RelationMappingOperator {
                 if (mappingNotExistHandleMethod.equalsIgnoreCase(MappingNotExistHandleMethod.CREATE)) {
                     ids.addDimensionType(targetDataTypeName);
                 } else {
-                    return;
+                    return changed;
                 }
             }
         }
@@ -264,7 +290,10 @@ public class RelationMappingOperator {
                             targetRelationable,
                             Direction.OUT,
                             InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
-                        fact.addToRelation(targetRelationable, relationTypeName);
+                        Relation relation = fact.addToRelation(targetRelationable, relationTypeName);
+                        if (relation != null) {
+                            changed += 1;
+                        }
                     }
                 } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
                     if (!relationshipManager.isTwoRelationablesLinked(
@@ -272,7 +301,10 @@ public class RelationMappingOperator {
                             targetRelationable,
                             Direction.IN,
                             InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
-                        fact.addFromRelation(targetRelationable, relationTypeName);
+                        Relation relation = fact.addFromRelation(targetRelationable, relationTypeName);
+                        if (relation != null) {
+                            changed += 1;
+                        }
                     }
 
                 } else {
@@ -282,7 +314,10 @@ public class RelationMappingOperator {
                             Direction.IN,
                             InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
 
-                        fact.addFromRelation(targetRelationable, relationTypeName);
+                        Relation relation = fact.addFromRelation(targetRelationable, relationTypeName);
+                        if (relation != null) {
+                            changed += 1;
+                        }
                     }
 
                     if (!relationshipManager.isTwoRelationablesLinked(
@@ -290,12 +325,16 @@ public class RelationMappingOperator {
                             targetRelationable,
                             Direction.OUT,
                             InfoDiscoverEngineConstant.CLASSPERFIX_RELATION + relationTypeName)) {
-                        fact.addToRelation(targetRelationable, relationTypeName);
+                        Relation relation = fact.addToRelation(targetRelationable, relationTypeName);
+                        if (relation != null) {
+                            changed += 1;
+                        }
                     }
                 }
             }
         }
 
+        return changed;
     }
 
     private Object getNumericTargetPropertyValue(Relationable fact, RelationMappingVO vo) {

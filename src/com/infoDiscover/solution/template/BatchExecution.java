@@ -96,13 +96,12 @@ public class BatchExecution {
                         Map<String, List<RelationMappingVO>> relationMappingsMap = new HashMap<>();
                         relationMappingsMap.put(mappingType, relationMappingVOsList);
 
-                        //TODO: to link the relation and return the how many fact data execute the links
                         if (SolutionConstants.FACT_TYPE.equalsIgnoreCase(sourceDataTypeKind)) {
                             // link relations
-                            operator.linkBetweenNodesFromFact(ids, (Fact) relationable, relationMappingsMap, null);
+                            changedRecords += operator.linkBetweenNodesFromFact(ids, (Fact) relationable, relationMappingsMap, null);
                         } else if (SolutionConstants.DIMENSION_TYPE.equalsIgnoreCase(sourceDataTypeKind)) {
                             // link relations
-                            operator.linkBetweenNodesFromDimension(ids, (Dimension) relationable, relationMappingsMap, null);
+                            changedRecords += operator.linkBetweenNodesFromDimension(ids, (Dimension) relationable, relationMappingsMap, null);
                         }
 
                     } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING) ||
@@ -114,7 +113,8 @@ public class BatchExecution {
                         map.put(mappingType, dataDateMappingVOsList);
 
                         // link relations
-                        operator.linkToDateDimension(ids, rid, dataDateMappingVOsList, sourceDataTypeName, sourceDataTypeKind.toUpperCase());
+                        changedRecords += operator.linkToDateDimension(ids, rid, dataDateMappingVOsList, sourceDataTypeName, sourceDataTypeKind.toUpperCase());
+
                     }
                 }
 
