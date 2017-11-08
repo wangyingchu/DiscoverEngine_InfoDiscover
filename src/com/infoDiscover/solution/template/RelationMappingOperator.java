@@ -1,12 +1,10 @@
 package com.infoDiscover.solution.template;
 
-import com.info.discover.ruleengine.solution.SolutionRelationMapping;
 import com.info.discover.ruleengine.solution.pojo.DataDateMappingVO;
 import com.info.discover.ruleengine.solution.pojo.RelationMappingVO;
 import com.infoDiscover.common.dimension.time.DayDimensionManager;
 import com.infoDiscover.common.dimension.time.dimension.DayDimensionVO;
 import com.infoDiscover.common.util.DataTypeChecker;
-import com.infoDiscover.common.util.StringUtil;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Dimension;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Fact;
 import com.infoDiscover.infoDiscoverEngine.dataMart.Property;
@@ -80,41 +78,6 @@ public class RelationMappingOperator {
                     dimensionType, "DIMENSION");
         }
         logger.info("Exit linkBetweenNodesFromDimension()...");
-    }
-
-    private Map<String, List<RelationMappingVO>> getRelationMappings(String mappingType) {
-        Map<String, List<RelationMappingVO>> mappings = null;
-
-        if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_FACT_MAPPING)) {
-            mappings = new SolutionRelationMapping().getFactToFactMap();
-//            mappings = RelationMapping.factToFactMap;
-        } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DIMENSION_MAPPING)) {
-            mappings = new SolutionRelationMapping().getFactToDimensionMap();
-//            mappings = RelationMapping.factToDimensionMap;
-        } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_FACT_MAPPING)) {
-            mappings = new SolutionRelationMapping().getDimensionToFactMap();
-//            mappings = RelationMapping.dimensionToFactMap;
-        } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DIMENSION_MAPPING)) {
-            mappings = new SolutionRelationMapping().getDimensionToDimensionMap();
-//            mappings = RelationMapping.dimensionToDimensionMap;
-        }
-
-        return mappings;
-    }
-
-    private Map<String, List<DataDateMappingVO>> getDataToDateMappings(String mappingType) {
-
-        Map<String, List<DataDateMappingVO>> dateMappings = null;
-
-        if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_FACT_TO_DATE_DIMENSION_MAPPING)) {
-            dateMappings = new SolutionRelationMapping().getFactToDataMap();
-//            dateMappings = RelationMapping.factToDateMap;
-        } else if (mappingType.equalsIgnoreCase(SolutionConstants.JSON_DIMENSION_TO_DATE_DIMENSION_MAPPING)) {
-            dateMappings = new SolutionRelationMapping().getDimensionToDateMap();
-//            dateMappings = RelationMapping.dimensionToDateMap;
-        }
-
-        return dateMappings;
     }
 
     private void link(InfoDiscoverSpace ids,

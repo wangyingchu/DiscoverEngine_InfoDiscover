@@ -52,25 +52,25 @@ public class DataImporter {
 
         // get relation mappings from rule
         if (rule == null) {
-            new SolutionRelationMapping().getSolutionRelationMappings();
-            Map<String, List<RelationMappingVO>> factToFactMap = new SolutionRelationMapping().getFactToFactMap();
-            Map<String, List<RelationMappingVO>> factToDimensionMap = new SolutionRelationMapping().getFactToDimensionMap();
-            Map<String, List<RelationMappingVO>> dimensionToFactMap = new SolutionRelationMapping().getDimensionToFactMap();
-            Map<String, List<RelationMappingVO>> dimensionToDimensionMap = new SolutionRelationMapping().getDimensionToDimensionMap();
+            new SolutionRelationMapping(spaceName).getSolutionRelationMappings();
+            Map<String, List<RelationMappingVO>> factToFactMap = new SolutionRelationMapping(spaceName).getFactToFactMap();
+            Map<String, List<RelationMappingVO>> factToDimensionMap = new SolutionRelationMapping(spaceName).getFactToDimensionMap();
+            Map<String, List<RelationMappingVO>> dimensionToFactMap = new SolutionRelationMapping(spaceName).getDimensionToFactMap();
+            Map<String, List<RelationMappingVO>> dimensionToDimensionMap = new SolutionRelationMapping(spaceName).getDimensionToDimensionMap();
 
             relationMappingsMap.putAll(factToFactMap);
             relationMappingsMap.putAll(factToDimensionMap);
             relationMappingsMap.putAll(dimensionToFactMap);
             relationMappingsMap.putAll(dimensionToDimensionMap);
 
-            Map<String, List<DataDateMappingVO>> factToDateMap = new SolutionRelationMapping().getFactToDataMap();
-            Map<String, List<DataDateMappingVO>> dimensionToDateMap = new SolutionRelationMapping().getDimensionToDateMap();
+            Map<String, List<DataDateMappingVO>> factToDateMap = new SolutionRelationMapping(spaceName).getFactToDataMap();
+            Map<String, List<DataDateMappingVO>> dimensionToDateMap = new SolutionRelationMapping(spaceName).getDimensionToDateMap();
 
             dateMappingsMap.putAll(factToDateMap);
             dateMappingsMap.putAll(dimensionToDateMap);
 
-            Map<String, List<DataDuplicateCopyMappingVO>> factDuplicatedCopyMap = new SolutionRelationMapping().getFactDuplicatedCopyMap();
-            Map<String, List<DataDuplicateCopyMappingVO>> dimensionDuplicatedCopyMap = new SolutionRelationMapping().getDimensionDuplicatedCopyMap();
+            Map<String, List<DataDuplicateCopyMappingVO>> factDuplicatedCopyMap = new SolutionRelationMapping(spaceName).getFactDuplicatedCopyMap();
+            Map<String, List<DataDuplicateCopyMappingVO>> dimensionDuplicatedCopyMap = new SolutionRelationMapping(spaceName).getDimensionDuplicatedCopyMap();
             if (MapUtils.isNotEmpty(factDuplicatedCopyMap)) {
                 factDuplicateCopyList = factDuplicatedCopyMap.get(SolutionConstants.JSON_FACT_DUPLICATE_COPY_MAPPING);
             }
