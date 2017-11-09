@@ -256,7 +256,7 @@ public class RelationshipManager {
         }
 
         if(relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
-            linkFactToDimension(fact, day, relationType);
+            return linkFactToDimension(fact, day, relationType);
         } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
             ids.connectDimensionWithFact(day.getId(),fact.getId(),relationType);
         }

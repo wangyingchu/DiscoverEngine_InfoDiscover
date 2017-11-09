@@ -97,13 +97,16 @@ public class JsonNodeUtil {
         Object propertyValue;
         if (propertyType.equalsIgnoreCase("String")) {
             propertyValue = (value == null) ? "" : value.asText();
+        } else if (propertyType.equalsIgnoreCase("Short")) {
+            propertyValue = (value == null) ? 0 : value.getNumberValue().shortValue();
         } else if (propertyType.equalsIgnoreCase("Int") || propertyType.equalsIgnoreCase
-                ("Integer") || propertyType.equalsIgnoreCase("Short")) {
+                ("Integer")) {
             propertyValue = (value == null) ? 0 : value.asInt();
         } else if (propertyType.equalsIgnoreCase("Long")) {
             propertyValue = (value == null) ? 0 : value.asLong();
-        } else if (propertyType.equalsIgnoreCase("Float") || propertyType.equalsIgnoreCase
-                ("Double")) {
+        } else if (propertyType.equalsIgnoreCase("Float")) {
+            propertyValue = (value == null) ? 0 : value.getDecimalValue().floatValue();
+        } else if (propertyType.equalsIgnoreCase("Double")) {
             propertyValue = (value == null) ? 0 : value.asDouble();
         } else if (propertyType.equalsIgnoreCase("boolean") || propertyType.equalsIgnoreCase
                 ("bool")) {

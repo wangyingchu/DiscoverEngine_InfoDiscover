@@ -8,6 +8,9 @@ import com.infoDiscover.common.util.DataTypeChecker;
 import com.infoDiscover.infoDiscoverEngine.dataMart.*;
 import com.infoDiscover.infoDiscoverEngine.infoDiscoverBureau.InfoDiscoverSpace;
 import com.infoDiscover.infoDiscoverEngine.util.InfoDiscoverEngineConstant;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineDataMartException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineInfoExploreException;
+import com.infoDiscover.infoDiscoverEngine.util.exception.InfoDiscoveryEngineRuntimeException;
 import com.infoDiscover.solution.builder.SolutionConstants;
 import com.infoDiscover.solution.common.dimension.DimensionManager;
 import com.infoDiscover.solution.common.executor.QueryExecutor;
@@ -150,7 +153,7 @@ public class RelationMappingOperator {
         return changed;
     }
 
-    private long linkToDateRelation(InfoDiscoverSpace ids, Relationable fact, DataDateMappingVO vo) throws Exception {
+    private long linkToDateRelation(InfoDiscoverSpace ids, Relationable fact, DataDateMappingVO vo) {
 
         long changed = 0l;
 
@@ -170,28 +173,37 @@ public class RelationMappingOperator {
 
         RelationshipManager relationshipManager = new RelationshipManager(ids);
 
-        DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVOWithPrefix
-                (prefix, sourceDataPropertyValue);
-        Dimension day = new DimensionManager(ids).getDayDimension(prefix, dayDimensionVO);
+        try {
+            DayDimensionVO dayDimensionVO = DayDimensionManager.getDayDimensionVOWithPrefix
+                    (prefix, sourceDataPropertyValue);
+            Dimension day = new DimensionManager(ids).getDayDimension(prefix, dayDimensionVO);
 
-        if (sourceDataTypeKind.equalsIgnoreCase("FACT")) {
-            Relation relation = relationshipManager.linkFactToDateDimension(prefix, (Fact) fact, dayDimensionVO, relationType, relationDirection);
-            if (relation != null) {
-                changed += 1;
-            }
-        } else if (sourceDataTypeKind.equalsIgnoreCase("DIMENSION")) {
-            if (relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
-                Relation relation = relationshipManager.linkDimensionsByRelationType((Dimension) fact, day, relationType);
+            if (sourceDataTypeKind.equalsIgnoreCase("FACT")) {
+                Relation relation = relationshipManager.linkFactToDateDimension(prefix, (Fact) fact, dayDimensionVO, relationType, relationDirection);
                 if (relation != null) {
                     changed += 1;
                 }
-            } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
-                Relation relation = relationshipManager.linkDimensionsByRelationType(day, (Dimension) fact, relationType);
-                if (relation != null) {
-                    changed += 1;
+            } else if (sourceDataTypeKind.equalsIgnoreCase("DIMENSION")) {
+                if (relationDirection.equalsIgnoreCase(RelationDirection.TO_TARGET)) {
+                    Relation relation = relationshipManager.linkDimensionsByRelationType((Dimension) fact, day, relationType);
+                    if (relation != null) {
+                        changed += 1;
+                    }
+                } else if (relationDirection.equalsIgnoreCase(RelationDirection.TO_SOURCE)) {
+                    Relation relation = relationshipManager.linkDimensionsByRelationType(day, (Dimension) fact, relationType);
+                    if (relation != null) {
+                        changed += 1;
+                    }
                 }
             }
+        } catch (InfoDiscoveryEngineInfoExploreException e) {
+            e.printStackTrace();
+        } catch (InfoDiscoveryEngineRuntimeException e) {
+            e.printStackTrace();
+        } catch (InfoDiscoveryEngineDataMartException e) {
+            e.printStackTrace();
         }
+
 
         return changed;
     }
