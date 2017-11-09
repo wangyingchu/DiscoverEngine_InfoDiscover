@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -45,7 +46,7 @@ public class CompressionUtil {
             String file = it.next();
             String input = files.get(file);
             out.putNextEntry(new ZipEntry(file));
-            out.write(input.getBytes());
+            out.write(input.getBytes("UTF-8"));
         }
 
         logger.info("zip completed.");
