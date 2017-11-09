@@ -164,6 +164,7 @@ public class RelationMappingOperator {
         String relationDirection = vo.getRelationDirection();
 
         Property sourceDataProperty = fact.getProperty(sourcePropertyName);
+        logger.debug("sourceDatProperty: {}",sourceDataProperty);
         if (sourceDataProperty == null) {
             logger.info("property of sourceDataPropertyName {} is null", sourcePropertyName);
             return changed;
