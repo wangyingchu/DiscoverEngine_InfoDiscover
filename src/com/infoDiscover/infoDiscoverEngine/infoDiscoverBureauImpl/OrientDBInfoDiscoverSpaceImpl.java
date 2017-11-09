@@ -584,6 +584,40 @@ public class OrientDBInfoDiscoverSpaceImpl implements InfoDiscoverSpace {
     }
 
     @Override
+    public Relation addDirectionalDimensionRelation(Dimension fromDimension, Dimension toDimension, String relationType) throws InfoDiscoveryEngineRuntimeException {
+        if (!hasRelationType(relationType)) {
+            String exceptionMessage = "Relation Type " + relationType + " not exist";
+            throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+        } else {
+            String relationTypeClassName = InfoDiscoverEngineConstant.CLASSPERFIX_RELATION +
+                    relationType;
+            OrientVertex fromVertex = ((OrientDBDimensionImpl) fromDimension).getDimensionVertex();
+            OrientVertex toVertex = ((OrientDBDimensionImpl) toDimension).getDimensionVertex();
+            if (fromVertex.getId().equals(toVertex.getId())) {
+                String exceptionMessage = "From and to Dimensions can't be the same one";
+                throw InfoDiscoveryEngineException.getRuntimeException(exceptionMessage);
+            }
+
+            Iterable<Edge> edgeIterator = fromVertex.getEdges(toVertex, Direction.OUT,
+                    relationTypeClassName);
+            if (edgeIterator.iterator().hasNext()) {
+                //already attached just return this old one
+                Edge existEdge = edgeIterator.iterator().next();
+                OrientDBRelationImpl newRelation = new OrientDBRelationImpl(relationType);
+                newRelation.setRelationEdge((OrientEdge) existEdge);
+                return newRelation;
+            } else {
+                OrientEdge resultEdge = this.graph.addEdge(null, fromVertex, toVertex,
+                        relationTypeClassName);
+                this.graph.commit();
+                OrientDBRelationImpl newRelation = new OrientDBRelationImpl(relationType);
+                newRelation.setRelationEdge(resultEdge);
+                return newRelation;
+            }
+        }
+    }
+
+    @Override
     public boolean hasDimensionType(String typeName) {
         String orientDBClassName = InfoDiscoverEngineConstant.CLASSPERFIX_DIMENSION + typeName;
         OrientVertexType ovt = this.graph.getVertexType(orientDBClassName);

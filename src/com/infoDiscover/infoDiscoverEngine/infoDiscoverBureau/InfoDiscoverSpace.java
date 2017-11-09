@@ -43,6 +43,7 @@ public interface InfoDiscoverSpace {
     public boolean removeRelation(String relationId) throws InfoDiscoveryEngineRuntimeException;
 
     public Relation addDirectionalDimensionRelation(Dimension fromDimension,Dimension toDimension,String relationType, boolean repeatable)throws InfoDiscoveryEngineRuntimeException;
+    public Relation addDirectionalDimensionRelation(Dimension fromDimension,Dimension toDimension,String relationType)throws InfoDiscoveryEngineRuntimeException;
     public Relation attachFactToDimension(String factId,String dimensionId,String relationType)throws InfoDiscoveryEngineRuntimeException;
     public Relation attachFactToDimension(String factId,String dimensionId,String relationType,Map<String,Object> initRelationProperties)throws InfoDiscoveryEngineRuntimeException;
     public Relation connectDimensionWithFact(String dimensionId,String factId,String relationType)throws InfoDiscoveryEngineRuntimeException;

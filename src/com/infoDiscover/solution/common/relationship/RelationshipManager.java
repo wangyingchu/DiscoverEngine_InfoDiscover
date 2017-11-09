@@ -158,8 +158,7 @@ public class RelationshipManager {
                 ids.addRelationType(relationType);
             }
 
-            Relation r = ids.addDirectionalDimensionRelation(fromDimension, toDimension,
-                    relationType, false);
+            Relation r = ids.addDirectionalDimensionRelation(fromDimension, toDimension, relationType);
             return r;
         } catch (InfoDiscoveryEngineRuntimeException e) {
             e.printStackTrace();
