@@ -26,7 +26,7 @@ public class OrientDBShortestPath {
                 fromVertexRID, toVertexRID);
 
         String sql = "select expand(shortestpath) from (select shortestpath(" + fromVertexRID + ","
-                + toVertexRID + ", 'BOTH'))";
+                + toVertexRID + "))";
 
         List<OrientVertex> list = new ArrayList<>();
 
