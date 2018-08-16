@@ -381,7 +381,7 @@ public class RelationMappingOperator {
 
             // if minValue == null, maxValue == null, construct equal sql
             if (StringUtils.isEmpty(minValue) && StringUtils.isEmpty(maxValue)) {
-                return constructEqualSql(vo, sourceDataPropertyValue);
+                return constructNumericEqualSql(vo, sourceDataPropertyValue);
             }
 
             String targetDataPropertyValue = vo.getTargetDataPropertyValue();
@@ -440,14 +440,14 @@ public class RelationMappingOperator {
             }
 
         } else if (DataTypeChecker.isBooleanType(sourceDataPropertyType)) {
-            sql = constructEqualSql(vo, sourceDataPropertyValue);
+            sql = constructNumericEqualSql(vo, sourceDataPropertyValue);
         } else if (DataTypeChecker.isDateType(sourceDataPropertyType)) {
             sql = constructDateEqualSql(vo, sourceDataPropertyValue);
         }
         return sql;
     }
 
-    private String constructEqualSql(RelationMappingVO vo, Object propertyValue) {
+    private String constructNumericEqualSql(RelationMappingVO vo, Object propertyValue) {
         String targetTypeName = getTargetTypeName(vo);
         return "select * from " + targetTypeName + " where " + vo.getTargetDataPropertyName() + " = " + propertyValue;
     }
@@ -462,7 +462,7 @@ public class RelationMappingOperator {
         int i = 0;
         for (String value : values) {
             if (StringUtils.isNotBlank(value)) {
-                where.append(targetDataPropertyName + " = '" + value.trim() + "'");
+                where.append(targetDataPropertyName + ".toUpperCase() = '" + value.trim().toUpperCase() + "'");
             }
 
             if (i < values.length - 1) {
@@ -500,7 +500,7 @@ public class RelationMappingOperator {
         try {
             if (DataTypeChecker.isNumericType(vo.getTargetDataPropertyType())) {
                 double targetDataPropertyValueInDouble = Double.parseDouble(targetDataPropertyValue);
-                return constructEqualSql(vo, targetDataPropertyValueInDouble);
+                return constructNumericEqualSql(vo, targetDataPropertyValueInDouble);
             } else {
                 return constructStringEqualSql(targetTypeName, targetDataPropertyName, targetDataPropertyValue);
             }

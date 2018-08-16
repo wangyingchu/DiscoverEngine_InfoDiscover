@@ -8,15 +8,16 @@ import com.infoDiscover.solution.template.BatchExecution;
  */
 public class BatchExecutionTest {
 
-    static String spaceName = "test-fact-to-dim";
+    static String spaceName = "test-date-mapping";
 
-    static String ruleFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestRule.json";
+    static String date_ruleFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestRule.json";
+    static String string_ruleFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestRule_StringProp.json";
 
     public static void main(String[] args) throws Exception {
         BatchExecution importer = new BatchExecution(spaceName);
 
         // test data
-        String rulesDataJson = FileUtil.readFileContent(ruleFile);
+        String rulesDataJson = FileUtil.readFileContent(string_ruleFile);
 
         importer.batchUpdateWithRule(rulesDataJson);
 

@@ -16,7 +16,7 @@ public class DataImporterTest {
     static String testDimensionDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/TestData_Dimension.json";
     static String duplicatedCopyTestDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/DuplicateCopyTestData.json";
     static String duplicatedCopyTargetTestDataFile = "/Users/sun/InfoDiscovery/code/DiscoverEngine_InfoDiscover/src/com/infoDiscover/solution/template/test/DuplicateCopyTargetTestData.json";
-    static String spaceName = "test_1";
+    static String spaceName = "test-date-mapping";
 
 
     public static void main(String[] args) throws Exception {
@@ -33,9 +33,9 @@ public class DataImporterTest {
 
         // test data
         String testDataJson = FileUtil.readFileContent(testDataFile);
-        for (int i = 0; i < 100; i++) {
+//        for (int i = 0; i < 100; i++) {
             importer.importData(testDataJson, true);
-        }
+//        }
 
 
         // int test data

@@ -2,27 +2,32 @@
   "data": [
     {
       "type": "Fact",
-      "typeName": "testFact1",
+      "typeName": "sourceFact",
       "properties": [
         {
           "propertyType": "String",
-          "propertyName": "testFactStrProperty1",
-          "propertyValue": "projectId_222",
+          "propertyName": "stringProp",
+          "propertyValue": "stringProp1",
           "isUniqueKey": true
         },
         {
-          "propertyType": "Int",
-          "propertyName": "testFactIntProperty1",
+          "propertyType": "Long",
+          "propertyName": "longProp",
           "propertyValue": 88888
         },
         {
           "propertyType": "Short",
-          "propertyName": "testFactShortProperty1",
+          "propertyName": "short2Prop",
           "propertyValue": 99
         },
         {
+          "propertyType": "float",
+          "propertyName": "floatProp",
+          "propertyValue": 99.99
+        },
+        {
           "propertyType": "Date",
-          "propertyName": "createdAt",
+          "propertyName": "dateProp",
           "propertyValue": 1485878400000
         }
       ]

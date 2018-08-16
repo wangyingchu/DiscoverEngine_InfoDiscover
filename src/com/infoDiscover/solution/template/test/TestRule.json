@@ -1,18 +1,10 @@
 {
-  "mappingType": "factToFact",
-  "targetDataPropertyName": "strProp",
-  "targetDataPropertyValue": "minHouse",
-  "sourceDataPropertyType": "INT",
-  "mappingNotExistHandleMethod": "Create",
-  "maxValue": "100000",
-  "solutionName": "test",
-  "targetDataTypeName": "intFact2",
-  "sourceDataTypeKind": "FACT",
-  "relationTypeName": "is_dim2",
-  "targetDataTypeKind": "FACT",
-  "sourceDataTypeName": "intFact",
+  "mappingType": "factToDateDimension",
+  "sourceDataTypeName": "sourceFact",
   "relationDirection": "ToTarget",
-  "minValue": "1",
-  "targetDataPropertyType": "STRING",
-  "sourceDataPropertyName": "intProp"
+  "sourceDataPropertyName": "dateProp",
+  "dateDimensionTypePrefix": "testDate_",
+  "solutionName": "test-date-mapping",
+  "sourceDataTypeKind": "FACT",
+  "relationTypeName": "hasDate"
 }

@@ -1,0 +1,15 @@
+{
+  "mappingType": "factToFact",
+  "sourceDataTypeName": "sourceFact",
+  "targetDataPropertyName": "stringProp",
+  "sourceDataPropertyType": "STRING",
+  "relationDirection": "ToBoth",
+  "mappingNotExistHandleMethod": "Create",
+  "targetDataPropertyType": "STRING",
+  "sourceDataPropertyName": "stringProp",
+  "solutionName": "test-date-mapping",
+  "targetDataTypeName": "TargetFact",
+  "sourceDataTypeKind": "FACT",
+  "relationTypeName": "hasDate2",
+  "targetDataTypeKind": "FACT"
+}
